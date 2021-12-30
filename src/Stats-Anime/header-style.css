@@ -1,0 +1,337 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+ .nav-container
+{
+    width: 100%;
+    height: 50px;
+    /* border:  2px solid green; */
+    position: relative;
+    /* overflow: hidden; */
+    background-color: transparent;
+    z-index: 10;
+    
+}
+.logo-container
+{
+    color: white;
+   text-decoration: none;
+    /* border: 2px solid red; */
+    position: relative;
+    top: 4%;
+    left: 10%;
+    font-size: 1.1em;
+}
+.logo-container h3::first-letter
+{
+    font-size: 1.5em;
+    color: #4a0ffa;
+    text-shadow: 0 0 20px #4a0ffa,
+                0 0 40px #4a0ffa ,
+                0 0 60px #4a0ffa    
+    ;
+}
+ .nav-container ul{
+    /* border: 2px solid blue; */
+    height: 100%;
+    width: 400px;
+    position: absolute;
+    right: 10%;
+    top: 0;
+    display: flex;
+    align-items:center;
+    /* justify-content:space-between; */
+    overflow: hidden;
+}
+.nav-container ul li
+{
+    list-style-type: none;
+    height: 100%;
+    width: 154px;
+    /* border: 2px solid red; */
+    position: relative;
+    /* overflow: hidden; */
+    z-index: 2;
+}
+
+
+ .nav-container ul li a{
+    text-decoration: none;
+    font-size: 1.01em;
+    /* font-weight: 300; */
+    padding: 34px;
+    line-height: 45px;
+    color: white;
+    z-index: 3;
+    position: relative;
+}
+ .nav-container ul li a span{
+    background-color: red;
+    display: block;
+    width: 14px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 45%;
+    z-index: -3;
+    transform: scaleY(0);
+    transition: transform 0.5s;
+    transform-origin: bottom;
+}
+.menutoggle
+{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    /* border: none;
+    outline: none; */
+    transform: translate(0,-50%);
+    color: white;
+    /* background: transparent; */
+    /* display: block; */
+    font-size: 1.6rem;
+    opacity: 0;
+}
+
+
+ .fa-user
+{
+    position: absolute;
+    right: 55px;
+    top: 60%;
+    transform: translate(0,-50%);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: yellow;
+    text-align: center;
+    font-size: 23px;
+    z-index: 2;
+}
+.fa-user .yourlist
+{
+    /* border: 2px solid blue; */
+    width: 130px;
+    height: 0px;
+    position: absolute;
+    left: -45px;
+    top: 40px;
+    z-index: 4;
+    overflow: hidden;
+    transition: 0.1s;
+
+}
+.fa-user .yourlist .your-anime,.fa-user .yourlist .your-char
+{
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    font-size: 0.87rem;
+    background: white;
+    text-decoration: none;
+}
+
+
+.smallnav{
+    width: 0;
+    height: 100vh;
+    /* background: linear-gradient(to bottom right, rgba(70, 104, 216,0.9),#b06ab3); */
+    z-index: 11;
+    position: fixed;
+    
+}
+.smallnav .fas
+{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 2.0rem;
+    /* display: none; */
+    color: white;
+    z-index: 15;
+    opacity: 0;
+    transition: all 0s 0.6s;
+}
+
+.smallnav .smallnav-parts-container
+{
+   
+   width: 100%;
+   height: 100%;
+   display: flex;
+    position: absolute;
+
+}
+.smallnav .smallnav-parts-container .parts
+{
+    flex:  0 0 25.5%;
+    position: relative;
+    top: -1400px;
+    z-index: 4;
+   
+}
+.smallnav .smallnav-parts-container .parts.part-1
+{
+    background: white;
+}
+.smallnav .smallnav-parts-container .parts.part-2
+{
+    background: red;
+}
+.smallnav .smallnav-parts-container .parts.part-3
+{
+    background: rgb(16, 173, 16);
+}
+.smallnav .smallnav-parts-container .parts.part-4
+{
+    background: yellow;
+}
+.anime-default
+{
+    animation:anime-parts-reverse 1.5s calc(var(--i)*0.1s);
+    animation-fill-mode: forwards;
+}
+.animate
+{
+    animation:anime-parts 0.5s calc(var(--i)*0.1s) 1 forwards,anime-parts-color 1s calc(var(--i)*0.2s) 1 forwards;
+}
+@keyframes anime-parts-color
+{
+    100%{
+        background: rgba(143, 52, 228, 0.864);
+    }
+}
+@keyframes anime-parts
+{
+    100%
+    {
+        top: 0;
+    }
+}
+
+@keyframes anime-parts-reverse
+{
+    0%
+    {
+        top: 0;
+    }
+    100%
+    {
+        top: -1400px;
+    }
+}
+
+.smallnav-nav-container
+{
+    
+    width: 75%;
+    z-index: 10;
+    position: relative;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    min-height: 65%;
+    overflow: hidden;
+   opacity: 0;
+    
+}
+.smallnav-nav-container .smallnav-nav
+{
+  
+    width: 85%;
+    margin: 30px auto;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20%;
+}
+ .navlink
+{
+    /* background: white; */
+    text-decoration: none;
+    text-align: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 150px;
+    padding: 2%;
+    color: white;
+    border-bottom: 3px solid beige;
+    min-height: 35px;
+    transition: all 0.5s;
+}
+ .navlink:hover
+{
+    background: white;
+    color: black;
+    /* border: none; */
+}
+.smallnav-nav-container .smallnav-userlist
+{
+    /* border: 2px solid red; */
+    text-align: center;
+    color: #90cecf;
+   
+}
+.smallnav-nav-container .smallnav-userlist h3{
+    font-family: 'Luckiest Guy', cursive;
+    letter-spacing: 3px;
+    margin-bottom: 3%;
+}
+.smallnav-nav-container .smallnav-userlist .smallnav-list-nav
+{
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-container ul li:nth-child(2)
+{
+    transform: translateX(-20px);
+}
+.nav-container ul li:nth-child(2) a span
+{
+    left: 80px;
+}
+ .nav-container ul li:hover a span
+{
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: transform 0.5s;
+}
+
+.nav-container ul li:nth-child(n):hover{
+    font-size: 1.1em;
+}
+
+.yourlist button:nth-child(n):hover
+{
+    background: #F95700FF;
+    color: white;
+}
+
+
+@media screen and (max-width:700px) {
+   
+    .nav-container ul{
+       display: none;
+    }
+    .fa-user ,.yourlist
+    {
+        display:  none;
+    }
+    .menutoggle
+    {
+        /* display: block; */
+        opacity: 1;
+    }
+   
+}
+.toggle-style-ham
+{
+    opacity: 0;
+}
