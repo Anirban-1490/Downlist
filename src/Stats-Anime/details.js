@@ -132,7 +132,7 @@ export const Details =  (prop)=>
             }
             else if(switch_item === "char")
             {
-                const item = {malid,img_url:animedetails.image_url,title:name,fav:fav};
+                const item = {malid,img_url:animedetails.image_url,title:name,score:fav};
 
                 if(localStorage.getItem("item_char")!==null)
                 {

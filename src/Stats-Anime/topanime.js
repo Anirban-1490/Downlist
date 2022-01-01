@@ -6,15 +6,17 @@ import {Mulimgslider} from "./mul_img_slider";
 import { Link } from "react-router-dom";
 import { useQuery,useQueries } from "react-query";
 import axios from "axios";
+import { Spinner } from "./loading-spinner";
+import each from "awaity/each";
 
 const year = new Date().getFullYear();
 
 function TopanimeMain()
 {
 
-    const [listitem , setListitem] = useState([]);
+  
     
-    let temparray = [];
+ 
    
 
     const fetchQuery = (url)=>
@@ -26,25 +28,37 @@ function TopanimeMain()
     {queryKey:"popular_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),retry:false,staleTime:Infinity,cacheTime:Infinity} , 
     {queryKey:"airing_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),retry:false,staleTime:Infinity,cacheTime:Infinity}])
 
-    console.log(results);
-   
-
-    async function fetch_list_anime()
+    // console.log(results);
+    let temparray=null ;
+    const [listitem , setListitem] = useState([]);
+    const [listcount,setListcount] = useState(0);
+    temparray = JSON.parse(localStorage.getItem("item"));
+    
+    if(temparray)
     {
-        temparray = JSON.parse(localStorage.getItem("item"));
-        
-        [...temparray].sort((a,b)=>b.score - a.score).slice(0,3).forEach( (item)=>
-        {
-            const {malid , img_url , title} = item;
-            fetch(`https://api.jikan.moe/v3/anime/${malid}`).then(async res=>await res.json()).then((result)=>{
-                const {synopsis}= result;
-                setListitem((item)=> [...item,{malid,img_url,title,about:synopsis}]);
-            }).catch(err=>console.log(err));
-            
-         
-        })
-
+        temparray = [...temparray].sort((a, b) => b.score - a.score).slice(0, 3);
        
+    }
+    
+    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
+     async function fetch_list_anime()
+    {
+       
+
+        if(temparray)
+        {
+            setListcount(temparray.length);
+            await each(temparray,async (item) => {
+                const { malid, img_url, title } = item;
+                    await delay();
+                    await fetch(`https://api.jikan.moe/v3/anime/${malid}`).then(async res => await res.json()).then((result) => {
+                        console.log("helloeeeeee");
+                        const { synopsis } = result;
+                        setListitem((item) => [...item, { malid, img_url, title, about: synopsis }]);
+                    }).catch(err => console.log(err));
+            })
+           
+        }
     }
 
     useEffect(()=> fetch_list_anime() , []);
@@ -52,13 +66,13 @@ function TopanimeMain()
     
 
     return <>  
-        {results.every(item => item.isLoading) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Loadind...</h2>
+        {(results.every(item => item.isLoading) || listitem.length<listcount) ? <Spinner/>
             : results.some(item => item.isError) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2>
                 : <div className="container1" style={{ height: "1300px" }}>
 
                     <div className="section-1">
                         <Header content={{ text: ["An", "l", "me", "WORLD"], isanimateable: true, subtext: "it's anime EVERYWHERE..." }} />
-                        {results[2].data && <Currentlyairing airing={results[2].data} count={16} text_={["Top", "Airing"]} />}
+                         <Currentlyairing airing={results[2].data} count={16} text_={["Top", "Airing"]} />
                         <div className="cotntext-1">
                             <span><h2>See the</h2></span>
                             <span><h2>upcomings</h2></span>
@@ -66,7 +80,7 @@ function TopanimeMain()
                     </div>
                     <div className="section-2">
 
-                        {results[0].data && <Upcoming upcoming={results[0].data} count={16} text_={["Top Upcom", "ing"]} />}
+                       <Upcoming upcoming={results[0].data} count={16} text_={["Top Upcom", "ing"]} />
                         <div className="cotntext-2">
                             <span><h2>Meet the</h2></span>
                             <span><h2>popular</h2></span>
@@ -75,21 +89,23 @@ function TopanimeMain()
                     </div>
                     <div className="section-3" >
 
-                        {results[1].data && <Toppopular popular={results[1].data} count={16} text_={["Most", "pop", "ular"]} />}
+                        <Toppopular popular={results[1].data} count={16} text_={["Most", "pop", "ular"]} />
                         <div className="cotntext-3">
                             <span><h2>What's On Your</h2></span>
                             <span><h2>Inventory?</h2></span>
                         </div>
                     </div>
                     <div className="section-4">
-                        {(listitem !== []) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} /> : ""}
+                        {(listitem  && results.every(item=>!item.isLoading)) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} /> : ""}
                     </div>
                 </div>
 
         }
        
+       {
+           (results.every(item=>!item.isLoading) )? <Footer/>:""
+       }
        
-        <Footer/>
 
         </>
 }
@@ -216,10 +232,13 @@ export const TopofyourList  = react.memo((prop)=>
     useEffect(()=>{
         const size = ()=>
         {
+          if(listitem.length>0)
+          {
             setInnerwidth(handle_container.current.clientWidth);
             handle_container.current.style.transition = "none";
             windowSizeBreakpoint();
             setWindowwidth(window.innerWidth);
+          }
 
         }
         window.addEventListener("resize", size);
@@ -281,7 +300,7 @@ export const TopofyourList  = react.memo((prop)=>
 
         return <>
             <h2 className="top-list-header">{text_}</h2>
-            <div className = "top-list" >
+             {listitem.length>0 ? <div className = "top-list" >
                 <button type="button" className="prev-btn" onClick={goprev}><i className="fas fa-chevron-left"></i></button>
                 <button type="button" className="next-btn" onClick={gonext}><i className="fas fa-chevron-right"></i></button>
                 <div className="top-list-inner">
@@ -296,7 +315,7 @@ export const TopofyourList  = react.memo((prop)=>
                                    {
                                         (trigger_comp===false) ? <div className="info">
                                             <h2>{title}</h2>
-                                            <p>{(about.length > 125) ? about.substr(0, 125) + "..." : about}</p>
+                                            <p>{(about)?(about.length > 125) ? about.substr(0, 125) + "..." : about:"No Information"}</p>
                                             <Link to={`${malid}`}  className="btn-seemore">
                                                 <div className="inner-div">
                                                     <span><i className="fas fa-chevron-right"></i></span>
@@ -304,8 +323,16 @@ export const TopofyourList  = react.memo((prop)=>
                                                 </div>
                                             </Link>
                                         </div> : <div className="info-sc"  onMouseEnter={textanimation_enter} onMouseLeave={textanimation_leave}>
-                                            <h3 className="list-heading-sc" style={(textanime)?{transform:"translateX(0)"}:{transform:"translateX(-120%)"}}>{(title.length>35)?title.substr(0,34)+"...":title}</h3>
-                                            <p className="list-para-sc" style={(textanime)?{transform:"translateX(0)"}:{transform:"translateX(-120%)"}}>{(about.length > 75) ? about.substr(0, 75) + "..." : about}</p>
+                                            <h3 className="list-heading-sc" 
+                                            style={(textanime)?{transform:"translateX(0)"}:
+                                            {transform:"translateX(-120%)"}}>
+                                                {(title.length>35)?title.substr(0,34)+"...":title}
+                                            </h3>
+                                            <p className="list-para-sc" 
+                                            style={(textanime)?{transform:"translateX(0)"}:
+                                            {transform:"translateX(-120%)"}}>
+                                                {(about)?(about.length > 75) ? about.substr(0, 75) + "..." : about:"No Information"}
+                                            </p>
                                             <Link to={`${malid}`} className="btn-seemore-sc" style={(textanime)?{top:"0"}:{top:"25%"}}>See more</Link>
                                         </div>
                                    }
@@ -318,7 +345,7 @@ export const TopofyourList  = react.memo((prop)=>
                     </div>
                 </div>
             </div>
-           
+           : <h4 className="no-item">Empty list</h4>}
         </>
 });
 

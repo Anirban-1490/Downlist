@@ -523,6 +523,16 @@
     position:relative;
     top: 480px;
 }
+.no-item
+{
+    color: red;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    position: relative;
+    top: 650px;
+    text-align: center;
+    font-size: 1.5em;
+}
 .top-list-inner
 {
     height: 89%;

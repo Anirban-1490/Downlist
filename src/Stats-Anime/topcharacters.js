@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useQuery,useQueries } from "react-query";
 import axios from "axios";
 import reduce from "awaity/reduce";
+import { Spinner } from "./loading-spinner";
 
 
 function TopacharMain()

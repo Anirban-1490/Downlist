@@ -57,15 +57,15 @@ export const Mulimgslider =  (prop)=>
         if(img_slider_container)
         {
             setOffsetchild([...handle_container.current.children].filter((item) => item.offsetLeft <= img_slider_container.clientWidth).length);
-            
+           
         }
 
-        //-- a state which becomes true if we are at the initial position and clicked the previous button so the pare container moves very left to show the last card
+        //-- a state which becomes true if we are at the initial position and clicked the previous button so the parent container moves very left to show the last card
        if(btnset)
        {
-    
-        setCurrnum(count - offsetchild);
-        setoffset(-170 * (count- offsetchild));
+        const recal_visable_childern = [...handle_container.current.children].filter((item) => item.offsetLeft <= img_slider_container.clientWidth).length
+        setCurrnum(count - recal_visable_childern);
+        setoffset(-170 * (count- recal_visable_childern));
      
        }
        
@@ -98,7 +98,7 @@ export const Mulimgslider =  (prop)=>
 
     const goprev = () => {
         handle_container.current.style.transition = "0.4s ease-in";
-      
+       
         let num = currnum;
        
         if (num <= 0) {

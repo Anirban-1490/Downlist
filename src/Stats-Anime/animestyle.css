@@ -29,7 +29,7 @@
 #root
 {
     width: 100%;
-    height: auto;
+    min-height: 100vh;
     /* background: linear-gradient(rgb(105, 103, 103),rgb(12, 10, 10)); */
     /* transform-style: preserve-3d; */
     z-index: -3;
