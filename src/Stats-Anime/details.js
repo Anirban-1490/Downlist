@@ -51,11 +51,11 @@ const Resultmain =()=>
             
             <h4 style={{
                 color: "white", fontSize: "25px",
-                marginLeft: "14%",
-                borderBottom: "3px solid rgb(132, 132, 226)",
-                maxWidth: "300px",
-                marginBottom: "1%"
-
+                marginLeft: "14.5%",
+                marginBottom: "1%",
+                marginTop:"2em",
+                borderLeft: "5px solid red",
+                letterSpacing:"2px"
             }}>Characters</h4>
             <Roles  char = {char} path = {'/character'}/>
             
@@ -71,7 +71,9 @@ export const Details =  (prop)=>
     const {animedetails,animegenres,stats,malid} = prop.details;
     const {fav,about,name_kenji,name,switch_item} = prop;
     const[itemadd , setItemadd] = useState(false);
-  console.log("hello");
+    const [seemorebtn , Setbtn] = useState(false);
+    const btn = useRef();
+    let airedDetails = (animedetails.aired)?{...animedetails.aired}:null;
    
     useEffect(()=>{
 
@@ -104,12 +106,11 @@ export const Details =  (prop)=>
       
     },[setItemadd]);
 
-
-    let airedDetails = (animedetails.aired)?{...animedetails.aired}:null;
    
     function Additem()
     {
         let temparray =[];
+       
         if(itemadd ===false)
         {
             
@@ -173,6 +174,8 @@ export const Details =  (prop)=>
             }
             setItemadd(false);
         }
+       
+       
     }
 
      
@@ -192,9 +195,6 @@ export const Details =  (prop)=>
             color = "#e6e616";
     }
 
-    
- 
-
 
     return <>
         
@@ -212,10 +212,28 @@ export const Details =  (prop)=>
                 {animedetails.episodes && <li><i style={{marginRight:"10px"}} className="fas fa-tv"></i>{animedetails.episodes}</li>}
                 {animedetails.score && <li style = {{color:`${color}`}}>{animedetails.score}</li>}
                 <li><i style={{marginRight:"10px",color:"yellow"}} className="fas fa-star"></i>{fav}</li>
-                <li className="add-to-list"><button type = "button" onClick = {Additem}>{(itemadd)?"Remove from list":"Add to your list"}</button></li>
+                <li className="add-to-list">
+                    <button ref={btn} 
+                    type="button" 
+                    onClick={Additem} 
+                    onMouseDown={()=> btn.current.style.animation = "btnanime 0.2s 1 forwards"} 
+                    onMouseUp={()=> btn.current.style.animation = "none"} 
+                    style={(itemadd)?
+                    {background:"#fb2f00"}:{background:"#802bb1"}}>
+                        {(itemadd) ? <span>
+                            <i className="fas fa-minus" style={{ margin: "0 3px" }}></i>Remove from list
+                            </span>
+                             : 
+                            <span>
+                            <i className="fas fa-plus" style={{ margin: "0 3px" }}></i>Add to list
+                            </span>}
+                    </button>
+                </li>
             </ul>
             <h4>Information</h4>
-            <p className = "description">{about}</p>
+            <p className = "description">{(about)?(!seemorebtn && about.length>380)?about.substr(0,380).concat("..."):about:"No information available"}  
+            
+            {(about && about.length>380)?<p style={{display:"inline",color:"lightcyan",cursor:"pointer"}} onClick={()=>(!seemorebtn)?Setbtn(true):Setbtn(false)}>{(seemorebtn)?"Read less":"Read more"}</p>:""} </p>
             {animegenres && 
                 <div>
                 <h4>Genres</h4>
@@ -288,12 +306,12 @@ export const Roles =  react.memo((prop)=>
        }
        else if (inner_character_container_handler.current.scrollHeight> 200 && inner_character_container_handler.current.scrollHeight< 500) 
        {
-           setHeight("490px");
+           setHeight("530px");
            showMorebtn_handle.current.style.display = "none";
        }
        else if (inner_character_container_handler.current.scrollHeight > 490) 
        {
-           setHeight("490px");
+           setHeight("530px");
            showMorebtn_handle.current.style.display = "block";
        }
 
@@ -317,7 +335,7 @@ export const Roles =  react.memo((prop)=>
         }
         else
         {
-            character_container_handle.style.height = "490px";
+            character_container_handle.style.height = "530px";
             setbtnState(false);
         }
             

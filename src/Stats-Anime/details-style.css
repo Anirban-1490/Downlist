@@ -65,11 +65,10 @@
     list-style-type: none;
     display: flex;
     width: auto;
-    margin-top: 55px ;
-    margin-bottom: 30px;
     height: auto;
+    margin-top: 2.7em;
     justify-content: center;
-    gap: 4%;
+    gap: 1em;
     flex-flow: wrap;
 }
 .inner-container .stats li
@@ -97,31 +96,39 @@
    border-radius: 10px;
    background: #802bb1;
    color: white;
+   cursor: pointer;
    font-size:1em;
+   transform: scale(1,1);
 }
-.inner-container .stats .add-to-list button:hover
+@keyframes btnanime
 {
-   
-   background: #c3073f;
-  
+    25% {transform: scale(1.1,1.1);}
+    50% {transform: scale(0.9,0.9);}
+    100% {transform: scale(1,1);}
 }
+
 .inner-container h4
 {
     color:  white;
     font-size: 25px;
     text-transform: capitalize;
-    margin-left: 2%;
-    border-bottom: 3px solid rgb(132, 132, 226);
-    max-width: 240px;
-    margin-bottom: 1%;
+    /* margin-left: 2%; */
+    /* border-bottom: 3px solid rgb(132, 132, 226); */
+    /* max-width: 240px; */
+    /* margin-bottom:30px; */
+    margin: 2em 0 24px 2.5%;
+    /* text-align: center; */
+    border-left: 5px solid red;
+    letter-spacing: 2px;
 }
-.inner-container .description
+.inner-container .description,.aired p
 {
     color: white;
     font-size: 0.87em;
     padding: 0 2%;
     line-height: 22px;
-    margin-bottom: 2%;
+    /* margin-bottom: 2.4em; */
+    /* margin-top: 40px; */
 }
 .genres
 {
@@ -151,23 +158,16 @@
 {
     /* border:  2px solid red; */
     margin-top: 10px;
-    margin-left: 2%;
+    /* margin-left: 2%; */
     display: flex;
     flex-wrap: wrap;
    justify-content: flex-start;
-   margin-bottom: 10px;
+   align-items: center;
+
+   gap: 15px;
 
 }
-.aired p{
-    color: white;
-    text-align: center;
 
-}
-.aired p:nth-child(1){
-    margin: 12px 0px;
-    margin-right: 80px;
-   
-}
 .aired p:nth-child(2){
    
    background: #314455;
@@ -185,42 +185,42 @@
    justify-content: flex-start;
    margin-top: 10px;
    margin-bottom: 10px;
-
+    gap: 1.3em;
 }
 .stats-watching li
 {
     color: white;
-    margin: 4px 0px;
-    margin-right: 25px;
+
     /* border: 2px solid blueviolet; */
     flex:  0 0 auto;
     text-align: center;
     height: 40px;
-   
     background: #314455;
     border-radius: 20px;
     padding: 10px;
 }
 .characters-container
 {
-    border-bottom:  2px solid red;
+    /* border-bottom:  2px solid red; */
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 2em;
     width: 75%;
     height: auto;
     position: relative;
     overflow: hidden;
-
+    /* border: 2px solid red; */
 }
 .characters-container .characters-container-inner
 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     /* border: 2px solid yellow; */
     width: 100%;
     height: auto;
-    gap: 1px;
+    gap: 15px;
+    margin-top: 20px;
+  
 }
 .characters-container button
 {
@@ -233,24 +233,34 @@
     border: none;
     border-radius: 6px;
     font-size: 11px;
-    width: 70px;
-    height: 20px;
-    background: #FEE715FF;
+    width: 80px;
+    height: 28px;
+    background: #f1c40f;
     font-weight: bold;
-    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.603);
+    box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.603);
     display: none;
+    cursor: pointer;
 }
 .characters-container .cards
 {
     
     /* border: 2px solid blue; */
     margin: 10px 0;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     flex:  0 0 150px;
     height: 229px;
     z-index: 1;
     overflow: hidden;
-    box-shadow: 0 0 16px 1px rgba(0, 0, 255, 0.486);
+    transition: 0.5s ;
+    /* box-shadow: 0 0 16px 1px rgba(0, 0, 255, 0.486); */
+    /* transform-origin: bottom; */
+}
+.characters-container .cards:hover
+{
+    /* transform: translateY(-20px); */
+    box-shadow: 0 14px 28px #2a11eba8;
+
+    transform: translateY(-10px);
     
 }
 .characters-container .cards .img-container
@@ -275,7 +285,7 @@
 .characters-container .cards .details-char
 {
     /* border:2px solid yellow; */
-    height: 80px;
+    height: 90px;
     position: relative;
     /* overflow: hidden; */
     
@@ -347,6 +357,13 @@
 
 
 @media screen and (max-width: 720px) {
+    .characters-container
+    {
+        /* border-bottom:  2px solid red; */
+      
+        width:85%;
+       
+    }
     .inner-container .pic-header .pic-container
     {
         position: absolute;
@@ -367,7 +384,7 @@
     {
         /* margin-top: 8%; */
       
-        margin-top: 205px ;
+        margin-top: 160px ;
         margin-bottom: 20px;
         height:auto;
         justify-content: center;
