@@ -18,24 +18,25 @@
 .spinner-container .dot
 {
     border: 2px solid greenyellow;
-    flex: 0 0 0.8em;
-    height: 0.8em;
+    flex: 0 0 0.76em;
+    height: 0.76em;
     border-radius: 50%;
     transform: translateY(0);
-    animation: loading-spinner 1.2s linear calc(var(--i)*0.23s) infinite;
+    animation: loading-spinner 4.2s ease-in-out calc(var(--i)*0.73s) infinite;
 }
 
 @keyframes loading-spinner
 {
     50%{
-        transform: translateY(-20px);
+        /* transform: translateY(-20px); */
         background: var(--color);
+        box-shadow: 0 0 40px var(--color);
     }
     100%
     {
         transform: translateY(0);
         background: transparent;
-       
+        box-shadow: none;
     }
 }
 
