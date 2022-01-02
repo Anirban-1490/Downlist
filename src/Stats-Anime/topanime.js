@@ -32,7 +32,7 @@ function TopanimeMain()
     let temparray=null ;
     const [listitem , setListitem] = useState([]);
     const [listcount,setListcount] = useState(0);
-    temparray = JSON.parse(localStorage.getItem("item"));
+    temparray = JSON.parse(localStorage.getItem("anime"));
     
     if(temparray)
     {

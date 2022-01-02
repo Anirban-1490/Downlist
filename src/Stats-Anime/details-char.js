@@ -38,23 +38,25 @@ function Resultmain()
             name = {chardetails.name}
             name_kenji = {chardetails.name_kanji}
             
-            switch_item = "char"
+            switch_item = "character"
             />
              <h4 style={{
                 color: "white", fontSize: "25px",
-                marginLeft: "14%",
-                borderBottom: "3px solid rgb(132, 132, 226)",
-                maxWidth: "300px",
-                marginBottom: "1%"
+                marginLeft: "14.5%",
+                marginBottom: "1%",
+                marginTop:"2em",
+                borderLeft: "5px solid red",
+                letterSpacing:"2px"
 
             }}>Anime Appearances</h4>
             <Animeappp appearances = {appearances} />
             <h4 style={{
                 color: "white", fontSize: "25px",
-                marginLeft: "14%",
-                borderBottom: "3px solid rgb(132, 132, 226)",
-                maxWidth: "240px",
-                marginBottom: "1%"
+                marginLeft: "14.5%",
+                marginBottom: "1%",
+                marginTop:"2em",
+                borderLeft: "5px solid red",
+                letterSpacing:"2px"
 
             }}>Voice Actors</h4>
             <Voiceactors voiceactors = {voiceactors}/>

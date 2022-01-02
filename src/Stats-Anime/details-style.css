@@ -214,12 +214,13 @@
 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     /* border: 2px solid yellow; */
     width: 100%;
     height: auto;
     gap: 15px;
     margin-top: 20px;
+    margin-left: 4.5%;
   
 }
 .characters-container button
@@ -364,6 +365,12 @@
         width:85%;
        
     }
+    .characters-container .characters-container-inner
+    {
+       justify-content: center;
+       margin-left: 0;
+    }
+    
     .inner-container .pic-header .pic-container
     {
         position: absolute;
@@ -384,7 +391,7 @@
     {
         /* margin-top: 8%; */
       
-        margin-top: 160px ;
+        margin-top:250px ;
         margin-bottom: 20px;
         height:auto;
         justify-content: center;

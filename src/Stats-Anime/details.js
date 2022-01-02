@@ -119,9 +119,9 @@ export const Details =  (prop)=>
             {
                 const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites};
 
-                if(localStorage.getItem("item")!==null)
+                if(localStorage.getItem(switch_item)!==null)
                 {
-                    temparray = JSON.parse(localStorage.getItem("item"));
+                    temparray = JSON.parse(localStorage.getItem(switch_item));
                
                     temparray = [...temparray,item];
                 }
@@ -129,15 +129,15 @@ export const Details =  (prop)=>
                     temparray = [...temparray,item];
                 }
                 
-                localStorage.setItem('item',JSON.stringify(temparray));
+                localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
             }
-            else if(switch_item === "char")
+            else if(switch_item === "character")
             {
-                const item = {malid,img_url:animedetails.image_url,title:name,score:fav};
+                const item = {malid,img_url:animedetails.image_url,title:name,fav};
 
-                if(localStorage.getItem("item_char")!==null)
+                if(localStorage.getItem(switch_item)!==null)
                 {
-                    temparray = JSON.parse(localStorage.getItem("item_char"));
+                    temparray = JSON.parse(localStorage.getItem(switch_item));
                
                     temparray = [...temparray,item];
                 }
@@ -145,7 +145,7 @@ export const Details =  (prop)=>
                     temparray = [...temparray,item];
                 }
                 
-                localStorage.setItem('item_char',JSON.stringify(temparray));
+                localStorage.setItem(switch_item,JSON.stringify(temparray));
             }
             setItemadd(true);
            
@@ -154,22 +154,22 @@ export const Details =  (prop)=>
         {
             if(switch_item === "anime")
             {
-                temparray = JSON.parse(localStorage.getItem("item"));
+                temparray = JSON.parse(localStorage.getItem(switch_item));
                 temparray = [...temparray].filter((obj)=> {
                     return obj.malid!==malid
                 });
                 
-                localStorage.setItem('item',JSON.stringify(temparray));
+                localStorage.setItem(switch_item,JSON.stringify(temparray));
                 
             }
-            else if(switch_item ==="char")
+            else if(switch_item ==="character")
             {
-                temparray = JSON.parse(localStorage.getItem("item_char"));
+                temparray = JSON.parse(localStorage.getItem(switch_item));
                 temparray = [...temparray].filter((obj)=> {
                     return obj.malid!==malid
                 });
                 
-                localStorage.setItem('item_char',JSON.stringify(temparray));
+                localStorage.setItem(switch_item,JSON.stringify(temparray));
                
             }
             setItemadd(false);
@@ -287,7 +287,7 @@ export const Roles =  react.memo((prop)=>
     const [btnstate , setbtnState] = useState(false);
     const showMorebtn_handle = useRef();
    const inner_character_container_handler = useRef();
-   const [height,setHeight] = useState("240px");
+   const [height,setHeight] = useState("270px");
 
 
     function size()
@@ -301,7 +301,7 @@ export const Roles =  react.memo((prop)=>
 
        if(inner_character_container_handler.current.scrollHeight< 250)
        {
-           setHeight("240px");
+           setHeight("270px");
            showMorebtn_handle.current.style.display = "none";
        }
        else if (inner_character_container_handler.current.scrollHeight> 200 && inner_character_container_handler.current.scrollHeight< 500) 
