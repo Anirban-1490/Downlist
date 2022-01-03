@@ -11,13 +11,46 @@ import each from "awaity/each";
 
 const year = new Date().getFullYear();
 
+
+// --- custom hook for fetching top from the list
+
+export function useToplist(switch_item)
+{
+    let temparray=null ;
+    const [listitem , setListitem] = useState([]);
+    const [listcount,setListcount] = useState(0);
+   
+    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
+     async function fetch_list_anime()
+    {
+        temparray = JSON.parse(localStorage.getItem(switch_item));
+
+        if(temparray)
+        {
+            temparray = [...temparray].sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
+            setListcount(temparray.length);
+            await each(temparray,async (item) => {
+                const { malid, img_url, title } = item;
+                   
+                    await fetch(`https://api.jikan.moe/v3/${switch_item}/${malid}`).then(async res => await res.json()).then((result) => {
+                        console.log("helloeeeeee");
+                        setListitem((item) => [...item, { malid, img_url, title, about: (switch_item==="anime")?result.synopsis:result.about }]);
+                      
+                    }).catch(err => console.log(err));
+                    await delay();
+            })
+           
+        }
+    }
+
+    useEffect(()=> fetch_list_anime() , [switch_item]);
+    return [listitem,listcount]
+    
+}
+
+
 function TopanimeMain()
 {
-
-  
-    
- 
-   
 
     const fetchQuery = (url)=>
     {
@@ -29,41 +62,8 @@ function TopanimeMain()
     {queryKey:"airing_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),retry:false,staleTime:Infinity,cacheTime:Infinity}])
 
     // console.log(results);
-    let temparray=null ;
-    const [listitem , setListitem] = useState([]);
-    const [listcount,setListcount] = useState(0);
-    temparray = JSON.parse(localStorage.getItem("anime"));
     
-    if(temparray)
-    {
-        temparray = [...temparray].sort((a, b) => b.score - a.score).slice(0, 3);
-       
-    }
-    
-    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
-     async function fetch_list_anime()
-    {
-       
-
-        if(temparray)
-        {
-            setListcount(temparray.length);
-            await each(temparray,async (item) => {
-                const { malid, img_url, title } = item;
-                    await delay();
-                    await fetch(`https://api.jikan.moe/v3/anime/${malid}`).then(async res => await res.json()).then((result) => {
-                        console.log("helloeeeeee");
-                        const { synopsis } = result;
-                        setListitem((item) => [...item, { malid, img_url, title, about: synopsis }]);
-                    }).catch(err => console.log(err));
-            })
-           
-        }
-    }
-
-    useEffect(()=> fetch_list_anime() , []);
-    
-    
+    const [listitem,listcount] = useToplist("anime");
 
     return <>  
         {(results.every(item => item.isLoading) || listitem.length<listcount) ? <Spinner/>
@@ -102,9 +102,7 @@ function TopanimeMain()
 
         }
        
-       {
-           (results.every(item=>!item.isLoading) )? <Footer/>:""
-       }
+       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer/>}
        
 
         </>
@@ -253,7 +251,7 @@ export const TopofyourList  = react.memo((prop)=>
     const gonext = () => {
         handle_container.current.style.transition = "0.4s ease-in";
         let num = currnum;
-        if (num === 2) {
+        if (num === listitem.length-1) {
             num = 0;
             setCurrnum(num);
             setoffset(0);
@@ -268,7 +266,7 @@ export const TopofyourList  = react.memo((prop)=>
         handle_container.current.style.transition = "0.4s ease-in";
         let num = currnum;
         if (num <= 0) {
-            num = 2;
+            num = listitem.length-1;
             setCurrnum(num);
           
            setoffset(-(innerwidth+20) * (num - 1));

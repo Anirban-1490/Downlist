@@ -19,6 +19,8 @@ function Listmain(prop)
 
 }
 
+// custom hook to get the user's list items
+
 function useList(switch_item)
 {
     const [list , setList] = useState([]);
@@ -33,8 +35,6 @@ function useList(switch_item)
    } , [switch_item])
     return [list,setList];
 }
-
-
 
 
 function List(props)

@@ -144,7 +144,7 @@ export const Mulimgslider =  (prop)=>
                             <div className="airing_container">
                                 {(image_url)?<img src={image_url} alt="" />:""}
                                 <div className="more">
-                                    <h4>{title}</h4>
+                                    <h4>{(title)?(title.length>45)?title.substr(0,45)+"...":title:""}</h4>
                                     {favorites && <span><i className="fas fa-star"></i>: {favorites}</span>}
                                     {episodes && <span><i className="fas fa-tv"></i>: {episodes}</span>}
                                     {(score && score !== 0) ? <p className="score">Score: <span style={{ color: `${color}` }}>{score}</span></p> : ""}
