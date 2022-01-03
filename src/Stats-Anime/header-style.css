@@ -21,6 +21,10 @@
     left: 10%;
     font-size: 1.1em;
 }
+.logo-container h3{
+    /* border: 2px solid red; */
+    display: inline-block;
+}
 .logo-container h3::first-letter
 {
     font-size: 1.5em;

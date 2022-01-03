@@ -79,7 +79,7 @@ function List(props)
                 {
                     const {fav,malid,episodes,img_url,score,title} = item;
 
-                    return <Link to ={`/anime/${malid}`} key ={malid} className="items-container">
+                    return <Link to ={`/${switch_item}/${malid}`} key ={malid} className="items-container">
 
                     <li key ={malid}>
                         <div className = "img-container">
@@ -91,7 +91,7 @@ function List(props)
                             <h4>{(score)?score:""}</h4>
                             <h4><i style={{marginRight:"10px",color:"yellow"}} className="fas fa-star"></i>{fav}</h4>
                             <h4>
-                                {(episodes)? <span><i style={{marginRight:"10px"}} className="fas fa-tv"></i>episodes</span>:"" }
+                                {(episodes)? <span><i style={{marginRight:"10px"}} className="fas fa-tv"></i>{episodes}</span>:"" }
                             </h4>
                             </div>
                         </div>

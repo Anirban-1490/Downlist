@@ -79,9 +79,9 @@ export const Details =  (prop)=>
 
         if(switch_item==="anime")
         {
-            if(localStorage.getItem("item")!==null)
+            if(localStorage.getItem(switch_item)!==null)
             {
-                [...JSON.parse(localStorage.getItem("item"))].forEach((obj)=>{
+                [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
                     if(obj.malid===malid)
                     {
                         setItemadd(true);
@@ -91,9 +91,9 @@ export const Details =  (prop)=>
         }
         else
         {
-            if(localStorage.getItem("item_char")!==null)
+            if(localStorage.getItem(switch_item)!==null)
             {
-                [...JSON.parse(localStorage.getItem("item_char"))].forEach((obj)=>{
+                [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
                     if(obj.malid===malid)
                     {
                         setItemadd(true);

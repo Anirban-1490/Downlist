@@ -21,6 +21,7 @@
     position: relative;
     display: inline-block;
     left: 50%;
+    top: -50px;
     transform: translateX(-50%);
     /* border: 2px solid red; */
 }
