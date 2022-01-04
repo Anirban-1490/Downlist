@@ -125,7 +125,7 @@ function TopacharMain()
                         </div>
                     </div>
                     <div className="section-3">
-                        {(results[2].data) ? <Toppopular popular={results[2].data} count={7} text_={["Popular", " in", "Fall"]} /> : ""}
+                        {(!results[2].isLoading) ? <Toppopular popular={results[2].data} count={7} text_={["Popular", " in", "Fall"]} /> : ""}
                         <div className="cotntext-3">
                             <span><h2>What's On Your</h2></span>
                             <span><h2>Inventory?</h2></span>
