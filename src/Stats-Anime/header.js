@@ -52,7 +52,7 @@ export function Header()
     return(
         <>
             <div className = "nav-container">
-                <Link to={"/"} className="logo-container"><h3>Uplist</h3></Link>
+                <Link to="/" className="logo-container"><h3>Uplist</h3></Link>
                 <ul>
                     <li><Link to="/topanime">Anime<span></span></Link></li>
                     <li><Link to="/topcharacters">Characters<span></span></Link></li>

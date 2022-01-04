@@ -104,7 +104,7 @@ function TopacharMain()
     const [listitem,setListitem] = useState([]);
     const [listcount,setListcount] = useState(0);
     let temparray = null;
-    temparray = JSON.parse(localStorage.getItem("item_char"));
+    temparray = JSON.parse(localStorage.getItem("character"));
 
     if(temparray)
     {

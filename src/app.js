@@ -6,7 +6,7 @@ import Topanime from "../src/Stats-Anime/topanime";
 import Topcharacters from "../src/Stats-Anime/topcharacters";
 import Details from "../src/Stats-Anime/details";
 import Detailschar from "../src/Stats-Anime/details-char";
-import Listuser from "../src/Stats-Anime/search";
+import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
 // import {Approvider,Appcontext} from "../src/Stats-Anime/context";
 
@@ -33,7 +33,7 @@ function App()
 
                  <Route path = "useranimelist" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
 
-                 <Route path = "usercharacterlist" element = {<Listuser header = "Your character list" switch_item = "char"/>}/>
+                 <Route path = "usercharacterlist" element = {<Listuser header = "Your character list" switch_item = "character"/>}/>
 
 
 
