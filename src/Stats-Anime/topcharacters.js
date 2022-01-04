@@ -9,7 +9,7 @@ import axios from "axios";
 import reduce from "awaity/reduce";
 import each from "awaity/each";
 import { Spinner } from "./loading-spinner";
-
+import {useToplist} from "./topanime";
 
 
 function TopacharMain()
@@ -98,42 +98,9 @@ function TopacharMain()
             cacheTime: Infinity, 
             select: prevValue =>Array.prototype.concat.apply([], prevValue)
         }])
-    console.log(results);
     
-
-    const [listitem,setListitem] = useState([]);
-    const [listcount,setListcount] = useState(0);
-    let temparray = null;
-    temparray = JSON.parse(localStorage.getItem("character"));
-
-    if(temparray)
-    {
-        temparray = [...temparray].sort((a,b)=>b.fav - a.fav).slice(0,3);
-       
-    }
-
-    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
-    const fetch_top_char = async() =>
-    {
-       if(temparray)
-       {
-           setListcount(temparray.length);
-           await each(temparray, async (item) => {
-
-               const { malid, img_url, title } = item;
-               const response = await fetch(`https://api.jikan.moe/v3/character/${malid}`);
-               const result = await response.json();
-
-               setListitem((item) => [...item, { malid, img_url, title, about: result.about }]);
-               await delay();
-           })
-       }
-       
-          
-    }
-   
-    useEffect(()=> fetch_top_char(),[]);
-  
+    const [listitem,listcount] = useToplist("character");
+    
     return <>
         
         {(results.some(item => item.isLoading) || listitem.length < listcount) ? <Spinner />
@@ -158,7 +125,7 @@ function TopacharMain()
                         </div>
                     </div>
                     <div className="section-3">
-                        {(results[2].data) ? <Toppopular popular={results[2].data} count={7} text_={["Popular", " in", "Fall"]} /> : ""}
+                        {(!results[2].isLoading) ? <Toppopular popular={results[2].data} count={7} text_={["Popular", " in", "Fall"]} /> : ""}
                         <div className="cotntext-3">
                             <span><h2>What's On Your</h2></span>
                             <span><h2>Inventory?</h2></span>
