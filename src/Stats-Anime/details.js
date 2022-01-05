@@ -362,7 +362,7 @@ export const Roles =  react.memo((prop)=>
                                     {image_url?<img src={image_url} alt="" />:""}
                                 </div>
                                 <div className = "details-char">
-                                    <h5>{(name.length<=47)?name:name.substr(0,47)+"..."}</h5>
+                                    <h5>{(name.length<=37)?name:name.substr(0,37)+"..."}</h5>
                                     <h5>{role || language}</h5>
                                 </div>
                             </div>
