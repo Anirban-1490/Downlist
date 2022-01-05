@@ -137,7 +137,11 @@ export function Footer(){
                     <li><Link to="/topcharacters">Characters</Link></li>
                     <li><a href="">About</a></li>
                 </ul>
-                <h3>&copy;Uplist2021</h3>
+               <div className="border"></div>
+                <div className="important-links">
+                    <h3>Report a bug <a href="https://github.com/Anirban-1490/Project-Uplist" target="_blank"><i class="fab fa-github"></i></a></h3>
+                    <h3>&copy;Uplist{year}</h3>
+                </div>
             </footer>
         </>
     }
