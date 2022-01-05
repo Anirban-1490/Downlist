@@ -47,6 +47,7 @@ const Resultmain =()=>
             name_kenji = { animedetails.title}
             
             switch_item = "anime"
+            switch_path = "topanime"
             />
             
             <h4 style={{
@@ -69,7 +70,7 @@ const Resultmain =()=>
 export const Details =  (prop)=>
 {
     const {animedetails,animegenres,stats,malid} = prop.details;
-    const {fav,about,name_kenji,name,switch_item} = prop;
+    const {fav,about,name_kenji,name,switch_item,switch_path} = prop;
     const[itemadd , setItemadd] = useState(false);
     const [seemorebtn , Setbtn] = useState(false);
     const btn = useRef();
@@ -198,7 +199,10 @@ export const Details =  (prop)=>
 
     return <>
         
-        
+        <div className="go-back">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <Link className="go-back-text" to ={`/${switch_path}`}>{`back to ${switch_path} `}</Link>
+            </div>
 
         <div className = "inner-container">
             <div className = "pic-header">
@@ -263,19 +267,17 @@ export const Details =  (prop)=>
             {stats && <div>
                 
                 <h4>Stats</h4>
-                <ul className = "stats-watching">
-                <li style = {{color:"lightgrey"}}>Watching: {stats.watching}</li>
-                <li style = {{color:"#00ff1a"}}>Completed: {stats.completed}</li>
-                <li style = {{color:"yellow"}}>On Hold: {stats.on_hold}</li>
-                <li style = {{color:"red"}}>Dropped: {stats.dropped}</li>
-                <li style = {{color:"violet"}}>Plan to Watch: {stats.plan_to_watch}</li>
-            </ul>
-                
-                </div>}
-            {/* <h4>Characters</h4> */}
+                <ul className="stats-watching">
+                    <li style={{ color: "lightgrey" }}>Watching: {stats.watching}</li>
+                    <li style={{ color: "#00ff1a" }}>Completed: {stats.completed}</li>
+                    <li style={{ color: "yellow" }}>On Hold: {stats.on_hold}</li>
+                    <li style={{ color: "red" }}>Dropped: {stats.dropped}</li>
+                    <li style={{ color: "violet" }}>Plan to Watch: {stats.plan_to_watch}</li>
+                </ul>
+
+            </div>}
            
         </div>
-        {/* <Roles char = {char} path = {path}/> */}
         
     </>
 

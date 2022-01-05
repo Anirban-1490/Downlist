@@ -1,4 +1,35 @@
 
+.go-back
+{
+    /* border: 2px solid red; */
+    display: inline-block;
+    color: white;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    max-width: 180px;
+    position: relative;
+    top: 3.5em;
+    left: 10%;
+    overflow: hidden;
+}
+ion-icon
+{
+    font-size: 1.3em;
+  margin-left: -22px;
+    transition: margin 0.5s;
+}
+.go-back-text
+{
+    color: white;
+    text-decoration: none;
+   
+}
+.go-back:hover ion-icon
+{
+    margin: 0;
+}
+
 .inner-container
 {
     /* border: 2px solid red; */
