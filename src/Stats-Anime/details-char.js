@@ -39,6 +39,7 @@ function Resultmain()
             name_kenji = {chardetails.name_kanji}
             
             switch_item = "character"
+            switch_path = "topcharacters"
             />
              <h4 style={{
                 color: "white", fontSize: "25px",

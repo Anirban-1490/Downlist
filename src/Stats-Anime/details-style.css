@@ -5,9 +5,7 @@
     display: inline-block;
     color: white;
     font-size: 1.1em;
-    display: flex;
-    align-items: center;
-    max-width: 180px;
+  display: inline-block;
     position: relative;
     top: 3.5em;
     left: 10%;
@@ -18,6 +16,7 @@ ion-icon
     font-size: 1.3em;
   margin-left: -22px;
     transition: margin 0.5s;
+    transform: translateY(25%);
 }
 .go-back-text
 {
