@@ -4,7 +4,7 @@
     /* border: 2px solid red; */
     width: 75%;
     height: auto;
-    margin: 80px auto;
+    margin: 140px auto;
     margin-bottom: 0;
 }
 .inner-container .pic-header
@@ -185,7 +185,7 @@
    justify-content: flex-start;
    margin-top: 10px;
    margin-bottom: 10px;
-    gap: 1.3em;
+    gap: 1.8vw;
 }
 .stats-watching li
 {

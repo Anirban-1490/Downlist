@@ -198,6 +198,8 @@ export const Details =  (prop)=>
 
     return <>
         
+        
+
         <div className = "inner-container">
             <div className = "pic-header">
                 <div className = "pic-container">
