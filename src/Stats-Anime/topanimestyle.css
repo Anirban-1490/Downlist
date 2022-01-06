@@ -405,13 +405,13 @@ footer div h3:nth-child(1) a i{
     letter-spacing: 8px;
     text-transform: uppercase;
 }
-.airing .content-inside
+.content-inside
 {
     
-    transform: translateY(10px);
-    height: calc(100% - 42px);
-
     position: relative;
+    height: calc(100% - 42px);
+    width: 100%;
+    
     z-index: 2;
     overflow: hidden;
 }
@@ -436,7 +436,7 @@ footer div h3:nth-child(1) a i{
 {
     left: 0;
 }
-.airing ul li{
+.item-container li{
     /* flex-flow: 200px; */
     height: 100%;
     /* width: 150px; */
@@ -444,24 +444,28 @@ footer div h3:nth-child(1) a i{
    
     /* position: relative; */
     /* border: 2px solid greenyellow; */
-    z-index: 2;
+    /* z-index: 2; */
+    /* pointer-events: none; */
     
 }
-.airing ul{
+.item-container{
     
     
-    width: 100%;
+    /* width:300%; */
     height: 100%;
     /* overflow: hidden; */
     position: relative;
     /* overflow-x: scroll; */
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     list-style-type: none;
     transition: 0.7s ;
     left: 0;
     gap: 10px;
+    /* border: 2px solid red; */
+    pointer-events: none;
+    transform: translateY(10px);
 }
 .airing_container
 {
