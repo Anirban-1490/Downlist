@@ -1,13 +1,10 @@
-import react , {useState , useEffect} from "react";
 import {Footer,Toppopular,Upcoming,Currentlyairing,Header} from "./topanime";
 import "./animestyle.css";
 import "./topanimestyle.css";
 import {TopofyourList} from "./topanime";
-import { Link } from "react-router-dom";
 import { useQuery,useQueries } from "react-query";
 import axios from "axios";
 import reduce from "awaity/reduce";
-import each from "awaity/each";
 import { Spinner } from "./loading-spinner";
 import {useToplist} from "./topanime";
 
@@ -109,14 +106,14 @@ function TopacharMain()
                 <div className="container1" style={{ height: "1300px" }}>
                     <div className="section-1">
                         <Header content={{ text: ["Character", "", "", "VERSE"], isanimateable: false, subtext: "Just LOOK at Them..." }} />
-                        {(!results[0].isLoading) ? <Currentlyairing airing={results[0].data} count={16} text_={["Most", "popular"]} /> : ""}
+                        {(!results[0].isLoading) ? <Currentlyairing airing={results[0].data} switch_details ={"/character"} text_={["Most", "popular"]} /> : ""}
                         <div className="cotntext-1">
                             <span><h2>Stars of the</h2></span>
                             <span><h2>Summer</h2></span>
                         </div>
                     </div>
                     <div className="section-2">
-                        {(!results[1].isLoading) ? <Upcoming upcoming={results[1].data} count={7} text_={["Popular in ", "Summer"]} /> : ""}
+                        {(!results[1].isLoading) ? <Upcoming upcoming={results[1].data} switch_details ={"/character"} text_={["Popular in ", "Summer"]} /> : ""}
 
                         <div className="cotntext-2">
                             <span><h2>Meet the</h2></span>
@@ -125,14 +122,14 @@ function TopacharMain()
                         </div>
                     </div>
                     <div className="section-3">
-                        {(!results[2].isLoading) ? <Toppopular popular={results[2].data} count={7} text_={["Popular", " in", "Fall"]} /> : ""}
+                        {(!results[2].isLoading) ? <Toppopular popular={results[2].data} switch_details ={"/character"}  text_={["Popular", " in", "Fall"]} /> : ""}
                         <div className="cotntext-3">
                             <span><h2>What's On Your</h2></span>
                             <span><h2>Inventory?</h2></span>
                         </div>
                     </div>
                     <div className="section-4">
-                        {listitem && results.every(item => !item.isLoading) ? <TopofyourList listitem={listitem} text_={"Top Characters from your list"} /> : ""}
+                        {listitem && results.every(item => !item.isLoading) ? <TopofyourList listitem={listitem} text_={"Top Characters from your list"} switch_details ={"/character"}  /> : ""}
                     </div>
                   
                 </div>

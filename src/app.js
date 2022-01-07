@@ -22,11 +22,11 @@ function App()
                    
 
                 <Route path = "/topanime" element = {<Topanime/>}/>
-                <Route path = "/topanime/:id" element = {<Details/>} />
+               
                 
                 
                 <Route path = "/topcharacters" element = {<Topcharacters/>}/>
-                <Route path = "/topcharacters/:id" element = {<Detailschar/>}/>
+              
 
 
 
@@ -38,7 +38,7 @@ function App()
 
 
                  <Route path = "anime/:id" element = {<Details/>} />
-                 <Route path = "/character/:id" element = {<Detailschar/>}/>
+                 <Route path = "character/:id" element = {<Detailschar/>}/>
 
             </Routes>
         </Router>

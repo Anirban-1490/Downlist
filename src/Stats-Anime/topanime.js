@@ -72,7 +72,7 @@ function TopanimeMain()
 
                     <div className="section-1">
                         <Header content={{ text: ["An", "l", "me", "WORLD"], isanimateable: true, subtext: "it's anime EVERYWHERE..." }} />
-                         <Currentlyairing airing={results[2].data} count={16} text_={["Top", "Airing"]} />
+                         <Currentlyairing airing={results[2].data} switch_details={"/anime"} text_={["Top", "Airing"]} />
                         <div className="cotntext-1">
                             <span><h2>See the</h2></span>
                             <span><h2>upcomings</h2></span>
@@ -80,7 +80,7 @@ function TopanimeMain()
                     </div>
                     <div className="section-2">
 
-                       <Upcoming upcoming={results[0].data} count={16} text_={["Top Upcom", "ing"]} />
+                       <Upcoming upcoming={results[0].data} switch_details={"/anime"} text_={["Top Upcom", "ing"]} />
                         <div className="cotntext-2">
                             <span><h2>Meet the</h2></span>
                             <span><h2>popular</h2></span>
@@ -89,14 +89,14 @@ function TopanimeMain()
                     </div>
                     <div className="section-3" >
 
-                        <Toppopular popular={results[1].data} count={16} text_={["Most", "pop", "ular"]} />
+                        <Toppopular popular={results[1].data} switch_details={"/anime"} text_={["Most", "pop", "ular"]} />
                         <div className="cotntext-3">
                             <span><h2>What's On Your</h2></span>
                             <span><h2>Inventory?</h2></span>
                         </div>
                     </div>
                     <div className="section-4">
-                        {(listitem  && results.every(item=>!item.isLoading)) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} /> : ""}
+                        {(listitem  && results.every(item=>!item.isLoading)) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} switch_details = {"/anime"} /> : ""}
                     </div>
                 </div>
 
@@ -150,12 +150,12 @@ export function Footer(){
 
 export const Toppopular = react.memo((prop)=>
 {
-    const {popular , count,text_} = prop;
+    const {popular , switch_details ,text_} = prop;
     
         return <>
             <div className="airing popular">
                 <h2>{text_[0]}<span>{text_[1]}</span>{text_[2]}</h2>
-                <Mulimgslider items = {popular} count = {count}/>
+                <Mulimgslider items = {popular} switch_details = {switch_details}/>
             </div>
         </>
 });
@@ -163,31 +163,31 @@ export const Toppopular = react.memo((prop)=>
 export const Upcoming = react.memo ((prop)=>
 {
 
-    const {upcoming , count ,text_} = prop;
+    const {upcoming , switch_details ,text_} = prop;
 
     return <>
         <div className="airing upcoming">
             <h2>{text_[0]}<span>{text_[1]}</span></h2>
-            <Mulimgslider items = {upcoming} count = {count}/>
+            <Mulimgslider items = {upcoming} switch_details = {switch_details}/>
         </div>
         </>
 });
 
 export const Currentlyairing = react.memo ((prop)=>
 {
-    const {airing , count,text_} = prop;
+    const {airing , switch_details,text_} = prop;
         
         return <>
             <div className="airing">
                 <h2><span>{text_[0]}</span> {text_[1]}</h2>
-                <Mulimgslider items = {airing} count = {count}/>
+                <Mulimgslider items = {airing} switch_details = {switch_details}/>
             </div>
         </>
 });
 
 export const TopofyourList  = react.memo((prop)=>
 {
-    const {listitem , text_} =prop;
+    const {listitem , text_ ,switch_details} =prop;
     const handle_container = useRef();
    
     const [currnum , setCurrnum] = useState(0);
@@ -318,7 +318,7 @@ export const TopofyourList  = react.memo((prop)=>
                                         (trigger_comp===false) ? <div className="info">
                                             <h2>{title}</h2>
                                             <p>{(about)?(about.length > 125) ? about.substr(0, 125) + "..." : about:"No Information"}</p>
-                                            <Link to={`${malid}`}  className="btn-seemore">
+                                            <Link to={(switch_details)? switch_details + `/${malid}`:""}  className="btn-seemore">
                                                 <div className="inner-div">
                                                     <span><i className="fas fa-chevron-right"></i></span>
                                                     <span>See more</span>
@@ -335,7 +335,7 @@ export const TopofyourList  = react.memo((prop)=>
                                             {transform:"translateX(-120%)"}}>
                                                 {(about)?(about.length > 75) ? about.substr(0, 75) + "..." : about:"No Information"}
                                             </p>
-                                            <Link to={`${malid}`} className="btn-seemore-sc" style={(textanime)?{top:"0"}:{top:"25%"}}>See more</Link>
+                                            <Link to={(switch_details)? switch_details + `/${malid}`:""} className="btn-seemore-sc" style={(textanime)?{top:"0"}:{top:"25%"}}>See more</Link>
                                         </div>
                                    }
                                 </div>
