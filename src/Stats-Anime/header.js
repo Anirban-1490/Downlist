@@ -42,20 +42,23 @@ export function Header()
     document.addEventListener("click",(e)=>
     {
         const inBoundary = e.composedPath().includes(userbtn.current)
-        if (inBoundary) {
-            if (!isexpand) {
-
-                refdropmenu.current.style.height = "90px";
-                setIsexpand(true);
+        if(refdropmenu.current)
+        {
+            if (inBoundary) {
+                if (!isexpand) {
+    
+                    refdropmenu.current.style.height = "90px";
+                    setIsexpand(true);
+                }
+                else {
+                    refdropmenu.current.style.height = "0px";
+                    setIsexpand(false);
+                }
             }
             else {
                 refdropmenu.current.style.height = "0px";
                 setIsexpand(false);
             }
-        }
-        else {
-            refdropmenu.current.style.height = "0px";
-            setIsexpand(false);
         }
     })
 
