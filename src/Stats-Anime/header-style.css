@@ -34,52 +34,48 @@
                 0 0 60px #4a0ffa    
     ;
 }
- .nav-container ul{
-    /* border: 2px solid blue; */
-    height: 100%;
+
+.nav-container ul{
+    /* border: 2px solid red; */
+    color: #d1d7e0;
     width: 400px;
     position: absolute;
-    right: 10%;
+    right: 12%;
     top: 0;
     display: flex;
-    align-items:center;
-    /* justify-content:space-between; */
-    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 3.4em;
+
 }
-.nav-container ul li
+.nav-container ul nav{
+    position: relative;
+    padding: 5px;
+}
+.nav-container ul nav .link 
 {
-    list-style-type: none;
-    height: 100%;
-    width: 154px;
-    /* border: 2px solid red; */
-    position: relative;
-    /* overflow: hidden; */
-    z-index: 2;
-}
-
-
- .nav-container ul li a{
     text-decoration: none;
-    font-size: 1.01em;
-    /* font-weight: 300; */
-    padding: 34px;
-    line-height: 45px;
-    color: white;
-    z-index: 3;
-    position: relative;
+    color: #d1d7e0;
+    
 }
- .nav-container ul li a span{
-    background-color: red;
-    display: block;
-    width: 14px;
-    height: 100%;
+.nav-container ul nav::before
+{
+    content: "";
     position: absolute;
-    top: 0;
-    left: 45%;
-    z-index: -3;
-    transform: scaleY(0);
-    transition: transform 0.5s;
-    transform-origin: bottom;
+    width: 100%;
+    background: linear-gradient(to left,#2abbb4 32%,transparent);
+    /* top: 0; */
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms;
+}
+.nav-container ul nav:hover::before
+{
+    transform: scaleX(1);
 }
 .menutoggle
 {
@@ -105,7 +101,6 @@
     right: 55px;
     top: 60%;
     transform: translate(0,-50%);
-    border-radius: 50%;
     width: 40px;
     height: 40px;
     color: yellow;

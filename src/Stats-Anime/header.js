@@ -25,6 +25,9 @@ export function Header()
 {
 
    const {ishamclick,toggle} = useContext(Appcontext);
+   const [isexpand,setIsexpand] = useState(false);
+   const refdropmenu = useRef(null);
+   const userbtn = useRef(null);
 
     const toggelnav = ()=>
     {
@@ -33,33 +36,39 @@ export function Header()
     }
     
 
+   
+   // a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened 
 
-    const refdropmenu = useRef(null);
-    let drop = true;
-    function toggledropmenu()
+    document.addEventListener("click",(e)=>
     {
-       if(!drop)
-       {
+        const inBoundary = e.composedPath().includes(userbtn.current)
+        if (inBoundary) {
+            if (!isexpand) {
+
+                refdropmenu.current.style.height = "90px";
+                setIsexpand(true);
+            }
+            else {
+                refdropmenu.current.style.height = "0px";
+                setIsexpand(false);
+            }
+        }
+        else {
             refdropmenu.current.style.height = "0px";
-            drop =true;
-       }
-       else
-       {
-            refdropmenu.current.style.height = "90px";
-            drop =false;
-       }
-    }
+            setIsexpand(false);
+        }
+    })
+
     return(
         <>
             <div className = "nav-container">
                 <Link to="/" className="logo-container"><h3>Uplist</h3></Link>
-                <ul>
-                    <li><Link to="/topanime">Anime<span></span></Link></li>
-                    <li><Link to="/topcharacters">Characters<span></span></Link></li>
-                    <li><a href="">About<span></span></a></li>
-                    
+                <ul >
+                    <nav><Link className="link" to="/topanime">Anime</Link></nav>
+                    <nav><Link className="link" to="/topcharacters">Characters</Link></nav>
+                    <nav>About</nav>
                 </ul>
-                <i className="fas fa-user" onClick = {toggledropmenu}>
+                <i className="fas fa-user" ref={userbtn}>
                     <div className = "yourlist" ref = {refdropmenu}>
                         
                         <Link to="useranimelist">
