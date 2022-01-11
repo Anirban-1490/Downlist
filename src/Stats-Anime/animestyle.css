@@ -162,7 +162,7 @@
 
 .search-cover
 {
-   background: red;
+   background: blueviolet;
     width: 100%;
     position: absolute;
     left: 102%;
@@ -192,24 +192,7 @@
         left: 0;
     }
 }
-.container-search
-{
-   
-    position: relative;
-}
-.container-search::before
-{
-    content: "";
-    position: absolute;
-    /* background: yellow; */
-    left: 0;
-    width: 100%;
-    top: 0;
-    z-index: -1;
-    height: 103%;
-    border-bottom: 2px solid blueviolet;
-    transition: transform 500ms;
-}
+
 
  #search
 {
@@ -220,7 +203,7 @@
     padding-left: 10px;
     outline: none;
     border: none;
-    /* border-bottom: 2px solid red; */
+    border-bottom: 2px solid blueviolet;
     background: transparent;
     color: white;
     opacity: 0;

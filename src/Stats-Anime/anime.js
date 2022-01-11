@@ -95,12 +95,12 @@ function Content()
             <h2 className = "title1" ref = {mainheader}><span>S</span>earch an <span>A</span>nime</h2>
             <p className ="info1" ref = {mainionfo}>Check details about your favourite anime</p>
                 <div className = "wrapper" ref = {wrapper}>
-                    <div className="container-search" >
+                    
                     <input type="text" name="" id="search" placeholder = "Search" 
                     value = {keyward} autoComplete = "off"
                     onChange = {(e)=> {e.preventDefault();setKeyward(e.target.value)}}
                     /> 
-                    </div>
+                   
                     <span className = "search-cover"></span>
                     <div className= "search-result-container" ref = {searchContainer}>
                         {loading && <Loading/>}
