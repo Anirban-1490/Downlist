@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+
+
+
+.genre-first
+{
+    /* border: 2px solid yellow; */
+    width: 100%;
+    top: 230px;
+    min-height: 340px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    
+}
+.genre-first .item
+{
+
+    height: 240px;
+    width: 55%;
+    position: absolute;
+    right: 30px;
+
+}
+.genre-first h2{
+    font-size: clamp(0.5em,16vw,18vw);
+    /* font-size: 13.6em; */
+    line-height: 54%;
+    /* margin-top: -80px; */
+   color: rgba(0, 0, 0, 0.171);
+  left: 4%;
+   font-family: 'Bebas Neue', cursive;
+   letter-spacing: 30px;
+   position: relative;
+   top: -30px;
+ 
+}
+.genre-first h2 span
+{
+    font-size: clamp(0.35em,4vw,9vw);
+    line-height: 34%;
+    color: black;
+    letter-spacing: 0px;
+    
+}
+
+.wrapper-type
+{
+    /* border: 2px solid red; */
+    position: absolute;
+    right: 50px;
+    bottom: 130px;
+    
+}
+.wrapper-type h4{
+    text-align: center;
+}
+.wrapper-type .genre-display
+{
+   
+    width: 175px;
+    height: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    padding: 3px 10px;
+    font-weight: 600;
+   
+}
+.wrapper-input
+{
+    margin-top: 20px;
+    position: relative;
+  
+}
+.wrapper-input ion-icon
+{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+   
+    font-size: 1.1em;
+    transform: translateY(-50%);
+    transition: transform 300ms;
+}
+.wrapper-input.active ion-icon
+{
+ 
+    transform: translateY(-50%) rotateZ(-180deg);
+}
+.wrapper-input .option
+{
+    background: white;
+    margin-top: 11px;
+    border-radius: 8px;
+    overflow-y: scroll;
+    box-shadow: 0 0 20px rgba(0,0,0,0.21);
+   position: absolute;
+    width: 100%;
+    height: 160px;
+    display: none;
+}
+.wrapper-input .option.active
+{
+    display: block;
+}
+.wrapper-input .option::-webkit-scrollbar-track
+{
+    background: transparent;
+}
+.wrapper-input .option::-webkit-scrollbar-thumb
+{
+    border: none;
+    border-radius: 10px;
+}
+.wrapper-input .option::-webkit-scrollbar
+{
+   width: 0.45em;
+}
+.wrapper-input .option div 
+{
+    padding: 12px 16px;
+    user-select: none;
+   
+}
+.wrapper-input .option div:hover
+{
+    background: violet;
+}
+.wrapper-input .option div h4{
+    font-size: 0.84em;
+    text-align: start;
+}
+
+
+@media screen and (max-width:830px) {
+    .genre-first
+    {
+        flex-direction: column;
+        top: 160px;
+        gap: 40px;
+    }
+    .genre-first .item
+    {
+        width: 87%;
+       position: static;
+    }
+    .genre-first h2 br 
+    {
+       display: none;
+    }
+}
+
+@media screen and (max-width:530px) {
+    .genre-first h2
+    {
+       /* left: 20px; */
+       letter-spacing: 20px;
+       text-align: center;
+    }
+}

@@ -134,7 +134,7 @@ function TopacharMain()
                   
                 </div>
         }
-       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer/>}
+       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer marginTop = "1252"/>}
           
         </>
 }

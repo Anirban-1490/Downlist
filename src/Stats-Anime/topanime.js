@@ -1,6 +1,7 @@
 import react, { useCallback } from "react";
 import "./animestyle.css";
 import "./topanimestyle.css";
+import { Genres } from "./genres-anime";
 import { useEffect, useState ,useContext,useRef} from "react";
 import {Mulimgslider} from "./mul_img_slider";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ import { useQuery,useQueries } from "react-query";
 import axios from "axios";
 import { Spinner } from "./loading-spinner";
 import each from "awaity/each";
+
 
 const year = new Date().getFullYear();
 
@@ -98,11 +100,14 @@ function TopanimeMain()
                     <div className="section-4">
                         {(listitem  && results.every(item=>!item.isLoading)) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} switch_details = {"/anime"} /> : ""}
                     </div>
+                    <section className="section-5">
+                        <Genres/>
+                    </section>
                 </div>
 
         }
        
-       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer/>}
+       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer marginTop = "2050"/>}
        
 
         </>
@@ -129,9 +134,9 @@ export function Header(prop)
 
 
 
-export function Footer(){
+export function Footer( {marginTop}){
         return <>
-            <footer>
+            <footer style={{marginTop:`${marginTop}px`}}>
                 <ul>
                     <li><Link to="/topanime">Anime</Link></li>
                     <li><Link to="/topcharacters">Characters</Link></li>
