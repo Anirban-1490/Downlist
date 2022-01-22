@@ -130,6 +130,8 @@
     font-size: 0.87rem;
     background: white;
     text-decoration: none;
+    text-align: start;
+    padding-left: 10px;
 }
 
 

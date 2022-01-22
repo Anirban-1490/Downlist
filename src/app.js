@@ -8,6 +8,7 @@ import Details from "../src/Stats-Anime/details";
 import Detailschar from "../src/Stats-Anime/details-char";
 import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
+import {Main_section} from "./Stats-Anime/about";
 // import {Approvider,Appcontext} from "../src/Stats-Anime/context";
 
 function App()
@@ -27,9 +28,7 @@ function App()
                 
                 <Route path = "/topcharacters" element = {<Topcharacters/>}/>
               
-
-
-
+                <Route path = "/about" element = {<Main_section/>}/>
 
                  <Route path = "useranimelist" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
 

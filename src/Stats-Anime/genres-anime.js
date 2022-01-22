@@ -66,7 +66,7 @@ export const Genres = ()=>
                                 {setID(genre_id);
                                     document.querySelector(".genre-display").value = name;
                                     optionref.current.classList.toggle("active");
-
+                                    document.querySelector(".wrapper-input").classList.toggle("active")
                                 }}> 
                                 <h4>{name}</h4>
                                 </div>
