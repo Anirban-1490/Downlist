@@ -69,7 +69,7 @@ export function Header()
                 <ul >
                     <nav><Link className="link" to="/topanime">Anime</Link></nav>
                     <nav><Link className="link" to="/topcharacters">Characters</Link></nav>
-                    <nav>About</nav>
+                    <nav><Link className="link" to="/about">About</Link></nav>
                 </ul>
                 <i className="fas fa-user" ref={userbtn}>
                     <div className = "yourlist" ref = {refdropmenu}>

@@ -140,7 +140,7 @@ export function Footer( {marginTop}){
                 <ul>
                     <li><Link to="/topanime">Anime</Link></li>
                     <li><Link to="/topcharacters">Characters</Link></li>
-                    <li><a href="">About</a></li>
+                    <li><Link to="/about">About</Link></li>
                 </ul>
                <div className="border"></div>
                 <div className="important-links">
