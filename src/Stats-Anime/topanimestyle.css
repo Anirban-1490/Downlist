@@ -466,6 +466,7 @@ footer div h3:nth-child(1) a i{
     color: white;
     bottom: 1em;
     left: 0.5em;
+    text-align: left;
     border-bottom: 2.3px solid greenyellow;
     transition: all 500ms ease-in-out;
 }

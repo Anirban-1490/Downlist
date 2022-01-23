@@ -54,7 +54,7 @@ h3 a
 {
    margin: 50px 0 30px 0;
 }
-ul
+.social
 {
 
     display: flex;
@@ -63,11 +63,11 @@ ul
     gap: 20px;
     list-style-type: none;
 }
-ul a
+.social a
 {
    text-decoration: none;
 }
-ul i
+.social i
 {
     color: white;
     cursor: pointer;

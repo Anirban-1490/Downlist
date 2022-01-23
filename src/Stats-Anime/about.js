@@ -1,5 +1,4 @@
 import {Footer} from "./topanime";
-import "./topanimestyle.css";
 import "./about-style.css";
 import logo from "./logo/uplist-logo.jpg";
 
@@ -25,7 +24,7 @@ const About = ()=>
          <h3>More information on <i>Uplist</i> - <a href="https://github.com/Anirban-1490/Project-Uplist" target={"_blank"}>Github Page</a></h3>
 
          <h3 className="connect">Connect with me</h3>
-         <ul>
+         <ul className="social">
             <a href="https://www.linkedin.com/in/anirban-pratihar-48a591226/" target={"_blank"}>
 
                 <i class="fab fa-linkedin"></i>
