@@ -5,7 +5,7 @@ import { useEffect, useState ,useContext,useRef} from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 import 'swiper/swiper.min.css';
-
+import default_img from "./logo/default-placeholder.png";
 
 export const Mulimgslider =  (prop)=>
 {
@@ -19,7 +19,7 @@ export const Mulimgslider =  (prop)=>
                 const { image_url, mal_id, title, episodes, score, favorites } = anime;
                 return <SwiperSlide className="swiper-slide" key={mal_id}>
                     <div className="airing_container" >
-                        {(image_url) ? <img src={image_url}  alt="" /> : ""}
+                        {(image_url) ? <img src={image_url}  onError={(currentElement)=>currentElement.target.src = default_img} /> : ""}
                         <div className="more">
                             {title && <h3>{title}</h3>}
                             <div className="see-more-container">

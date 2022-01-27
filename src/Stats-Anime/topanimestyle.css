@@ -632,6 +632,7 @@ footer div h3:nth-child(1) a i{
     color: black;
     height: 60px;
     font-size: clamp(1.8vw,5px,2vw);
+    padding: 0 3%;
 }
 .top-list-item-container .list-item .info p
 {

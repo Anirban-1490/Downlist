@@ -5,6 +5,7 @@ import "./animestyle.css";
 import { useParams } from "react-router";
 import { Link, Outlet } from "react-router-dom";
 
+import { useQueries } from "react-query";
 
 const Resultmain =()=>
 {
@@ -36,6 +37,7 @@ const Resultmain =()=>
     }
     
     useEffect(()=>fetch_details_anime(),[]);
+    
     const details = {animedetails,animegenres,stats,malid};
 
     return <>
