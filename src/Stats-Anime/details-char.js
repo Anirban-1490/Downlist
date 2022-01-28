@@ -4,7 +4,9 @@ import "./animestyle.css";
 import { useParams } from "react-router";
 import { Outlet } from "react-router-dom";
 import {Details ,Roles} from "./details";
-
+import { useQuery } from "react-query";
+import {Spinner} from "./loading-spinner";
+import axios from "axios";
 
 function Resultmain()
 {
@@ -17,11 +19,7 @@ function Resultmain()
     const [voiceactors ,setVoiceactors] = useState([]);
     async function fetch_details_char()
     {
-        const response = await fetch(`https://api.jikan.moe/v3/character/${malid}`);
-        const result = await response.json();
-        setchardetails(result);
-        setAppearances(result.animeography);
-        setVoiceactors(result.voice_actors);
+     
 
        
         
@@ -29,19 +27,24 @@ function Resultmain()
     
     useEffect(()=>fetch_details_char(),[]);
 
+    const getCharacterDetails = (url)=> axios.get(url).then(res=>res.data);
 
+    const {data,isLoading,isError} = useQuery("char_details",()=>getCharacterDetails(`https://api.jikan.moe/v3/character/${malid}`),{cacheTime:0})
 
     return <>
     
-    <div className = "container1" style = {{height:"auto"}}>
-            <Details details ={{animedetails:chardetails,animegenres:null,stats:null,char:appearances,malid}} fav = {chardetails.member_favorites} about = {chardetails.about}
-            name = {chardetails.name}
-            name_kenji = {chardetails.name_kanji}
+        {
+            (isLoading)? <Spinner/>:
+            (isError)?<h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2>:
+            <div className = "container1" style = {{height:"auto"}}>
+                <Details details ={{animedetails:data,animegenres:null,stats:null,char:null,malid}} fav = {data?.member_favorites} about = {data?.about}
+                name = {data?.name}
+                name_kenji = {data?.name_kanji}
             
-            switch_item = "character"
-            switch_path = "topcharacters"
-            />
-             <h4 style={{
+                switch_item = "character"
+                switch_path = "topcharacters"
+                />
+                <h4 style={{
                 color: "white", fontSize: "25px",
                 marginLeft: "14.5%",
                 marginBottom: "1%",
@@ -49,9 +52,9 @@ function Resultmain()
                 borderLeft: "5px solid red",
                 letterSpacing:"2px"
 
-            }}>Anime Appearances</h4>
-            <Animeappp appearances = {appearances} />
-            <h4 style={{
+                }}>Anime Appearances</h4>
+                <Animeappp appearances = {data?.animeography} />
+                <h4 style={{
                 color: "white", fontSize: "25px",
                 marginLeft: "14.5%",
                 marginBottom: "1%",
@@ -59,9 +62,10 @@ function Resultmain()
                 borderLeft: "5px solid red",
                 letterSpacing:"2px"
 
-            }}>Voice Actors</h4>
-            <Voiceactors voiceactors = {voiceactors}/>
-        </div>
+                }}>Voice Actors</h4>
+                <Voiceactors voiceactors = {data?.voice_actors}/>
+            </div>
+        }
         
        
     </>

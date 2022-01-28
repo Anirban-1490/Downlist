@@ -1,68 +1,64 @@
 import react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";
-// import { useInView } from "react-intersection-observer";
 import { useParams } from "react-router";
 import { Link, Outlet } from "react-router-dom";
-
+import axios from "axios";
 import { useQueries } from "react-query";
+import {Spinner} from "./loading-spinner";
 
 const Resultmain =()=>
 {
 
     const {id} = useParams();
     const malid = id;
-    const [animedetails , setAnimedetails] = useState({});
-    const [animegenres , setAnimegenres] = useState([ ]);
-    const [stats , setStats] = useState({});
-    const [char , setChar] = useState([]);
     
-    async function fetch_details_anime()
-    {
-        const response = await fetch(`https://api.jikan.moe/v3/anime/${malid}`);
-        const result = await response.json();
-        setAnimedetails(result);
-        let arr = result.genres;
-        setAnimegenres(arr);
+    const getDetails = (url)=> axios.get(url).then(value=> value.data);
 
-        const response_stats = await fetch(`https://api.jikan.moe/v3/anime/${malid}/stats`);
-        const result_stats = await response_stats.json();
-        setStats(()=>result_stats);
+    const getPeopleReaction = (url) => axios.get(url).then(result=>result.data);
+    const getAllCharacters =(url)=> axios.get(url).then(res=>[...res.data.characters])
 
-        fetch(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`).then(result_char =>result_char.json()).then(res =>setChar(()=>res.characters));
-       
+    const result = useQueries([
+        { queryKey: "details", 
+        queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),cacheTime:0 }
+        ,
+        { queryKey: "people_reaction", 
+        queryFn: () => getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`) ,cacheTime:0 }
+        ,{queryKey:"characters",
+        queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),cacheTime:0 }
+    ])
 
-       
-        
-    }
-    
-    useEffect(()=>fetch_details_anime(),[]);
-    
-    const details = {animedetails,animegenres,stats,malid};
+    const details = {animedetails:result[0].data ,animegenres:result[0].data?.genres,stats:result[1].data,malid};
 
     return <>
     
-    <div className = "container1" style = {{height:"auto"     
-           }}>
-            <Details  details = {details} fav = {animedetails.favorites} about = {animedetails.synopsis} 
-            name = {animedetails.title_english}
-            name_kenji = { animedetails.title}
-            
-            switch_item = "anime"
-            switch_path = "topanime"
-            />
-            
-            <h4 style={{
-                color: "white", fontSize: "25px",
-                marginLeft: "14.5%",
-                marginBottom: "1%",
-                marginTop:"2em",
-                borderLeft: "5px solid red",
-                letterSpacing:"2px"
-            }}>Characters</h4>
-            <Roles  char = {char} path = {'/character'}/>
-            
-        </div>
+        {(result.some(item => item.isLoading)) ? <Spinner /> :
+            (result.some(item => item.error)) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2> :
+                <div className="container1" style={{
+                    height: "auto"
+                }}>
+                    <Details details={details} fav={result[0].data?.favorites} about={result[0].data?.synopsis}
+                        name={result[0].data?.title_english}
+                        name_kenji={result[0].data?.title}
+
+                        switch_item="anime"
+                        switch_path="topanime"
+                    />
+
+                    <h4 style={{
+                        color: "white", fontSize: "25px",
+                        marginLeft: "14.5%",
+                        marginBottom: "1%",
+                        marginTop: "2em",
+                        borderLeft: "5px solid red",
+                        letterSpacing: "2px"
+                    }}>Characters</h4>
+                    <Roles char={result[2].data} path={'/character'} />
+
+                </div>
+
+
+        }
 
        
     </>
@@ -76,7 +72,7 @@ export const Details =  (prop)=>
     const[itemadd , setItemadd] = useState(false);
     const [seemorebtn , Setbtn] = useState(false);
     const btn = useRef();
-    let airedDetails = (animedetails.aired)?{...animedetails.aired}:null;
+    let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
    
     useEffect(()=>{
 
@@ -186,11 +182,11 @@ export const Details =  (prop)=>
 
     let color = "white";
 
-    if(animedetails.score>7.5)
+    if(animedetails?.score>7.5)
     {
             color = "#00ff1a";
     }
-    else if(animedetails.score<7.5 && animedetails.score>6)
+    else if(animedetails?.score<7.5 && animedetails?.score>6)
     {
             color = "yellow";
     }
@@ -209,7 +205,7 @@ export const Details =  (prop)=>
         <div className = "inner-container">
             <div className = "pic-header">
                 <div className = "pic-container">
-                    <img src={animedetails.image_url} alt="" />
+                    <img src={animedetails?.image_url} alt="" />
                 </div>
                 <div className ="title-container">
                     <h2 className = "title">{name_kenji}</h2>
@@ -217,8 +213,8 @@ export const Details =  (prop)=>
                 </div>
             </div>
             <ul className = "stats">
-                {animedetails.episodes && <li><i style={{marginRight:"10px"}} className="fas fa-tv"></i>{animedetails.episodes}</li>}
-                {animedetails.score && <li style = {{color:`${color}`}}>{animedetails.score}</li>}
+                {animedetails?.episodes && <li><i style={{marginRight:"10px"}} className="fas fa-tv"></i>{animedetails?.episodes}</li>}
+                {animedetails?.score && <li style = {{color:`${color}`}}>{animedetails?.score}</li>}
                 <li><i style={{marginRight:"10px",color:"yellow"}} className="fas fa-star"></i>{fav}</li>
                 <li className="add-to-list">
                     <button ref={btn} 
