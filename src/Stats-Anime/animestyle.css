@@ -30,8 +30,7 @@
 {
     width: 100%;
     min-height: 100vh;
-    /* background: linear-gradient(rgb(105, 103, 103),rgb(12, 10, 10)); */
-    /* transform-style: preserve-3d; */
+   
     z-index: -3;
     background: #1f2833;
     overflow: hidden;
@@ -39,7 +38,7 @@
 .container1
 {
     height: 95vh;
-    /* border: 2px solid red; */
+  
    position: relative;
     z-index: 1;
     
@@ -58,7 +57,7 @@
     transform: translate(-50%,-0%);
     color: white;
     font-size: 3.0em;
-   /* border: 2px solid red; */
+   
     width: 480px;
     text-align: center;
     animation-name: textanim;
@@ -102,7 +101,7 @@
     transform: translate(-50%,0);
     color: white;
     font-size: 1.1em;
-    /* border: 2px solid red; */
+    
     width: 370px;
     text-align: center;
     animation-name: infoanim;
@@ -130,7 +129,7 @@
 }
  .wrapper
 {
-    /* border: 2px solid yellow; */
+   
     position: fixed;
     top: 44%;
     left: 50%;
@@ -198,7 +197,7 @@
 {
     width: 350px;
     height: 35px;
-    /* border-radius: 10px; */
+   
     font-size: 1.2em;
     padding-left: 10px;
     outline: none;
@@ -248,7 +247,7 @@
 }
  .wrapper .search-result-container
 {
-    /* border: 2px solid yellow; */
+   
     height: 270px;
     width: 100%;
     transform: translateY(5px);
@@ -257,7 +256,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
+   
     overflow: visible;
     background: rgb(43, 43, 136);
 }
@@ -275,7 +274,7 @@
  .wrapper .search-result-container .search-result
 {
     width: 100%;
-    /* border: 2px solid blue; */
+   
     background: rgb(6, 6, 106);
     height: 60px;
     display: flex;
@@ -285,14 +284,14 @@
 }
 .wrapper .search-result-container .link
 {
-    /* border: 2px solid forestgreen; */
+   
     width: 100%;
 }
  .wrapper .search-result-container .search-result .img-container
 {
     width: 70px;
     height: 100%;
-    /* border: 2px solid red; */
+    
     overflow: hidden;
 }
  .wrapper .search-result-container .search-result .img-container img{
@@ -303,7 +302,7 @@
 .wrapper .search-result-container .search-result h5{
     color: white;
     text-align: center;
-    /* border: 2px solid red; */
+    
     margin: 0 auto;
     padding: 5% 0;
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import "./genreAnime-style.css";
 import { useQuery } from "react-query";
 import axios from "axios";

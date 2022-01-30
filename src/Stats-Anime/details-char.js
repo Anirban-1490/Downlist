@@ -1,4 +1,5 @@
-import react , {useState , useEffect ,useRef} from "react";
+
+import  react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
@@ -8,6 +9,7 @@ import { useQuery } from "react-query";
 import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
 import axios from "axios";
+import React from "react";
 
 function Resultmain()
 {
@@ -15,18 +17,6 @@ function Resultmain()
     
     const {id} = useParams();
     const malid = id;
-    const [chardetails , setchardetails] = useState({});
-    const [appearances , setAppearances] = useState([]);
-    const [voiceactors ,setVoiceactors] = useState([]);
-    async function fetch_details_char()
-    {
-     
-
-       
-        
-    }
-    
-    useEffect(()=>fetch_details_char(),[]);
 
     const getCharacterDetails = (url)=> axios.get(url).then(res=>res.data);
 

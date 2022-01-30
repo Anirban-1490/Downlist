@@ -9,7 +9,6 @@ import Detailschar from "../src/Stats-Anime/details-char";
 import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
 import {Main_section} from "./Stats-Anime/about";
-// import {Approvider,Appcontext} from "../src/Stats-Anime/context";
 
 function App()
 {

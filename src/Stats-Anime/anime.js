@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import "./animestyle.css";
 import { useEffect ,useState , useRef} from "react";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ function Main()
 
 function Content()
 {
-    const {toggle_loading_state,loading,set_loading_text,loadingtext} = useContext(Appcontext);
+    const {toggle_loading_state,loading,set_loading_text} = useContext(Appcontext);
     const [keyward , setKeyward] = useState("");
     const [searchresult , setSearchresult] = useState([]);
 
@@ -37,7 +37,7 @@ function Content()
     const wrapper = useRef();
     
 
-    // const cancel = useRef(axios.CancelToken.source());
+   
     const [cancel,setcancel] = useState(axios.CancelToken.source());
    
     useEffect(async()=>
@@ -81,7 +81,7 @@ function Content()
         }
 
        
-        // return ()=>  source.cancel("hello");
+    
 
       
     }
@@ -106,7 +106,7 @@ function Content()
                         {loading && <Loading/>}
                         {
                             searchresult.map((result)=>{
-                                const {mal_id,title,score,episodes,image_url} = result;
+                                const {mal_id,title,image_url} = result;
 
                                 return <Link to = {`anime/${mal_id}`} className = "link" key = {mal_id}> 
                                 

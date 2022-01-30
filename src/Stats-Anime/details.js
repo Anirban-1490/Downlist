@@ -1,3 +1,4 @@
+import React from "react";
 import react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";

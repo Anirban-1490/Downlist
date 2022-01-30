@@ -1,3 +1,4 @@
+import React from "react";
 import {Footer} from "./topanime";
 import "./about-style.css";
 import logo from "./logo/uplist-logo.jpg";

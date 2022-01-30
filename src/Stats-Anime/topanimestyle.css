@@ -122,7 +122,7 @@
 
 .section-5
 {
-    /* border: 2px solid red; */
+   
     background: #9d8d8f;
     height: 800px;
     position: relative;
@@ -136,14 +136,14 @@
     z-index: -1;
     height: auto;
     margin-top: -50px;
-    /* border: 2px solid yellow; */
+   
 }
 .head-main-container h3{
     color: white;
     text-align: center;
     font-family: 'Amatic SC', cursive;
     font-size: clamp(1.8em,3.1vw,5vw);
-    /* border: 2px solid red; */
+   
     position: relative;
     top: 1.4em;
 }
@@ -153,7 +153,7 @@
    
     width: 85%;
     margin:  0 auto;
-    /* margin-top: 2%; */
+   
     height: 250px;
   
    gap: 1%;
@@ -161,7 +161,7 @@
     display: flex;
     justify-content: center;
     top: 120px;
-    /* border: 2px solid red; */
+    
 }
 
 
@@ -181,7 +181,7 @@
 }
 .head-main-container .inner-content> span:nth-child(1) .ball
 {
-    /* border: 2px solid red; */
+    
     position: absolute;
     width: clamp(1.1vw,1em,2.0vw);
     height: clamp(1.1vw,1em,2.0vw);
@@ -225,8 +225,7 @@
 .head-main-container .inner-content span:nth-child(2)
 {
    transform: translateY(45%);
-   /* background: linear-gradient(45deg ,red, blue); */
-   /* background-color: #663dff; */
+  
    background-image: linear-gradient(45deg, #663dff 20%, #aa00ff 37%, #cc4499 57% , #ffc3a0 90%);
    overflow: hidden;
    background-size: 600% 600%;
@@ -303,7 +302,7 @@ footer ul{
 }
 footer ul li
 {
-    /* border: 2px solid yellow; */
+   
     flex: 0 0 120px;
     text-align: center;
 }
@@ -316,7 +315,7 @@ footer ul li a{
 footer .important-links 
 {
     display: flex;
-    /* border-top: 4px solid rgba(211, 211, 211, 0.486); */
+    
     width: 70%;
     justify-content: center;
     margin-top: 1.2em;
@@ -357,7 +356,7 @@ footer div h3:nth-child(1) a i{
 
 .airing
 {
-    /* border: 2px solid red; */
+    
     width: 81%;
     margin: 0 auto;
     margin-top: 210px;
@@ -369,14 +368,13 @@ footer div h3:nth-child(1) a i{
 {
     margin-top: 100px;
 
-    /* margin-bottom: 40px; */
+   
 }
 
 
 .airing h2{
    
-    /* text-transform: capitalize; */
-    /* padding-left: 10px; */
+   
     text-align: center;
     font-size: clamp(1.9em,2vw,3vw);
     color: #9579f0;
@@ -390,7 +388,7 @@ footer div h3:nth-child(1) a i{
 }
 .upcoming h2
 {
-    /* background:linear-gradient(to left , #de6262,#ffb88c); */
+    
     padding-left: 5px;
   
     color: #d9a3ee;
@@ -458,7 +456,7 @@ footer div h3:nth-child(1) a i{
 {
     font-size: 1.1em;
     white-space: nowrap;
-    /* border: 2px  solid blueviolet; */
+   
     text-overflow: ellipsis;
     width: 130px;
     overflow: hidden;
@@ -478,7 +476,7 @@ footer div h3:nth-child(1) a i{
     bottom: -1.3em;
  
     transition: all 500ms ease-in-out;
-    /* border: 2px solid red; */
+   
     width: 70px;
    right: 1.2em;
   display: inline-block;
@@ -507,12 +505,12 @@ footer div h3:nth-child(1) a i{
     
     text-decoration: none;
     font-size: 0.9rem;
-    /* margin-left: 20px; */
+   
     text-align: center;
 }
 .airing_container:hover .more
 {
-    /* background: linear-gradient(to top , black 20%, transparent 76%); */
+    
     background-position: 0% 16%;
 }
 
@@ -591,7 +589,7 @@ footer div h3:nth-child(1) a i{
 }
 .top-list-item-container
 {
-    /* border: 2px solid yellow; */
+    
     height: 100%;
     width: 100%;
     display: flex;
@@ -602,7 +600,7 @@ footer div h3:nth-child(1) a i{
 }
 .top-list-item-container .list-item 
 {
-    /* border: 2px solid green; */
+   
     flex: 0 0 100%;
     display: flex;
     align-items: center;
@@ -619,7 +617,7 @@ footer div h3:nth-child(1) a i{
 
 .top-list-item-container .list-item .info 
 {
-    /* border: 2px solid red; */
+   
     background: white;
     flex: 0 0 calc(100% - 200px);
     height: 80%;
@@ -670,7 +668,7 @@ footer div h3:nth-child(1) a i{
 }
 .top-list-item-container .list-item .info-sc
 {
-    /* border: 2px solid red; */
+    
     position: absolute;
     z-index: 7;
     width: 100%;
@@ -733,10 +731,7 @@ footer div h3:nth-child(1) a i{
     left: 0;
 }
 
-@media screen and (max-width : 850px)
-{
-  
-}
+
 
 @media screen and (max-width : 940px)
 {
@@ -776,7 +771,7 @@ footer div h3:nth-child(1) a i{
     }
     .top-list-item-container .list-item:hover .info-sc
     {
-        /* border: 2px solid red; */
+        
        
         background: rgba(0, 0, 0, 0.45);
     }

@@ -1,4 +1,4 @@
-import react ,{useEffect,useState} from "react";
+import React,{useEffect,useState} from "react";
 import { Link  } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "./list-style.css";
@@ -41,7 +41,7 @@ function List(props)
 {
     const {header,switch_item} = props;
     
-    // const [list , setList] = useState([]);
+  
     const [isempty,setIsempty] = useState(false);
 
 

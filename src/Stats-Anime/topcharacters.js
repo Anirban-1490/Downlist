@@ -1,3 +1,4 @@
+import React from "react";
 import {Footer,Toppopular,Upcoming,Currentlyairing,Header} from "./topanime";
 import "./animestyle.css";
 import "./topanimestyle.css";

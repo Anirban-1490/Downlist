@@ -1,11 +1,12 @@
-import react, { useCallback } from "react";
+import React from "react";
+import react from "react";
 import "./animestyle.css";
 import "./topanimestyle.css";
 import { Genres } from "./genres-anime";
-import { useEffect, useState ,useContext,useRef} from "react";
+import { useEffect, useState ,useRef} from "react";
 import {Mulimgslider} from "./mul_img_slider";
 import { Link } from "react-router-dom";
-import { useQuery,useQueries } from "react-query";
+import { useQueries } from "react-query";
 import axios from "axios";
 import { Spinner } from "./loading-spinner";
 import each from "awaity/each";
@@ -63,7 +64,6 @@ function TopanimeMain()
     {queryKey:"popular_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),retry:false,staleTime:Infinity,cacheTime:Infinity} , 
     {queryKey:"airing_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),retry:false,staleTime:Infinity,cacheTime:Infinity}])
 
-    // console.log(results);
     
     const [listitem,listcount] = useToplist("anime");
 

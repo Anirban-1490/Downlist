@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import "./animestyle.css";
 import "./topanimestyle.css";
 import { useEffect, useState ,useContext,useRef} from "react";
@@ -16,7 +16,7 @@ export const Mulimgslider =  (prop)=>
     return <>
        <Swiper className="swiper" spaceBetween={10} slidesPerView={"auto"} >
             {items && items.map((anime) => {
-                const { image_url, mal_id, title, episodes, score, favorites } = anime;
+                const { image_url, mal_id, title } = anime;
                 return <SwiperSlide className="swiper-slide" key={mal_id}>
                     <div className="airing_container" >
                         {(image_url) ? <img src={image_url}  onError={(currentElement)=>currentElement.target.src = default_img} /> : ""}
