@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router ,Route ,Routes,Outlet} from "react-router-dom";
+import { BrowserRouter as Router ,Route ,Routes} from "react-router-dom";
 import Header from "../src/Stats-Anime/header";
 import Anime from "../src/Stats-Anime/anime";
 import Topanime from "../src/Stats-Anime/topanime";
@@ -8,7 +8,7 @@ import Details from "../src/Stats-Anime/details";
 import Detailschar from "../src/Stats-Anime/details-char";
 import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
-import {Main_section} from "./Stats-Anime/about";
+import {Mainsection} from "./Stats-Anime/about";
 
 function App()
 {
@@ -27,7 +27,7 @@ function App()
                 
                 <Route path = "/topcharacters" element = {<Topcharacters/>}/>
               
-                <Route path = "/about" element = {<Main_section/>}/>
+                <Route path = "/about" element = {<Mainsection/>}/>
 
                  <Route path = "useranimelist" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
 

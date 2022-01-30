@@ -1,9 +1,8 @@
 
-import  react , {useState , useEffect ,useRef} from "react";
+import  react  from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
-import { Outlet } from "react-router-dom";
 import {Details ,Roles} from "./details";
 import { useQuery } from "react-query";
 import {Spinner} from "./loading-spinner";

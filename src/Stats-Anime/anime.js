@@ -40,10 +40,10 @@ function Content()
    
     const [cancel,setcancel] = useState(axios.CancelToken.source());
    
-    useEffect(async()=>
+    useEffect(()=>
     {
         
-        if(keyward!="")
+        if(keyward!=="")
         {   
             let can = cancel;
             setSearchresult([]);

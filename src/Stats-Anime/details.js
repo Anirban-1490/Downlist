@@ -3,7 +3,7 @@ import react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useQueries } from "react-query";
 import {Spinner} from "./loading-spinner";

@@ -3,7 +3,7 @@ import {Footer,Toppopular,Upcoming,Currentlyairing,Header} from "./topanime";
 import "./animestyle.css";
 import "./topanimestyle.css";
 import {TopofyourList} from "./topanime";
-import { useQuery,useQueries } from "react-query";
+import {useQueries } from "react-query";
 import axios from "axios";
 import reduce from "awaity/reduce";
 import { Spinner } from "./loading-spinner";
@@ -33,8 +33,8 @@ function TopacharMain()
     {
         const delay = (ms = 4000) => new Promise(r => setTimeout(r, ms));
         
-      return await axios.get(url_init).then( response => response.data.anime).
-        then(result_summer =>[...result_summer].slice(0, 4))
+      return await axios.get(url_init).then( response => response.data.anime)
+        .then(result_summer =>[...result_summer].slice(0, 4))
         .then(async summer_anime =>{
              return await reduce(summer_anime,async(acc,anime)=>
              {
@@ -42,13 +42,13 @@ function TopacharMain()
 
                 const { mal_id } = anime;
                 await delay();
-                const value_charater_stuff = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}/characters_staff`).
-                    then(async res => {
+                const value_charater_stuff = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}/characters_staff`)
+                    .then(async res => {
                         const result = await res.json();
                         const anime_char_sum = [...result.characters];
                         return anime_char_sum;
-                    }).
-                    then(res_char_summer => {
+                    })
+                    .then(res_char_summer => {
 
                         return res_char_summer.reduce((acc, char) => {
 

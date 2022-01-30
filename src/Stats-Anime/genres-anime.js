@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import {Mulimgslider} from "./mul_img_slider";
 import react from "react";
-import { Spinner } from "./loading-spinner";
 
 
 export const Genres = ()=>
@@ -23,7 +22,7 @@ export const Genres = ()=>
                     {genre_id:24,name:"Sci Fi"}
                 ];
 
-    const { data, isLoading ,isFetching} = useQuery("genre1", () => getResult(genre_id),{refetchInterval:3000 ,refetchIntervalInBackground:false});
+    const { data} = useQuery("genre1", () => getResult(genre_id),{refetchInterval:3000 ,refetchIntervalInBackground:false});
     const getResult = (genre_id)=>
     {
         return axios.get(`https://api.jikan.moe/v3/genre/anime/${genre_id}/1`).then(res=>res.data.anime.slice(0,16));
