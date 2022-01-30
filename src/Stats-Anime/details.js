@@ -6,6 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import { useQueries } from "react-query";
 import {Spinner} from "./loading-spinner";
+import {Errorpage} from "./error";
 
 const Resultmain =()=>
 {
@@ -33,7 +34,7 @@ const Resultmain =()=>
     return <>
     
         {(result.some(item => item.isLoading)) ? <Spinner /> :
-            (result.some(item => item.error)) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2> :
+            (result.some(item => item.error)) ? <Errorpage/> :
                 <div className="container1" style={{
                     height: "auto"
                 }}>

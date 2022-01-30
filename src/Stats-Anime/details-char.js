@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import {Details ,Roles} from "./details";
 import { useQuery } from "react-query";
 import {Spinner} from "./loading-spinner";
+import {Errorpage} from "./error";
 import axios from "axios";
 
 function Resultmain()
@@ -29,13 +30,13 @@ function Resultmain()
 
     const getCharacterDetails = (url)=> axios.get(url).then(res=>res.data);
 
-    const {data,isLoading,isError} = useQuery("char_details",()=>getCharacterDetails(`https://api.jikan.moe/v3/character/${malid}`),{cacheTime:0})
+    const {data,isLoading,isError} = useQuery("char_details",()=>getCharacterDetails(`https://api.jikan.moe/v3/character/${malid}`),{cacheTime:0,refetchOnWindowFocus:false})
 
     return <>
     
         {
             (isLoading)? <Spinner/>:
-            (isError)?<h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2>:
+            (isError)?<Errorpage/>:
             <div className = "container1" style = {{height:"auto"}}>
                 <Details details ={{animedetails:data,animegenres:null,stats:null,char:null,malid}} fav = {data?.member_favorites} about = {data?.about}
                 name = {data?.name}

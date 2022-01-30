@@ -7,7 +7,7 @@ import axios from "axios";
 import reduce from "awaity/reduce";
 import { Spinner } from "./loading-spinner";
 import {useToplist} from "./topanime";
-
+import {Errorpage} from "./error";
 
 function TopacharMain()
 {
@@ -101,7 +101,7 @@ function TopacharMain()
     return <>
         
         {(results.some(item => item.isLoading) || listitem.length < listcount) ? <Spinner />
-            : results.some(item => item.isError) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2>
+            : results.some(item => item.isError) ? <Errorpage/>
                 :
                 <div className="container1" style={{ height: "1300px" }}>
                     <div className="section-1">

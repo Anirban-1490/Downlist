@@ -9,7 +9,7 @@ import { useQuery,useQueries } from "react-query";
 import axios from "axios";
 import { Spinner } from "./loading-spinner";
 import each from "awaity/each";
-
+import {Errorpage} from "./error";
 
 const year = new Date().getFullYear();
 
@@ -69,7 +69,7 @@ function TopanimeMain()
 
     return <>  
         {(results.every(item => item.isLoading) || listitem.length<listcount) ? <Spinner/>
-            : results.some(item => item.isError) ? <h2 style={{ color: "red", position: "relative", zIndex: "22" }}>Error</h2>
+            : results.some(item => item.isError) ? <Errorpage/>
                 : <div className="container1" style={{ height: "1300px" }}>
 
                     <div className="section-1">
