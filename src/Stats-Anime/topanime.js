@@ -24,7 +24,7 @@ export function useToplist(switch_item)
     const [listcount,setListcount] = useState(0);
    
     const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
-     async function fetch_list_anime()
+     const fetch_list_anime = react.useCallback(async()=>
     {
         temparray = JSON.parse(localStorage.getItem(switch_item));
 
@@ -44,9 +44,9 @@ export function useToplist(switch_item)
             })
            
         }
-    }
+    },[switch_item])
 
-    useEffect(()=> fetch_list_anime() , [switch_item]);
+    useEffect(()=> fetch_list_anime() , [fetch_list_anime]);
     return [listitem,listcount]
     
 }

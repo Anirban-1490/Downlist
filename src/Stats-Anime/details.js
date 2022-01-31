@@ -75,9 +75,9 @@ export const Details =  (prop)=>
     const [seemorebtn , Setbtn] = useState(false);
     const btn = useRef();
     let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
-   
-    useEffect(()=>{
 
+    const checkItem = react.useCallback(()=>
+    {
         if(switch_item==="anime")
         {
             if(localStorage.getItem(switch_item)!==null)
@@ -104,8 +104,9 @@ export const Details =  (prop)=>
             }
         }
 
-      
-    },[setItemadd]);
+    },[setItemadd])
+   
+    useEffect(()=>checkItem(),[checkItem]);
 
    
     function Additem()
@@ -321,7 +322,7 @@ export const Roles =  react.memo((prop)=>
 
        return ()=> window.removeEventListener("resize",size);
        
-   });
+   },[windowsize]);
 
 
 

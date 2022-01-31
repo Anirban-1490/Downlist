@@ -32,7 +32,7 @@ function useList(switch_item)
         
     }
    } , [switch_item])
-    return [list,setList];
+    return list;
 }
 
 
@@ -44,7 +44,7 @@ function List(props)
     const [isempty,setIsempty] = useState(false);
 
 
-    const [list,setList] = useList(switch_item);
+    const list = useList(switch_item);
    
    
 
@@ -56,14 +56,19 @@ function List(props)
         setIsempty(true);
        
     }
+
+    const checkListempty = React.useCallback(()=>
+    {
+      if (JSON.parse(localStorage.getItem(switch_item)) === null) {
+          setIsempty(true);
+      }
+    },[switch_item])
     useEffect(()=>
     {
-        if (JSON.parse(localStorage.getItem(switch_item)) === null) {
-            setIsempty(true);
-        }
+     
+      checkListempty();
 
-
-    },[isempty])
+    },[checkListempty])
 
 
 

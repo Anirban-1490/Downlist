@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import {Appcontext} from "./context";
 import { useContext } from "react/cjs/react.development";
+import react from "react";
 
 function Main()
 {
@@ -40,9 +41,8 @@ function Content()
    
     const [cancel,setcancel] = useState(axios.CancelToken.source());
    
-    useEffect(()=>
+    const getResult = react.useCallback(()=>
     {
-        
         if(keyward!=="")
         {   
             let can = cancel;
@@ -80,12 +80,12 @@ function Content()
             setSearchresult([]);
         }
 
-       
-    
+    },[keyward])
 
-      
-    }
-    , [keyward]);
+
+
+    useEffect(()=>getResult()
+    , [getResult]);
 
 
 
