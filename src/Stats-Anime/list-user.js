@@ -61,6 +61,11 @@ function List(props)
     {
       if (JSON.parse(localStorage.getItem(switch_item)) === null) {
           setIsempty(true);
+         
+      }
+      else
+      {
+        setIsempty(false);
       }
     },[switch_item])
     useEffect(()=>
@@ -81,6 +86,7 @@ function List(props)
             {(list.length>0 && !isempty) ? 
                 list.map((item)=>
                 {
+                   
                     const {fav,malid,episodes,img_url,score,title} = item;
 
                     return <Link to ={`/${switch_item}/${malid}`} key ={malid} className="items-container">
