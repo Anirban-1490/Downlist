@@ -14,7 +14,7 @@ function Main()
         
         <>
             
-            <div className = "container1" >
+            <div className = "container1" style={{display:"flex",alignItems:"center",justifyContent:"center"}} >
               
                 <Content/>
             </div>
@@ -92,38 +92,40 @@ function Content()
 
     return <>
 
-            <h2 className = "title1" ref = {mainheader}><span>S</span>earch an <span>A</span>nime</h2>
-            <p className ="info1" ref = {mainionfo}>Check details about your favourite anime</p>
-                <div className = "wrapper" ref = {wrapper}>
-                    
-                    <input type="text" name="" id="search" placeholder = "Search" 
-                    value = {keyward} autoComplete = "off"
-                    onChange = {(e)=> {e.preventDefault();setKeyward(e.target.value)}}
-                    /> 
-                   
-                    <span className = "search-cover"></span>
-                    <div className= "search-result-container" ref = {searchContainer}>
-                        {loading && <Loading/>}
-                        {
-                            searchresult.map((result)=>{
-                                const {mal_id,title,image_url} = result;
+        <div className="main-container">
+            <h2 className="title1" ref={mainheader}><span>S</span>earch an <span>A</span>nime</h2>
+            <p className="info1" ref={mainionfo}>Check details about your favourite anime</p>
+            <div className="wrapper" ref={wrapper}>
 
-                                return <Link to = {`anime/${mal_id}`} className = "link" key = {mal_id}> 
-                                
-                                    <div className="search-result" >
-                                            <div className = "img-container">
-                                                <img src={image_url} alt="" />
-                                            </div>
-                                            <h5>{title}</h5>
+                <input type="text" name="" id="search" placeholder="Search"
+                    value={keyward} autoComplete="off"
+                    onChange={(e) => { e.preventDefault(); setKeyward(e.target.value) }}
+                />
 
+                <span className="search-cover"></span>
+                <div className="search-result-container" ref={searchContainer}>
+                    {loading && <Loading />}
+                    {
+                        searchresult.map((result) => {
+                            const { mal_id, title, image_url } = result;
+
+                            return <Link to={`anime/${mal_id}`} className="link" key={mal_id}>
+
+                                <div className="search-result" >
+                                    <div className="img-container">
+                                        <img src={image_url} alt="" />
                                     </div>
-                                
-                                </Link>
-                            })
-                        }
-                    </div>
-               
+                                    <h5>{title}</h5>
+
+                                </div>
+
+                            </Link>
+                        })
+                    }
+                </div>
+
             </div>
+        </div>
        
     </>
 }

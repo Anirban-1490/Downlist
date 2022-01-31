@@ -41,20 +41,29 @@
   
    position: relative;
     z-index: 1;
-    
+   
 }
 
 
 
 
-
-
-.title1
+.main-container
 {
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%,-0%);
+
+   flex:  0 0 600px;
+   min-height: 200px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   
+}
+
+.main-container .title1
+{
+    
+   
+    
     color: white;
     font-size: 3.0em;
    
@@ -65,10 +74,9 @@
     
 
 }
-.title1-toggle
+ .title1-toggle
 {
     top: 45%;
-    transform: translate(-50%,-45%);
 }
 .title1 span:nth-child(1)
 {
@@ -94,11 +102,8 @@
 
 
 
- .info1{
-    position: fixed;
-    top: 39%;
-    left: 50%;
-    transform: translate(-50%,0);
+.main-container .info1{
+
     color: white;
     font-size: 1.1em;
     
@@ -114,11 +119,11 @@
 @keyframes infoanim
 {
     0%{
-         transform: translate(-50%,-20px);
+         transform: translate(0,-20px);
          opacity: 0;
     }
     100%{
-        transform: translate(-50%,0);
+        transform: translate(0,0);
         opacity: 1;
     }
 }
@@ -127,19 +132,18 @@
 {
     top: 50%;
 }
- .wrapper
+.main-container .wrapper
 {
-   
-    position: fixed;
-    top: 44%;
-    left: 50%;
-    transform: translate(-50%);
-    height: 300px;
+  
+
+    min-height: 100px;
+    width: 350px;
     overflow: hidden;
     animation-name:wrapperanime ;
     animation-duration: 0.25s;
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
+    transform: translateY(20px);
 }
 .wrapper-toggle
 {
@@ -195,7 +199,7 @@
 
  #search
 {
-    width: 350px;
+    width: 100%;
     height: 35px;
    
     font-size: 1.2em;
@@ -232,27 +236,13 @@
     color: rgba(128, 128, 128, 0.768);
 }
 
- .seacrhbtn
-{
-    width: 120px;
-    height: 35px;
-    border-radius: 30px;
-    transform: translate(-20px,1px);
-    border: none;
-    outline: none;
-    text-align: center;
-    font-size: 17px;
-    background: linear-gradient(to top right , #eecda3,#ef629f);
-    color: white;
-}
+
  .wrapper .search-result-container
 {
    
     height: 270px;
     width: 100%;
     transform: translateY(5px);
-    position: absolute;
-    top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -274,7 +264,7 @@
  .wrapper .search-result-container .search-result
 {
     width: 100%;
-   
+  
     background: rgb(6, 6, 106);
     height: 60px;
     display: flex;
@@ -338,42 +328,30 @@ footer ul li:hover a{
 @media screen and (max-width:700px) {
    
 
-     .wrapper
-    {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-    }
-    .wrapper .seacrhbtn
-    {
-        transform: translate(0 ,20px);
-    }
+  
 }
 
 
 @media screen and (max-width:510px) {
    
-    .title1
+    .main-container .title1
     {
       font-size: 9vw;
     }
-    .info1
+    .main-container .info1
     {
       font-size: 3.67vw;
     }
-    .wrapper 
+    .main-container .wrapper 
     {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        width: 75vw;
         align-items: center;
-        height: auto;
     }
     #search
     {
-        width: 67vw;
+       
     }
     .wrapper .seacrhbtn
     {
