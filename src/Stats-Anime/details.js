@@ -329,19 +329,12 @@ export const Details =  (prop)=>
 export const Roles =  react.memo((prop)=>
 {
     const {char,path} = prop;
-    const [setWindowsize] = useState(0);
+    const [,setWindowsize] = useState(0);
     const [btnstate , setbtnState] = useState(false);
     const showMorebtn_handle = useRef();
    const inner_character_container_handler = useRef();
    const main_container = useRef();
    const [height,setHeight] = useState("270px");
-
-
-    function size()
-    {
-       setWindowsize(window.innerWidth);
-       
-    }
 
 
     const rolesContainerSize = react.useCallback(()=>
@@ -366,13 +359,13 @@ export const Roles =  react.memo((prop)=>
 
    useEffect(()=>
    {       
-       window.addEventListener("resize",size);
+       window.addEventListener("resize",()=>{setWindowsize(window.innerWidth)});
 
        rolesContainerSize()
        
-       return ()=> window.removeEventListener("resize",size);
+       return ()=> window.removeEventListener("resize",()=>{setWindowsize(window.innerWidth)});
        
-   },[rolesContainerSize]);
+   },[rolesContainerSize,setWindowsize]);
 
 
 
