@@ -63,7 +63,7 @@ const Resultmain =()=>
     }
 
     // fetch all the anime from a random genre
-   const {data,isLoading,isError} = useQuery(["recommendations",id],()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),{refetchOnWindowFocus:false,enabled:!!genres})
+   const {data,isLoading} = useQuery(["recommendations",id],()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),{refetchOnWindowFocus:false,enabled:!!genres})
 
     return <>
     
@@ -329,7 +329,7 @@ export const Details =  (prop)=>
 export const Roles =  react.memo((prop)=>
 {
     const {char,path} = prop;
-    const [windowsize,setWindowsize] = useState(0);
+    const [setWindowsize] = useState(0);
     const [btnstate , setbtnState] = useState(false);
     const showMorebtn_handle = useRef();
    const inner_character_container_handler = useRef();
@@ -340,31 +340,39 @@ export const Roles =  react.memo((prop)=>
     function size()
     {
        setWindowsize(window.innerWidth);
+       
     }
+
+
+    const rolesContainerSize = react.useCallback(()=>
+    {
+        if(inner_character_container_handler.current.scrollHeight< 250)
+        {
+            setHeight("270px");
+            showMorebtn_handle.current.style.display = "none";
+        }
+        else if (inner_character_container_handler.current.scrollHeight> 200 && inner_character_container_handler.current.scrollHeight< 500) 
+        {
+            setHeight("530px");
+            showMorebtn_handle.current.style.display = "none";
+        }
+        else if (inner_character_container_handler.current.scrollHeight > 490) 
+        {
+            setHeight("530px");
+            showMorebtn_handle.current.style.display = "block";
+        }
+    },[inner_character_container_handler.current?.scrollHeight])
+
 
    useEffect(()=>
    {       
        window.addEventListener("resize",size);
 
-       if(inner_character_container_handler.current.scrollHeight< 250)
-       {
-           setHeight("270px");
-           showMorebtn_handle.current.style.display = "none";
-       }
-       else if (inner_character_container_handler.current.scrollHeight> 200 && inner_character_container_handler.current.scrollHeight< 500) 
-       {
-           setHeight("530px");
-           showMorebtn_handle.current.style.display = "none";
-       }
-       else if (inner_character_container_handler.current.scrollHeight > 490) 
-       {
-           setHeight("530px");
-           showMorebtn_handle.current.style.display = "block";
-       }
+       rolesContainerSize()
        
        return ()=> window.removeEventListener("resize",size);
        
-   });
+   },[rolesContainerSize]);
 
 
 
