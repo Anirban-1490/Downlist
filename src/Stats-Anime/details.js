@@ -5,7 +5,7 @@ import "./animestyle.css";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useQueries } from "react-query";
+import { useQueries,useQuery } from "react-query";
 import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
 
@@ -15,26 +15,59 @@ const Resultmain =()=>
     const {id} = useParams();
     const malid = id;
     
+   
+
     const getDetails = (url)=> axios.get(url).then(value=> value.data);
 
     const getPeopleReaction = (url) => axios.get(url).then(result=>result.data);
     const getAllCharacters =(url)=> axios.get(url).then(res=>[...res.data.characters])
 
     const result = useQueries([
-        { queryKey: "details", 
-        queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),cacheTime:0 }
+        { queryKey: ["details",id], 
+        queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),cacheTime:0,refetchOnWindowFocus:false }
         ,
-        { queryKey: "people_reaction", 
-        queryFn: () => getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`) ,cacheTime:0 }
-        ,{queryKey:"characters",
-        queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),cacheTime:0 }
+        { queryKey: ["people_reaction",id], 
+        queryFn: () => getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`) ,cacheTime:0,refetchOnWindowFocus:false }
+        ,
+        {queryKey:["characters",id],
+        queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),cacheTime:0 ,refetchOnWindowFocus:false}
     ])
+    const genres = result[0].data?.genres;
+    const randomGenre = genres && genres[(Math.floor(Math.random()*10)%genres.length)];
+    const details = {animedetails:result[0].data ,animegenres:genres,stats:result[1].data,malid};
 
-    const details = {animedetails:result[0].data ,animegenres:result[0].data?.genres,stats:result[1].data,malid};
+
+
+
+    //get array of random anime
+
+    const getRecommend = (url)=>
+    {
+        if (result[0].data) {
+            return axios.get(url).then(res => {
+
+                let randomAnime = [];
+                while (randomAnime.length < 13) {
+
+                    randomAnime.push(res.data.anime[Math.floor(Math.random() * 100) % res.data.anime.length])
+                    
+                    randomAnime = [...new Set(randomAnime)]
+                }
+
+                
+                return randomAnime
+            }
+            );
+        }
+       
+    }
+
+    // fetch all the anime from a random genre
+   const {data,isLoading,isError} = useQuery(["recommendations",id],()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),{refetchOnWindowFocus:false,enabled:!!genres})
 
     return <>
     
-        {(result.some(item => item.isLoading)) ? <Spinner /> :
+        {(result.some(item => item.isLoading) && isLoading) ? <Spinner /> :
             (result.some(item => item.error)) ? <Errorpage/> :
                 <div className="container1" style={{
                     height: "auto"
@@ -57,6 +90,14 @@ const Resultmain =()=>
                     }}>Characters</h4>
                     <Roles char={result[2].data} path={'/character'} />
 
+                    <h4 style={{
+                        color: "white", fontSize: "35px",
+                        marginBottom: "1%",
+                        marginTop: "2em",
+                        letterSpacing: "2px",textAlign:"center"
+                    }}>Recommended</h4>
+                    <Roles char={data} path={'/anime'} />
+                    
                 </div>
 
 
@@ -292,6 +333,7 @@ export const Roles =  react.memo((prop)=>
     const [btnstate , setbtnState] = useState(false);
     const showMorebtn_handle = useRef();
    const inner_character_container_handler = useRef();
+   const main_container = useRef();
    const [height,setHeight] = useState("270px");
 
 
@@ -319,28 +361,29 @@ export const Roles =  react.memo((prop)=>
            setHeight("530px");
            showMorebtn_handle.current.style.display = "block";
        }
-
+       
        return ()=> window.removeEventListener("resize",size);
        
-   },[windowsize]);
+   });
 
 
 
     function handle_container()
     {
-        const character_container_handle = document.querySelector(".characters-container");
+    
         if(!btnstate)
         {
 
             // gets the innercontent height
-            const height = character_container_handle.scrollHeight;
-            character_container_handle.style.height = height + "px";
-            character_container_handle.style.transition = "0.35s";
+            const height = main_container.current.scrollHeight;
+            main_container.current.style.height = height + "px";
+            main_container.current.style.transition = "0.35s";
             setbtnState(true);
+            console.log(main_container.current.scrollHeight);
         }
         else
         {
-            character_container_handle.style.height = "530px";
+            main_container.current.style.height = "530px";
             setbtnState(false);
         }
             
@@ -350,7 +393,7 @@ export const Roles =  react.memo((prop)=>
     return <>
     
     <div className = "characters-container" 
-            style = {{height:height}}
+            style = {{height:height}} ref={main_container}
             
             >
                
@@ -358,17 +401,19 @@ export const Roles =  react.memo((prop)=>
                     {
                         char && char.map((c)=>
                         {
-                            const {name,mal_id,image_url,role,language} =c;
+                            const {name,mal_id,image_url,role,language,title} =c;
+                           const itemName = name || title
                            
-                           
-                           return <Link to ={(path)?path + `/${mal_id}`:`` } className="cards"  key = {mal_id}>
+                           return <Link to ={(path)?path + `/${mal_id}`:`` } className="cards"  key = {mal_id} >
                             <div >
                                 <div className="img-container">
                                     {image_url?<img src={image_url} alt="" />:""}
                                 </div>
                                 <div className = "details-char">
-                                    <h5>{(name.length<=37)?name:name.substr(0,37)+"..."}</h5>
-                                    <h5>{role || language}</h5>
+                                    <h5 style={(title)?{fontSize:"0.8em",padding:"0 2%",textAlign:"center"}:null}>{(itemName.length<=37)?itemName:itemName.substr(0,37)+"..."}</h5>
+                                    {
+                                        (role || language) && <h5>{role || language}</h5>
+                                    }
                                 </div>
                             </div>
                            
