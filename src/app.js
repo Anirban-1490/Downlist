@@ -9,6 +9,7 @@ import Detailschar from "../src/Stats-Anime/details-char";
 import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
 import {Mainsection} from "./Stats-Anime/about";
+import {Errorpage} from "./Stats-Anime/error";
 
 function App()
 {
@@ -18,13 +19,10 @@ function App()
             <ScrollToTop/>
             <Header/>
             <Routes>
-                <Route path = "/" element = {<Anime/>}/>
+                <Route index path = "/" element = {<Anime/>}/>
                    
-
                 <Route path = "/topanime" element = {<Topanime/>}/>
-               
-                
-                
+
                 <Route path = "/topcharacters" element = {<Topcharacters/>}/>
               
                 <Route path = "/about" element = {<Mainsection/>}/>
@@ -33,10 +31,13 @@ function App()
 
                  <Route path = "usercharacterlist" element = {<Listuser header = "Your character list" switch_item = "character"/>}/>
 
-
-
                  <Route path = "anime/:id" element = {<Details/>} />
                  <Route path = "character/:id" element = {<Detailschar/>}/>
+
+
+                {/* routing to non-existing path */}
+                <Route path="*" element={<Errorpage/>} />
+
 
             </Routes>
         </Router>
