@@ -378,6 +378,7 @@ footer div h3:nth-child(1) a i{
     text-align: center;
     font-size: clamp(1.9em,2vw,3vw);
     color: #9579f0;
+    margin-bottom: 20px;
     
 }
 .airing h2 span
