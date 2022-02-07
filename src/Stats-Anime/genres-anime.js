@@ -40,7 +40,7 @@ export const Genres = ()=>
 
         <div className="wrapper-type">
             <h4>Choose your type</h4>
-            <Dropdown options = {options} setID = {setID} genre_id = {genre_id} placeholder = "Comedy" />
+            <Dropdown options = {options} setID = {setID}  placeholder = "Comedy" stats_anime ={null} />
 
         </div>
     </>
@@ -50,18 +50,27 @@ export const Genres = ()=>
 
 export const Dropdown = (prop)=>
 {
-    const {options , setID ,genre_id ,placeholder} = prop;
+    const {options , setID ,placeholder,stats_anime} = prop;
     const optionref = react.useRef();
-
+   
     const dropDownToggle = ()=>
     {
         optionref.current.classList.toggle("active");
         document.querySelector(".wrapper-input").classList.toggle("active")
     }
 
-    react.useEffect(()=>{
+    // when moving to diff page(from anime list -> char list) this will clear out the set key value for sorting the lists
+    const clrDrop = react.useCallback(() => {
+        if (stats_anime) {
+            setID("");
+            document.querySelector(".genre-display").value = null;
+        }
+    }, [stats_anime])
 
-    },[genre_id]);
+    react.useEffect(() => {
+        clrDrop()
+
+    }, [clrDrop]);
 
 
    return <div className="wrapper-input">
@@ -71,16 +80,15 @@ export const Dropdown = (prop)=>
                     {
                         options.map(option => {
                             const {genre_id,name,_name} = option;
-                            return <div 
-                            onClick={()=>
-                                {  
-                                    (_name)?setID(_name):setID(genre_id);
+                            return (genre_id) ? <div
+                                onClick={() => {
+                                    (_name) ? setID(_name) : setID(genre_id);
                                     document.querySelector(".genre-display").value = name;
                                     optionref.current.classList.toggle("active");
                                     document.querySelector(".wrapper-input").classList.toggle("active")
-                                }} key ={genre_id}> 
+                                }} key={genre_id}>
                                 <h4>{name}</h4>
-                                </div>
+                            </div> : ""
                         })
                     }
 

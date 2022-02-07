@@ -3,6 +3,7 @@ import { Link  } from "react-router-dom";
 import {Dropdown} from "./genres-anime";
 import "./genreAnime-style.css";
 import "./list-style.css";
+import react from "react";
 
 
 
@@ -34,7 +35,7 @@ function useList(switch_item)
         
     }
    } , [switch_item])
-    return list;
+    return [list,setList];
 }
 
 
@@ -42,12 +43,14 @@ function List(props)
 {
     const {header,switch_item} = props;
     const [isempty,setIsempty] = useState(false);
-    const list = useList(switch_item);
+    const [list,setList] = useList(switch_item);
 
-    
+
     const [stat,setStat] = useState("");
-    const options = [{ genre_id: 1, name: "Score",_name:"score" },
-    { genre_id: 2, name: "Favourite",_name:"fav" }
+    const options = [
+        { genre_id: 1, name: "Favourite", _name: "fav" }, 
+        (switch_item!=="character")? { genre_id: 2, name: "Score", _name: "score" }:{}
+
     ];
    
 
@@ -79,6 +82,14 @@ function List(props)
     },[checkListempty])
 
 
+    const sortCheck = react.useCallback(() => {
+        setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
+    }, [stat])
+    useEffect(() => {
+
+        sortCheck()
+
+    }, [sortCheck])
 
 
     return <>
@@ -86,7 +97,7 @@ function List(props)
         <div className="option-container">
             <div className="wrapper-type" >
 
-                <Dropdown options={options} setID={setStat} genre_id={stat} placeholder = "Sort by..." />
+                <Dropdown options={options} setID={setStat}  placeholder = "Sort by..." stats_anime = {switch_item}/>
 
             </div>
             <button className="clr-btn" type="button" onClick={clearlist}><span><i className="fas fa-times"></i></span> <span>Clear list</span></button>
