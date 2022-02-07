@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from "react";
 import { Link  } from "react-router-dom";
+import {Dropdown} from "./genres-anime";
+import "./genreAnime-style.css";
 import "./list-style.css";
 
 
@@ -39,13 +41,14 @@ function useList(switch_item)
 function List(props)
 {
     const {header,switch_item} = props;
-    
-  
     const [isempty,setIsempty] = useState(false);
-
-
     const list = useList(switch_item);
-   
+
+    
+    const [stat,setStat] = useState("");
+    const options = [{ genre_id: 1, name: "Score",_name:"score" },
+    { genre_id: 2, name: "Favourite",_name:"fav" }
+    ];
    
 
     const clearlist =()=> 
@@ -77,9 +80,17 @@ function List(props)
 
 
 
+
     return <>
         <h2 className = "header">{header}</h2>
-        <button className="clr-btn" type = "button" onClick={clearlist}><span><i className="fas fa-times"></i></span> <span>Clear list</span></button>
+        <div className="option-container">
+            <div className="wrapper-type" >
+
+                <Dropdown options={options} setID={setStat} genre_id={stat} placeholder = "Sort by..." />
+
+            </div>
+            <button className="clr-btn" type="button" onClick={clearlist}><span><i className="fas fa-times"></i></span> <span>Clear list</span></button>
+        </div>
        
             <ul className = "search-container">
             

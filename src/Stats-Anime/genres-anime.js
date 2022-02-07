@@ -8,7 +8,7 @@ import react from "react";
 
 export const Genres = ()=>
 {
-    const optionref = react.useRef();
+    
     const [genre_id,setID] = react.useState(4);
    
     const options = [{genre_id:1,name:"Action"},
@@ -28,21 +28,7 @@ export const Genres = ()=>
         return axios.get(`https://api.jikan.moe/v3/genre/anime/${genre_id}/1`).then(res=>res.data.anime.slice(0,16));
     }
 
-    
-    const dropDownToggle = ()=>
-    {
-        optionref.current.classList.toggle("active");
-        document.querySelector(".wrapper-input").classList.toggle("active")
-    }
-
-    react.useEffect(()=>{
-
-    },[genre_id]);
-
-
-
-
-    
+  
     return <>
         <div className="genre-first">
             <h2>DISCOVER <br /> <span>More </span> <br /> <span>Anime</span></h2>
@@ -54,20 +40,45 @@ export const Genres = ()=>
 
         <div className="wrapper-type">
             <h4>Choose your type</h4>
-            <div className="wrapper-input">
+            <Dropdown options = {options} setID = {setID} genre_id = {genre_id} placeholder = "Comedy" />
+
+        </div>
+    </>
+}
+
+// drop down options
+
+export const Dropdown = (prop)=>
+{
+    const {options , setID ,genre_id ,placeholder} = prop;
+    const optionref = react.useRef();
+
+    const dropDownToggle = ()=>
+    {
+        optionref.current.classList.toggle("active");
+        document.querySelector(".wrapper-input").classList.toggle("active")
+    }
+
+    react.useEffect(()=>{
+
+    },[genre_id]);
+
+
+   return <div className="wrapper-input">
                 <ion-icon name="chevron-down-outline"></ion-icon>
-                <input className="genre-display" defaultValue={"Comedy"} type="text" name="" readOnly onClick={dropDownToggle}/>
+                <input className="genre-display" placeholder={placeholder} type="text" name="" readOnly onClick={dropDownToggle}/>
                 <div className="option" ref={optionref}>
                     {
                         options.map(option => {
-                            const {genre_id,name} = option;
+                            const {genre_id,name,_name} = option;
                             return <div 
                             onClick={()=>
-                                {setID(genre_id);
+                                {  
+                                    (_name)?setID(_name):setID(genre_id);
                                     document.querySelector(".genre-display").value = name;
                                     optionref.current.classList.toggle("active");
                                     document.querySelector(".wrapper-input").classList.toggle("active")
-                                }}> 
+                                }} key ={genre_id}> 
                                 <h4>{name}</h4>
                                 </div>
                         })
@@ -75,7 +86,4 @@ export const Genres = ()=>
 
                 </div>
             </div>
-
-        </div>
-    </>
 }

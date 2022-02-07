@@ -79,6 +79,10 @@
     font-weight: 600;
    
 }
+.wrapper-type .genre-display::placeholder
+{
+    color: black;
+}
 .wrapper-input
 {
     margin-top: 20px;
