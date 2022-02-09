@@ -34,13 +34,14 @@
     z-index: -3;
     background: #1f2833;
     overflow: hidden;
+    
 }
 .container1
 {
     height: 95vh;
-  
    position: relative;
     z-index: 1;
+  
    
 }
 
@@ -56,7 +57,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   
+   transform: scaleY(0.85);
 }
 
 .main-container .title1
@@ -165,7 +166,7 @@
 
 .search-cover
 {
-   background: blueviolet;
+   background: orange;
     width: 100%;
     position: absolute;
     left: 102%;
@@ -206,7 +207,7 @@
     padding-left: 10px;
     outline: none;
     border: none;
-    border-bottom: 2px solid blueviolet;
+    border-bottom: 2px solid orange;
     background: transparent;
     color: white;
     opacity: 0;
@@ -233,7 +234,7 @@
  #search::placeholder
 {
     font-size: 18px;
-    color: rgba(128, 128, 128, 0.768);
+    color: pink;
 }
 
 
@@ -348,10 +349,6 @@ footer ul li:hover a{
         flex-direction: column;
         width: 75vw;
         align-items: center;
-    }
-    #search
-    {
-       
     }
     .wrapper .seacrhbtn
     {

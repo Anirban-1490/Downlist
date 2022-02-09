@@ -6,15 +6,37 @@ import axios from "axios";
 import {Appcontext} from "./context";
 import { useContext } from "react";
 import react from "react";
+import Fog from 'vanta/dist/vanta.fog.min'
 
 function Main()
 {
 
+    const mydiv = useRef()
+    const [vantaEffect, setVantaEffect] = useState(0)
+  
+    useEffect(() => {
+      if (!vantaEffect) {
+          setVantaEffect(Fog({
+              el: mydiv.current, highlightColor: 0xe2b34,
+              midtoneColor: 0x98368b,
+              lowlightColor: 0x9285cf,
+              baseColor: 0x148b93,
+              speed: 1.30,
+              zoom: 0.60
+          }))
+         
+      }
+      return () => {
+        if (vantaEffect) vantaEffect.destroy()
+      }
+    }, [vantaEffect])
+
+   
     return (
         
         <>
             
-            <div className = "container1" style={{display:"flex",alignItems:"center",justifyContent:"center"}} >
+            <div className = "container1" style={{display:"flex",alignItems:"center",justifyContent:"center",transform:"scaleY(1.15)",top:"-50px",height:"110vh"}} ref= {mydiv} >
               
                 <Content/>
             </div>
