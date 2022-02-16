@@ -119,7 +119,7 @@ function Content()
             <p className="info1" ref={mainionfo}>Check details about your favourite anime</p>
             <div className="wrapper" ref={wrapper}>
 
-                <input type="text" name="" id="search" placeholder="Search"
+                <input type="text" name="" id="search" placeholder="Search e.g. naruto ,fate"
                     value={keyward} autoComplete="off"
                     onChange={(e) => { e.preventDefault(); setKeyward(e.target.value) }}
                 />
