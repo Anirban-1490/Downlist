@@ -13,7 +13,8 @@ function Main()
 
     const mydiv = useRef()
     const [vantaEffect, setVantaEffect] = useState(0)
-  
+    //* Vanta.js fog animated background initializer
+
     useEffect(() => {
       if (!vantaEffect) {
           setVantaEffect(Fog({
@@ -24,7 +25,7 @@ function Main()
               speed: 1.30,
               zoom: 0.60
           }))
-         
+        
       }
       return () => {
         if (vantaEffect) vantaEffect.destroy()
@@ -36,7 +37,16 @@ function Main()
         
         <>
             
-            <div className = "container1" style={{display:"flex",alignItems:"center",justifyContent:"center",transform:"scaleY(1.15)",top:"-50px",height:"110vh"}} ref= {mydiv} >
+            <div className="container1" 
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transform: "scaleY(1.15)",
+                    top: "-50px",
+                    height: "110vh"
+                }} 
+            ref={mydiv} >
               
                 <Content/>
             </div>
@@ -60,16 +70,17 @@ function Content()
     const wrapper = useRef();
     
 
-   
+   //* set up a axios cancel token
     const [cancel,setcancel] = useState(axios.CancelToken.source());
    
+    //* show the live search result
     const getResult = react.useCallback(()=>
     {
         if(keyward!=="")
         {   
             let can = cancel;
             setSearchresult([]);
-            toggle_loading_state(true);
+            toggle_loading_state(true); //*show loading text
             set_loading_text("Loading...");
             searchContainer.current.classList.remove("search-result-container-toggle");
             mainheader.current.classList.remove("title1-toggle");
@@ -79,17 +90,21 @@ function Content()
 
             if(can)
             {
-                can.cancel("hello");
+                can.cancel("token canceled");
             }
-            can = axios.CancelToken.source();
-            setcancel(can);
+            can = axios.CancelToken.source(); //*create a new token
+            setcancel(can); 
 
              axios.get(`https://api.jikan.moe/v3/search/anime?q=${keyward}&page=1`, { cancelToken: can.token })
              .then(res =>
-             {setSearchresult([...res.data.results].slice(0,4));
-                toggle_loading_state(false);})
-            .catch(err => {console.log(err);
-                        set_loading_text("No results")} );
+             {
+                 setSearchresult([...res.data.results].slice(0, 4));
+                 toggle_loading_state(false); 
+             })
+            .catch(err => {
+                console.log(err);
+                set_loading_text("No results")
+            });
         }
         else
         {
@@ -106,8 +121,8 @@ function Content()
 
 
 
-    useEffect(()=>getResult()
-    , [getResult]);
+    useEffect(() => getResult()
+        , [getResult]);
 
 
 
@@ -119,15 +134,20 @@ function Content()
             <p className="info1" ref={mainionfo}>Check details about your favourite anime</p>
             <div className="wrapper" ref={wrapper}>
 
-                <input type="text" name="" id="search" placeholder="Search e.g. naruto ,fate"
+                <input type="text" name="" id="search" 
+                    placeholder="Search e.g. naruto ,fate"
                     value={keyward} autoComplete="off"
-                    onChange={(e) => { e.preventDefault(); setKeyward(e.target.value) }}
+                    onChange={(e) => 
+                        { e.preventDefault(); 
+                            setKeyward(e.target.value)
+                        }}
                 />
 
                 <span className="search-cover"></span>
                 <div className="search-result-container" ref={searchContainer}>
                     {loading && <Loading />}
                     {
+                        //* show the search result ----
                         searchresult.map((result) => {
                             const { mal_id, title, image_url } = result;
 
@@ -152,6 +172,10 @@ function Content()
     </>
 }
 
+
+
+
+//* Loading text ----
 
 function Loading()
 {

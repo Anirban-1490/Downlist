@@ -10,6 +10,9 @@ import {Errorpage} from "./error";
 import axios from "axios";
 import React from "react";
 
+//* component for character details
+
+
 function Resultmain()
 {
 

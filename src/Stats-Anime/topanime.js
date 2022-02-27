@@ -15,7 +15,7 @@ import {Errorpage} from "./error";
 const year = new Date().getFullYear();
 
 
-// --- custom hook for fetching top from the list
+// --- custom hook for fetching top anime/character from the user list
 
 export function useToplist(switch_item)
 {
@@ -36,7 +36,8 @@ export function useToplist(switch_item)
                 const { malid, img_url, title } = item;
                    
                     await fetch(`https://api.jikan.moe/v3/${switch_item}/${malid}`).then(async res => await res.json()).then((result) => {
-                        console.log("helloeeeeee");
+
+                        // user's inventory 
                         setListitem((item) => [...item, { malid, img_url, title, about: (switch_item==="anime")?result.synopsis:result.about }]);
                       
                     }).catch(err => console.log(err));
@@ -60,9 +61,24 @@ function TopanimeMain()
         return axios.get(url).then(res=>[...res.data.top].slice(0,16));
     }
 
-    const results = useQueries([{queryKey:"upcoming_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/upcoming"),retry:false,staleTime:Infinity,cacheTime:Infinity},
-    {queryKey:"popular_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),retry:false,staleTime:Infinity,cacheTime:Infinity} , 
-    {queryKey:"airing_anime",queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),retry:false,staleTime:Infinity,cacheTime:Infinity}])
+    const results = useQueries([{queryKey:"upcoming_anime",
+        queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/upcoming"),
+        retry:false,
+        staleTime:Infinity,
+        cacheTime:Infinity
+    },
+    {queryKey:"popular_anime",
+        queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),
+        retry:false,
+        staleTime:Infinity,
+        cacheTime:Infinity
+    } , 
+    {queryKey:"airing_anime",
+        queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),
+        retry:false,
+        staleTime:Infinity,
+        cacheTime:Infinity
+    }])
 
     
     const [listitem,listcount] = useToplist("anime");
@@ -152,6 +168,7 @@ export function Footer( {marginTop}){
     }
     
 
+    //* top popular section
 
 export const Toppopular = react.memo((prop)=>
 {
@@ -165,6 +182,7 @@ export const Toppopular = react.memo((prop)=>
         </>
 });
 
+//* upcoming section
 export const Upcoming = react.memo ((prop)=>
 {
 
@@ -178,6 +196,8 @@ export const Upcoming = react.memo ((prop)=>
         </>
 });
 
+//* currently airing section
+
 export const Currentlyairing = react.memo ((prop)=>
 {
     const {airing , switch_details,text_} = prop;
@@ -190,6 +210,7 @@ export const Currentlyairing = react.memo ((prop)=>
         </>
 });
 
+//* what's on your inventory section
 export const TopofyourList  = react.memo((prop)=>
 {
     const {listitem , text_ ,switch_details} =prop;
@@ -223,7 +244,7 @@ export const TopofyourList  = react.memo((prop)=>
 
     const windowSizeBreakpoint = react.useCallback(()=>
     {
-        console.log("hello");
+        
         if(window.innerWidth <650)
         {
          setTriggercomp(true);
@@ -251,12 +272,13 @@ export const TopofyourList  = react.memo((prop)=>
         window.addEventListener("resize", size);
 
        
-     
+        //switch to current visable slide
         let num = currnum;
         change(num);
         return ()=> window.removeEventListener("resize",size);
     })
 
+    //* next button
     const gonext = () => {
         handle_container.current.style.transition = "0.4s ease-in";
         let num = currnum;
@@ -271,6 +293,7 @@ export const TopofyourList  = react.memo((prop)=>
         change(num+1);
     }
 
+    //* previous button
     const goprev = () => {
         handle_container.current.style.transition = "0.4s ease-in";
         let num = currnum;
@@ -285,6 +308,8 @@ export const TopofyourList  = react.memo((prop)=>
 
         change(num - 1);
     }
+
+    //move the slides
     function change(num) {
         setoffset(-(innerwidth+20) * num);
        

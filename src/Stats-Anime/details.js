@@ -9,6 +9,9 @@ import { useQueries,useQuery } from "react-query";
 import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
 
+
+//* component for anime details
+
 const Resultmain =()=>
 {
 
@@ -16,10 +19,12 @@ const Resultmain =()=>
     const malid = id;
     
    
-
+    //* details of that anime
     const getDetails = (url)=> axios.get(url).then(value=> value.data);
 
+    //* get people reaction like favourites
     const getPeopleReaction = (url) => axios.get(url).then(result=>result.data);
+    //* get all the characters in that anime
     const getAllCharacters =(url)=> axios.get(url).then(res=>[...res.data.characters])
 
     const result = useQueries([
@@ -32,14 +37,18 @@ const Resultmain =()=>
         {queryKey:["characters",id],
         queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),cacheTime:0 ,refetchOnWindowFocus:false}
     ])
+
+
     const genres = result[0].data?.genres;
     const randomGenre = genres && genres[(Math.floor(Math.random()*10)%genres.length)];
+
+    //object for the metadeta of that anime
     const details = {animedetails:result[0].data ,animegenres:genres,stats:result[1].data,malid};
 
 
 
 
-    //get array of random anime
+    //get array of random anime recommendation
 
     const getRecommend = (url)=>
     {
@@ -62,8 +71,10 @@ const Resultmain =()=>
        
     }
 
-    // fetch all the anime from a random genre
-   const {data,isLoading} = useQuery(["recommendations",id],()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),{refetchOnWindowFocus:false,enabled:!!genres})
+    // fetch all the anime from a random genre with it's genre id
+   const {data,isLoading} = useQuery(["recommendations",id],
+   ()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),
+   {refetchOnWindowFocus:false,enabled:!!genres})
 
     return <>
     
@@ -80,6 +91,7 @@ const Resultmain =()=>
                         switch_path="topanime"
                     />
 
+                    //* characters section
                     <h4 style={{
                         color: "white", fontSize: "25px",
                         marginLeft: "14.5%",
@@ -90,6 +102,7 @@ const Resultmain =()=>
                     }}>Characters</h4>
                     <Roles char={result[2].data} path={'/character'} />
 
+                    //* recommendations section
                     <h4 style={{
                         color: "white", fontSize: "35px",
                         marginBottom: "1%",
@@ -117,6 +130,7 @@ export const Details =  (prop)=>
     const btn = useRef();
     let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
 
+    //function to check if item is in the local storage when you visit this page later
     const checkItem = react.useCallback(()=>
     {
         if(switch_item==="anime")
@@ -126,6 +140,7 @@ export const Details =  (prop)=>
                 [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
                     if(obj.malid===malid)
                     {
+                        //if item is in local storage the set this state to true
                         setItemadd(true);
                     }      
                 });
@@ -149,7 +164,7 @@ export const Details =  (prop)=>
    
     useEffect(()=>checkItem(),[checkItem]);
 
-   
+   // function to add item into local storage
     function Additem()
     {
         let temparray =[];
@@ -157,7 +172,7 @@ export const Details =  (prop)=>
         if(itemadd ===false)
         {
             
-            
+            //check if the route is for anime
             if(switch_item==="anime")
             {
                 const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites};
@@ -174,6 +189,7 @@ export const Details =  (prop)=>
                 
                 localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
             }
+            //check if the route is for character
             else if(switch_item === "character")
             {
                 const item = {malid,img_url:animedetails.image_url,title:name,fav};
@@ -188,13 +204,17 @@ export const Details =  (prop)=>
                     temparray = [...temparray,item];
                 }
                 
-                localStorage.setItem(switch_item,JSON.stringify(temparray));
+                localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
             }
+
+            //item added
             setItemadd(true);
            
         }
         else
         {
+            //* if item already added then remove it
+
             if(switch_item === "anime")
             {
                 temparray = JSON.parse(localStorage.getItem(switch_item));
@@ -337,6 +357,7 @@ export const Roles =  react.memo((prop)=>
    const [height,setHeight] = useState("270px");
 
 
+   //*determine the container height for the characetr/roles section
     const rolesContainerSize = react.useCallback(()=>
     {
         if(inner_character_container_handler.current.scrollHeight< 250)
@@ -361,17 +382,16 @@ export const Roles =  react.memo((prop)=>
    {       
        window.addEventListener("resize",()=>{setWindowsize(window.innerWidth)});
 
-       rolesContainerSize()
+       rolesContainerSize() //whenever window size changes check for the container size
        
        return ()=> window.removeEventListener("resize",()=>{setWindowsize(window.innerWidth)});
        
    },[rolesContainerSize,setWindowsize]);
 
 
-
+   //handler for "see more" button 
     function handle_container()
     {
-    
         if(!btnstate)
         {
 
@@ -380,7 +400,6 @@ export const Roles =  react.memo((prop)=>
             main_container.current.style.height = height + "px";
             main_container.current.style.transition = "0.35s";
             setbtnState(true);
-            console.log(main_container.current.scrollHeight);
         }
         else
         {
@@ -430,11 +449,6 @@ export const Roles =  react.memo((prop)=>
             <div className= "empty-for-no-reason"></div>
     </>
 })
-
-
-
-
-
 
 
 export default Resultmain;

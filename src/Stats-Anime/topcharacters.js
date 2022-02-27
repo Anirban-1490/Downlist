@@ -29,8 +29,12 @@ function TopacharMain()
     {
         return axios.get(url).then(res=>[...res.data.top].slice(0,16));
     }
+
+
+    //* handler for fetching summer/fall top characters as API dosen't provide
     const fetch_broad_request =async (url_init)=>
     {
+        //delay between each request
         const delay = (ms = 4000) => new Promise(r => setTimeout(r, ms));
         
       return await axios.get(url_init).then( response => response.data.anime)
@@ -46,13 +50,15 @@ function TopacharMain()
                     .then(async res => {
                         const result = await res.json();
                         const anime_char_sum = [...result.characters];
-                        return anime_char_sum;
+                        return anime_char_sum; //return all summer character from sumer anime
                     })
                     .then(res_char_summer => {
 
                         return res_char_summer.reduce((acc, char) => {
 
                             const { mal_id, name, role, image_url } = char;
+                            
+                            //* return only the main character from summer/fall
                             return (role === "Main") ?
                                 [...acc, { mal_id, title: name, image_url }] : acc
                         }, [])

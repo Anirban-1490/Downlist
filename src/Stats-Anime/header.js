@@ -94,11 +94,12 @@ export function Header()
     )
 }
 
-
+// mobile view navbar ------
 
  export function Smallnav()
 {
-   
+
+   //*end animation after clicking a navigation link or the close button
     const clickhandler = ()=>{
         [...document.getElementsByClassName("parts")].forEach(ele => ele.classList.remove("animate"));
         toggle(false);
@@ -109,12 +110,7 @@ export function Header()
     return <>
         <div className="smallnav" style={(ishamclick)?{width:"100%",transition:" all 0.24s"}:{width:"0",transition:" all 0.24s 1.7s"}}>
 
-                <i className="fas fa-times" style={(ishamclick)?{opacity:"1"}:{opacity:"0",transition:"none"}} onClick = { ()=>{
-                 [...document.getElementsByClassName("parts")].forEach(ele => ele.classList.remove("animate"));
-              
-                toggle(false);
-                
-                }}></i>
+                <i className="fas fa-times" style={(ishamclick)?{opacity:"1"}:{opacity:"0",transition:"none"}} onClick = { clickhandler}></i>
                 <div className="smallnav-parts-container">
                     <div className="parts part-1 anime-default" style={{"--i":"1"}}></div>
                     <div className="parts part-2 anime-default" style={{"--i":"2"}} ></div>
@@ -122,6 +118,8 @@ export function Header()
                     <div className="parts part-4 anime-default" style={{"--i":"4"}}></div>
                 </div>
                 <div className="smallnav-nav-container" style={(ishamclick)?{opacity:"1",transition: "all 0s 0.56s"}:{opacity:"0",transition:"all 0s 0.45s"}}>
+
+                    //* navigation links
                    <div className="smallnav-nav">
                     <Link className="navlink" onClick={clickhandler} to="/topanime">Anime</Link>
                     <Link className="navlink" onClick={clickhandler} to="/topcharacters">Characters</Link>

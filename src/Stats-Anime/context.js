@@ -9,14 +9,14 @@ const Approvider = ({children})=>
 {
 
     const [ishamclick , setIshamclick] = useState(false);
-    const [loading,setLoading] = useState(false);
-    const [loadingtext,setLoadingtext] = useState("");
+    const [loading,setLoading] = useState(false); //* trigger for the loading text
+    const [loadingtext,setLoadingtext] = useState(""); //* content of the loading text
 
     const toggle = (bool)=>
     {
         setIshamclick(bool);
     }
-    const toggle_loading_state = (bool)=>
+    const toggle_loading_state = (bool)=> //* handler for loading text
     {
         setLoading(bool);
     }

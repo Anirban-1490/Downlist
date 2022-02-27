@@ -13,8 +13,10 @@ import {Errorpage} from "./Stats-Anime/error";
 
 function App()
 {
+    // route starts
     return <>
     
+        
         <Router>
             <ScrollToTop/>
             <Header/>

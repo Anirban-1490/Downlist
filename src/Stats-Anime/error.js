@@ -1,7 +1,7 @@
 import React from "react";
 import "./error-style.css";
 
-
+//* page for 404 ---------
 export const Errorpage = ()=>
 {
 

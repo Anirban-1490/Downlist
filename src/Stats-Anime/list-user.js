@@ -47,12 +47,13 @@ function List(props)
 
 
     const [stat,setStat] = useState("");
+    //* sorting by options
     const options = [
-        { genre_id: 1, name: "Favourite", _name: "fav" }, 
-        (switch_item!=="character")? { genre_id: 2, name: "Score", _name: "score" }:{}
+        { genre_id: 1, name: "Favourite", _name: "fav" },
+        (switch_item !== "character") ? { genre_id: 2, name: "Score", _name: "score" } : {}
 
     ];
-   
+
 
     const clearlist =()=> 
     {
@@ -63,6 +64,7 @@ function List(props)
        
     }
 
+    //*when ever component mounts check if the list is empty
     const checkListempty = React.useCallback(()=>
     {
       if (JSON.parse(localStorage.getItem(switch_item)) === null) {
@@ -74,6 +76,7 @@ function List(props)
         setIsempty(false);
       }
     },[switch_item])
+
     useEffect(()=>
     {
      
@@ -82,6 +85,7 @@ function List(props)
     },[checkListempty])
 
 
+    //*sort by which ?
     const sortCheck = react.useCallback(() => {
         setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
     }, [stat])
@@ -96,7 +100,8 @@ function List(props)
         <h2 className = "header">{header}</h2>
         <div className="option-container">
             <div className="wrapper-type" >
-
+                
+                //* dropdown for sort by.....
                 <Dropdown options={options} setID={setStat}  placeholder = "Sort by..." stats_anime = {switch_item}/>
 
             </div>

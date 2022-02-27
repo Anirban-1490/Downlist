@@ -46,7 +46,7 @@ export const Genres = ()=>
     </>
 }
 
-// drop down options
+// drop down options------
 
 export const Dropdown = (prop)=>
 {
