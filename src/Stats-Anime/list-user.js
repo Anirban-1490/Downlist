@@ -100,10 +100,8 @@ function List(props)
         <h2 className = "header">{header}</h2>
         <div className="option-container">
             <div className="wrapper-type" >
-                
-                //* dropdown for sort by.....
+             {/* drop down for sorting */}
                 <Dropdown options={options} setID={setStat}  placeholder = "Sort by..." stats_anime = {switch_item}/>
-
             </div>
             <button className="clr-btn" type="button" onClick={clearlist}><span><i className="fas fa-times"></i></span> <span>Clear list</span></button>
         </div>
