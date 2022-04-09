@@ -1,6 +1,6 @@
 import {useRef,useEffect,useState,useReducer} from "react";
 import "./signup.css"
-
+import axios from "axios";
 
 
 
@@ -46,7 +46,7 @@ export const SignupMain = () => {
 
         const formData = new FormData(e.target.parentElement);
         const userInfo = Object.fromEntries(formData)
-        console.log(userInfo);
+        
         
     }
 
