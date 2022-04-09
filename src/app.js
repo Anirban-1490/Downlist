@@ -10,6 +10,7 @@ import Listuser from "../src/Stats-Anime/list-user";
 import ScrollToTop from "../src/Stats-Anime/scrollTotop";
 import {Mainsection} from "./Stats-Anime/about";
 import {Errorpage} from "./Stats-Anime/error";
+import {SignupMain} from "./Stats-Anime/Signup"
 
 function App()
 {
@@ -36,7 +37,7 @@ function App()
                  <Route path = "anime/:id" element = {<Details/>} />
                  <Route path = "character/:id" element = {<Detailschar/>}/>
 
-
+                <Route path="userauth"  element ={<SignupMain/>} />
                 {/* routing to non-existing path */}
                 <Route path="*" element={<Errorpage/>} />
 

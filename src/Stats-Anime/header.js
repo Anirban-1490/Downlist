@@ -29,6 +29,7 @@ export function Header()
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
 
+   const [isUserLogged,setLog] =useState(false);
     const toggelnav = ()=>
     {
         [...document.getElementsByClassName("parts")].forEach(ele=>ele.classList.add("animate"));
@@ -71,21 +72,26 @@ export function Header()
                     <nav><Link className="link" to="/topcharacters">Characters</Link></nav>
                     <nav><Link className="link" to="/about">About</Link></nav>
                 </ul>
-                <i className="fas fa-user" ref={userbtn}>
-                    <div className = "yourlist" ref = {refdropmenu}>
-                        
-                        <Link to="useranimelist">
-                            <button  className = "your-anime" >
-                                Anime list
-                            </button>
-                        </Link>
-                        <Link to="usercharacterlist">
-                            <button  className = "your-anime" >
-                                Character list
-                            </button>
-                        </Link>
-                    </div>
-                </i>
+               {
+                   (isUserLogged)? <i className="fas fa-user" ref={userbtn}>
+                   <div className = "yourlist" ref = {refdropmenu}>
+                       
+                       <Link to="useranimelist">
+                           <button  className = "your-anime" >
+                               Anime list
+                           </button>
+                       </Link>
+                       <Link to="usercharacterlist">
+                           <button  className = "your-anime" >
+                               Character list
+                           </button>
+                       </Link>
+                   </div>
+               </i> :
+                <Link to="userauth" className="signup">
+                    Sign in
+                </Link>
+               }
 
                 <i className={`fas fa-bars menutoggle ${(ishamclick)?"toggle-style-ham":""}`} onClick ={toggelnav} ></i>
 
@@ -118,8 +124,8 @@ export function Header()
                     <div className="parts part-4 anime-default" style={{"--i":"4"}}></div>
                 </div>
                 <div className="smallnav-nav-container" style={(ishamclick)?{opacity:"1",transition: "all 0s 0.56s"}:{opacity:"0",transition:"all 0s 0.45s"}}>
-
-                    //* navigation links
+                    {/* navigation links */}
+                    
                    <div className="smallnav-nav">
                     <Link className="navlink" onClick={clickhandler} to="/topanime">Anime</Link>
                     <Link className="navlink" onClick={clickhandler} to="/topcharacters">Characters</Link>

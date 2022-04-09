@@ -92,6 +92,23 @@
     opacity: 0;
 }
 
+.signup{
+    
+    position: absolute;
+    right: 3.5em;
+    top: 50%;
+    transform: translate(0,-50%);
+    /* width: 40px;
+    height: 40px; */
+    color: white;
+    text-align: center;
+    font-size: 1.05em;
+    z-index: 2;
+    padding: 0.3em 0.75em;
+    text-decoration: none;
+    background: rgb(235, 155, 7);
+    border-radius: 0.7em;
+}
 
  .fa-user
 {
