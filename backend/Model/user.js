@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -24,6 +26,8 @@ const userSchema = new mongoose.Schema({
 
 //* a pre hook middleware used to has the password before saving to database
 userSchema.pre("save",async function(){
+
+    //* hash password with bcrypt
     const salt = await bcrypt.genSalt(9);
    this.password = await bcrypt.hash(this.password,salt);
 })
@@ -33,25 +37,19 @@ userSchema.pre("save",async function(){
 //? remember if next() has an error as an argument then it will skip all non-error handling routes and will execute only an error handling middleware
 
 userSchema.post("save",(error,doc,next)=>{
-    if(error.name === 'MongoServerError' && error.code === 11000){
-        //* if error is about duplicate mail 
-        next(
-
-            new Error(JSON.stringify({
-                "error": {
-                    "duplicate": {
-                        "message": "Email is already in use."
-                    }
-                }
-            }))
-        
-        )
-    }
-    else{
-        //* fot other errors
+   
+        //* fot  errors
         next(error)
-    }
+   
 })
+
+
+//*instance method to create the jwt token
+userSchema.methods.getToken = function(){
+
+   return jwt.sign({userID:this._id,nmae:this.name},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_TIME})
+}
+
 
 
 module.exports = mongoose.model("users",userSchema);

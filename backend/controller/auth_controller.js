@@ -14,8 +14,9 @@ const newUser_handler = async(req,res,next)=>{
     try {
 
        
-        await userModel.create({name,email,password:pwd})
-        res.status(201).json({"status":"succcess"})
+       const user = await userModel.create({name,email,password:pwd})
+       const token = user.getToken();
+        res.status(201).json({"message":"User created successfully!",token})
         
     } catch (error) {
         //* whatever error is coming from mongoose , pass it in the express error handling middleware

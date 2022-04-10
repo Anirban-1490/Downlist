@@ -1,11 +1,24 @@
 
-const validationError = (err,req,res,next)=>{
+const duplicateError = require("./duplicateError")
+const validationError = require("./validationError")
+
+const errorHandler = (err,req,res,next)=>{
   
-    try {
-     res.status(400).json(JSON.parse(err.message))
-    } catch (error) {
-     res.status(400).json(err)
+    //? if error is an duplication error
+    if(err.name === 'MongoServerError' && err.code === 11000){
+       return duplicateError(err,res)
     }
+    //? if error is an validation error
+    if(err.name === "ValidationError"){
+      return  validationError(err,res)
+
+    }
+
+    //? for other unknown errors
+    else{
+        res.status(500).send("an unknown error occurred")
+    }
+    
  }
 
- module.exports = validationError
+ module.exports = errorHandler
