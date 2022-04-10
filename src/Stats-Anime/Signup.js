@@ -1,12 +1,38 @@
 import {useRef,useEffect,useState,useReducer} from "react";
 import "./signup.css"
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
 
 export const SignupMain = () => {
 
     const container_to_move = useRef()
+    const [errors,setError] = useState({})
+    const [isErrorMessageVisable,showErrorMessage] = useState(false);
+  const [isAuthorize,setAuth] = useState(false)
+  const navigate = useNavigate()
+
+    const authorizeUser = ()=>{
+        const token = localStorage.getItem("token")
+        return axios.get("http://localhost:4000/api/v1/auth/authorize",{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }).then(res=>res.data)
+    }
+
+     useQuery(`user`,()=>authorizeUser(),{refetchOnWindowFocus:false,
+        enabled:!!isAuthorize,
+        onSettled:(data,err)=>{
+        if(err){
+           return console.log(err?.response?.data);
+            
+        }
+        console.log(data);
+        navigate("/",{replace:true})
+    }})
+
 
 
     //* handler for switching between signup and sign in form
@@ -14,9 +40,9 @@ export const SignupMain = () => {
         e.preventDefault();
         const left_pos = getComputedStyle(container_to_move.current).left;
         
-        console.log(left_pos);
-        if(left_pos.includes("0")){
-            container_to_move.current.style.left = "-109%"
+       
+        if(left_pos.includes("0px")){
+            container_to_move.current.style.left = "-109.5%"
         }
         else{
             container_to_move.current.style.left = "0"
@@ -41,12 +67,33 @@ export const SignupMain = () => {
     }
 
 
-    const formHandler = (formName,e)=>{
+    const formHandler = async(formName,e)=>{
         e.preventDefault();
+        
+        showErrorMessage(false)
 
+
+        e.target.innerHTML = "Loading..."
         const formData = new FormData(e.target.parentElement);
         const userInfo = Object.fromEntries(formData)
         
+        try {
+            const response = await axios.post("http://localhost:4000/api/v1/auth/signup",userInfo)
+            
+            //* store the token in localstorage
+            const token = response.data.token;
+            localStorage.setItem("token",token);
+            setAuth(true)
+
+            
+
+        } catch (error) {
+            showErrorMessage(true)
+            e.target.innerHTML = "Sign up"
+            const messages = (error.response.data.messages?.includes(".")) ? error.response.data.messages.split(".") : error.response.data.messages
+            setError({...error.response.data,messages})
+            console.log(error.response);
+        }
         
     }
 
@@ -72,11 +119,20 @@ export const SignupMain = () => {
                         <form className="newuser-container">
                             <h2>Create account</h2>
                             <input type="text" name="name" id="name" placeholder="Username" autoComplete="off" />
+                            {
+                                (errors?.fields?.includes("name")&& isErrorMessageVisable)? <p className="error-message">{errors.messages[errors.fields.indexOf("name")]}</p>:""
+                            }
                             <input type="text" name="email" id="email" placeholder="Email" autoComplete="off" />
+                            {
+                                (errors?.field?.includes("email")&& isErrorMessageVisable)? <p className="error-message">{errors.messages}</p>:""
+                            }
                            <div className="pwd-contianer">
                             <input type="password" name="pass" id="pwd" placeholder="Password" autoComplete="off"/>
                             <button onClick={e=>showPwd(e)}><ion-icon name="eye-outline"></ion-icon></button>
                            </div>
+                           {
+                                (errors?.fields?.includes("password") && isErrorMessageVisable)? <p className="error-message">{errors.messages[errors.fields.indexOf("password")]}</p>:""
+                            }
                             <button type="submit" className="submit-btn" onClick={(e)=>formHandler("signup",e)}>Sign up</button>
                             <h4>Already a user? <button className="change" onClick={(e)=>changeBtn(e)}>Sign in</button></h4>
                         </form>

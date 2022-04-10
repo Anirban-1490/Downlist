@@ -47,7 +47,7 @@ userSchema.post("save",(error,doc,next)=>{
 //*instance method to create the jwt token
 userSchema.methods.getToken = function(){
 
-   return jwt.sign({userID:this._id,nmae:this.name},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_TIME})
+   return jwt.sign({userID:this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_TIME})
 }
 
 

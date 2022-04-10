@@ -15,8 +15,8 @@
 
 .child-container{
     /* border: 2px solid yellow; */
-    width: 21em;
-    height: 28em;
+    width: 23em;
+    height: 31em;
     position: relative;
     /* margin: 0 auto; */
     top: 50%;
@@ -33,7 +33,7 @@
      width: auto;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(2,21em);
+    grid-template-columns: repeat(2,23em);
     gap: 2em;
     position: relative;
     left: 0;
@@ -47,13 +47,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.7em;
+    /* gap: 0.9em; */
    
    
 }
 :is(.signin-container, .newuser-container) h2{
     font-family: 'Montserrat', sans-serif;
     text-transform: capitalize;
+    transform: translateY(-1em);
 }
 :is(.signin-container, .newuser-container) h4 .change{
   border: none;
@@ -75,7 +76,13 @@
     border-radius: 0.3em;
     background: transparent;
     font-weight: 400;
+    margin: 0.5em 0;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.error-message{
+    font-size: 0.86em;
+    color: red;
+   
 }
 .pwd-contianer{
     position: relative;
@@ -124,7 +131,8 @@
     cursor: pointer;
     transition: transform 300ms ease;
     transform: translateY(0);
+    margin: 0.8em 0;
 }
 .submit-btn:hover{
-    transform: translateY(-0.4em);
+    transform: translateY(-0.2em);
 }
