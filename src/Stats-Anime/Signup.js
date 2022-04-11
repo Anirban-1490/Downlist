@@ -1,9 +1,9 @@
 import {useRef,useEffect,useState,useReducer} from "react";
 import "./signup.css"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-
+import { useNavigate} from "react-router-dom";
+import { useQuery} from "react-query";
+import { useAuth } from "./authorize";
 
 export const SignupMain = () => {
 
@@ -11,29 +11,36 @@ export const SignupMain = () => {
     const [errors,setError] = useState({})
     const [isErrorMessageVisable,showErrorMessage] = useState(false);
   const [isAuthorize,setAuth] = useState(false)
-  const navigate = useNavigate()
+//   const navigate = useNavigate()
+  
+    const data = useAuth(isAuthorize,true)
 
-    const authorizeUser = ()=>{
-        const token = localStorage.getItem("token")
-        return axios.get("http://localhost:4000/api/v1/auth/authorize",{
-            headers:{
-                Authorization:`Bearer ${token}`
-            }
-        }).then(res=>res.data)
-    }
+    // const authorizeUser = ()=>{
+    //     const token = localStorage.getItem("token")
+    //     return axios.get("http://localhost:4000/api/v1/auth/authorize",{
+    //         headers:{
+    //             Authorization:`Bearer ${token}`
+    //         }
+    //     }).then(res=>res.data)
+    // }
 
-     useQuery(`user`,()=>authorizeUser(),{refetchOnWindowFocus:false,
-        enabled:!!isAuthorize,
-        onSettled:(data,err)=>{
-        if(err){
-           return console.log(err?.response?.data);
+    //  useQuery(`user`,()=>authorizeUser(),{refetchOnWindowFocus:false,
+    //     enabled:!!isAuthorize,
+    //     onSettled:(data,err)=>{
+    //     if(err){
+    //        return console.log(err?.response?.data);
             
-        }
-        console.log(data);
-        navigate("/",{replace:true})
-    }})
+    //     }
+       
+    //     //*this will remove the current route(the signup route) from history stack so user's can't go back to it. and also redirect the user to the home page
+    //     navigate("/",{replace:true})
+    // }})
 
 
+
+
+
+  
 
     //* handler for switching between signup and sign in form
     const changeBtn  = function(e){

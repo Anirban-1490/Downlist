@@ -113,7 +113,7 @@
  .fa-user
 {
     position: absolute;
-    right: 55px;
+    right: 3.5em;
     top: 60%;
     transform: translate(0,-50%);
     width: 40px;
@@ -126,15 +126,23 @@
 .fa-user .yourlist
 {
     
-    width: 130px;
+    width: 7.6em;
     height: 0px;
     position: absolute;
-    left: -45px;
+    right: -3em;
     top: 40px;
     z-index: 4;
     overflow: hidden;
     transition: 0.1s;
-
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.433);
+}
+.fa-user .yourlist .user-name
+{
+    font-size: 0.74em;
+    padding: 0.6em;
+    color: #127570;
+    font-family: sans-serif;
 }
 .fa-user .yourlist .your-anime,.fa-user .yourlist .your-char
 {
@@ -143,10 +151,10 @@
     border: none;
     outline: none;
     font-size: 0.87rem;
-    background: white;
     text-decoration: none;
     text-align: start;
     padding-left: 10px;
+    background: transparent;
 }
 
 
@@ -326,8 +334,8 @@
 
 .yourlist button:nth-child(n):hover
 {
-    background: #F95700FF;
-    color: white;
+   
+    color: orange;
 }
 
 

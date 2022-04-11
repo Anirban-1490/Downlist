@@ -1,19 +1,23 @@
 import React from "react";
 import "./header-style.css";
-import {  useState , useRef ,useContext} from "react";
-import { Link } from "react-router-dom";
+import {  useState , useRef ,useContext,useEffect} from "react";
+import { Link,useLocation } from "react-router-dom";
 import {Appcontext} from "./context";
 
+import {useAuth} from "./authorize"
 
  function Main()
 {
-    
+   
+    const userData = useAuth(true) //* custom hook for checking if user logged in or not
 
+    useLocation() //* used to rerender the component if we hit back button to come here
+    
 
     return (
         <>
             <Smallnav/>    
-             <Header/>
+             <Header data = {userData}/>
         </>
     );
 }
@@ -21,15 +25,18 @@ import {Appcontext} from "./context";
 
 
 
-export function Header()
+export function Header({data})
 {
-
+    
+    
    const {ishamclick,toggle} = useContext(Appcontext);
    const [isexpand,setIsexpand] = useState(false);
+  
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
 
-   const [isUserLogged,setLog] =useState(false);
+  
+  
     const toggelnav = ()=>
     {
         [...document.getElementsByClassName("parts")].forEach(ele=>ele.classList.add("animate"));
@@ -38,7 +45,7 @@ export function Header()
     
 
    
-   // a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened 
+   //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened 
 
     document.addEventListener("click",(e)=>
     {
@@ -48,7 +55,7 @@ export function Header()
             if (inBoundary) {
                 if (!isexpand) {
     
-                    refdropmenu.current.style.height = "90px";
+                    refdropmenu.current.style.height = "auto";
                     setIsexpand(true);
                 }
                 else {
@@ -73,9 +80,9 @@ export function Header()
                     <nav><Link className="link" to="/about">About</Link></nav>
                 </ul>
                {
-                   (isUserLogged)? <i className="fas fa-user" ref={userbtn}>
+                   (data)? <i className="fas fa-user" ref={userbtn}>
                    <div className = "yourlist" ref = {refdropmenu}>
-                       
+                       <h4 className="user-name">HI, <br/>{data.name}</h4>
                        <Link to="useranimelist">
                            <button  className = "your-anime" >
                                Anime list
