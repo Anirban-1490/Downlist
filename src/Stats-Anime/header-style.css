@@ -130,7 +130,7 @@
 .fa-user .yourlist
 {
     
-    width: 7.6em;
+    width: 8.6em;
     height: 0px;
     position: absolute;
     right: -3em;
@@ -139,7 +139,18 @@
     overflow: hidden;
     transition: 0.1s;
     background: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.433);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.529);
+}
+.fa-user .yourlist::before
+{
+    content: "";
+    position: absolute;
+    width: 100%;
+    top:0;
+    left: 0;
+    background: orange;
+    height: 0.2em;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.809);
 }
 .fa-user .yourlist .user-name
 {
@@ -147,8 +158,10 @@
     padding: 0.6em;
     color: #127570;
     font-family: sans-serif;
+    letter-spacing: 0.15em;
+    margin-top: 0.5em;
 }
-.fa-user .yourlist .your-anime,.fa-user .yourlist .your-char
+.fa-user .yourlist .your-anime,.fa-user .yourlist .your-char,.sign-out
 {
     width: 100%;
     height: 45px;
@@ -159,8 +172,25 @@
     text-align: start;
     padding-left: 10px;
     background: transparent;
+    cursor: pointer;
 }
 
+.sign-out{
+    width: auto;
+    margin: 1em 0;
+  display: inline-block;
+  background: rgba(219, 210, 210, 0.254);
+}
+.sign-out p{
+ display: inline-block;
+}
+.sign-out ion-icon{
+    margin: 0 0.3em;
+   
+}
+.sign-out:hover{
+   color: rgb(255, 34, 34) !important;
+}
 
 .smallnav{
     width: 0;
@@ -340,6 +370,7 @@
 {
    
     color: orange;
+    
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./header-style.css";
 import {  useState , useRef ,useContext,useEffect} from "react";
-import { Link,useLocation } from "react-router-dom";
+import { Link,useLocation,useNavigate } from "react-router-dom";
 import {Appcontext} from "./context";
 
 import {useAuth} from "./authorize"
@@ -83,6 +83,11 @@ export function Header({data})
                    (data)? <i className="fas fa-user" ref={userbtn}>
                    <div className = "yourlist" ref = {refdropmenu}>
                        <h4 className="user-name">HI, <br/>{data.name}</h4>
+                       <Link to="#">
+                           <button  className = "your-anime" >
+                               Profile
+                           </button>
+                       </Link>
                        <Link to="useranimelist">
                            <button  className = "your-anime" >
                                Anime list
@@ -93,6 +98,10 @@ export function Header({data})
                                Character list
                            </button>
                        </Link>
+                       <button className="sign-out">
+                           <p>Sign out</p>
+                           <ion-icon name="exit-outline"></ion-icon>
+                       </button>
                    </div>
                </i> :
                 <Link to="userauth" className="signup">
