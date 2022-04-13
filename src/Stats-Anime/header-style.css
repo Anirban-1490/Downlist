@@ -140,8 +140,9 @@
     transition: 0.1s;
     background: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.529);
+    border-radius: 0.2em;
 }
-.fa-user .yourlist::before
+/* .fa-user .yourlist::before
 {
     content: "";
     position: absolute;
@@ -151,7 +152,7 @@
     background: orange;
     height: 0.2em;
     box-shadow: 0 0px 8px rgba(0, 0, 0, 0.809);
-}
+} */
 .fa-user .yourlist .user-name
 {
     font-size: 0.74em;
@@ -170,9 +171,10 @@
     font-size: 0.87rem;
     text-decoration: none;
     text-align: start;
-    padding-left: 10px;
+    padding-left: 1em;
     background: transparent;
     cursor: pointer;
+  
 }
 
 .sign-out{
