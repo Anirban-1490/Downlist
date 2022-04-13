@@ -34,7 +34,7 @@ export function Header({data})
   
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
-
+    const navigate = useNavigate()
   
   
     const toggelnav = ()=>
@@ -70,6 +70,13 @@ export function Header({data})
         }
     })
 
+
+
+    const signoutHandler = ()=>{
+        localStorage.removeItem("token")
+        navigate("/",{replace:true})
+    }
+
     return(
         <>
             <div className = "nav-container">
@@ -98,7 +105,7 @@ export function Header({data})
                                Character list
                            </button>
                        </Link>
-                       <button className="sign-out">
+                       <button className="sign-out" onClick={signoutHandler}>
                            <p>Sign out</p>
                            <ion-icon name="exit-outline"></ion-icon>
                        </button>
