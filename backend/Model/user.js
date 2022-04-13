@@ -50,6 +50,11 @@ userSchema.methods.getToken = function(){
    return jwt.sign({userID:this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES_TIME})
 }
 
+//*instance method to compare password
+userSchema.methods.comparePassword = function(userPassword){
+    return bcrypt.compare(userPassword,this.password)
+}
+
 
 
 module.exports = mongoose.model("users",userSchema);

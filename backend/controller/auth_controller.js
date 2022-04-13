@@ -3,10 +3,35 @@ const userModel = require("../Model/user")
 const jwt = require("jsonwebtoken")
 
 
-const login_handler = (req,res)=>{
-    const data = req.body
-    console.log(data);
-    res.status(200).json({"status":"succcess",data})
+const login_handler =async (req,res,next)=>{
+    const {email,pass} = req.body
+   
+    //*check if both email and password is available 
+    if(!email && !pass){
+        return  res.status(400).send({messages:"Please provide a email.Please provide a password",fields:["email","password"]})
+    }
+
+   try {
+       //* query if the user exist or not
+       const data = await userModel.findOne({email:email})
+    
+       if(!data) return res.status(400).send({messages:"No account found. Please Sign up"})
+
+       //* user found. so check compare it's password
+       const isUserFound = await data.comparePassword(pass)
+
+       if(!isUserFound) return res.status(400).send({messages:"No account found. Please Sign up"})
+
+       //* if authentication successful then return token
+       const  token = data.getToken();
+      return  res.status(200).send({messages:"Successfully signed in",token})
+
+       
+   } catch (error) {
+       //* any other error then pass it in the middleware
+       next(error)
+   }
+
 }
 
 const newUser_handler = async(req,res,next)=>{

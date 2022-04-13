@@ -11,37 +11,11 @@ export const SignupMain = () => {
     const [errors,setError] = useState({})
     const [isErrorMessageVisable,showErrorMessage] = useState(false);
   const [isAuthorize,setAuth] = useState(false)
-//   const navigate = useNavigate()
-  
-    const data = useAuth(isAuthorize,true)
-
-    // const authorizeUser = ()=>{
-    //     const token = localStorage.getItem("token")
-    //     return axios.get("http://localhost:4000/api/v1/auth/authorize",{
-    //         headers:{
-    //             Authorization:`Bearer ${token}`
-    //         }
-    //     }).then(res=>res.data)
-    // }
-
-    //  useQuery(`user`,()=>authorizeUser(),{refetchOnWindowFocus:false,
-    //     enabled:!!isAuthorize,
-    //     onSettled:(data,err)=>{
-    //     if(err){
-    //        return console.log(err?.response?.data);
-            
-    //     }
-       
-    //     //*this will remove the current route(the signup route) from history stack so user's can't go back to it. and also redirect the user to the home page
-    //     navigate("/",{replace:true})
-    // }})
-
-
-
-
 
   
+    useAuth(isAuthorize,true)
 
+ 
     //* handler for switching between signup and sign in form
     const changeBtn  = function(e){
         e.preventDefault();
@@ -85,7 +59,16 @@ export const SignupMain = () => {
         const userInfo = Object.fromEntries(formData)
         
         try {
-            const response = await axios.post("http://localhost:4000/api/v1/auth/signup",userInfo)
+            let response;
+
+            //* for signup form request
+            if(formName === "signup"){
+                response = await axios.post("http://localhost:4000/api/v1/auth/signup",userInfo)
+                
+            }
+            else if(formName === "signin"){
+                response = await axios.post("http://localhost:4000/api/v1/auth/signin",userInfo)
+            }
             
             //* store the token in localstorage
             const token = response.data.token;
@@ -97,12 +80,22 @@ export const SignupMain = () => {
         } catch (error) {
             showErrorMessage(true)
             e.target.innerHTML = "Sign up"
-            const messages = (error.response.data.messages?.includes(".")) ? error.response.data.messages.split(".") : error.response.data.messages
+            let messages ;
+
+            //* check if error response is relates to any field (like email) 
+           if (error.response.data.messages?.includes(".")) {
+            messages = error.response.data.messages.split(".") 
             setError({...error.response.data,messages})
-            console.log(error.response);
+           }
+           else{
+            messages = error.response.data.messages
+            setError({messages})
+           }
+           
         }
         
     }
+    
 
 
     return <>
@@ -113,16 +106,31 @@ export const SignupMain = () => {
                         <form className="signin-container">
                             <h2>Welcome back :)</h2>
                             <input type="text" name="email" id="email" placeholder="Email" autoComplete="off"/>
-                            <div className="pwd-contianer">
-                            <input type="password" name="pass" id="pwd" placeholder="Password" autoComplete="off"/>
-                            <button onClick={e=>showPwd(e)}><ion-icon name="eye-outline"></ion-icon></button>
-                           </div>
-                            <button type="submit" className="submit-btn">Sign in</button>
+                            {
+                            (errors?.fields?.includes("email") && isErrorMessageVisable) ? <p className="error-message">{errors.messages[errors.fields.indexOf("email")]}</p> : ""
+                        }
+                        <div className="pwd-contianer">
+                            <input type="password" name="pass" id="pwd" placeholder="Password" autoComplete="off" />
+                           
+
+                            <button onClick={e => showPwd(e)}><ion-icon name="eye-outline"></ion-icon></button>
+                        </div>
+                        {
+                            (errors?.fields?.includes("password") && isErrorMessageVisable) ? <p className="error-message">{errors.messages[errors.fields.indexOf("password")]}</p> : ""
+                        }
+                            <button type="submit" className="submit-btn"
+                            onClick={(e)=>formHandler("signin",e)}>Sign in</button>
+
+                        {
+                            (!errors?.fields && isErrorMessageVisable) ? <p className="error-message" style={{marginBottom:"1em"}}>{errors.messages}</p> : ""
+                        }
+
+
                             <h4>New user? <button className="change" onClick={(e)=>changeBtn(e)}>Sign up</button></h4>
                         </form>
                   
                    
-                        {/* Sign up  */}
+                        {/* ----------------Sign up-----------  */}
                         <form className="newuser-container">
                             <h2>Create account</h2>
                             <input type="text" name="name" id="name" placeholder="Username" autoComplete="off" />
