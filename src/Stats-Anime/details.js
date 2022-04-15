@@ -5,9 +5,10 @@ import "./animestyle.css";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useQueries,useQuery } from "react-query";
+import { useQueries,useQuery,useQueryClient } from "react-query";
 import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
+import { useNavigate } from "react-router-dom";
 
 
 //* component for anime details
@@ -42,13 +43,13 @@ const Resultmain =()=>
     const genres = result[0].data?.genres;
     const randomGenre = genres && genres[(Math.floor(Math.random()*10)%genres.length)];
 
-    //object for the metadeta of that anime
+    //*object for the metadeta of that anime
     const details = {animedetails:result[0].data ,animegenres:genres,stats:result[1].data,malid};
 
 
 
 
-    //get array of random anime recommendation
+    //*get array of random anime recommendation
 
     const getRecommend = (url)=>
     {
@@ -71,7 +72,7 @@ const Resultmain =()=>
        
     }
 
-    // fetch all the anime from a random genre with it's genre id
+    //* fetch all the anime from a random genre with it's genre id
    const {data,isLoading} = useQuery(["recommendations",id],
    ()=>getRecommend(`https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`),
    {refetchOnWindowFocus:false,enabled:!!genres})
@@ -91,7 +92,7 @@ const Resultmain =()=>
                         switch_path="topanime"
                     />
 
-                    //* characters section
+                    {/* //* characters section */}
                     <h4 style={{
                         color: "white", fontSize: "25px",
                         marginLeft: "14.5%",
@@ -102,7 +103,7 @@ const Resultmain =()=>
                     }}>Characters</h4>
                     <Roles char={result[2].data} path={'/character'} />
 
-                    //* recommendations section
+                    {/* //* recommendations section */}
                     <h4 style={{
                         color: "white", fontSize: "35px",
                         marginBottom: "1%",
@@ -130,7 +131,10 @@ export const Details =  (prop)=>
     const btn = useRef();
     let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
 
-    //function to check if item is in the local storage when you visit this page later
+    const navigate = useNavigate()
+    const client = useQueryClient();
+
+    // *function to check if item is in the local storage when you visit this page later
     const checkItem = react.useCallback(()=>
     {
         if(switch_item==="anime")
@@ -140,7 +144,7 @@ export const Details =  (prop)=>
                 [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
                     if(obj.malid===malid)
                     {
-                        //if item is in local storage the set this state to true
+                        //*if item is in local storage the set this state to true
                         setItemadd(true);
                     }      
                 });
@@ -164,81 +168,86 @@ export const Details =  (prop)=>
    
     useEffect(()=>checkItem(),[checkItem]);
 
-   // function to add item into local storage
+   //* function to add item into local storage
     function Additem()
     {
         let temparray =[];
        
-        if(itemadd ===false)
-        {
-            
-            //check if the route is for anime
-            if(switch_item==="anime")
+        if(!client.getQueryData("user")){
+            navigate("/userauth");
+        }
+        else{
+            if(itemadd ===false)
             {
-                const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites};
-
-                if(localStorage.getItem(switch_item)!==null)
+                
+                //*check if the route is for anime
+                if(switch_item==="anime")
+                {
+                    const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites};
+    
+                    if(localStorage.getItem(switch_item)!==null)
+                    {
+                        temparray = JSON.parse(localStorage.getItem(switch_item));
+                   
+                        temparray = [...temparray,item];
+                    }
+                    else{
+                        temparray = [...temparray,item];
+                    }
+                    
+                    localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
+                }
+                //*check if the route is for character
+                else if(switch_item === "character")
+                {
+                    const item = {malid,img_url:animedetails.image_url,title:name,fav};
+    
+                    if(localStorage.getItem(switch_item)!==null)
+                    {
+                        temparray = JSON.parse(localStorage.getItem(switch_item));
+                   
+                        temparray = [...temparray,item];
+                    }
+                    else{
+                        temparray = [...temparray,item];
+                    }
+                    
+                    localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
+                }
+    
+                //*item added
+                setItemadd(true);
+               
+            }
+            else
+            {
+                //* if item already added then remove it
+    
+                if(switch_item === "anime")
                 {
                     temparray = JSON.parse(localStorage.getItem(switch_item));
-               
-                    temparray = [...temparray,item];
+                    temparray = [...temparray].filter((obj)=> {
+                        return obj.malid!==malid
+                    });
+                    
+                    localStorage.setItem(switch_item,JSON.stringify(temparray));
+                    
                 }
-                else{
-                    temparray = [...temparray,item];
-                }
-                
-                localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
-            }
-            //check if the route is for character
-            else if(switch_item === "character")
-            {
-                const item = {malid,img_url:animedetails.image_url,title:name,fav};
-
-                if(localStorage.getItem(switch_item)!==null)
+                else if(switch_item ==="character")
                 {
                     temparray = JSON.parse(localStorage.getItem(switch_item));
-               
-                    temparray = [...temparray,item];
+                    temparray = [...temparray].filter((obj)=> {
+                        return obj.malid!==malid
+                    });
+                    
+                    localStorage.setItem(switch_item,JSON.stringify(temparray));
+                   
                 }
-                else{
-                    temparray = [...temparray,item];
-                }
-                
-                localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
+                setItemadd(false);
             }
-
-            //item added
-            setItemadd(true);
+           
            
         }
-        else
-        {
-            //* if item already added then remove it
-
-            if(switch_item === "anime")
-            {
-                temparray = JSON.parse(localStorage.getItem(switch_item));
-                temparray = [...temparray].filter((obj)=> {
-                    return obj.malid!==malid
-                });
-                
-                localStorage.setItem(switch_item,JSON.stringify(temparray));
-                
-            }
-            else if(switch_item ==="character")
-            {
-                temparray = JSON.parse(localStorage.getItem(switch_item));
-                temparray = [...temparray].filter((obj)=> {
-                    return obj.malid!==malid
-                });
-                
-                localStorage.setItem(switch_item,JSON.stringify(temparray));
-               
-            }
-            setItemadd(false);
-        }
-       
-       
     }
 
      
@@ -382,20 +391,20 @@ export const Roles =  react.memo((prop)=>
    {       
        window.addEventListener("resize",()=>{setWindowsize(window.innerWidth)});
 
-       rolesContainerSize() //whenever window size changes check for the container size
+       rolesContainerSize() //*whenever window size changes check for the container size
        
        return ()=> window.removeEventListener("resize",()=>{setWindowsize(window.innerWidth)});
        
    },[rolesContainerSize,setWindowsize]);
 
 
-   //handler for "see more" button 
+   //*handler for "see more" button 
     function handle_container()
     {
         if(!btnstate)
         {
 
-            // gets the innercontent height
+            //* gets the innercontent height
             const height = main_container.current.scrollHeight;
             main_container.current.style.height = height + "px";
             main_container.current.style.transition = "0.35s";

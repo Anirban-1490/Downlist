@@ -24,7 +24,6 @@ import {useAuth} from "./authorize"
 
 
 
-
 export function Header({data})
 {
     
