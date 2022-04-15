@@ -62,4 +62,22 @@ userList.methods.removeAnime = function(malid){
 // }
 
 
+userList.methods.addCharacter = function(character){
+
+    const tempListItems = [...this.charList,character]
+
+    this.charList = tempListItems;
+    this.save()
+}
+
+userList.methods.removeCharacter = function(malid){
+  
+    const filteredCharacter = this.charList.filter(obj=>obj.malid!=malid)
+  
+    this.charList = filteredCharacter;
+    this.save();
+}
+
+
+
 module.exports = mongoose.model("UserLists",userList);

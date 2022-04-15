@@ -137,14 +137,17 @@ export const Details =  (prop)=>
     const clientData = client.getQueryData("user");
     const addedToListAnime = client.getQueryData("userAnimeList");
 
-    async function fetchUserAnimeList(){
-       
+    async function fetchUserList(){
+       if(switch_item === "character")  return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
+
         return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
         // console.log(response);
 
     }
 
-    useQuery("userAnimeList",()=>fetchUserAnimeList(),{refetchOnWindowFocus:false,onSettled:(data,err)=>{
+    useQuery((switch_item === "anime")?"userAnimeList":"userCharList"
+    
+    ,()=>fetchUserList(),{refetchOnWindowFocus:false,onSettled:(data,err)=>{
         if(err) return console.log(err);
         console.log("ran");
         data.list.forEach((obj)=>{
@@ -216,19 +219,10 @@ export const Details =  (prop)=>
                 //*check if the route is for character
                 else if(switch_item === "character")
                 {
-                    const item = {malid,img_url:animedetails.image_url,title:name,fav};
+                    const item = {malid,img_url:animedetails.image_url,title:name,fav,addedOn:new Date().toDateString()};
     
-                    if(localStorage.getItem(switch_item)!==null)
-                    {
-                        temparray = JSON.parse(localStorage.getItem(switch_item));
-                   
-                        temparray = [...temparray,item];
-                    }
-                    else{
-                        temparray = [...temparray,item];
-                    }
-                    
-                    localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
+                    const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addChar`,item)
+                    console.log(response.data?.message);
                 }
     
                 //*item added
@@ -247,12 +241,8 @@ export const Details =  (prop)=>
                 }
                 else if(switch_item ==="character")
                 {
-                    temparray = JSON.parse(localStorage.getItem(switch_item));
-                    temparray = [...temparray].filter((obj)=> {
-                        return obj.malid!==malid
-                    });
-                    
-                    localStorage.setItem(switch_item,JSON.stringify(temparray));
+                    const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removechar/${malid}`)
+                    console.log(response.data?.message);
                    
                 }
                 setItemadd(false);
