@@ -74,7 +74,11 @@ export function Header({data})
 
     const signoutHandler = ()=>{
         localStorage.removeItem("token")
-        navigate("/",{replace:true})
+        if(window.location.pathname !== "/"){
+
+            navigate("/",{replace:true})
+        }
+        else window.location.reload()
     }
 
     return(
