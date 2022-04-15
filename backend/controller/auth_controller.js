@@ -1,5 +1,6 @@
 
 const userModel = require("../Model/user")
+const userList = require("../Model/user_list")
 const jwt = require("jsonwebtoken")
 
 
@@ -42,6 +43,7 @@ const newUser_handler = async(req,res,next)=>{
        
        const user = await userModel.create({name,email,password:pass})
        const token = user.getToken();
+       await userList.create({username:name,email,userid:user._id})
         res.status(201).json({"message":"User created successfully!",token})
         
     } catch (error) {

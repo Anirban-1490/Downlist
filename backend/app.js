@@ -3,7 +3,7 @@ const app = express()
 const cors = require("cors");
 require("dotenv").config()
 
-
+const listrouter = require("./routes/list_router");
 const authrouter = require("./routes/authrouter")
 //* import DB
 const connectDB = require("./database/db_connection")
@@ -12,7 +12,9 @@ const errorHandler = require("./middleware/validation-error")
 
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded())
 app.use("/api/v1/auth",authrouter)
+app.use("/user/:userID",listrouter)
 
 app.get("/",(req,res)=>{
     res.send("<h2>hello world</h2>")

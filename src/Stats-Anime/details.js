@@ -3,7 +3,7 @@ import react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import axios from "axios";
 import { useQueries,useQuery,useQueryClient } from "react-query";
 import {Spinner} from "./loading-spinner";
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const Resultmain =()=>
 {
-
+    // useLocation()
     const {id} = useParams();
     const malid = id;
     
@@ -128,48 +128,72 @@ export const Details =  (prop)=>
     const {fav,about,name_kenji,name,switch_item,switch_path} = prop;
     const[itemadd , setItemadd] = useState(false);
     const [seemorebtn , Setbtn] = useState(false);
+    const [addedAnimeList,addAnime] = useState([])
     const btn = useRef();
     let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
 
     const navigate = useNavigate()
     const client = useQueryClient();
+    const clientData = client.getQueryData("user");
+    const addedToListAnime = client.getQueryData("userAnimeList");
+
+    async function fetchUserAnimeList(){
+       
+        return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
+        // console.log(response);
+
+    }
+
+    useQuery("userAnimeList",()=>fetchUserAnimeList(),{refetchOnWindowFocus:false,onSettled:(data,err)=>{
+        if(err) return console.log(err);
+        console.log("ran");
+        data.list.forEach((obj)=>{
+            if (obj.malid === malid) {
+                //*if item is in local storage the set this state to true
+                console.log("hello");
+                setItemadd(true);
+            }    
+        })
+    },enabled:!!clientData?.userID,cacheTime:1000})
+
 
     // *function to check if item is in the local storage when you visit this page later
-    const checkItem = react.useCallback(()=>
-    {
-        if(switch_item==="anime")
-        {
-            if(localStorage.getItem(switch_item)!==null)
-            {
-                [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
-                    if(obj.malid===malid)
-                    {
-                        //*if item is in local storage the set this state to true
-                        setItemadd(true);
-                    }      
-                });
-            }
-        }
-        else
-        {
-            if(localStorage.getItem(switch_item)!==null)
-            {
-                [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
-                    if(obj.malid===malid)
-                    {
-                        setItemadd(true);
-                    }
+    // const checkItem = react.useCallback(()=>
+    // {
+        
+    //     if(switch_item==="anime")
+    //     {
+    //         if(localStorage.getItem(switch_item)!==null)
+    //         {
+    //             [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
+    //                 if(obj.malid===malid)
+    //                 {
+    //                     //*if item is in local storage the set this state to true
+    //                     setItemadd(true);
+    //                 }      
+    //             });
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if(localStorage.getItem(switch_item)!==null)
+    //         {
+    //             [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
+    //                 if(obj.malid===malid)
+    //                 {
+    //                     setItemadd(true);
+    //                 }
                     
-                });
-            }
-        }
+    //             });
+    //         }
+    //     }
 
-    },[setItemadd])
+    // },[setItemadd])
    
-    useEffect(()=>checkItem(),[checkItem]);
+    // useEffect(()=>checkItem(),[checkItem]);
 
    //* function to add item into local storage
-    function Additem()
+    async function Additem()
     {
         let temparray =[];
        
@@ -183,19 +207,11 @@ export const Details =  (prop)=>
                 //*check if the route is for anime
                 if(switch_item==="anime")
                 {
-                    const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites};
-    
-                    if(localStorage.getItem(switch_item)!==null)
-                    {
-                        temparray = JSON.parse(localStorage.getItem(switch_item));
-                   
-                        temparray = [...temparray,item];
-                    }
-                    else{
-                        temparray = [...temparray,item];
-                    }
+                    const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites,addedOn:new Date().toDateString()};
                     
-                    localStorage.setItem(switch_item.toString(),JSON.stringify(temparray));
+                    const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addanime`,item)
+                    console.log(response.data?.message);
+                   
                 }
                 //*check if the route is for character
                 else if(switch_item === "character")
@@ -225,12 +241,8 @@ export const Details =  (prop)=>
     
                 if(switch_item === "anime")
                 {
-                    temparray = JSON.parse(localStorage.getItem(switch_item));
-                    temparray = [...temparray].filter((obj)=> {
-                        return obj.malid!==malid
-                    });
-                    
-                    localStorage.setItem(switch_item,JSON.stringify(temparray));
+                    const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeanime/${malid}`)
+                    console.log(response.data?.message);
                     
                 }
                 else if(switch_item ==="character")
