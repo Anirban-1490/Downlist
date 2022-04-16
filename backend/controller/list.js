@@ -15,8 +15,10 @@ const addAnimeHandler = async (req,res)=>{
 
 const getSavedAnime = async(req,res)=>{
     const {userID} = req.params;
+    console.log(userID);
     // const {malid} = req.body;
     const userListDetails = await userList.findOne({userid:userID})
+    console.log(userListDetails);
     // const isAnimeFound = userListDetails.includesAnime(malid)
    res.status(200).json({list:userListDetails.animeList,userID:userListDetails.userid})
 }

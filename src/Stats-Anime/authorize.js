@@ -30,7 +30,7 @@ export const useAuth = (isenabled,redirect=false)=>{
     },enabled:!! isenabled
 
 })
-    
+    // console.log(data);
 
     return data
 }

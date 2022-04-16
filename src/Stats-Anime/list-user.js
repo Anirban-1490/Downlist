@@ -1,20 +1,26 @@
 import React,{useEffect,useState} from "react";
-import { Link  } from "react-router-dom";
+import { Link,useNavigate,useLocation  } from "react-router-dom";
 import {Dropdown} from "./genres-anime";
 import "./genreAnime-style.css";
 import "./list-style.css";
 import react from "react";
+import axios from "axios";
+import { useQueryClient,useQuery } from "react-query";
 
 
-
-function Listmain(prop)
+function Listmain({header,switch_item})
 {
+    useLocation()
+    const data = useList(switch_item);
+    console.log(data);
 
     return <>
     
     <div className = "container1" style = {{height:"auto",minHeight:"100vh"}}>
             
-            <List header = {prop.header} switch_item = {prop.switch_item}/>
+           {
+               (data!== undefined)? <List header = {header} switch_item = {switch_item} data = {data} />:""
+           }
         </div>
        
     </>
@@ -25,25 +31,44 @@ function Listmain(prop)
 
 function useList(switch_item)
 {
-    const [list , setList] = useState([]);
-            
-   useEffect(()=>
-   {
-    if(JSON.parse(localStorage.getItem(switch_item))!==null)
-    {
-        setList(JSON.parse(localStorage.getItem(switch_item)));
-        
+    
+    const client = useQueryClient();
+    const clientData = client.getQueryData("user");
+    console.log(clientData);
+
+    async function fetchUserList() {
+        if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
+
+        return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
+        // console.log(response);
+
     }
-   } , [switch_item])
-    return [list,setList];
+ 
+    useQuery((switch_item === "anime") ? "userAnimeList" : "userCharList"
+
+        , () => fetchUserList(), {
+            refetchOnWindowFocus: false,
+        enabled: !!clientData?.userID 
+
+        , cacheTime: 1000,onSettled:(data,err)=>{
+            if(err) return console.log(err);
+        }
+    })
+
+
+     return (switch_item === "anime") ? client.getQueryData("userAnimeList") :
+     client.getQueryData("userCharList")
+    
+    
 }
 
 
 function List(props)
 {
-    const {header,switch_item} = props;
+    const {header,switch_item,data} = props;
     const [isempty,setIsempty] = useState(false);
-    const [list,setList] = useList(switch_item);
+    console.log(data);
+
 
 
     const [stat,setStat] = useState("");
@@ -65,35 +90,36 @@ function List(props)
     }
 
     //*when ever component mounts check if the list is empty
-    const checkListempty = React.useCallback(()=>
-    {
-      if (JSON.parse(localStorage.getItem(switch_item)) === null) {
-          setIsempty(true);
+    // const checkListempty = React.useCallback(()=>
+    // {
+    //   if (JSON.parse(localStorage.getItem(switch_item)) === null) {
+    //       setIsempty(true);
          
-      }
-      else
-      {
-        setIsempty(false);
-      }
-    },[switch_item])
+    //   }
+    //   else
+    //   {
+    //     setIsempty(false);
+    //   }
+    // },[switch_item])
 
-    useEffect(()=>
-    {
+    // useEffect(()=>
+    // {
      
-      checkListempty();
+    //   checkListempty();
 
-    },[checkListempty])
+    // },[checkListempty])
 
 
     //*sort by which ?
-    const sortCheck = react.useCallback(() => {
-        setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
-    }, [stat])
-    useEffect(() => {
+    // const sortCheck = react.useCallback(() => {
+    //     setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
+    // }, [stat])
+    
+    // useEffect(() => {
 
-        sortCheck()
+    //     sortCheck()
 
-    }, [sortCheck])
+    // }, [sortCheck])
 
 
     return <>
@@ -108,8 +134,8 @@ function List(props)
        
             <ul className = "search-container">
             
-            {(list.length>0 && !isempty) ? 
-                list.map((item)=>
+            {(data?.list.length>0 && !isempty) ? 
+                data.list.map((item)=>
                 {
                    
                     const {fav,malid,episodes,img_url,score,title} = item;
