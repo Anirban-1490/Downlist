@@ -27,7 +27,7 @@ function Listmain({header,switch_item})
 
 }
 
-// custom hook to get the user's list items
+//* custom hook to get the user's list items
 
 function useList(switch_item)
 {
@@ -40,7 +40,6 @@ function useList(switch_item)
         if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
 
         return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
-        // console.log(response);
 
     }
  
@@ -66,8 +65,8 @@ function useList(switch_item)
 function List(props)
 {
     const {header,switch_item,data} = props;
-    const [isempty,setIsempty] = useState(false);
-    console.log(data);
+    const client = useQueryClient();
+    const clientData = client.getQueryData("user");
 
 
 
@@ -80,34 +79,14 @@ function List(props)
     ];
 
 
-    const clearlist =()=> 
+    const clearlist = async()=> 
     {
-        
-        localStorage.removeItem(switch_item);
-
-        setIsempty(true);
+        const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeall/${switch_item}`)
+        window.location.reload()
+        console.log(response.data);
        
     }
 
-    //*when ever component mounts check if the list is empty
-    // const checkListempty = React.useCallback(()=>
-    // {
-    //   if (JSON.parse(localStorage.getItem(switch_item)) === null) {
-    //       setIsempty(true);
-         
-    //   }
-    //   else
-    //   {
-    //     setIsempty(false);
-    //   }
-    // },[switch_item])
-
-    // useEffect(()=>
-    // {
-     
-    //   checkListempty();
-
-    // },[checkListempty])
 
 
     //*sort by which ?
@@ -126,7 +105,7 @@ function List(props)
         <h2 className = "header">{header}</h2>
         <div className="option-container">
             <div className="wrapper-type" >
-             {/* drop down for sorting */}
+             {/*? drop down for sorting */}
                 <Dropdown options={options} setID={setStat}  placeholder = "Sort by..." stats_anime = {switch_item}/>
             </div>
             <button className="clr-btn" type="button" onClick={clearlist}><span><i className="fas fa-times"></i></span> <span>Clear list</span></button>
@@ -134,7 +113,7 @@ function List(props)
        
             <ul className = "search-container">
             
-            {(data?.list.length>0 && !isempty) ? 
+            {(data?.list.length>0 ) ? 
                 data.list.map((item)=>
                 {
                    
@@ -160,7 +139,7 @@ function List(props)
                     </Link>
                 })
             :
-            <h3 className="empty">{(isempty)?"Empty list":""}</h3>
+            <h3 className="empty">Empty list</h3>
             }
         
         </ul>

@@ -15,10 +15,10 @@ const addAnimeHandler = async (req,res)=>{
 
 const getSavedAnime = async(req,res)=>{
     const {userID} = req.params;
-    console.log(userID);
+ 
     // const {malid} = req.body;
     const userListDetails = await userList.findOne({userid:userID})
-    console.log(userListDetails);
+ 
     // const isAnimeFound = userListDetails.includesAnime(malid)
    res.status(200).json({list:userListDetails.animeList,userID:userListDetails.userid})
 }
@@ -66,4 +66,19 @@ const removeSavedCharacter = async (req,res)=>{
 }
 
 
-module.exports = {addAnimeHandler,addCharHandler,getSavedAnime,removeSavedAnime,getSavedCharacter,removeSavedCharacter}
+
+
+
+
+const removeAll = async(req,res)=>{
+    const {userID,switch_path} = req.params;
+  
+    const userListDetails = await userList.findOne({userid:userID})
+   
+    userListDetails.removeAll(switch_path)
+
+    res.status(200).json({message:"Removed all items"})
+}
+
+
+module.exports = {addAnimeHandler,addCharHandler,getSavedAnime,removeSavedAnime,getSavedCharacter,removeSavedCharacter,removeAll}

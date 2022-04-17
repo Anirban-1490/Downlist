@@ -79,5 +79,18 @@ userList.methods.removeCharacter = function(malid){
 }
 
 
+userList.methods.removeAll = function(switch_path){
+
+    if(switch_path === "anime"){
+     
+        this.animeList = this.animeList.slice(0,0);
+    }
+    else if(switch_path === "character"){
+         this.charList =this.charList.slice(0,0);
+    }
+
+    this.save()
+}
+
 
 module.exports = mongoose.model("UserLists",userList);
