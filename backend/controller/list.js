@@ -53,7 +53,7 @@ const getSavedCharacter = async(req,res)=>{
     // const {malid} = req.body;
     const userListDetails = await userList.findOne({userid:userID})
     // const isAnimeFound = userListDetails.includesAnime(malid)
-   res.status(200).json({list:userListDetails.animeList,userID:userListDetails.userid})
+   res.status(200).json({list:userListDetails.charList,userID:userListDetails.userid})
 }
 
 

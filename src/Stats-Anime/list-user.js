@@ -51,6 +51,7 @@ function useList(switch_item)
 
         , cacheTime: 1000,onSettled:(data,err)=>{
             if(err) return console.log(err);
+            console.log(data);
         }
     })
 
