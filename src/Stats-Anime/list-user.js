@@ -68,7 +68,7 @@ function List(props)
     const {header,switch_item,data} = props;
     const client = useQueryClient();
     const clientData = client.getQueryData("user");
-
+    const [list,setList] = useState(data.list)
 
 
     const [stat,setStat] = useState("");
@@ -91,15 +91,16 @@ function List(props)
 
 
     //*sort by which ?
-    // const sortCheck = react.useCallback(() => {
-    //     setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
-    // }, [stat])
+    const sortCheck = react.useCallback(() => {
+        setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
+        console.log("ran");
+    }, [stat])
     
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     sortCheck()
+        sortCheck()
 
-    // }, [sortCheck])
+    }, [sortCheck])
 
 
     return <>
@@ -114,8 +115,8 @@ function List(props)
        
             <ul className = "search-container">
             
-            {(data?.list.length>0 ) ? 
-                data.list.map((item)=>
+            {(list?.length>0 ) ? 
+                list?.map((item)=>
                 {
                    
                     const {fav,malid,episodes,img_url,score,title} = item;
