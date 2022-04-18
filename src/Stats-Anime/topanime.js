@@ -3,7 +3,7 @@ import react from "react";
 import "./animestyle.css";
 import "./topanimestyle.css";
 import { Genres } from "./genres-anime";
-import { useEffect, useState ,useRef} from "react";
+import { useEffect, useState ,useRef,useCallback} from "react";
 import {Mulimgslider} from "./mul_img_slider";
 import { Link } from "react-router-dom";
 import { useQueries } from "react-query";
@@ -11,43 +11,62 @@ import axios from "axios";
 import { Spinner } from "./loading-spinner";
 import each from "awaity/each";
 import {Errorpage} from "./error";
+import {useList} from "./list-user"
 
 const year = new Date().getFullYear();
 
 
-// --- custom hook for fetching top anime/character from the user list
+//* --- custom hook for fetching top anime/character from the user list
 
 export function useToplist(switch_item)
 {
-    let temparray=null ;
+    
     const [listitem , setListitem] = useState([]);
     const [listcount,setListcount] = useState(0);
+
+    //* get users saved anime or character list
+    let data = useList(switch_item)?.list
+
+    //* this is used so that the data don't get lost at a rerender
+    const listData = useRef();
+    
    
     const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
-     const fetch_list_anime = react.useCallback(async()=>
-    {
-        temparray = JSON.parse(localStorage.getItem(switch_item));
 
-        if(temparray)
+
+    const fetchTopItemFromList = useCallback(async()=>{
+
+        if(data)
         {
-            temparray = [...temparray].sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
-            setListcount(temparray.length);
-            await each(temparray,async (item) => {
-                const { malid, img_url, title } = item;
-                   
-                    await fetch(`https://api.jikan.moe/v3/${switch_item}/${malid}`).then(async res => await res.json()).then((result) => {
+            //*sort the data based on score or favorite
+            listData.current = data.sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
+            setListcount(data?.length);
+            let temparray =[];
 
-                        // user's inventory 
-                        setListitem((item) => [...item, { malid, img_url, title, about: (switch_item==="anime")?result.synopsis:result.about }]);
-                      
-                    }).catch(err => console.log(err));
-                    await delay();
+            await each(data,async (item) => {
+
+                //*for each entry fetching some additional details from the API
+                const { malid, img_url, title } = item;
+
+                const response = await axios(`https://api.jikan.moe/v3/${switch_item}/${malid}`)
+                const result = await response.data;
+                temparray = [...temparray,{ malid, img_url, title, about: (switch_item === "anime") ? result.synopsis : result.about }]
+                
+                await delay();
             })
+
+            setListitem(temparray);
            
         }
-    },[switch_item])
+    },[data,switch_item])
 
-    useEffect(()=> fetch_list_anime() , [fetch_list_anime]);
+    useEffect(()=> {
+
+    
+        fetchTopItemFromList()
+
+
+    } , [fetchTopItemFromList]);
     return [listitem,listcount]
     
 }
@@ -82,6 +101,7 @@ function TopanimeMain()
 
     
     const [listitem,listcount] = useToplist("anime");
+    
 
     return <>  
         {(results.every(item => item.isLoading) || listitem.length<listcount) ? <Spinner/>

@@ -29,7 +29,7 @@ function Listmain({header,switch_item})
 
 //* custom hook to get the user's list items
 
-function useList(switch_item)
+export function useList(switch_item)
 {
     
     const client = useQueryClient();
