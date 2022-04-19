@@ -40,10 +40,10 @@ export function useToplist(switch_item)
         {
             //*sort the data based on score or favorite
             listData.current = data.sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
-            setListcount(data?.length);
+            setListcount(listData.current?.length);
             let temparray =[];
 
-            await each(data,async (item) => {
+            await each(listData.current,async (item) => {
 
                 //*for each entry fetching some additional details from the API
                 const { malid, img_url, title } = item;
