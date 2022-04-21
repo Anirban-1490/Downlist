@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@200&display=swap');
+
+
+.profile-container{
+    /* border: 2px solid red; */
+    position: relative;
+    top: 4em;
+    min-height: calc(100vh - 8em);
+    
+}
+.profile-container form{
+    width: 100%;
+    height: 100%;
+    /* border: 2px solid greenyellow; */
+    min-height: calc(100vh - 8em);
+    display: grid;
+    grid-template-columns: 20em 47%;
+    grid-template-rows: repeat(1,9em);
+    grid-auto-flow: column;
+    justify-content: center;
+    align-content: center;
+    gap: 1.6em;
+    column-gap: 2.1em;
+}
+
+
+.side-profile{
+    /* border: 2px solid yellow; */
+    grid-row: 1/3;
+    height: 35em;
+    background-color: rgba(146, 170, 255, 0.171);
+    border-radius: 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-profile .img-container{
+    width: 10em;
+    height: 10em;
+    border: 2px solid red;
+   margin: 2em 0 3em 0;
+}
+
+.side-profile #bio{
+    height: 4em;
+    padding: 0.78em 0.85em;
+    outline: none;
+    border: none;
+    font-size: 1.12em;
+    border-radius: 0.33em;
+    /* color: white; */
+    width: 13.5em;
+    resize: none;
+    
+}
+.side-profile #bio:disabled{
+    background-color: transparent;
+    color: white;
+}
+
+.profile-container article:nth-child(2){
+   border-bottom: 4px solid #23affe;
+   /* border: 2px solid red; */
+    margin-top: 1.4em;
+    display: flex;
+    gap: 1.6em;
+    justify-content: center;
+    align-items: flex-end;
+}
+.activity{
+    /* border: 2px solid green; */
+    height: 29em;
+}
+#username{
+  
+    height: 1em;
+    padding: 0.78em 0.85em;
+    outline: none;
+    border: none;
+    font-size: 1.8em;
+    border-radius: 0.23em;
+    transform: translateY(-0.3em);
+    color: white;
+    display: inline-block;
+    width: 11.6em;
+    text-align: center;
+    background: transparent;
+}
+#status{
+  
+    height: 1.4em;
+    padding: 1.16em;
+    outline: none;
+    border: none;
+    font-size: 1.09em;
+    border-radius: 0.23em;
+    transform: translateY(-0.7em);
+    display: inline-block;
+    width: 9em;
+    background: #81f0ff2a;
+    /* opacity: 13%; */
+    color: white;
+    text-align: center;
+}
+
+
+.activity h2{
+    color: white;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Archivo', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 1.1em;
+    margin: 1em 0 1em 0;
+}
+.activities-container{
+    width: 100%;
+    background-color: #98cdff36;
+    height: 25em;
+    border-radius: 0.4em;
+}

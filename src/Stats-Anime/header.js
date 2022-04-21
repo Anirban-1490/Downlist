@@ -30,7 +30,7 @@ import {useAuth} from "./authorize"
 export function Header({data})
 {
     
-    
+    console.log(data);
    const {ishamclick,toggle} = useContext(Appcontext);
    const [isexpand,setIsexpand] = useState(false);
   
@@ -96,7 +96,7 @@ export function Header({data})
                    (data)? <i className="fas fa-user" ref={userbtn}>
                    <div className = "yourlist" ref = {refdropmenu}>
                        <h4 className="user-name">HI, <br/>{data.name}</h4>
-                       <Link to="#">
+                       <Link to={`user/${data.userID}/view`}>
                            <button  className = "your-anime" >
                                Profile
                            </button>

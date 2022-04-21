@@ -11,10 +11,11 @@ import ScrollToTop from "../src/Stats-Anime/scrollTotop";
 import {Mainsection} from "./Stats-Anime/about";
 import {Errorpage} from "./Stats-Anime/error";
 import {SignupMain} from "./Stats-Anime/Signup"
+import {UserProfileMain} from "./Stats-Anime/user_profile"
 
 function App()
 {
-    // route starts
+    //* route starts
     return <>
     
         
@@ -31,6 +32,7 @@ function App()
               
                 <Route path = "/about" element = {<Mainsection/>}/>
 
+                <Route path="/user/:userID/view" element={<UserProfileMain/>}/>
                  <Route path = "useranimelist" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
 
                  <Route path = "usercharacterlist" element = {<Listuser header = "Your character list" switch_item = "character"/>}/>
