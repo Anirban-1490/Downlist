@@ -12,6 +12,8 @@ const Approvider = ({children})=>
     const [loading,setLoading] = useState(false); //* trigger for the loading text
     const [loadingtext,setLoadingtext] = useState(""); //* content of the loading text
 
+    const [editState, setEditState] = useState(false);
+
     const toggle = (bool)=>
     {
         setIshamclick(bool);
@@ -25,13 +27,21 @@ const Approvider = ({children})=>
         setLoadingtext(text.toString());
     }
 
+    const changeEditState = (e)=>{
+        e.preventDefault()
+        setEditState(!editState);
+    }
+
     return <Appcontext.Provider value = {
         {ishamclick,
             toggle,
             loading,
             loadingtext,
             toggle_loading_state,
-            set_loading_text}
+            set_loading_text,
+            changeEditState,
+            editState
+        }
         }>{children}</Appcontext.Provider>
 }
 
