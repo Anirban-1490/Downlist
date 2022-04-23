@@ -1,4 +1,4 @@
-import react ,{useState,useEffect,useContext}from "react";
+import react ,{useState,useEffect,useContext,useRef}from "react";
 import {useQueryClient} from "react-query"
 import "./user_profileStyle.css";
 
@@ -6,10 +6,13 @@ import {Appcontext} from "./context"
 
 export const UserProfileMain = ()=>{
 
-
+    
     const client = useQueryClient()
     const data = client.getQueryData("user")
-
+  
+    
+    const refForm = useRef();
+    const {changeEditState} = useContext(Appcontext)
 
     const [windowsize,setWindowSize] = useState(window.innerWidth)
 
@@ -25,10 +28,18 @@ export const UserProfileMain = ()=>{
         }
     })
 
+    const updateProfile = (e)=>{
+    //     console.log(e);
+    //     e.preventDefault()
+    //    const formData = new FormData(refForm.current)
+    //     console.log(...formData);
+    //     changeEditState()
+    }
+
     return <>
       <div className="profile-container">
-            <form action="">
-                <SideProfile windowSize = {windowsize} {...data}/>
+            <form ref={refForm}>
+                <SideProfile windowSize = {windowsize} {...data} updateProfile = {updateProfile}/>
                 <Details {...data} windowSize = {windowsize} />
                 <Activity />
             </form>
@@ -37,7 +48,7 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name})=>{
+const SideProfile = ({windowSize,name,updateProfile})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 
@@ -52,8 +63,8 @@ const SideProfile = ({windowSize,name})=>{
                         name="name"
                         id=""
                         className="username username-edit"
-                        value={name}
-                        
+                        defaultValue={name}
+                        maxLength={18}
                     />
                 :""
             }
@@ -80,7 +91,7 @@ const SideProfile = ({windowSize,name})=>{
                             maxLength={12}
                         />
                         <button className="edit save"
-                            onClick={changeEditState}
+                            onClick={updateProfile}
                         >
                             Save
                         </button>
@@ -99,6 +110,7 @@ const SideProfile = ({windowSize,name})=>{
 const Details = ({name,windowSize})=>{
 
     const {editState} = useContext(Appcontext)
+    console.log(name);
 
     return <>
       {
@@ -110,8 +122,8 @@ const Details = ({name,windowSize})=>{
                         name="name"
                         id=""
                         className="username username-edit"
-                        value={name}
-
+                        defaultValue={name}
+                        maxLength={18}
                     />
                 }
 

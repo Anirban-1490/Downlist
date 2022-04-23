@@ -73,6 +73,7 @@ export const SignupMain = () => {
             //* store the token in localstorage
             const token = response.data.token;
             localStorage.setItem("token",token);
+            console.log(token);
             setAuth(true)
 
             

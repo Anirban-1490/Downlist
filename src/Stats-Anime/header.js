@@ -12,14 +12,16 @@ import {useAuth} from "./authorize"
     const userData = useAuth(true) //* custom hook for checking if user logged in or not
 
     useLocation() //* used to rerender the component if we hit back button to come here
-    
+
+    const {changeUserData} = useContext(Appcontext)
+    changeUserData(userData)
 
     return (
         <>
             <Smallnav/>    
              <Header data = {userData}/>
             {
-                (userData) ?children:""
+              children
             }
         </>
     );

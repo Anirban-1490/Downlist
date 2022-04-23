@@ -24,7 +24,7 @@ export const useAuth = (isenabled,redirect=false)=>{
            return console.log(err?.response?.data);
             
         }
-
+       
          //*this will remove the current route(the signup route) from history stack so user's can't go back to it. and also redirect the user to the home page
         if(redirect) return navigate("/",{replace:true})
     },enabled:!! isenabled

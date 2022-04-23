@@ -14,6 +14,8 @@ const Approvider = ({children})=>
 
     const [editState, setEditState] = useState(false);
 
+    const [userData,setUserData] = useState()
+
     const toggle = (bool)=>
     {
         setIshamclick(bool);
@@ -32,6 +34,12 @@ const Approvider = ({children})=>
         setEditState(!editState);
     }
 
+    const changeUserData = (user)=>{
+        setUserData(user)
+        console.log(user);
+    }
+
+
     return <Appcontext.Provider value = {
         {ishamclick,
             toggle,
@@ -40,7 +48,9 @@ const Approvider = ({children})=>
             toggle_loading_state,
             set_loading_text,
             changeEditState,
-            editState
+            editState,
+            changeUserData,
+            userData
         }
         }>{children}</Appcontext.Provider>
 }
