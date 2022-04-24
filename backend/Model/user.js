@@ -72,6 +72,17 @@ userSchema.methods.comparePassword = function(userPassword){
     return bcrypt.compare(userPassword,this.password)
 }
 
+userSchema.methods.updateProfile = function(obj){
+
+    const  {name,bio,status} = obj;
+
+    if(name) this.name = name;
+    if(bio) this.bio = bio;
+    if(status) this.status = status;
+
+   this.save();
+   return this._doc;
+}
 
 
 module.exports = mongoose.model("users",userSchema);

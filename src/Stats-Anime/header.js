@@ -32,7 +32,7 @@ import {useAuth} from "./authorize"
 export function Header({data})
 {
     
-    console.log(data);
+
    const {ishamclick,toggle} = useContext(Appcontext);
    const [isexpand,setIsexpand] = useState(false);
   

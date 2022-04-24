@@ -1,20 +1,26 @@
 import react ,{useState,useEffect,useContext,useRef}from "react";
-import {useQueryClient} from "react-query"
+import {useQueryClient,useQuery} from "react-query"
 import "./user_profileStyle.css";
 
 import {Appcontext} from "./context"
+import axios from "axios";
 
 export const UserProfileMain = ()=>{
 
-    
     const client = useQueryClient()
-    const data = client.getQueryData("user")
+    const user = client.getQueryData("user")
+
+    function fetchUserProfile(){
+        return axios.get(`http://localhost:4000/user/${user?.userID}/profile/view`)
+    }
+
+    const {data} = useQuery("profile",fetchUserProfile,{refetchOnWindowFocus:false})
   
-    
+   
     const refForm = useRef();
-    const {changeEditState} = useContext(Appcontext)
 
     const [windowsize,setWindowSize] = useState(window.innerWidth)
+    const {changeEditState} = useContext(Appcontext)
 
     useEffect(()=>{
         window.addEventListener("resize",()=>{
@@ -28,19 +34,34 @@ export const UserProfileMain = ()=>{
         }
     })
 
-    const updateProfile = (e)=>{
-    //     console.log(e);
-    //     e.preventDefault()
-    //    const formData = new FormData(refForm.current)
-    //     console.log(...formData);
-    //     changeEditState()
+    const updateProfile =async (e)=>{
+        e.preventDefault()
+       const formData = new FormData(refForm.current)
+        const tempData = Object.fromEntries(formData);
+
+      try {
+          
+        await (await axios.put(`http://localhost:4000/user/${user?.userID}/profile/update`,tempData))
+        window.location.reload()
+
+      } catch (error) {
+          console.log(error);
+          changeEditState(e)
+
+      }
+
+       
     }
 
     return <>
       <div className="profile-container">
             <form ref={refForm}>
-                <SideProfile windowSize = {windowsize} {...data} updateProfile = {updateProfile}/>
-                <Details {...data} windowSize = {windowsize} />
+                <SideProfile 
+                windowSize = {windowsize} 
+                {...data?.data.user} 
+                updateProfile = {updateProfile}
+                />
+                <Details {...data?.data.user} windowSize = {windowsize} />
                 <Activity />
             </form>
       </div>
@@ -48,7 +69,7 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name,updateProfile})=>{
+const SideProfile = ({windowSize,name,bio,status,updateProfile})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 
@@ -71,8 +92,8 @@ const SideProfile = ({windowSize,name,updateProfile})=>{
            {
                (!editState)?
                 <div className="inner-side-container">
-                     <h4 className="bio">  </h4>
-                     <h6 className="status">Custom status...</h6>
+                     <h4 className="bio"> {bio} </h4>
+                     <h6 className="status">{status}</h6>
                         <button className="edit"
                             onClick={changeEditState}
                         >
@@ -82,13 +103,14 @@ const SideProfile = ({windowSize,name,updateProfile})=>{
                :
 
                     <div className="inner-side-container">
-                        <textarea name="bio" id="" className="bio bio-edit" cols="30" rows="10" maxLength={35} ></textarea>
+                        <textarea name="bio" id="" className="bio bio-edit" cols="30" rows="10" maxLength={35} defaultValue={bio}></textarea>
                         <input type="text"
                             name="status"
                             id=""
                             className="status status-edit"
                             placeholder="Custom status..."
                             maxLength={12}
+                            defaultValue ={status}
                         />
                         <button className="edit save"
                             onClick={updateProfile}
@@ -110,7 +132,6 @@ const SideProfile = ({windowSize,name,updateProfile})=>{
 const Details = ({name,windowSize})=>{
 
     const {editState} = useContext(Appcontext)
-    console.log(name);
 
     return <>
       {

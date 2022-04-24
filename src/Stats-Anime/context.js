@@ -36,7 +36,6 @@ const Approvider = ({children})=>
 
     const changeUserData = (user)=>{
         setUserData(user)
-        console.log(user);
     }
 
 
