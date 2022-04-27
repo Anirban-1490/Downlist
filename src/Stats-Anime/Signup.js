@@ -1,8 +1,7 @@
 import {useRef,useEffect,useState,useReducer} from "react";
 import "./signup.css"
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
-import { useQuery} from "react-query";
+
 import { useAuth } from "./authorize";
 
 export const SignupMain = () => {

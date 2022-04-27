@@ -46,7 +46,7 @@ export const Genres = ()=>
     </>
 }
 
-// drop down options------
+//* drop down options------
 
 export const Dropdown = (prop)=>
 {
@@ -59,7 +59,7 @@ export const Dropdown = (prop)=>
         document.querySelector(".wrapper-input").classList.toggle("active")
     }
 
-    // when moving to diff page(from anime list -> char list) this will clear out the set key value for sorting the lists
+    //* when moving to diff page(from anime list -> char list) this will clear out the set key value for sorting the lists
     const clrDrop = react.useCallback(() => {
         if (stats_anime) {
             setID("");

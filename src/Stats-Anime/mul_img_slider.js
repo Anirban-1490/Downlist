@@ -20,7 +20,7 @@ export const Mulimgslider =  (prop)=>
                 const { image_url, mal_id, title } = anime;
                 return <SwiperSlide className="swiper-slide" key={mal_id}>
                     <div className="airing_container" >
-                        {(image_url) ? <img src={image_url}  onError={(currentElement)=>currentElement.target.src = default_img} alt="image"/> : ""}
+                        {(image_url) ? <img src={image_url}  onError={(currentElement)=>currentElement.target.src = default_img} alt=""/> : ""}
                         <div className="more">
                             {title && <h3>{title}</h3>}
                             <div className="see-more-container">

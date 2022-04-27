@@ -1,6 +1,6 @@
 import React from "react";
 import "./header-style.css";
-import {  useState , useRef ,useContext,useEffect} from "react";
+import {  useState , useRef ,useContext} from "react";
 import { Link,useLocation,useNavigate } from "react-router-dom";
 import {Appcontext} from "./context";
 
@@ -131,7 +131,7 @@ export function Header({data})
     )
 }
 
-// mobile view navbar ------
+//* mobile view navbar ------
 
  export function Smallnav()
 {
