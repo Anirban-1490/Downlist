@@ -3,7 +3,7 @@ import react , {useState , useEffect ,useRef} from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
-import { Link,useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useQueries,useQuery,useQueryClient } from "react-query";
 import {Spinner} from "./loading-spinner";
@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 
 const Resultmain =()=>
 {
-    // useLocation()
     const {id} = useParams();
     const malid = id;
     
@@ -141,7 +140,7 @@ export const Details =  (prop)=>
        if(switch_item === "character")  return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
 
         return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
-        // console.log(response);
+     
 
     }
 
@@ -159,41 +158,6 @@ export const Details =  (prop)=>
         })
     },enabled:!!clientData?.userID,cacheTime:1000})
 
-
-    // *function to check if item is in the local storage when you visit this page later
-    // const checkItem = react.useCallback(()=>
-    // {
-        
-    //     if(switch_item==="anime")
-    //     {
-    //         if(localStorage.getItem(switch_item)!==null)
-    //         {
-    //             [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
-    //                 if(obj.malid===malid)
-    //                 {
-    //                     //*if item is in local storage the set this state to true
-    //                     setItemadd(true);
-    //                 }      
-    //             });
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if(localStorage.getItem(switch_item)!==null)
-    //         {
-    //             [...JSON.parse(localStorage.getItem(switch_item))].forEach((obj)=>{
-    //                 if(obj.malid===malid)
-    //                 {
-    //                     setItemadd(true);
-    //                 }
-                    
-    //             });
-    //         }
-    //     }
-
-    // },[setItemadd])
-   
-    // useEffect(()=>checkItem(),[checkItem]);
 
    //* function to add item into local storage
     async function Additem()
