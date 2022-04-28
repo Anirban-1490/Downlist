@@ -77,7 +77,7 @@ const SideProfile = ({windowSize,name,bio,status,updateProfile})=>{
         <aside className="side-profile">
             <div className="img-container"></div>
             {
-                (windowSize < 785) ?
+                (windowSize < 821) ?
                     (!editState) ? <h2  className="username username-nonedit" >
                         {name}
                     </h2> : <input type="text"
@@ -135,7 +135,7 @@ const Details = ({name,windowSize})=>{
 
     return <>
       {
-            (windowSize > 785) ? <article className="details">
+            (windowSize > 821) ? <article className="details">
                 {
                     (!editState) ? <h2 className="username username-nonedit" >
                         {name}

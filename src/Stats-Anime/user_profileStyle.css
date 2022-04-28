@@ -179,7 +179,7 @@
 
 
 
-@media screen and (max-width:785px) {
+@media screen and (max-width:821px) {
     .profile-container form{
        /* border: 2px solid red; */
         display: block;
@@ -195,6 +195,7 @@
       max-width: 26em;
       margin: 0 auto;
       height: auto;
+      margin-top: 8em;
     }
 
     .activity{
