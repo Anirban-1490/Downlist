@@ -84,5 +84,15 @@ userSchema.methods.updateProfile = function(obj){
    return this._doc;
 }
 
+userSchema.methods.addActivity = function(activity){
+    const {actDone,detail,doneAt} = activity
+    const tempObj = {actDone,detail,doneAt}
+
+    const tempActivity = [...this.activity,tempObj]
+    this.activity = tempActivity;
+    this.save()
+    return this._doc.activity;
+}
+
 
 module.exports = mongoose.model("users",userSchema);

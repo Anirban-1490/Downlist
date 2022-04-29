@@ -4,6 +4,11 @@ import "./user_profileStyle.css";
 
 import {Appcontext} from "./context"
 import axios from "axios";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo("en-US")
 
 export const UserProfileMain = ()=>{
 
@@ -62,7 +67,7 @@ export const UserProfileMain = ()=>{
                 updateProfile = {updateProfile}
                 />
                 <Details {...data?.data.user} windowSize = {windowsize} />
-                <Activity />
+                <Activity {...data?.data.user} windowSize = {windowsize} />
             </form>
       </div>
       <div className="empty-container" style={{marginTop:"4em",height:"4em"}}></div>
@@ -153,13 +158,50 @@ const Details = ({name,windowSize})=>{
     </>
 }
 
-const Activity = ()=>{
+const Activity = ({activity ,windowSize})=>{
 
+    const colorsBG = {
+        "Added":"#008000a7",
+        "Removed" : "#a82828b3",
+        "Modified" :"#6f6e6eb3",
+
+    }
+    const colorsFG = {
+        "Added":"#62d262",
+        "Removed" : "#e17878",
+        "Modified" :"#a6a6a6",
+
+    }
+    console.log(activity);
     return <>
     <article className="activity">
        <h2>Activites in last 10 days</h2>
        <div className="activities-container">
+            {
+                activity?.map(({actDone,detail,doneAt})=>{
 
+                    return <div key={doneAt} className="activity-item-container">
+                        <h4 
+                        style={
+                            {
+                                color :colorsFG[actDone],
+                                backgroundColor:colorsBG[actDone]
+                            }
+                        }
+                        >{actDone}</h4>
+                        <h3>{
+                            (detail.length >16)?detail.substr(0,13) +"..." : detail
+                            
+                            }</h3>
+                        <p>{
+
+                            (windowSize >581) ?
+                            timeAgo.format(new Date(doneAt),"round"):timeAgo.format(new Date(doneAt),"mini-minute-now")
+                            }</p>
+                    </div>
+
+                })
+            }
        </div>
     </article>
     </>

@@ -177,6 +177,13 @@ export const Details =  (prop)=>
                     const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites,addedOn:new Date().toDateString()};
                     
                     const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addanime`,item)
+
+                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                        actDone:"Added",
+                        detail:animedetails.title,
+                        doneAt:new Date()
+                    })
+
                     console.log(response.data?.message);
                    
                 }
@@ -186,6 +193,12 @@ export const Details =  (prop)=>
                     const item = {malid,img_url:animedetails.image_url,title:name,fav,addedOn:new Date().toDateString()};
     
                     const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addChar`,item)
+
+                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                        actDone:"Added",
+                        detail:name,
+                        doneAt:new Date()
+                    })
                     console.log(response.data?.message);
                 }
     
