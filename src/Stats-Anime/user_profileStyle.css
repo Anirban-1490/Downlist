@@ -109,6 +109,7 @@
 .activity{
     /* border: 2px solid green; */
     height: 29em;
+    margin-bottom: 4em;
 }
 
 .inner-side-container{
@@ -173,12 +174,14 @@
 .activities-container{
     width: 100%;
     background-color: #98cdff36;
-    height: 25em;
+    height: 28em;
     border-radius: 0.4em;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1em;
+    overflow: hidden;
+    
 }
 .activities-container .activity-item-container {
    width: 97%;
@@ -188,7 +191,7 @@
    padding: 1.37em 1em;
    justify-content: center;
    align-items: center;
-   gap: 3em;
+   gap: 10%;
 }
 .activities-container .activity-item-container:nth-child(2n) {
     background-color: #89b3db5f;
@@ -206,13 +209,14 @@
  }
  .activities-container .activity-item-container p {
   color: white;
-  font-size: 0.89em;
+  white-space: nowrap;
+  font-size: 0.75em;
  }
  
  
 
 
-@media screen and (max-width:821px) {
+@media screen and (max-width:846px) {
     .profile-container form{
        /* border: 2px solid red; */
         display: block;

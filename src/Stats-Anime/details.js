@@ -184,7 +184,7 @@ export const Details =  (prop)=>
                         doneAt:new Date()
                     })
 
-                    console.log(response.data?.message);
+                   
                    
                 }
                 //*check if the route is for character
@@ -192,14 +192,14 @@ export const Details =  (prop)=>
                 {
                     const item = {malid,img_url:animedetails.image_url,title:name,fav,addedOn:new Date().toDateString()};
     
-                    const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addChar`,item)
+                    await axios.post(`http://localhost:4000/user/${clientData?.userID}/addChar`,item)
 
                     await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
                         actDone:"Added",
                         detail:name,
                         doneAt:new Date()
                     })
-                    console.log(response.data?.message);
+                   
                 }
     
                 //*item added
@@ -213,13 +213,25 @@ export const Details =  (prop)=>
                 if(switch_item === "anime")
                 {
                     const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeanime/${malid}`)
-                    console.log(response.data?.message);
+
+                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                        actDone:"Removed",
+                        detail:animedetails.title,
+                        doneAt:new Date()
+                    })
+                
                     
                 }
                 else if(switch_item ==="character")
                 {
                     const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removechar/${malid}`)
-                    console.log(response.data?.message);
+
+                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                        actDone:"Removed",
+                        detail:name,
+                        doneAt:new Date()
+                    })
+                   
                    
                 }
                 setItemadd(false);
