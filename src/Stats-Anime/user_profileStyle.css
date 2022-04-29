@@ -3,7 +3,7 @@
 
 
 .profile-container{
-    /* border: 2px solid red; */
+    
     position: relative;
     top: 4em;
     min-height: calc(100vh - 8em);
@@ -12,7 +12,7 @@
 .profile-container form{
     width: 100%;
     height: 100%;
-    /* border: 2px solid greenyellow; */
+  
     min-height: calc(100vh - 8em);
     display: grid;
     grid-template-columns: 20em 47%;
@@ -26,7 +26,7 @@
 
 
 .side-profile{
-    /* border: 2px solid yellow; */
+   
     grid-row: 1/3;
     height: 38em;
     background-color: rgba(146, 170, 255, 0.171);
@@ -51,7 +51,7 @@
     border: none;
     font-size: 1.12em;
     border-radius: 0.33em;
-    /* color: white; */
+   
     width: 13.5em;
     resize: none;
     color: white;
@@ -99,7 +99,7 @@
 
 .profile-container .details{
    border-bottom: 4px solid #23affe;
-   /* border: 2px solid red; */
+  
     margin-top: 1.4em;
     display: flex;
     gap: 1.6em;
@@ -107,7 +107,7 @@
     align-items: flex-end;
 }
 .activity{
-    /* border: 2px solid green; */
+   
     height: 29em;
     margin-bottom: 4em;
 }
@@ -141,17 +141,17 @@
 }
 .status{
   
-    /* height: 1.4em; */
+ 
     padding: 0.8em 1.5em;
     outline: none;
     border: none;
     font-size: 0.9em;
     border-radius: 0.23em;
-    /* transform: translateY(-0.7em); */
+   
     display: inline-block;
     width: 12em;
     background: #81f0ff2a;
-    /* opacity: 13%; */
+   
     color: white;
     text-align: center;
     font-family: sans-serif;
@@ -165,7 +165,7 @@
 
 .activity h2{
     color: white;
-    /* font-family: 'Roboto', sans-serif; */
+  
     font-family: 'Archivo', sans-serif;
     letter-spacing: 0.1em;
     font-size: 1.1em;
@@ -218,7 +218,7 @@
 
 @media screen and (max-width:846px) {
     .profile-container form{
-       /* border: 2px solid red; */
+     
         display: block;
         flex-direction: column;
         align-items: center;
@@ -227,8 +227,7 @@
     }
     
     .side-profile{
-      /* width: 26em; */
-      /* min-width: 10em; */
+
       max-width: 26em;
       margin: 0 auto;
       height: auto;
@@ -238,7 +237,7 @@
     .activity{
         width: 88%;
         margin: 6em auto;
-        /* height: auto; */
+       
     }
     .activities-container .activity-item-container h3 {
     

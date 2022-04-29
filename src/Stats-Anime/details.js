@@ -212,7 +212,7 @@ export const Details =  (prop)=>
     
                 if(switch_item === "anime")
                 {
-                    const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeanime/${malid}`)
+                    await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeanime/${malid}`)
 
                     await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
                         actDone:"Removed",
@@ -224,7 +224,7 @@ export const Details =  (prop)=>
                 }
                 else if(switch_item ==="character")
                 {
-                    const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removechar/${malid}`)
+                     await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removechar/${malid}`)
 
                     await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
                         actDone:"Removed",
