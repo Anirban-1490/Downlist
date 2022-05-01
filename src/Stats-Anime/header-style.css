@@ -142,17 +142,7 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.529);
     border-radius: 0.2em;
 }
-/* .fa-user .yourlist::before
-{
-    content: "";
-    position: absolute;
-    width: 100%;
-    top:0;
-    left: 0;
-    background: orange;
-    height: 0.2em;
-    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.809);
-} */
+
 .fa-user .yourlist .user-name
 {
     font-size: 0.74em;
