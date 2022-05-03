@@ -16,6 +16,7 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "swiper": "^7.4.1",
+    "three": "^0.140.0",
     "vanta": "^0.5.21",
     "web-vitals": "^1.1.2"
   },

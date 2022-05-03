@@ -1,4 +1,5 @@
 import React from "react";
+import * as THREE from 'three';
 import "./animestyle.css";
 import { useEffect ,useState , useRef} from "react";
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ function Main()
 {
 
     const mydiv = useRef()
-    const [vantaEffect, setVantaEffect] = useState(0)
+    const [vantaEffect, setVantaEffect] = useState()
     //* Vanta.js fog animated background initializer
 
     useEffect(() => {
@@ -36,7 +37,6 @@ function Main()
     return (
         
         <>
-            
             <div className="container1" 
                 style={{
                     display: "flex",
@@ -50,7 +50,7 @@ function Main()
               
                 <Content/>
             </div>
-            
+           
         </>
     );
 }

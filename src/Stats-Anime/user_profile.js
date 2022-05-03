@@ -6,6 +6,7 @@ import {Appcontext} from "./context"
 import axios from "axios";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
+import {Spinner} from "./loading-spinner"
 
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
@@ -46,31 +47,32 @@ export const UserProfileMain = ()=>{
 
       try {
           
-        await (await axios.put(`http://localhost:4000/user/${user?.userID}/profile/update`,tempData))
+      await axios.put(`http://localhost:4000/user/${user?.userID}/profile/update`,tempData)
         window.location.reload()
 
       } catch (error) {
           console.log(error);
           changeEditState(e)
 
-      }
-
-       
+      } 
     }
 
     return <>
-      <div className="profile-container">
-            <form ref={refForm}>
-                <SideProfile 
-                windowSize = {windowsize} 
-                {...data?.data.user} 
-                updateProfile = {updateProfile}
-                />
-                <Details {...data?.data.user} windowSize = {windowsize} />
-                <Activity {...data?.data.user} windowSize = {windowsize} />
-            </form>
-      </div>
-      <div className="empty-container" style={{marginTop:"4em",height:"4em"}}></div>
+     {
+            (!data?.data.user) ? <Spinner /> :
+                <div className="profile-container">
+                    <form ref={refForm}>
+                        <SideProfile
+                            windowSize={windowsize}
+                            {...data?.data.user}
+                            updateProfile={updateProfile}
+                        />
+                        <Details {...data?.data.user} windowSize={windowsize} />
+                        <Activity {...data?.data.user} windowSize={windowsize} />
+                    </form>
+                </div>
+        }
+        <div className="empty-container" style={{marginTop:"4em",height:"4em"}}></div>
     </>
 }
 
@@ -80,7 +82,11 @@ const SideProfile = ({windowSize,name,bio,status,updateProfile})=>{
 
     return <>
         <aside className="side-profile">
-            <div className="img-container"></div>
+            <div className="img-container">
+                {
+                    
+                }
+            </div>
             {
                 (windowSize < 846) ?
                     (!editState) ? <h2  className="username username-nonedit" >

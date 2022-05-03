@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
         required:[true,"Please provide a password"]
     },
     image:{
-        type:"Buffer"
+        type: String
     },
     bio:{
         type:String,

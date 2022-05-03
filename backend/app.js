@@ -14,6 +14,7 @@ const errorHandler = require("./middleware/validation-error")
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
+app.use('/public', express.static('public'));
 app.use("/api/v1/auth",authrouter)
 app.use("/user/:userID/profile/",profileRouter)
 app.use("/user/:userID",listrouter)
