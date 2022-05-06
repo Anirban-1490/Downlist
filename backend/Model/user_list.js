@@ -48,20 +48,6 @@ userList.methods.removeAnime = function(malid){
 
 
 
-// userList.methods.includesAnime = function(malid){
-
-//     let isincludes = false;
-
-//     this.animeList.forEach((obj)=>{
-//         if(obj.malid == malid) isincludes = true;
-//     })
-
-
-//     return isincludes;
-   
-// }
-
-
 userList.methods.addCharacter = function(character){
 
     const tempListItems = [...this.charList,character]

@@ -1,4 +1,4 @@
-import react ,{useState,useEffect,useContext,useRef}from "react";
+import  {useState,useEffect,useContext,useRef}from "react";
 import {useQueryClient,useQuery} from "react-query"
 import "./user_profileStyle.css";
 
@@ -84,7 +84,7 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name,bio,status,image,updateProfile})=>{
+const SideProfile = ({windowSize,name,bio,status,image})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 

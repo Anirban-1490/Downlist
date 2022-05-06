@@ -51,9 +51,5 @@ const activity = async (req,res,next)=>{
     }
 }
 
-const uploadImage = (req,res,next)=>{
-    
-    console.log(req.files);
-}
 
-module.exports = {updateProfile,viewProfile,activity,uploadImage}
+module.exports = {updateProfile,viewProfile,activity}
