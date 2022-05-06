@@ -26,6 +26,7 @@ export const UserProfileMain = ()=>{
     const refForm = useRef();
 
     const [windowsize,setWindowSize] = useState(window.innerWidth)
+   
     const {changeEditState} = useContext(Appcontext)
 
     useEffect(()=>{
@@ -40,14 +41,20 @@ export const UserProfileMain = ()=>{
         }
     })
 
+ 
     const updateProfile =async (e)=>{
+     
         e.preventDefault()
-       const formData = new FormData(refForm.current)
-        const tempData = Object.fromEntries(formData);
+        
+       const formData = new FormData(e.target)
+       
+       //! use FormData only and don't convert it to a object as doing that will remove the headers provided by formData and the request will not contain the multipart/ file
 
       try {
-          
-      await axios.put(`http://localhost:4000/user/${user?.userID}/profile/update`,tempData)
+       
+
+      await axios.post(`http://localhost:4000/user/${user?.userID}/profile/update`,formData
+      )
         window.location.reload()
 
       } catch (error) {
@@ -61,11 +68,12 @@ export const UserProfileMain = ()=>{
      {
             (!data?.data.user) ? <Spinner /> :
                 <div className="profile-container">
-                    <form ref={refForm}>
+                    <form ref={refForm} enctype="multipart/form-data" onSubmit={updateProfile}>
                         <SideProfile
                             windowSize={windowsize}
                             {...data?.data.user}
                             updateProfile={updateProfile}
+                            
                         />
                         <Details {...data?.data.user} windowSize={windowsize} />
                         <Activity {...data?.data.user} windowSize={windowsize} />
@@ -76,15 +84,22 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name,bio,status,updateProfile})=>{
+const SideProfile = ({windowSize,name,bio,status,image,updateProfile})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 
     return <>
         <aside className="side-profile">
             <div className="img-container">
+                <img src={image} alt="" />
                 {
-                    
+                    (editState) ? 
+                    <div className="img-edit">
+                        <label htmlFor="imgFile" id="label-img">
+                        <ion-icon name="pencil"></ion-icon>
+                        </label>
+                        <input type="file" name="img" id="imgFile" hidden  />
+                    </div>:""
                 }
             </div>
             {
@@ -123,10 +138,13 @@ const SideProfile = ({windowSize,name,bio,status,updateProfile})=>{
                             maxLength={12}
                             defaultValue ={status}
                         />
-                        <button className="edit save"
+                        {/* <button 
                             onClick={updateProfile}
                         >
-                            Save
+                            
+                        </button> */}
+                        <button type="submit" className="edit save">
+                        Save
                         </button>
                     </div>
 

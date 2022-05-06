@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
         required:[true,"Please provide a password"]
     },
     image:{
-        type: String
+        type: String,
+        default:"http://localhost:4000/public/default-profile.jpg"
     },
     bio:{
         type:String,
@@ -74,11 +75,12 @@ userSchema.methods.comparePassword = function(userPassword){
 
 userSchema.methods.updateProfile = function(obj){
 
-    const  {name,bio,status} = obj;
+    const  {name,bio,status,imageFilePath} = obj;
 
     if(name) this.name = name;
     if(bio) this.bio = bio;
     if(status) this.status = status;
+    if(imageFilePath) this.image = imageFilePath;
 
    this.save();
    return this._doc;
