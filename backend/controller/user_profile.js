@@ -4,12 +4,14 @@ const userList = require("../Model/user")
 const updateProfile =async (req,res,next)=>{
 
     const {userID} = req.params;
-    let data = req.body;
+    var data = req.body;
     
-    const url = req.protocol + "://" + req.headers.host;
-    const imageFilePath = url + "/public/" + req.file.filename
-    
-     data = {...data,imageFilePath};
+     if(req.file){
+        const url = req.protocol + "://" + req.headers.host;
+        const imageFilePath = url + "/public/" + req.file?.filename
+
+        data = {...data ,imageFilePath};
+     }
 
     try {
         const userDetails = await userList.findOne({userid:userID})
