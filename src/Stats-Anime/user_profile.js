@@ -90,8 +90,11 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
 
     return <>
         <aside className="side-profile">
-            <div className="img-container">
-                <img src={image} alt="" />
+            <div className="img-outer-container">
+                <div className="img-container">
+                    <img src={image} alt="" />
+                </div>
+
                 {
                     (editState) ? 
                     <div className="img-edit">
@@ -101,7 +104,12 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
                         <input type="file" name="img" id="imgFile" hidden  />
                     </div>:""
                 }
+
             </div>
+
+
+
+           
             {
                 (windowSize < 846) ?
                     (!editState) ? <h2  className="username username-nonedit" >
