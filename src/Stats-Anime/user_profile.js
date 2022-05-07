@@ -126,8 +126,8 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
            {
                (!editState)?
                 <div className="inner-side-container">
-                     <h4 className="bio"> {bio} </h4>
-                     <h6 className="status">{status}</h6>
+                    {bio && <h4 className="bio"> {bio} </h4>} 
+                    {status &&  <h6 className="status">{status}</h6>}
                         <button className="edit"
                             onClick={changeEditState}
                         >
@@ -137,7 +137,7 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
                :
 
                     <div className="inner-side-container">
-                        <textarea name="bio" id="" className="bio bio-edit" cols="30" rows="10" maxLength={35} defaultValue={bio}></textarea>
+                        <textarea name="bio" id="" className="bio bio-edit" cols="30" rows="10" maxLength={35} defaultValue={bio} placeholder="Custom bio..."></textarea>
                         <input type="text"
                             name="status"
                             id=""
@@ -145,12 +145,9 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
                             placeholder="Custom status..."
                             maxLength={12}
                             defaultValue ={status}
+                            autoComplete="off"
                         />
-                        {/* <button 
-                            onClick={updateProfile}
-                        >
-                            
-                        </button> */}
+                      
                         <button type="submit" className="edit save">
                         Save
                         </button>

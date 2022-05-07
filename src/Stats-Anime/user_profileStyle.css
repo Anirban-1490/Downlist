@@ -95,7 +95,13 @@
     width: 13.5em;
     resize: none;
     color: white;
-    background: #23aefe24;
+    background: #23aefe13;
+}
+.bio-edit{
+    background: #23aefe3e;
+}
+.side-profile .bio::placeholder{
+    color: white;
 }
 
 .side-profile .edit{
@@ -190,7 +196,7 @@
    
     display: inline-block;
     width: 12em;
-    background: #81f0ff2a;
+    background: #81f0ff1c;
    
     color: white;
     text-align: center;
@@ -198,8 +204,13 @@
     font-weight: lighter;
 
 }
+.status::placeholder{
+    color: white;
+    font-size: 1em;
+}
 .status-edit{
     text-align: left;
+    background: #81f0ff36;
 }
 
 
