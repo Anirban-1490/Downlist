@@ -6,7 +6,7 @@ import {Appcontext} from "./context";
 
 import {useAuth} from "./authorize"
 
- function Main({children})
+ function Main()
 {
    
     const userData = useAuth(true) //* custom hook for checking if user logged in or not
@@ -18,11 +18,9 @@ import {useAuth} from "./authorize"
 
     return (
         <>
-            <Smallnav/>    
-             <Header data = {userData}/>
-            {
-              children
-            }
+            <Smallnav />
+            <Header data={userData} />
+        
         </>
     );
 }

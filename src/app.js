@@ -22,7 +22,7 @@ function App()
         <Router>
             
             <ScrollToTop/>
-            <Header>
+            <Header/>
             <Routes>
                 <Route index path = "/" element = {<Anime/>}/>
                    
@@ -46,7 +46,6 @@ function App()
 
 
             </Routes>
-            </Header>
         </Router>
     
        
