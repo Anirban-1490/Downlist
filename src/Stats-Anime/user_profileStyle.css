@@ -89,13 +89,14 @@
     padding: 0.78em 0.85em;
     outline: none;
     border: none;
-    font-size: 1.12em;
+    font-size: 1.1em;
     border-radius: 0.33em;
    
     width: 13.5em;
     resize: none;
     color: white;
     background: #23aefe13;
+    font-weight: 400;
 }
 .bio-edit{
     background: #23aefe3e;
@@ -225,7 +226,7 @@
 .activities-container{
     width: 100%;
     background-color: #98cdff36;
-    height: 28em;
+    height: 28.5em;
     border-radius: 0.4em;
     display: flex;
     flex-direction: column;
@@ -242,7 +243,7 @@
    padding: 1.37em 1em;
    justify-content: center;
    align-items: center;
-   gap: 10%;
+   gap: 9.5%;
 }
 .activities-container .activity-item-container:nth-child(2n) {
     background-color: #89b3db5f;
@@ -251,12 +252,14 @@
     
    white-space: nowrap;
     width: 11em;
+    
  }
  .activities-container .activity-item-container h4 {
     padding: 0.4em 0.55em;
     border-radius: 0.3em;
     font-family: monospace;
     font-size: 1.2em;
+  
  }
  .activities-container .activity-item-container p {
   color: white;

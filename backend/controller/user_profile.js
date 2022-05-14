@@ -27,7 +27,7 @@ const viewProfile = async (req,res,next)=>{
     try {
         const userDetails = await userList.findOne({userid:userID})
         let {bio,name,status,activity,image} = userDetails;
-        activity = activity.sort((a,b)=> new Date(b.doneAt) - new Date(a.doneAt)).slice(0,5)
+        activity = activity.sort((a,b)=> new Date(b.doneAt) - new Date(a.doneAt)).slice(0,6)
 
         res.status(200).json({message:"Profile updated successfully",user:{bio,status,name,activity,image}})
         
