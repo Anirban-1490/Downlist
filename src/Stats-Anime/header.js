@@ -78,9 +78,11 @@ export function Header({data})
         localStorage.removeItem("token")
         if(window.location.pathname !== "/"){
 
-            navigate("/",{replace:true})
+            window.location.replace("/")
+           
+            return;
         }
-        else window.location.reload()
+         window.location.reload()
     }
 
     return(
