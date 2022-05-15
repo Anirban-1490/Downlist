@@ -231,14 +231,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     /* gap: 1em; */
     overflow: hidden;
+    position: relative;
     
 }
 .activities-container .empty-container{
     font-weight: lighter;
     opacity: 0.45;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
 }
 .activities-container .activity-item-container {
    width: 97%;

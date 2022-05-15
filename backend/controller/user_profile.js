@@ -43,7 +43,7 @@ const viewProfile = async (req,res,next)=>{
 const activity = async (req,res,next)=>{
     const {userID} = req.params;
     try {
-        const userDetails = await userList.findOne({userid:userID})
+        const userDetails = await userList.findById(userID)
 
         const activityResult = userDetails.addActivity(req.body)  
         

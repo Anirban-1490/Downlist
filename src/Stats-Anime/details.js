@@ -123,6 +123,7 @@ const Resultmain =()=>
 
 export const Details =  (prop)=>
 {
+    const token = localStorage.getItem("token")
     const {animedetails,animegenres,stats,malid} = prop.details;
     const {fav,about,name_kenji,name,switch_item,switch_path} = prop;
     const[itemadd , setItemadd] = useState(false);
@@ -133,7 +134,7 @@ export const Details =  (prop)=>
 
     const navigate = useNavigate()
     const client = useQueryClient();
-    const clientData = client.getQueryData("user");
+    const clientData = client.getQueryData(["user",token]);
     const addedToListAnime = client.getQueryData("userAnimeList");
 
     async function fetchUserList(){
@@ -164,7 +165,7 @@ export const Details =  (prop)=>
     {
         let temparray =[];
        
-        if(!client.getQueryData("user")){
+        if(!clientData.userID){
             navigate("/userauth");
         }
         else{
