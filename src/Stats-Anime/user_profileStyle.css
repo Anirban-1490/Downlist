@@ -231,9 +231,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     /* gap: 1em; */
     overflow: hidden;
     
+}
+.activities-container .empty-container{
+    font-weight: lighter;
+    opacity: 0.45;
 }
 .activities-container .activity-item-container {
    width: 97%;

@@ -12,15 +12,29 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
 
 export const UserProfileMain = ()=>{
-
+    const [isIDAvailable,setIDAvailable] = useState(false);
+    const token = localStorage.getItem("token")
     const client = useQueryClient()
-    const user = client.getQueryData("user")
+    const user = client.getQueryData(["user",token])
+
+   
+
+    useEffect(()=>{
+        //* as soon as we get the user data from query cache 
+        //* then run this 
+        if(user){
+            setIDAvailable(prev=>!prev);
+            
+        }
+        
+    },[user])
 
     function fetchUserProfile(){
-        return axios.get(`http://localhost:4000/user/${user?.userID}/profile/view`)
+       
+        return axios.get(`http://localhost:4000/user/${user.userID}/profile/view`)
     }
 
-    const {data} = useQuery("profile",fetchUserProfile,{refetchOnWindowFocus:false})
+    const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:isIDAvailable})
   
    
     const refForm = useRef();
@@ -164,7 +178,7 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
 }
 
 const Details = ({name,windowSize})=>{
-
+    console.log(name);
     const {editState} = useContext(Appcontext)
 
     return <>
@@ -207,7 +221,7 @@ const Activity = ({activity ,windowSize})=>{
        <h2>Activites in last 10 days</h2>
        <div className="activities-container">
             {
-                activity?.map(({actDone,detail,doneAt})=>{
+               (activity.length>0)?activity.map(({actDone,detail,doneAt})=>{
 
                     return <div key={doneAt} className="activity-item-container">
                         <h4 
@@ -229,8 +243,9 @@ const Activity = ({activity ,windowSize})=>{
                             }</p>
                     </div>
 
-                })
+                }): <h3 className="empty-container">Looks pretty empty...</h3>
             }
+
        </div>
     </article>
     </>
