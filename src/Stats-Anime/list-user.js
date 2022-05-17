@@ -1,18 +1,20 @@
 import React,{useEffect,useState} from "react";
-import { Link,useLocation  } from "react-router-dom";
+import { Link,useLocation, useParams  } from "react-router-dom";
 import {Dropdown} from "./genres-anime";
 import "./genreAnime-style.css";
 import "./list-style.css";
 import react from "react";
 import axios from "axios";
 import { useQueryClient,useQuery } from "react-query";
+var token = localStorage.getItem("token");
 
 
 function Listmain({header,switch_item})
 {
     useLocation()
-    const data = useList(switch_item);
-    console.log(data);
+    const {userID} = useParams()
+   
+    const data = useList(switch_item,userID);
 
     return <>
     
@@ -29,17 +31,14 @@ function Listmain({header,switch_item})
 
 //* custom hook to get the user's list items
 
-export function useList(switch_item)
+export function useList(switch_item,userID)
 {
-    
-    const client = useQueryClient();
-    const clientData = client.getQueryData("user");
-    console.log(clientData);
-
+   const client = useQueryClient();
+  
     async function fetchUserList() {
-        if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
+        if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${userID}/viewsavedchar`)).data;
 
-        return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
+        return (await axios.get(`http://localhost:4000/user/${userID}/viewsavedanime`)).data
 
     }
  
@@ -47,11 +46,11 @@ export function useList(switch_item)
 
         , () => fetchUserList(), {
             refetchOnWindowFocus: false,
-        enabled: !!clientData?.userID 
+        enabled: !!userID
 
         , cacheTime: 1000,onSettled:(data,err)=>{
             if(err) return console.log(err);
-            console.log(data);
+            
         }
     })
 
@@ -65,11 +64,12 @@ export function useList(switch_item)
 
 function List(props)
 {
+    
     const {header,switch_item,data} = props;
     const client = useQueryClient();
-    const clientData = client.getQueryData("user");
+    const clientData = client.getQueryData(["user",token]);
     const [list,setList] = useState(data.list)
-
+  
 
     const [stat,setStat] = useState("");
     //* sorting by options
@@ -93,7 +93,7 @@ function List(props)
     //*sort by which ?
     const sortCheck = react.useCallback(() => {
         setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
-        console.log("ran");
+      
     }, [stat])
     
     useEffect(() => {

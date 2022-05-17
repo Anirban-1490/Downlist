@@ -103,12 +103,12 @@ export function Header({data})
                                Profile
                            </button>
                        </Link>
-                       <Link to="useranimelist">
+                       <Link to={`useranimelist/${data.userID}`}>
                            <button  className = "your-anime" >
                                Anime list
                            </button>
                        </Link>
-                       <Link to="usercharacterlist">
+                       <Link to={`usercharacterlist/${data.userID}`}>
                            <button  className = "your-anime" >
                                Character list
                            </button>
