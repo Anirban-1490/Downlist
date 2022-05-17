@@ -114,36 +114,38 @@
     background-color: rgb(218, 145, 9);
 }
 
- .fa-user
+ .user
 {
     position: absolute;
-    right: 3.5em;
-    top: 60%;
+    right: 8.5%;
+    top: 50%;
     transform: translate(0,-50%);
     width: 40px;
     height: 40px;
-    color: yellow;
+    border: 3px solid yellow;
     text-align: center;
     font-size: 23px;
     z-index: 2;
+    border-radius: 50%;
 }
-.fa-user .yourlist
+.user .yourlist
 {
     
     width: 8.6em;
     height: 0px;
     position: absolute;
-    right: -3em;
-    top: 40px;
+    right: -240%;
+    top: 60px;
     z-index: 4;
     overflow: hidden;
     transition: 0.1s;
     background: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.529);
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.529));
     border-radius: 0.2em;
 }
 
-.fa-user .yourlist .user-name
+
+.user .yourlist .user-name
 {
     font-size: 0.74em;
     padding: 0.6em;
@@ -152,7 +154,7 @@
     letter-spacing: 0.15em;
     margin-top: 0.5em;
 }
-.fa-user .yourlist .your-anime,.fa-user .yourlist .your-char,.sign-out
+.user .yourlist .your-anime,.user .yourlist .your-char,.sign-out
 {
     width: 100%;
     height: 45px;
@@ -371,7 +373,7 @@
     .nav-container ul{
        display: none;
     }
-    .fa-user ,.yourlist
+    .user ,.yourlist
     {
         display:  none;
     }

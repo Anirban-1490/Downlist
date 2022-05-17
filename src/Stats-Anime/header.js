@@ -95,8 +95,9 @@ export function Header({data})
                     <nav><Link className="link" to="/about">About</Link></nav>
                 </ul>
                {
-                   (data)? <i className="fas fa-user" ref={userbtn}>
-                   <div className = "yourlist" ref = {refdropmenu}>
+                   (data)? <div className="user" ref={userbtn}>
+                       <img src="" alt="" />
+                       <div className = "yourlist" ref = {refdropmenu}>
                        <h4 className="user-name">HI, <br/>{data.name}</h4>
                        <Link to={`user/${data.userID}/view`}>
                            <button  className = "your-anime" >
@@ -118,7 +119,7 @@ export function Header({data})
                            <ion-icon name="exit-outline"></ion-icon>
                        </button>
                    </div>
-               </i> :
+                   </div> :
                 <Link to="userauth" className="signup">
                     Sign in
                 </Link>
