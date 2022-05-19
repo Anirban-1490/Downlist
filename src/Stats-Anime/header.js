@@ -36,7 +36,7 @@ export function Header({data})
   
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
-    const navigate = useNavigate()
+   
   
   
     const toggelnav = ()=>
