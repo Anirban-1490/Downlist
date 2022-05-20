@@ -1,4 +1,4 @@
-import {useRef,useEffect,useState,useReducer} from "react";
+import {useRef,useState} from "react";
 import "./signup.css"
 import axios from "axios";
 
