@@ -14,7 +14,6 @@ export const SignupMain = () => {
   
     useAuth(isAuthorize,true)
 
- 
     //* handler for switching between signup and sign in form
     const changeBtn  = function(e){
         e.preventDefault();
