@@ -12,11 +12,12 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
 
 export const UserProfileMain = ()=>{
+    
     const [isIDAvailable,setIDAvailable] = useState(false);
     const token = localStorage.getItem("token")
     const client = useQueryClient()
     const user = client.getQueryData(["user",token])
-
+    const data = client.getQueryData(["profile",token])
    
 
     useEffect(()=>{
@@ -29,12 +30,7 @@ export const UserProfileMain = ()=>{
         
     },[user])
 
-    function fetchUserProfile(){
-       
-        return axios.get(`http://localhost:4000/user/${user.userID}/profile/view`)
-    }
-
-    const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:isIDAvailable})
+    
   
    
     const refForm = useRef();

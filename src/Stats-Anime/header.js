@@ -1,12 +1,13 @@
 import React from "react";
 import "./header-style.css";
 import {  useState , useRef ,useContext} from "react";
-import { Link,useLocation,useNavigate } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import {Appcontext} from "./context";
-
+import axios from "axios";
+import { useQuery } from "react-query";
 import {useAuth} from "./authorize"
 
- function Main()
+ function Main({children})
 {
    
     const userData = useAuth(true) //* custom hook for checking if user logged in or not
@@ -15,12 +16,27 @@ import {useAuth} from "./authorize"
 
     const {changeUserData} = useContext(Appcontext)
     changeUserData(userData)
+    const token = localStorage.getItem("token")
+    function fetchUserProfile(){
+       
+        return axios.get(`http://localhost:4000/user/${userData.userID}/profile/view`)
+    }
+
+    const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:!!userData,onSettled:(data,err)=>{
+        if(err) return console.log(err);
+
+        return data.data.user.image
+    }})
 
     return (
         <>
             <Smallnav />
-            <Header data={userData} />
-        
+
+            {
+                (userData && data)? <Header data={{...userData,...(data?.data.user)}} />:""
+            }
+           
+            
         </>
     );
 }
@@ -30,7 +46,7 @@ import {useAuth} from "./authorize"
 export function Header({data})
 {
     
-
+console.log(data.image);
    const {ishamclick,toggle} = useContext(Appcontext);
    const [isexpand,setIsexpand] = useState(false);
   
@@ -96,7 +112,9 @@ export function Header({data})
                 </ul>
                {
                    (data)? <div className="user" ref={userbtn}>
-                       <img src="" alt="" />
+                       <div className="profile-img-container">
+                       <img src={data.image} alt="" />
+                       </div>
                        <div className = "yourlist" ref = {refdropmenu}>
                        <h4 className="user-name">HI, <br/>{data.name}</h4>
                        <Link to={`user/${data.userID}/view`}>
