@@ -11,10 +11,11 @@ const updateProfile =async (req,res,next)=>{
         const imageFilePath = url + "/public/" + req.file?.filename
 
         data = {...data ,imageFilePath};
+        console.log(data);
      }
 
     try {
-        const userDetails = await userList.findOne({userid:userID})
+        const userDetails = await userList.findById(userID)
         const {bio,status} = userDetails.updateProfile(data)
         res.status(200).json({message:"Profile updated successfully",user:{bio,status}})
         
@@ -24,7 +25,7 @@ const updateProfile =async (req,res,next)=>{
 }
 const viewProfile = async (req,res,next)=>{
     const {userID} = req.params;
-    console.log(userID);
+    
     try {
         const userDetails = await userList.findById(userID)
         

@@ -1,18 +1,24 @@
 import  {useState,useEffect,useContext,useRef}from "react";
 import {useQueryClient,useQuery} from "react-query"
-import "./user_profileStyle.css";
-
 import {Appcontext} from "./context"
 import axios from "axios";
+import { useParams } from "react-router-dom";
+
+import {Spinner} from "./loading-spinner"
+
+//* timeago
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
-import {Spinner} from "./loading-spinner"
+
+//*global css
+import "./user_profileStyle.css";
 
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
 
 export const UserProfileMain = ()=>{
     const refForm = useRef();
+    const {userID} = useParams()
 
     const [windowsize,setWindowSize] = useState(window.innerWidth)
    
@@ -47,7 +53,7 @@ export const UserProfileMain = ()=>{
       try {
        
 
-      await axios.post(`http://localhost:4000/user/${user?.userID}/profile/update`,formData
+      await axios.post(`http://localhost:4000/user/${userID}/profile/update`,formData
       )
         window.location.reload()
 
