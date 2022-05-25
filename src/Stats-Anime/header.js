@@ -14,8 +14,9 @@ import {useAuth} from "./authorize"
 
     useLocation() //* used to rerender the component if we hit back button to come here
 
-    const {changeUserData} = useContext(Appcontext)
+    const {changeUserData,changeUserProfileDetails} = useContext(Appcontext)
     changeUserData(userData)
+
     const token = localStorage.getItem("token")
     function fetchUserProfile(){
        
@@ -24,12 +25,11 @@ import {useAuth} from "./authorize"
 
     const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:!!userData,onSettled:(data,err)=>{
         if(err) return console.log(err);
-
+        changeUserProfileDetails(data) //*store the data in the context
         return data.data.user.image
     }})
 
-    return (
-        <>
+    return <>
             <Smallnav />
 
             {
@@ -38,7 +38,7 @@ import {useAuth} from "./authorize"
            
             
         </>
-    );
+
 }
 
 

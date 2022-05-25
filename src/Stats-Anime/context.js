@@ -11,10 +11,9 @@ const Approvider = ({children})=>
     const [ishamclick , setIshamclick] = useState(false);
     const [loading,setLoading] = useState(false); //* trigger for the loading text
     const [loadingtext,setLoadingtext] = useState(""); //* content of the loading text
-
     const [editState, setEditState] = useState(false);
-
     const [userData,setUserData] = useState()
+    const [userProfileDetails,setUserProfileDetails] = useState({})
 
     const toggle = (bool)=>
     {
@@ -38,6 +37,11 @@ const Approvider = ({children})=>
         setUserData(user)
     }
 
+    //* for storing user's profile details between renders
+    const changeUserProfileDetails = (userData)=>{
+        setUserProfileDetails(userData);
+    }
+
 
     return <Appcontext.Provider value = {
         {ishamclick,
@@ -49,7 +53,9 @@ const Approvider = ({children})=>
             changeEditState,
             editState,
             changeUserData,
-            userData
+            userData,
+            changeUserProfileDetails,
+            userProfileDetails
         }
         }>{children}</Appcontext.Provider>
 }

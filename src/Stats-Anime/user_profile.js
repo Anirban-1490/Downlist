@@ -12,32 +12,16 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
 
 export const UserProfileMain = ()=>{
-    
-    const [isIDAvailable,setIDAvailable] = useState(false);
-    const token = localStorage.getItem("token")
-    const client = useQueryClient()
-    const user = client.getQueryData(["user",token])
-    const data = client.getQueryData(["profile",token])
-   
-
-    useEffect(()=>{
-        //* as soon as we get the user data from query cache 
-        //* then run this 
-        if(user){
-            setIDAvailable(prev=>!prev);
-            
-        }
-        
-    },[user])
-
-    
-  
-   
     const refForm = useRef();
 
     const [windowsize,setWindowSize] = useState(window.innerWidth)
    
-    const {changeEditState} = useContext(Appcontext)
+    const {changeEditState,userProfileDetails} = useContext(Appcontext)
+    
+    const token = localStorage.getItem("token")
+    const client = useQueryClient()
+    const user = client.getQueryData(["user",token])
+
 
     useEffect(()=>{
         window.addEventListener("resize",()=>{
@@ -76,17 +60,17 @@ export const UserProfileMain = ()=>{
 
     return <>
      {
-            (!data?.data.user) ? <Spinner /> :
+            (!userProfileDetails.data) ? <Spinner /> :
                 <div className="profile-container">
                     <form ref={refForm} enctype="multipart/form-data" onSubmit={updateProfile}>
                         <SideProfile
                             windowSize={windowsize}
-                            {...data?.data.user}
+                            {...userProfileDetails?.data.user}
                             updateProfile={updateProfile}
                             
                         />
-                        <Details {...data?.data.user} windowSize={windowsize} />
-                        <Activity {...data?.data.user} windowSize={windowsize} />
+                        <Details {...userProfileDetails?.data.user} windowSize={windowsize} />
+                        <Activity {...userProfileDetails?.data.user} windowSize={windowsize} />
                     </form>
                 </div>
         }
@@ -174,7 +158,7 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
 }
 
 const Details = ({name,windowSize})=>{
-    console.log(name);
+    
     const {editState} = useContext(Appcontext)
 
     return <>
@@ -211,7 +195,7 @@ const Activity = ({activity ,windowSize})=>{
         "Modified" :"#a6a6a6",
 
     }
-    console.log(activity);
+    
     return <>
     <article className="activity">
        <h2>Activites in last 10 days</h2>
