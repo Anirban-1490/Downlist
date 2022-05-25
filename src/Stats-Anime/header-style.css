@@ -47,11 +47,22 @@
     align-items: center;
     height: 100%;
     gap: 3.4em;
+    
 
+}
+.bottom-border{
+    background: rgb(255, 255, 11);
+    width: 5em;
+    height: 0.2em;
+    position: absolute;
+    bottom: 0;
+    display: none;
+    transition: left 400ms ease;
 }
 .nav-container ul nav{
     position: relative;
     padding: 5px;
+   
 }
 .nav-container ul nav .link 
 {
@@ -59,23 +70,11 @@
     color: #d1d7e0;
     
 }
-.nav-container ul nav::before
+
+.nav-container ul nav:hover .link
 {
-    content: "";
-    position: absolute;
-    width: 100%;
-    background: linear-gradient(to left,#2abbb4 32%,transparent);
-  
-    left: 0;
-    bottom: 0;
-    height: 4px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 500ms;
-}
-.nav-container ul nav:hover::before
-{
-    transform: scaleX(1);
+   color: white;
+   filter: drop-shadow(0 0 20px white);
 }
 .menutoggle
 {

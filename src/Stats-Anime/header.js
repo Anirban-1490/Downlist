@@ -52,7 +52,7 @@ console.log(data.image);
   
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
-   
+   const borderRef = useRef(null)
   
   
     const toggelnav = ()=>
@@ -88,6 +88,21 @@ console.log(data.image);
         }
     })
 
+    const bottomBorderHandler = (e)=>{
+        console.log([...e.target.parentElement.parentElement.childNodes]);
+
+        const index = [...e.target.parentElement.parentElement.childNodes].findIndex((node)=>node.children === e.currentTarget.children)
+        var i =index;
+        var totaLWidth =0;
+        while(i>0){
+            totaLWidth += e.target.parentElement.parentElement.childNodes[i].clientWidth;
+            i--;
+        }
+        const left = (54.4 * index) +  totaLWidth+2;
+        borderRef.current.style.display =  "block"
+        borderRef.current.style.left = `${(index == 0)?42:left}px`
+        borderRef.current.style.width = `${e.currentTarget.clientWidth}px`
+    }
 
 
     const signoutHandler = ()=>{
@@ -106,9 +121,10 @@ console.log(data.image);
             <div className = "nav-container">
                 <Link to="/" className="logo-container"><h3>Uplist</h3></Link>
                 <ul >
-                    <nav><Link className="link" to="/topanime">Anime</Link></nav>
-                    <nav><Link className="link" to="/topcharacters">Characters</Link></nav>
-                    <nav><Link className="link" to="/about">About</Link></nav>
+                    <nav onClick={bottomBorderHandler}><Link className="link" to="/topanime">Anime</Link></nav>
+                    <nav onClick={bottomBorderHandler}><Link className="link" to="/topcharacters">Characters</Link></nav>
+                    <nav onClick={bottomBorderHandler}><Link className="link" to="/about">About</Link></nav>
+                    <div className="bottom-border" ref={borderRef}></div>
                 </ul>
                {
                    (data)? <div className="user" ref={userbtn}>
