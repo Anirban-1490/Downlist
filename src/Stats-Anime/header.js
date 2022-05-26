@@ -1,11 +1,12 @@
 import React from "react";
 import "./header-style.css";
-import {  useState , useRef ,useContext} from "react";
+import {  useState , useRef ,useContext,useEffect} from "react";
 import { Link,useLocation } from "react-router-dom";
 import {Appcontext} from "./context";
 import axios from "axios";
 import { useQuery } from "react-query";
 import {useAuth} from "./authorize"
+
 
  function Main({children})
 {
@@ -46,22 +47,51 @@ import {useAuth} from "./authorize"
 export function Header({data})
 {
     
-console.log(data.image);
+
    const {ishamclick,toggle} = useContext(Appcontext);
    const [isexpand,setIsexpand] = useState(false);
-  
+  const path = window.location.pathname
    const refdropmenu = useRef(null);
    const userbtn = useRef(null);
    const borderRef = useRef(null)
-  
+    const ulRef = useRef(null)
   
     const toggelnav = ()=>
     {
         [...document.getElementsByClassName("parts")].forEach(ele=>ele.classList.add("animate"));
         toggle(true);
     }
-    
 
+    //*get the position to move from left
+    function getLeft(index,parentEle,currentEle){
+        var i =index;
+        var totaLWidth =0;
+        while(i>0){
+            totaLWidth += parentEle.childNodes[i].clientWidth;
+            i--;
+        }
+      
+        const left = (54.4 * index) +  totaLWidth+2 + 42 *(index-1);
+        borderRef.current.style.display =  "block"
+        borderRef.current.style.left = `${(index == 0)?42:left}px`
+        borderRef.current.style.width = `${currentEle.clientWidth}px`
+    }
+
+    useEffect(()=>{
+      
+        [...ulRef.current.childNodes].forEach((node,index) => {
+            if(node.nodeName=="NAV"){
+                if(node.children[0].pathname == path){
+                    getLeft(index,ulRef.current,node)
+                }
+            }
+          
+        })
+        
+      
+    },[path])
+    
+    console.log(path);
    
    //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened 
 
@@ -89,19 +119,10 @@ console.log(data.image);
     })
 
     const bottomBorderHandler = (e)=>{
-        console.log([...e.target.parentElement.parentElement.childNodes]);
-
         const index = [...e.target.parentElement.parentElement.childNodes].findIndex((node)=>node.children === e.currentTarget.children)
-        var i =index;
-        var totaLWidth =0;
-        while(i>0){
-            totaLWidth += e.target.parentElement.parentElement.childNodes[i].clientWidth;
-            i--;
-        }
-        const left = (54.4 * index) +  totaLWidth+2;
-        borderRef.current.style.display =  "block"
-        borderRef.current.style.left = `${(index == 0)?42:left}px`
-        borderRef.current.style.width = `${e.currentTarget.clientWidth}px`
+
+        getLeft(index,e.target.parentElement.parentElement,e.currentTarget)
+        
     }
 
 
@@ -120,7 +141,7 @@ console.log(data.image);
         <>
             <div className = "nav-container">
                 <Link to="/" className="logo-container"><h3>Uplist</h3></Link>
-                <ul >
+                <ul ref={ulRef}>
                     <nav onClick={bottomBorderHandler}><Link className="link" to="/topanime">Anime</Link></nav>
                     <nav onClick={bottomBorderHandler}><Link className="link" to="/topcharacters">Characters</Link></nav>
                     <nav onClick={bottomBorderHandler}><Link className="link" to="/about">About</Link></nav>
