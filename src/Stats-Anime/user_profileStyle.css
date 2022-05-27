@@ -152,11 +152,23 @@
     gap: 1.6em;
     justify-content: center;
     align-items: flex-end;
+    transform: translateY(1em);
+    opacity: 0;
+    animation: animate 600ms  1 forwards;
 }
 .activity{
    
     height: 29em;
     margin-bottom: 4em;
+    transform: translateY(1em);
+    opacity: 0;
+    animation: animate 600ms 1 forwards;
+}
+@keyframes animate{
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .inner-side-container{
