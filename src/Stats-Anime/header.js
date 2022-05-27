@@ -175,6 +175,7 @@ export function Header({data})
                        </div>
                        <div className = "yourlist" ref = {refdropmenu}>
                        <h4 className="user-name">HI, <br/>{data.name}</h4>
+                       <h5 className="user-status">{data.status}</h5>
                        <Link to={`user/${data.userID}/view`}>
                            <button  className = "your-anime" >
                                Profile

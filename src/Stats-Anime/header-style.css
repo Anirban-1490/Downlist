@@ -167,6 +167,17 @@
     letter-spacing: 0.15em;
     margin-top: 0.5em;
 }
+.user .yourlist .user-status
+{
+    font-size: 0.55em;
+    padding: 0.6em 40px;
+    border: 2px solid rgba(162, 170, 12, 0.289);
+    color: yellowgreen;
+    font-family: sans-serif;
+    letter-spacing: 0.15em;
+    margin: 0.5em 0;
+    display: inline-block;
+}
 .user .yourlist .your-anime,.user .yourlist .your-char,.sign-out
 {
     width: 100%;
