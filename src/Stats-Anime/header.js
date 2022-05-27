@@ -79,19 +79,40 @@ export function Header({data})
 
     useEffect(()=>{
       
-        [...ulRef.current.childNodes].forEach((node,index) => {
-            if(node.nodeName=="NAV"){
-                if(node.children[0].pathname == path){
-                    getLeft(index,ulRef.current,node)
+        
+        //*check for any path match
+        const isMatch = [...ulRef.current.childNodes].some(node => {
+            if (node.nodeName == "NAV") {
+                if (node.children[0].pathname == path) {
+                    return true;
+                }
+                else {
+                    return false
                 }
             }
-          
+            return false;
         })
-        
+
+        //* if atleast one then show the bottom border
+        if(isMatch){
+            [...ulRef.current.childNodes].forEach((node, index) => {
+                if (node.nodeName == "NAV") {
+                    if (node.children[0].pathname == path) {
+                        getLeft(index, ulRef.current, node)
+                    }
+                }
+
+            })
+        }
+        else{
+
+            //* else just hide it
+            borderRef.current.style.display =  "none"
+        }
       
     },[path])
     
-    console.log(path);
+   
    
    //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened 
 
