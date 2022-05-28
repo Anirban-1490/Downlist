@@ -525,8 +525,8 @@ footer div h3:nth-child(1) a i{
 }
 .top-list
 {
-
-    width:48%;
+    
+    width:42em;
     height: 320px;
     position:  relative;
     margin: 0 auto;
@@ -739,7 +739,7 @@ footer div h3:nth-child(1) a i{
     .top-list
     {
     
-        width:74%;
+        width:70%;
       
        
     }
