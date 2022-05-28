@@ -6,7 +6,7 @@ import { Genres } from "./genres-anime";
 import { useEffect, useState ,useRef,useCallback} from "react";
 import {Mulimgslider} from "./mul_img_slider";
 import { Link } from "react-router-dom";
-import { useQueries } from "react-query";
+import { useQueries ,useQueryClient} from "react-query";
 import axios from "axios";
 import { Spinner } from "./loading-spinner";
 import each from "awaity/each";
@@ -24,9 +24,14 @@ export function useToplist(switch_item)
     const [listitem , setListitem] = useState([]);
     const [listcount,setListcount] = useState(0);
 
-    //* get users saved anime or character list
-    let data = useList(switch_item)?.list
+    const client = useQueryClient();
+    const token = localStorage.getItem("token")
+    const user = client.getQueryData(["user",token])
+    console.log();
 
+    //* get users saved anime or character list
+    let userList = useList(switch_item,user?.userID)?.list
+    console.log(userList);
     //* this is used so that the data don't get lost at a rerender
     const listData = useRef();
     
@@ -36,10 +41,10 @@ export function useToplist(switch_item)
 
     const fetchTopItemFromList = useCallback(async()=>{
 
-        if(data)
+        if(userList)
         {
             //*sort the data based on score or favorite
-            listData.current = data.sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
+            listData.current = userList.sort((a, b) => (a.score)?b.score - a.score:b.fav - a.fav).slice(0, 3);
             setListcount(listData.current?.length);
             let temparray =[];
 
@@ -58,7 +63,7 @@ export function useToplist(switch_item)
             setListitem(temparray);
            
         }
-    },[data,switch_item])
+    },[userList,switch_item])
 
     useEffect(()=> {
 

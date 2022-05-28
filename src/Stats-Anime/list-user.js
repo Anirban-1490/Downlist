@@ -33,8 +33,6 @@ function Listmain({header,switch_item})
 
 export function useList(switch_item,userID)
 {
-   const client = useQueryClient();
-  
     async function fetchUserList() {
         if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${userID}/viewsavedchar`)).data;
 
@@ -42,7 +40,7 @@ export function useList(switch_item,userID)
 
     }
  
-    useQuery((switch_item === "anime") ? "userAnimeList" : "userCharList"
+   const {data} =  useQuery((switch_item === "anime") ? "userAnimeList" : "userCharList"
 
         , () => fetchUserList(), {
             refetchOnWindowFocus: false,
@@ -55,8 +53,7 @@ export function useList(switch_item,userID)
     })
 
 
-     return (switch_item === "anime") ? client.getQueryData("userAnimeList") :
-     client.getQueryData("userCharList")
+     return data
     
     
 }
