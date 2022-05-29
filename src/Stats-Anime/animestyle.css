@@ -51,13 +51,15 @@
 .main-container
 {
 
-   flex:  0 0 600px;
+   flex:  0 0 50em;
    min-height: 200px;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    transform: scaleY(0.85);
+   gap: 0.4em;
+
 }
 
 .main-container .title1
@@ -66,24 +68,23 @@
    
     
     color: white;
-    font-size: 3.0em;
+    font-size: 5.0em;
    
-    width: 480px;
+    display: inline-block;
     text-align: center;
     animation-name: textanim;
     animation-duration: 0.5s;
     
-
 }
- .title1-toggle
+.title1-toggle
 {
     top: 45%;
 }
 .title1 span:nth-child(1)
 {
     color: #E94B3CFF;
-   position: relative;
-   
+    position: relative;
+    
 }
 
 .title1 span:nth-child(2)
@@ -104,11 +105,11 @@
 
 
 .main-container .info1{
-
-    color: white;
-    font-size: 1.1em;
     
-    width: 370px;
+    color: white;
+    font-size: 1.5em;
+    
+    display: inline-block;
     text-align: center;
     animation-name: infoanim;
     animation-duration: 0.5s;
@@ -120,8 +121,8 @@
 @keyframes infoanim
 {
     0%{
-         transform: translate(0,-20px);
-         opacity: 0;
+        transform: translate(0,-20px);
+        opacity: 0;
     }
     100%{
         transform: translate(0,0);
@@ -135,16 +136,17 @@
 }
 .main-container .wrapper
 {
-  
+    
 
     min-height: 100px;
-    width: 350px;
+    width: 25em;
     overflow: hidden;
     animation-name:wrapperanime ;
     animation-duration: 0.25s;
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
     transform: translateY(20px);
+    
 }
 .wrapper-toggle
 {
@@ -323,11 +325,11 @@ footer ul li:hover a{
 
 
 
-@media screen and (max-width:510px) {
+@media screen and (max-width:700px) {
    
     .main-container .title1
     {
-      font-size: 9vw;
+      font-size: 11vw;
     }
     .main-container .info1
     {
