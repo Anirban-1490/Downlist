@@ -31,7 +31,10 @@ export const Genres = ()=>
   
     return <>
         <div className="genre-first">
-            <h2>DISCOVER <br /> <span>More </span> <br /> <span>Anime</span></h2>
+            <h2>DISCOVER 
+                <span>More Anime</span> 
+                
+            </h2>
             <div className="item">
             
                 <Mulimgslider items={data} switch_details="/anime" />

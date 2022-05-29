@@ -20,7 +20,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    
+   
     
 }
 .genre-first .item
@@ -33,25 +33,27 @@
 
 }
 .genre-first h2{
-    font-size: clamp(0.5em,16vw,18vw);
-   
-    line-height: 54%;
+    
+   font-size: 13.4em;
+    line-height: 1em;
   
    color: rgba(0, 0, 0, 0.171);
   left: 4%;
    font-family: 'Bebas Neue', cursive;
    letter-spacing: 30px;
    position: relative;
-   top: -30px;
+   top: -0.7em;
  
+   
 }
 .genre-first h2 span
 {
-    font-size: clamp(0.35em,4vw,9vw);
-    line-height: 34%;
+    font-size: clamp(0.85rem,6vw,9rem);
+    /* line-height: 0em; */
     color: black;
     letter-spacing: 0px;
-    
+    display: block;
+    line-height: 2em;
 }
 
 .wrapper-type
@@ -59,8 +61,8 @@
   
     position: absolute;
     right: 50px;
-    bottom: 130px;
-    
+    bottom: 7em;
+   
 }
 .wrapper-type h4{
     text-align: center;
@@ -149,22 +151,30 @@
 }
 
 
-@media screen and (max-width:830px) {
+@media screen and (max-width:900px) {
     .genre-first
     {
         flex-direction: column;
         top: 160px;
-        gap: 40px;
+        border: 2px solid red;
+       
     }
     .genre-first .item
     {
         width: 87%;
-       position: static;
+        position:static;
+        margin-top: -20px;
     }
-    .genre-first h2 br 
+    .genre-first h2
     {
-       display: none;
+        font-size: clamp(0.5em,20vw,26vw);
+       left: 0;
+       top: -0.5em;
     }
+    .wrapper-type{
+        bottom: 3em;
+    }
+  
 }
 
 @media screen and (max-width:530px) {

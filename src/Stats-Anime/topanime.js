@@ -148,7 +148,7 @@ function TopanimeMain()
 
         }
        
-       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer marginTop = "2050"/>}
+       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer marginTop = "2009"/>}
        
 
         </>

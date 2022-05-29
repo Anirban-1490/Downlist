@@ -124,7 +124,7 @@
 {
    
     background: #9d8d8f;
-    height: 800px;
+    min-height: 47em;
     position: relative;
   
 }
