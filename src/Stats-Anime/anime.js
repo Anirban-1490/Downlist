@@ -69,16 +69,17 @@ function Content()
     const mainionfo = useRef();
     const wrapper = useRef();
     
+    
 
    //* set up a axios cancel token
-    const [cancel,setcancel] = useState(axios.CancelToken.source());
+    const [cancel,setcancel] = useState(null);
    
     //* show the live search result
     const getResult = react.useCallback(()=>
     {
         if(keyward!=="")
         {   
-            let can = cancel;
+           
             setSearchresult([]);
             toggle_loading_state(true); //*show loading text
             set_loading_text("Loading...");
@@ -88,14 +89,16 @@ function Content()
             wrapper.current.classList.remove("wrapper-toggle");
 
 
-            if(can)
+            if(cancel)
             {
-                can.cancel("token canceled");
+                //* if there is a previous controller then abort it
+                cancel.abort()
             }
-            can = axios.CancelToken.source(); //*create a new token
-            setcancel(can); 
+            //*create a new abortcontroller object
+            const abortController = new AbortController()
+            setcancel(abortController); 
 
-             axios.get(`https://api.jikan.moe/v3/search/anime?q=${keyward}&page=1`, { cancelToken: can.token })
+             axios.get(`https://api.jikan.moe/v3/search/anime?q=${keyward}&page=1`, { signal: abortController.signal })
              .then(res =>
              {
                  setSearchresult([...res.data.results].slice(0, 4));
