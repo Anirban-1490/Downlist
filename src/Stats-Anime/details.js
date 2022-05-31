@@ -128,14 +128,14 @@ export const Details =  (prop)=>
     const {fav,about,name_kenji,name,switch_item,switch_path} = prop;
     const[itemadd , setItemadd] = useState(false);
     const [seemorebtn , Setbtn] = useState(false);
-    const [addedAnimeList,addAnime] = useState([])
+    
     const btn = useRef();
     let airedDetails = (animedetails?.aired)?{...animedetails.aired}:null;
 
     const navigate = useNavigate()
     const client = useQueryClient();
     const clientData = client.getQueryData(["user",token]);
-    const addedToListAnime = client.getQueryData("userAnimeList");
+    
 
     async function fetchUserList(){
        if(switch_item === "character")  return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
@@ -163,7 +163,7 @@ export const Details =  (prop)=>
    //* function to add item into local storage
     async function Additem()
     {
-        let temparray =[];
+        
        
         if(!clientData.userID){
             navigate("/userauth");
