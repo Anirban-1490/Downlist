@@ -250,9 +250,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+    gap: 0.7em;
     overflow: visible;
-    background: rgb(43, 43, 136);
+    background: rgba(43, 43, 136, 0.434);
 }
 .search-result-container .loading
 {
@@ -273,7 +273,8 @@
     height: 60px;
     display: flex;
     justify-content: flex-start;
-    margin: 4px 0;
+    align-items: center;
+    /* margin: 4px 0; */
     
 }
 .wrapper .search-result-container .link
