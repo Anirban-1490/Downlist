@@ -26,6 +26,7 @@ import {useAuth} from "./authorize"
 
     const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:!!userData,onSettled:(data,err)=>{
         if(err) return console.log(err);
+        console.log(data);
         changeUserProfileDetails(data) //*store the data in the context
         return data.data.user.image
     }})
@@ -34,7 +35,7 @@ import {useAuth} from "./authorize"
             <Smallnav />
 
             {
-                (userData && data)? <Header data={{...userData,...(data?.data.user)}} />:""
+                <Header data={userData && {...userData,...(data?.data.user)}} />
             }
            
             
