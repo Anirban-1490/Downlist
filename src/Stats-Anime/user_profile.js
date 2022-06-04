@@ -84,7 +84,7 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name,bio,status,image,view})=>{
+const SideProfile = ({windowSize,name,bio,status,image,view,following,followers})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 
@@ -124,6 +124,10 @@ const SideProfile = ({windowSize,name,bio,status,image,view})=>{
                 :""
             }
             <p className="profile-view">Profile View: {view}</p>
+            <div className="follower-following-container">
+                <p className="following">{following.length} Following</p>
+                <p className="followers">{followers.length} Followers</p>
+            </div>
            {
                (!editState)?
                 <div className="inner-side-container">
