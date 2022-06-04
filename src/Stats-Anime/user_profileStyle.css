@@ -84,6 +84,9 @@
  
   font-size: 1.3em;
 }
+.side-profile .profile-view{
+    color: rgba(255, 255, 255, 0.624);
+}
 .side-profile .bio{
     height: 4em;
     padding: 0.78em 0.85em;

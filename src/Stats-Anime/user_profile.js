@@ -84,7 +84,7 @@ export const UserProfileMain = ()=>{
     </>
 }
 
-const SideProfile = ({windowSize,name,bio,status,image})=>{
+const SideProfile = ({windowSize,name,bio,status,image,view})=>{
 
     const {changeEditState,editState} = useContext(Appcontext)
 
@@ -123,6 +123,7 @@ const SideProfile = ({windowSize,name,bio,status,image})=>{
                     />
                 :""
             }
+            <p className="profile-view">Profile View: {view}</p>
            {
                (!editState)?
                 <div className="inner-side-container">
