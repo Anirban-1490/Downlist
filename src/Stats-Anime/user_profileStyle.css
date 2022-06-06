@@ -28,7 +28,7 @@
 .side-profile{
    
     grid-row: 1/3;
-    height: 38em;
+    height: auto;
     background-color: #92aaff2c;
     border-radius: 0.4em;
     display: flex;
