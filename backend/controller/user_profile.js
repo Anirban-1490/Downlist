@@ -29,10 +29,10 @@ const viewProfile = async (req,res,next)=>{
     try {
         const userDetails = await userList.findById(userID)
         
-        let {bio,name,status,activity,image} = userDetails;
+        let {bio,name,status,activity,image,view,followers,following} = userDetails;
         activity = activity.sort((a,b)=> new Date(b.doneAt) - new Date(a.doneAt)).slice(0,6)
 
-        res.status(200).json({user:{bio,status,name,activity,image}})
+        res.status(200).json({user:{bio,status,name,activity,image,view,followers,following}})
         
     } catch (error) {
         next(error)
