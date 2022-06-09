@@ -1,8 +1,7 @@
 
 
 .container-profile{
-    /* border: 2px solid red; */
-    /* transform: translateY(8em); */
+    
     height: auto;
     max-width: 75%;
     
@@ -68,7 +67,7 @@
     border-bottom: 4px solid rgb(66, 66, 212);
 }
 .picks-container .picks-container-inner{
-    /* border: 2px solid yellow; */
+    
     min-height: 20em;
     background-color: rgba(76, 76, 120, 0.283);
     color: rgba(255, 255, 255, 0.423);
