@@ -1,5 +1,5 @@
 import  {useState,useEffect,useContext,useRef}from "react";
-import {useQueryClient,useQuery} from "react-query"
+import {useQueryClient} from "react-query"
 import {Appcontext} from "./context"
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -26,7 +26,7 @@ export const UserProfileMain = ()=>{
     
     const token = localStorage.getItem("token")
     const client = useQueryClient()
-    const user = client.getQueryData(["user",token])
+     client.getQueryData(["user",token])
 
 
     useEffect(()=>{
