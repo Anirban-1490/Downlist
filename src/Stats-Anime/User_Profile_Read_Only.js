@@ -14,7 +14,7 @@ export const ReadOnlyProfileMain =()=>{
     }
 
 
-    const {data,isLoading,isError} = useQuery(["follow",userID],fetchDetails,{refetchOnWindowFocus:false})
+    const {data} = useQuery(["follow",userID],fetchDetails,{refetchOnWindowFocus:false})
     console.log(data);
     return <>
     <ReadOnlyProfile {...data?.user} />
