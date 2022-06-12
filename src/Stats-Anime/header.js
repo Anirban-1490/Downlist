@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import {useAuth} from "./authorize"
 
 
- function Main({children})
+ function Main()
 {
    
     const userData = useAuth(true) //* custom hook for checking if user logged in or not
