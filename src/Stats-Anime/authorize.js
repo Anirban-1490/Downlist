@@ -1,4 +1,4 @@
-import { useQuery,useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
