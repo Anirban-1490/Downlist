@@ -1,5 +1,5 @@
 import React from "react";
-import react , {useState , useEffect ,useRef} from "react";
+import react , {useState , useEffect ,useRef,useContext} from "react";
 import "./details-style.css";
 import "./animestyle.css";
 import { useParams } from "react-router";
@@ -10,6 +10,8 @@ import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
 import { useNavigate } from "react-router-dom";
 
+import {Appcontext} from "./context"
+
 
 //* component for anime details
 
@@ -17,6 +19,8 @@ const Resultmain =()=>
 {
     const {id} = useParams();
     const malid = id;
+
+    const {userProfileDetails} = useContext(Appcontext)
     
    
     //* details of that anime
@@ -110,6 +114,13 @@ const Resultmain =()=>
                         letterSpacing: "2px",textAlign:"center"
                     }}>Recommended</h4>
                     <Roles char={data} path={'/anime'} />
+                    <h4 style={{
+                        color: "white", fontSize: "35px",
+                        marginBottom: "1%",
+                        marginTop: "2em",
+                        letterSpacing: "2px",textAlign:"center"
+                    }}>Comments</h4>
+                    <CommentsBox {...userProfileDetails?.data} />
                     
                 </div>
 
@@ -450,6 +461,57 @@ export const Roles =  react.memo((prop)=>
             <div className= "empty-for-no-reason"></div>
     </>
 })
+
+
+export const CommentsBox = ({user})=>{
+
+    const [isBtnVisable,btnVisibilityHandler] = useState(false);
+    let isThereValue = false;
+    const formRef=  useRef()
+    const getValue = (e)=>{
+        if(e.target.value && !isThereValue){
+            btnVisibilityHandler(true)
+            isThereValue = true;
+        }
+        else if(!e.target.value && isThereValue){
+            btnVisibilityHandler(false)
+            isThereValue = false;
+        }
+        
+    }
+
+    const submitValue = (e)=>{
+        e.preventDefault();
+        const formValue = new FormData(formRef.current);
+        console.log(...formValue);
+    }
+    
+    return <>
+        <p className="comments-counter">0 Comments</p>
+        <div className="comment-box-container">
+            {
+
+                (!user) ? <p className="comments-login-text">
+                    Please sign in to comment.
+                </p>
+                    :
+                    <form className="comment-input-container" ref={formRef}>
+                        <input type="text" name="comment" id="comment" onChange={getValue} autoComplete="off" placeholder="Comment something...."/>
+
+                        {isBtnVisable && <button type="submit" onClick={submitValue}>Comment</button>}
+                        {
+                            isBtnVisable && <button className="cancel"> Cancel</button>
+                        }
+                    </form>
+
+            }
+            <div className="comments">
+                <p>No comments yet...</p>
+            </div>
+        </div> 
+       
+    </>
+}
 
 
 export default Resultmain;

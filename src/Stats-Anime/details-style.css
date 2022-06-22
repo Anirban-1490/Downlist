@@ -374,6 +374,93 @@ ion-icon
 }
 
 
+/* Comments --------- */
+
+.comments-counter{
+    color: white;
+    text-align: center;
+    margin-top: 2%;
+    font-size: 1.25em;
+}
+.comment-box-container{
+    
+    min-height: 10em;
+    width: 80%;
+    margin:  0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2em;
+    
+}
+.comment-input-container{
+  
+    width: 80%;
+    margin: 3em;
+    position: relative;
+    /* border: 2px solid red; */
+}
+#comment{
+    display: block;
+    outline: none;
+    border: none;
+    border-bottom: 3px solid rgb(126, 126, 248);
+    background: transparent;
+    width: 100%;
+    color: rgba(234, 228, 228, 0.93);
+    font-size: 1.05em;
+    padding-left: 0.2em;
+}
+
+#comment::placeholder{
+    color: rgba(255, 255, 255, 0.716);
+    
+}
+.comment-input-container .cancel{
+    border: none;
+    outline: none;
+    padding: 0.4em 0;
+    margin-top: 1em;
+    position: absolute;
+    right: 9.5em;
+    font-size: 0.9em;
+    background: transparent;
+    cursor: pointer;
+    color: white;
+}
+.comment-input-container button[type="submit"]{
+    border: none;
+    outline: none;
+    padding: 0.6em 1.5em;
+    margin-top: 1em;
+    position: absolute;
+    right: 1.5em;
+    background: lightblue;
+    border-radius: 0.7vmin;
+    cursor: pointer;
+}
+.comment-input-container button[type="submit"]:hover{
+  background-color: rgb(203, 235, 245);
+}
+
+
+.comments{
+    /* border: 2px solid red; */
+    margin: 1.4em;
+    width: 80%;
+    /* background-color: rgba(106, 106, 194, 0.072); */
+    min-height: 10em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.comments p {
+    color: rgba(255, 255, 255, 0.387);
+    text-align: center;
+    
+}
+
+
 
 @media screen and (max-width: 720px) {
     .characters-container
