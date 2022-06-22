@@ -483,7 +483,14 @@ export const CommentsBox = ({user})=>{
     const submitValue = (e)=>{
         e.preventDefault();
         const formValue = new FormData(formRef.current);
-        console.log(...formValue);
+       
+    }
+
+    const cancelBtnHandler = (e)=>{
+        e.preventDefault();
+        e.target.previousSibling.previousSibling.value = "";
+        btnVisibilityHandler(false)
+       
     }
     
     return <>
@@ -500,7 +507,7 @@ export const CommentsBox = ({user})=>{
 
                         {isBtnVisable && <button type="submit" onClick={submitValue}>Comment</button>}
                         {
-                            isBtnVisable && <button className="cancel"> Cancel</button>
+                            isBtnVisable && <button className="cancel" onClick={cancelBtnHandler}> Cancel</button>
                         }
                     </form>
 
