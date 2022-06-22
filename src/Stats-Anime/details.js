@@ -21,6 +21,7 @@ const Resultmain =()=>
     const malid = id;
 
     const {userProfileDetails} = useContext(Appcontext)
+
     
    
     //* details of that anime
@@ -120,7 +121,7 @@ const Resultmain =()=>
                         marginTop: "2em",
                         letterSpacing: "2px",textAlign:"center"
                     }}>Comments</h4>
-                    <CommentsBox {...userProfileDetails?.data} />
+                    <CommentsBox {...userProfileDetails?.data} malid = {malid}/>
                     
                 </div>
 
@@ -463,11 +464,16 @@ export const Roles =  react.memo((prop)=>
 })
 
 
-export const CommentsBox = ({user})=>{
+export const CommentsBox = react.memo(({user,malid})=>{
 
     const [isBtnVisable,btnVisibilityHandler] = useState(false);
     let isThereValue = false;
     const formRef=  useRef()
+
+    const token = localStorage.getItem("token")
+    const client = useQueryClient();
+    const clientDetails = client.getQueryData(["user",token])
+   
     const getValue = (e)=>{
         if(e.target.value && !isThereValue){
             btnVisibilityHandler(true)
@@ -480,9 +486,18 @@ export const CommentsBox = ({user})=>{
         
     }
 
-    const submitValue = (e)=>{
+    const submitValue = async (e)=>{
         e.preventDefault();
         const formValue = new FormData(formRef.current);
+        const formValueObject = Object.fromEntries(formValue)
+        console.log();
+        try {
+          const response =  (await axios.post(`http://localhost:4000/${malid}/comment/user/${clientDetails?.userID}/add`,formValueObject)).data;
+
+          console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
        
     }
 
@@ -519,6 +534,6 @@ export const CommentsBox = ({user})=>{
        
     </>
 }
-
+)
 
 export default Resultmain;
