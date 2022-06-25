@@ -37,13 +37,15 @@ const commentsOn = new mongoose.Schema({
 })
 
 
-commentsOn.methods.addComment = function(comment,userID){
+commentsOn.methods.addComment = function(comment,userID,userName,userProfileImgPath){
 
     this.maincomments = this.maincomments +1;
     let commentsArr = this.comments;
     commentsArr.push({
         body:comment+"",
         userID:userID+"",
+        userName,
+        userProfileImg:userProfileImgPath,
        date: new Date(),
         commentID:crypto.randomBytes(7).toString("hex")
     })
