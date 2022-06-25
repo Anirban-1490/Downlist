@@ -19,6 +19,8 @@ const commentsOn = new mongoose.Schema({
         {
             body:String,
             userID:String,
+            userProfileImg:String,
+            userName:String,
             date: Date,
             commentID:String,
             likeCount:{type:Number,default:0},
