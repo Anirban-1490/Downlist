@@ -469,11 +469,25 @@ export const CommentsBox = react.memo(({user,malid})=>{
     const [isBtnVisable,btnVisibilityHandler] = useState(false);
     let isThereValue = false;
     const formRef=  useRef()
+    const textInputref = useRef()
 
     const token = localStorage.getItem("token")
     const client = useQueryClient();
     const clientDetails = client.getQueryData(["user",token])
    
+
+    
+
+
+    const getCommentList =async ()=>{
+        return (await axios.get(`http://localhost:4000/${malid}/comment/list`)).data
+    }
+    const {data,isLoading,isError} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false})
+
+    console.log(data);
+
+
+
     const getValue = (e)=>{
         if(e.target.value && !isThereValue){
             btnVisibilityHandler(true)
@@ -486,15 +500,25 @@ export const CommentsBox = react.memo(({user,malid})=>{
         
     }
 
-    const submitValue = async (e)=>{
+     async function submitValue (e){
         e.preventDefault();
+        
         const formValue = new FormData(formRef.current);
         const formValueObject = Object.fromEntries(formValue)
+        textInputref.current.disabled = true;
+        // e.target.disabled = true;
         console.log();
         try {
           const response =  (await axios.post(`http://localhost:4000/${malid}/comment/user/${clientDetails?.userID}/add`,formValueObject)).data;
 
           console.log(response);
+            textInputref.current.value = "";
+            textInputref.current.disabled = false;
+            await client.refetchQueries(["commentList",malid])
+            btnVisibilityHandler(false)
+
+            //* two extra re-renders one cause of the refetch and one cause of the state change for submit button
+          
         } catch (error) {
             console.log(error);
         }
@@ -509,7 +533,9 @@ export const CommentsBox = react.memo(({user,malid})=>{
     }
     
     return <>
-        <p className="comments-counter">0 Comments</p>
+        <p className="comments-counter">{
+            (data?.maincomments+data?.subcomments) || 0 
+        } Comments</p>
         <div className="comment-box-container">
             {
 
@@ -518,7 +544,7 @@ export const CommentsBox = react.memo(({user,malid})=>{
                 </p>
                     :
                     <form className="comment-input-container" ref={formRef}>
-                        <input type="text" name="comment" id="comment" onChange={getValue} autoComplete="off" placeholder="Comment something...."/>
+                        <input type="text" name="comment" id="comment" ref={textInputref} onChange={getValue} autoComplete="off" placeholder="Comment something...."/>
 
                         {isBtnVisable && <button type="submit" onClick={submitValue}>Comment</button>}
                         {
