@@ -390,7 +390,7 @@ ion-icon
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 2em;
+    margin-bottom: 4em;
     
 }
 .comment-input-container{
@@ -410,6 +410,9 @@ ion-icon
     color: rgba(234, 228, 228, 0.93);
     font-size: 1.05em;
     padding-left: 0.2em;
+}
+#comment:disabled{
+    
 }
 
 #comment::placeholder{
@@ -445,14 +448,18 @@ ion-icon
 
 
 .comments{
-    /* border: 2px solid red; */
-    margin: 1.4em;
+   
+    margin: 3em;
     width: 80%;
+    min-width: 23em;
     /* background-color: rgba(106, 106, 194, 0.072); */
-    min-height: 10em;
+   height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #986cb205;
+    
+    
 }
 .comments p {
     color: rgba(255, 255, 255, 0.387);
@@ -460,13 +467,67 @@ ion-icon
     
 }
 
+.comments .comments-inner{
+    /* border: 2px solid red; */
+    width:   100%;
+    min-height: 10em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    padding-top: 3em;
+    
+}
+.item-container{
+    /* outline: 3px solid yellow; */
+    min-height: 5.5em;
+    display: flex;
+    width: 100%;
+}
+.item-container .profile-img-container
+{
+    /* outline: 3px solid greenyellow; */
+    flex:0 0 5em;
+    aspect-ratio: 1/1;
+}
+.item-container .profile-img-container img
+{
+    width: 100%;
+    cursor: pointer;
+    /* height: 100%; */
+    transform: scale(0.5) translateY(-2.6em);
+    border-radius: 50%;
+}
+.item-container .body-container{
+    /* outline: 3px solid red; */
+   width: calc(100% - 5em);
+
+   color: white;
+  
+}
+.item-container .body-container p{
+   color: white;
+   margin-top: 0.7em;
+   text-align: start;
+   padding: 0 0.45em;
+   font-size: 0.94em;
+}
+.item-container .body-container .username-container{
+    margin-left: 0.45em;
+}
+.item-container .body-container .username-container span:nth-child(1){
+    font-size: 1.15em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.item-container .body-container .username-container span:nth-child(2){
+    font-size: 0.8em;
+    font-weight: bold;margin-left: 0.4em;
+}
 
 
 @media screen and (max-width: 720px) {
     .characters-container
     {
-        
-      
         width:85%;
        
     }
