@@ -8,6 +8,7 @@ app.set("trust-proxt",true)
 const listrouter = require("./routes/list_router");
 const authrouter = require("./routes/authrouter")
 const profileRouter = require("./routes/user_profile_route")
+const commentRouter = require("./routes/comment")
 //* import DB
 const connectDB = require("./database/db_connection")
 //*import validaiton error handler middleware
@@ -23,6 +24,7 @@ app.use('/public', express.static('public'));
 app.use("/api/v1/auth",authrouter)
 app.use("/user/:userID/profile/",profileRouter)
 app.use("/user/:userID",listrouter)
+app.use("/:objectID/comment/",commentRouter)
 
 
 app.get("/",(req,res)=>
