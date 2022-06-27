@@ -381,6 +381,7 @@ ion-icon
     text-align: center;
     margin-top: 2%;
     font-size: 1.25em;
+    
 }
 .comment-box-container{
     
@@ -391,6 +392,7 @@ ion-icon
     align-items: center;
     flex-direction: column;
     margin-bottom: 4em;
+   
     
 }
 .comment-input-container{
@@ -398,6 +400,8 @@ ion-icon
     width: 80%;
     margin: 3em;
     position: relative;
+    
+    min-width: 23em;
     /* border: 2px solid red; */
 }
 #comment{
@@ -508,14 +512,14 @@ ion-icon
    color: white;
    margin-top: 0.7em;
    text-align: start;
-   padding: 0 0.45em;
+   padding: 0 1.5em 0 0.45em;
    font-size: 0.94em;
 }
 .item-container .body-container .username-container{
     margin-left: 0.45em;
 }
 .item-container .body-container .username-container span:nth-child(1){
-    font-size: 1.15em;
+    font-size: clamp(0.78rem,1.1em,1.6em);
     font-weight: bold;
     cursor: pointer;
 }
