@@ -11,7 +11,14 @@ import {Errorpage} from "./error";
 import { useNavigate } from "react-router-dom";
 
 import {Appcontext} from "./context"
+import default_img from "./logo/default-placeholder.png";
 
+//* timeago
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo("en-US")
 
 //* component for anime details
 
@@ -482,7 +489,7 @@ export const CommentsBox = react.memo(({user,malid})=>{
     const getCommentList =async ()=>{
         return (await axios.get(`http://localhost:4000/${malid}/comment/list`)).data
     }
-    const {data,isLoading,isError} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false})
+    const {data,isLoading,isError} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false,staleTime:0})
 
     console.log(data);
 
@@ -554,7 +561,37 @@ export const CommentsBox = react.memo(({user,malid})=>{
 
             }
             <div className="comments">
-                <p>No comments yet...</p>
+                {
+                    (!data) ?<p>No comments yet...</p> :
+
+                    <div className="comments-inner">
+                        {
+                            data.comments.map((
+                                {   body,
+                                    date,
+                                    dislikeCount,
+                                    likeCount,
+                                    userID,
+                                    userName,
+                                    userProfileImg,
+                                    _id}
+                                )=>{
+                                return <div className="item-container" key={_id}>
+                                    <div className="profile-img-container">
+                                        <img src={userProfileImg} onError ={function(e){e.target.src = default_img}} alt="" />
+                                    </div>
+                                    <div className="body-container">
+                                        <div className="username-container">
+                                        <span>{userName}</span> 
+                                        &bull;<span>{timeAgo.format(new Date(date),"mini-minute-now")}</span>
+                                        </div>
+                                        <p>{body}</p>
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                }
             </div>
         </div> 
        
