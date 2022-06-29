@@ -378,31 +378,34 @@ ion-icon
 
 .comments-counter{
     color: white;
-    text-align: center;
-    margin-top: 2%;
+    /* text-align: start; */
+    margin: 1em auto;
     font-size: 1.25em;
-    
+    width: clamp(35vmax ,66vw,80%);
+   
+
 }
 .comment-box-container{
     
     min-height: 10em;
     width: 80%;
     margin:  0 auto;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; */
     margin-bottom: 4em;
+    
    
     
 }
 .comment-input-container{
   
-    width: 80%;
-    margin: 3em;
+   
+    margin: 3.6em auto 7em auto;
     position: relative;
-    
-    min-width: 23em;
-    /* border: 2px solid red; */
+   
+    width: clamp(35vmax ,66vw,80%);
+   
 }
 #comment{
     display: block;
@@ -453,16 +456,15 @@ ion-icon
 
 .comments{
    
-    margin: 3em;
-    width: 80%;
-    min-width: 23em;
+    margin: 2em auto;
+    width: clamp(35vmax ,66vw,80%);
     /* background-color: rgba(106, 106, 194, 0.072); */
    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #986cb205;
-    
+    /* outline: 3px solid red; */
     
 }
 .comments p {
@@ -490,16 +492,19 @@ ion-icon
 .item-container .profile-img-container
 {
     /* outline: 3px solid greenyellow; */
-    flex:0 0 5em;
-    aspect-ratio: 1/1;
+    flex:0 0 3em;
+    /* height: 4em; */
+    
 }
 .item-container .profile-img-container img
 {
     width: 100%;
     cursor: pointer;
     /* height: 100%; */
-    transform: scale(0.5) translateY(-2.6em);
+    /* height: 100%; */
+    /* transform: scale(0.5) translateY(-2.6em); */
     border-radius: 50%;
+    aspect-ratio: 1/1;
 }
 .item-container .body-container{
     /* outline: 3px solid red; */
@@ -518,10 +523,12 @@ ion-icon
 .item-container .body-container .username-container{
     margin-left: 0.45em;
 }
-.item-container .body-container .username-container span:nth-child(1){
+.item-container .body-container .username-container span:nth-child(1) a{
     font-size: clamp(0.78rem,1.1em,1.6em);
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
+    color: white;
 }
 .item-container .body-container .username-container span:nth-child(2){
     font-size: 0.8em;
