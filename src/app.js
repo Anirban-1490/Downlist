@@ -12,6 +12,7 @@ import {Mainsection} from "./Stats-Anime/about";
 import {Errorpage} from "./Stats-Anime/error";
 import {SignupMain} from "./Stats-Anime/Signup"
 import {UserProfileMain} from "./Stats-Anime/user_profile"
+import {ReadOnlyProfileMain} from "./Stats-Anime/User_Profile_Read_Only"
 
 function App()
 {
@@ -33,6 +34,8 @@ function App()
                 <Route path = "/about" element = {<Mainsection/>}/>
 
                 <Route path="/user/:userID/view" element={<UserProfileMain/>}/>
+                <Route path="/user/:userID" element={<ReadOnlyProfileMain/>}/>
+                
                  <Route path = "/useranimelist/:userID" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
 
                  <Route path = "/usercharacterlist/:userID" element = {<Listuser header = "Your character list" switch_item = "character"/>}/>
