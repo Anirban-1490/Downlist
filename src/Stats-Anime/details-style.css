@@ -418,9 +418,7 @@ ion-icon
     font-size: 1.05em;
     padding-left: 0.2em;
 }
-#comment:disabled{
-    
-}
+
 
 #comment::placeholder{
     color: rgba(255, 255, 255, 0.716);
