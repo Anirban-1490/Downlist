@@ -39,6 +39,26 @@ const userSchema = new mongoose.Schema({
     activity:{
         type:Array,
         default:[]
+    },
+    view:{
+        type:Number,
+        default:0
+    },
+    followers:{
+        type:Array,
+        default:[]
+    },
+    following:{
+        type:Array,
+        default:[]
+    },
+    likedComments:{
+        type:Array,
+        default:[]
+    },
+    dislikeComments:{
+        type:Array,
+        default:[]
     }
 })
 
@@ -96,5 +116,33 @@ userSchema.methods.addActivity = function(activity){
     return this._doc.activity;
 }
 
+//* --- instance method to add a liked comment to user's liked comments array
+
+userSchema.methods.addLikedComment = function(_id,malid){
+    this.likedComments = [...this.likedComments,{commentId:_id,malId:malid}]
+    this.save();
+}
+
+
+//* --- instance method to add a disliked comment to user's disliked comments array
+
+
+userSchema.methods.addDislikedComment = function(_id,malid){
+    this.dislikeComments = [...this.dislikeComments,{commentId:_id,malId:malid}]
+    this.save();
+}
+
+
+userSchema.methods.removeComment = function(_id,like){
+    
+    if(like){
+  
+        this.likedComments = this.likedComments.filter(comment=>comment.commentId!==_id)
+    }
+    else if(!like){
+        this.dislikeComments = this.dislikeComments.filter(comment=>comment.commentId==_id)
+    }
+    this.save();
+}
 
 module.exports = mongoose.model("users",userSchema);
