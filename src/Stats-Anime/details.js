@@ -540,9 +540,7 @@ export const CommentsBox = react.memo(({user,malid})=>{
     }
     
     return <>
-        <p className="comments-counter">{
-            (data?.maincomments+data?.subcomments) || 0 
-        } Comments</p>
+       
         <div className="comment-box-container">
             {
 
@@ -560,6 +558,9 @@ export const CommentsBox = react.memo(({user,malid})=>{
                     </form>
 
             }
+            <p className="comments-counter">{
+                (data?.maincomments + data?.subcomments) || 0
+            } Comments</p>
             <div className="comments">
                 {
                     (!data) ?<p>No comments yet...</p> :
@@ -582,7 +583,11 @@ export const CommentsBox = react.memo(({user,malid})=>{
                                     </div>
                                     <div className="body-container">
                                         <div className="username-container">
-                                        <span>{userName}</span> 
+                                        <span>
+                                            <Link to={
+                                                (userID !== clientDetails?.userID)?`/user/${userID}`:`/user/${userID}/view`
+                                            }> {userName}</Link>
+                                            </span> 
                                         &bull;<span>{timeAgo.format(new Date(date),"mini-minute-now")}</span>
                                         </div>
                                         <p>{body}</p>
