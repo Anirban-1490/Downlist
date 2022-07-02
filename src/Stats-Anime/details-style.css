@@ -379,7 +379,7 @@ ion-icon
 .comments-counter{
     color: white;
     /* text-align: start; */
-    margin: 1em auto;
+    margin: 4em auto;
     font-size: 1.25em;
     width: clamp(35vmax ,66vw,80%);
    
@@ -393,8 +393,8 @@ ion-icon
     /* display: flex;
     align-items: center;
     flex-direction: column; */
-    margin-bottom: 4em;
-    
+    margin-bottom: 9em;
+    /* outline: 3px solid red; */
    
     
 }
@@ -454,7 +454,7 @@ ion-icon
 
 .comments{
    
-    margin: 2em auto;
+    margin: 0 auto;
     width: clamp(35vmax ,66vw,80%);
     /* background-color: rgba(106, 106, 194, 0.072); */
    height: auto;
@@ -463,12 +463,12 @@ ion-icon
     justify-content: center;
     background-color: #986cb205;
     /* outline: 3px solid red; */
-    
+   
 }
 .comments p {
     color: rgba(255, 255, 255, 0.387);
     text-align: center;
-    
+    padding: 1.5em;
 }
 
 .comments .comments-inner{
