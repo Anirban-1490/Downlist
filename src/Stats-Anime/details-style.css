@@ -540,10 +540,15 @@ ion-icon
 }
 
 .extra-features ion-icon{
-    font-size: 1.1em;
+    font-size: 1.0em;
     transform: translate(0);
     margin: 0;
 
+}
+.extra-features .counter{
+    margin: 0em 0em 0em -0.65em !important;
+    font-size: 0.9em !important;
+    transform: translate(0) !important;
 }
 
 
