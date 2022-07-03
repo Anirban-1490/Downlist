@@ -486,11 +486,12 @@ ion-icon
     min-height: 5.5em;
     display: flex;
     width: 100%;
+    gap: 0.76em;
 }
 .item-container .profile-img-container
 {
     /* outline: 3px solid greenyellow; */
-    flex:0 0 3em;
+    flex:0 0 2.5em;
     /* height: 4em; */
     
 }
@@ -517,6 +518,7 @@ ion-icon
    text-align: start;
    padding: 0 1.5em 0 0.45em;
    font-size: 0.94em;
+   margin-bottom: 0.9em;
 }
 .item-container .body-container .username-container{
     margin-left: 0.45em;
@@ -536,7 +538,7 @@ ion-icon
     
     margin-left: 0.45em;
     display: flex;
-    gap: 1em;
+    gap: 0.6em;
 }
 
 .extra-features ion-icon{
@@ -546,7 +548,7 @@ ion-icon
 
 }
 .extra-features .counter{
-    margin: 0em 0em 0em -0.65em !important;
+    margin: 0em 0em 0em -0.5em !important;
     font-size: 0.9em !important;
     transform: translate(0) !important;
 }
