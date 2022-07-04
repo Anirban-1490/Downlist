@@ -140,7 +140,7 @@ userSchema.methods.removeComment = function(_id,like){
         this.likedComments = this.likedComments.filter(comment=>comment.commentId!==_id)
     }
     else if(!like){
-        this.dislikeComments = this.dislikeComments.filter(comment=>comment.commentId==_id)
+        this.dislikeComments = this.dislikeComments.filter(comment=>comment.commentId !==_id)
     }
     
 }
