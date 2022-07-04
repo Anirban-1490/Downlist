@@ -56,5 +56,28 @@ commentsOn.methods.addComment = function(comment,userID,userName,userProfileImgP
 
 }
 
+//* -- increase the like counter if increase is set to true, else remove the like
+
+
+
+commentsOn.methods.addLikeOrDislike = function(__id,increase,whatToIncrease = "likeCount"){
+    
+    this.comments = this.comments.map((comment)=>{
+        
+        if(comment._id.valueOf() === __id){
+            if(increase){
+                
+                return {...comment,[whatToIncrease]:comment[whatToIncrease]+1}
+            }
+            return {...comment,[whatToIncrease]:comment[whatToIncrease]-1}
+           
+        }
+        return comment
+    })
+    
+
+    
+    this.save()
+}
 
 module.exports = mongoose.model("Comments",commentsOn);
