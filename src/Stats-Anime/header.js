@@ -24,7 +24,7 @@ import {useAuth} from "./authorize"
         return axios.get(`http://localhost:4000/user/${userData.userID}/profile/view`)
     }
 
-    const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,enabled:!!userData,onSettled:(data,err)=>{
+    const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,staleTime:Infinity,cacheTime:0,enabled:!!userData,onSettled:(data,err)=>{
         if(err) return console.log(err);
         console.log(data);
         changeUserProfileDetails(data) //*store the data in the context
