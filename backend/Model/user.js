@@ -120,7 +120,7 @@ userSchema.methods.addActivity = function(activity){
 
 userSchema.methods.addLikedComment = function(_id,malid){
     this.likedComments = [...this.likedComments,{commentId:_id,malId:malid}]
-    this.save();
+    
 }
 
 
@@ -129,7 +129,7 @@ userSchema.methods.addLikedComment = function(_id,malid){
 
 userSchema.methods.addDislikedComment = function(_id,malid){
     this.dislikeComments = [...this.dislikeComments,{commentId:_id,malId:malid}]
-    this.save();
+    
 }
 
 
@@ -142,7 +142,7 @@ userSchema.methods.removeComment = function(_id,like){
     else if(!like){
         this.dislikeComments = this.dislikeComments.filter(comment=>comment.commentId==_id)
     }
-    this.save();
+    
 }
 
 module.exports = mongoose.model("users",userSchema);
