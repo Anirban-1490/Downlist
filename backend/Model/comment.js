@@ -77,7 +77,7 @@ commentsOn.methods.addLikeOrDislike = function(__id,increase,whatToIncrease = "l
     
 
     
-    this.save()
+    
 }
 
 module.exports = mongoose.model("Comments",commentsOn);
