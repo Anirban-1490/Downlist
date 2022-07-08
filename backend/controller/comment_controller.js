@@ -65,4 +65,97 @@ const fetchComment = async(req,res)=>{
 }
 
 
-module.exports = {addComment,fetchComment};
+const likeCommentHandler = async (req,res,next)=>{
+    const {userID,_id,malID} = req.body;
+    try {
+
+        const user = await userModel.findOne({ _id: userID })
+        const commentForObject = await commnetModel.findOne({ malid: malID })
+
+
+
+        const isCommentHaveLike = user.likedComments.find(comment => comment.commentId == _id)
+
+        const isCommentHaveDislike = user.dislikeComments.find(comment => comment.commentId == _id)
+
+        if (!isCommentHaveLike && !isCommentHaveDislike) {
+            user.addLikedComment(_id, malID);
+            commentForObject.addLikeOrDislike(_id, true);
+        }
+        else if (isCommentHaveDislike) {
+            user.removeComment(_id, false); //* remove comment from dislike comments array
+            commentForObject.addLikeOrDislike(_id, false, "dislikeCount"); //* remove the dislike
+
+            user.addLikedComment(_id, malID); //* add to liked comments array
+            commentForObject.addLikeOrDislike(_id, true); //* increase like counter
+
+           
+
+        }
+        else if (isCommentHaveLike) {
+            user.removeComment(_id, true);
+            commentForObject.addLikeOrDislike(_id, false);
+
+        }
+        user.save();
+        commentForObject.save();
+        
+        res.status(200).json({message:"success",userLikedComment:user.likedComments,userDislikedComment:user.dislikeComments})
+
+    } catch (error) {
+        //* pass error to error hnadling middleware
+        next(error)
+    }
+    
+    
+}
+const dislikeCommentHandler = async (req,res,next)=>{
+    const {userID,_id,malID} = req.body;
+    try {
+
+        const user = await userModel.findOne({ _id: userID })
+        const commentForObject = await commnetModel.findOne({ malid: malID })
+
+
+
+        const isCommentHaveLike = user.likedComments.find(comment => comment.commentId == _id)
+
+        const isCommentHaveDislike = user.dislikeComments.find(comment => comment.commentId == _id)
+
+        if (!isCommentHaveLike && !isCommentHaveDislike) {
+            user.addDislikedComment(_id, malID);
+            commentForObject.addLikeOrDislike(_id, true,"dislikeCount");
+        }
+        else if (isCommentHaveLike) {
+            user.removeComment(_id, true); //* remove comment from like comments array
+           
+            commentForObject.addLikeOrDislike(_id, false, "likeCount"); //* remove the like
+            
+            user.addDislikedComment(_id, malID); //* add to disliked comments array
+            
+            commentForObject.addLikeOrDislike(_id, true,"dislikeCount"); //* increase dislike counter
+            
+
+          
+
+        }
+        else if (isCommentHaveDislike) {
+           
+            user.removeComment(_id, false);
+            commentForObject.addLikeOrDislike(_id, false,"dislikeCount");
+
+        }
+
+        user.save();
+        commentForObject.save();
+        
+        res.status(200).json({message:"success",userDislikedComment:user.dislikeComments,userLikedComment:user.likedComments})
+
+    } catch (error) {
+        //* pass error to error hnadling middleware
+        next(error)
+    }
+    
+}
+
+module.exports = {addComment,fetchComment,likeCommentHandler,dislikeCommentHandler};
