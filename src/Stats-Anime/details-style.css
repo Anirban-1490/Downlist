@@ -507,8 +507,8 @@ ion-icon
 }
 .item-container .body-container{
     /* outline: 3px solid red; */
-   width: calc(100% - 5em);
-
+   width: clamp(100%,calc(100% - 5em),100%);
+  
    color: white;
   
 }
@@ -519,12 +519,13 @@ ion-icon
    padding: 0 1.5em 0 0.45em;
    font-size: 0.94em;
    margin-bottom: 0.9em;
+  
 }
 .item-container .body-container .username-container{
     margin-left: 0.45em;
 }
 .item-container .body-container .username-container span:nth-child(1) a{
-    font-size: clamp(0.78rem,1.1em,1.6em);
+    font-size: clamp(0.78rem,0.96em,1.3em);
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
