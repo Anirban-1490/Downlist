@@ -379,7 +379,7 @@ ion-icon
 .comments-counter{
     color: white;
     /* text-align: start; */
-    margin: 4em auto;
+    margin: 1em auto;
     font-size: 1.25em;
     width: clamp(35vmax ,66vw,80%);
    
@@ -461,7 +461,7 @@ ion-icon
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #986cb205;
+    /* background-color: #986cb205; */
     /* outline: 3px solid red; */
    
 }
