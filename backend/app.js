@@ -13,6 +13,7 @@ const commentRouter = require("./routes/comment")
 const connectDB = require("./database/db_connection")
 //*import validaiton error handler middleware
 const errorHandler = require("./middleware/validation-error")
+const extra = require("./routes/user_extra")
 
 app.use(cors())
 
@@ -25,7 +26,7 @@ app.use("/api/v1/auth",authrouter)
 app.use("/user/:userID/profile/",profileRouter)
 app.use("/user/:userID",listrouter)
 app.use("/:objectID/comment/",commentRouter)
-
+app.use("/u/",extra)
 
 app.get("/",(req,res)=>
 {
