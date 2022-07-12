@@ -53,6 +53,11 @@
     background-color: #86b8e7;
 }
 
+.follow-btn.following{
+    background-color: transparent;
+    border: 3px solid #76aee3;
+}
+
 .picks-container{
     
     width: 100%;
