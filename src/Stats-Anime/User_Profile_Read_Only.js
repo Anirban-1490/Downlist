@@ -2,12 +2,15 @@ import axios from "axios"
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
-import "./User_Profile_Read_Only_Style.css";
 
+import "./User_Profile_Read_Only_Style.css";
+import { useState,useMemo ,useContext} from "react";
+import {Appcontext} from "./context"
 
 
 export const ReadOnlyProfileMain =()=>{
     const{userID} = useParams();
+
 
     const fetchDetails = async()=>{
         return (await axios.get(`http://localhost:4000/user/${userID}/profile/view`)).data
@@ -15,14 +18,46 @@ export const ReadOnlyProfileMain =()=>{
 
 
     const {data} = useQuery(["follow",userID],fetchDetails,{refetchOnWindowFocus:false})
-    console.log(data);
     return <>
-    <ReadOnlyProfile {...data?.user} />
+    <ReadOnlyProfile {...data?.user} userToFollowUserID = {userID}  />
     </>
 }
 
-const ReadOnlyProfile = ({name,image,bio,followers,following,top})=>{
+const ReadOnlyProfile = ({name,image,bio,followers,following,top,userToFollowUserID})=>{
 
+    const {userData} = useContext(Appcontext)
+
+    const [isFollowing,setFollow] = useState(undefined);
+    
+    
+    
+
+    useMemo(()=>{
+        
+        if(followers && userData?.userID){
+            setFollow(
+                followers?.find(followerID=>followerID===userData?.userID ) ? true:false
+                
+                )
+        }
+  
+        
+    },[followers,userData?.userID])
+
+    async function followHandler(e,visitorID,userToFollowUserID){
+        e.preventDefault()
+
+        try {
+           const response = await ( await axios.put(`http://localhost:4000/u/follow`,{visitorID,userToFollowUserID})).data
+
+            const isFollowerinArray = response?.find(followerID=>followerID===userToFollowUserID ) ? 
+            true:false
+            setFollow(isFollowerinArray)
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }   
 
     return <>
         <div className="container-profile">
@@ -35,7 +70,17 @@ const ReadOnlyProfile = ({name,image,bio,followers,following,top})=>{
                    <h5 className="follow">{followers?.length} Followers</h5>
                    <h5 className="follow">{following?.length} Following</h5>
                </div>
-               <button className="follow-btn">Follow</button>
+               <button className={isFollowing?"follow-btn following":"follow-btn"  } onClick={
+               ( function(e){
+                    followHandler.call(this,e,userData?.userID,userToFollowUserID)
+                }).bind(this)
+
+               }>
+                {
+                    isFollowing? "Following":"Follow"
+                }
+
+               </button>
 
                <div className="picks-container">
                    <h4>Top Picks</h4>
