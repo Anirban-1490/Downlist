@@ -128,15 +128,15 @@
     
     
 }
-.user .profile-img-container{
-    width: 100%;
-    height: 100%;
+ .profile-img-container{
+    width: 35px;
+    height: 35px;
     border: 2px solid yellow;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
 }
-.user .profile-img-container img{
+.profile-img-container img{
     width: 100%;
    
 
@@ -158,7 +158,7 @@
 }
 
 
-.user .yourlist .user-name
+.user-name
 {
     font-size: 0.74em;
     padding: 0.6em;
@@ -195,9 +195,11 @@
 
 .sign-out{
     width: auto;
+    position: relative;
+    z-index: 15;
     margin: 1em 0;
   display: inline-block;
-  background: rgba(219, 210, 210, 0.254);
+  background: #dbd2d241;
 }
 .sign-out p{
  display: inline-block;
@@ -299,6 +301,14 @@
     }
 }
 
+.user-details-container{
+    border: 2px solid red;
+    min-height: 10em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .smallnav-nav-container
 {
     
@@ -323,6 +333,11 @@
     flex-direction: column;
     align-items: center;
     gap: 20%;
+}
+.smallnav-nav h4{
+    font-weight: lighter;
+    color: white;
+    transform: translateY(2em);
 }
  .navlink
 {
