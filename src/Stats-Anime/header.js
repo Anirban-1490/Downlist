@@ -31,11 +31,23 @@ import {useAuth} from "./authorize"
         return data.data.user.image
     }})
 
+
+    const signoutHandler = ()=>{
+        localStorage.removeItem("token")
+        if(window.location.pathname !== "/"){
+
+            window.location.replace("/")
+           
+            return;
+        }
+         window.location.reload()
+    }
+
     return <>
-            <Smallnav />
+            <Smallnav data={userData && {...userData,...(data?.data.user)}} signoutHandler = {signoutHandler} />
 
             {
-                <Header data={userData && {...userData,...(data?.data.user)}} />
+                <Header data={userData && {...userData,...(data?.data.user)}} signoutHandler = {signoutHandler} />
             }
            
             
@@ -45,7 +57,7 @@ import {useAuth} from "./authorize"
 
 
 
-export function Header({data})
+export function Header({data,signoutHandler})
 {
     
 
@@ -148,16 +160,7 @@ export function Header({data})
     }
 
 
-    const signoutHandler = ()=>{
-        localStorage.removeItem("token")
-        if(window.location.pathname !== "/"){
 
-            window.location.replace("/")
-           
-            return;
-        }
-         window.location.reload()
-    }
 
     return(
         <>
@@ -212,7 +215,7 @@ export function Header({data})
 
 //* mobile view navbar ------
 
- export function Smallnav()
+ export function Smallnav({data,signoutHandler})
 {
 
    //*end animation after clicking a navigation link or the close button
@@ -233,25 +236,77 @@ export function Header({data})
                     <div className="parts part-3 anime-default" style={{"--i":"3"}}></div>
                     <div className="parts part-4 anime-default" style={{"--i":"4"}}></div>
                 </div>
-                <div className="smallnav-nav-container" style={(ishamclick)?{opacity:"1",transition: "all 0s 0.56s"}:{opacity:"0",transition:"all 0s 0.45s"}}>
+                {
+                    data && <button className="sign-out" 
+                    style={
+                        {color:"white", 
+                        opacity : (ishamclick)?"1":"0"
+                        }}  
+                        onClick={signoutHandler}>
+                               <p >Sign out</p>
+                               <ion-icon name="exit-outline"></ion-icon>
+                    </button>
+                }
+                <div className="smallnav-nav-container" 
+                style={
+                    (ishamclick)?{
+                        opacity:"1",
+                        transition: "all 0s 0.56s"
+                        }:
+                        {
+                            opacity:"0",
+                            transition:"all 0s 0.45s"
+                        }}>
+                    
                     {/* navigation links */}
+                  {
+                    data &&  <div className="user-details-container">
+
+                    <div className="profile-img-container" 
+                    style={
+                        {
+                            margin:"0 auto",
+                            width:"40px",
+                            height:"40px"
+                            
+                        }}>
+                            <img src={data?.image} alt="" />
+
+                       </div>
+                    <h4 className="user-name" 
+                    style={
+                        {color:"darkorange",
+                        fontSize:"1.55em",
+                        textAlign:"center"
+                        }}>HI, {data?.name}</h4>
+                    
+                        
+                        <h5 className="user-status">{data?.status}
+                        </h5>
+                   </div>
+                  }
                     
                    <div className="smallnav-nav">
                     <Link className="navlink" onClick={clickhandler} to="/topanime">Anime</Link>
                     <Link className="navlink" onClick={clickhandler} to="/topcharacters">Characters</Link>
                     <Link onClick={clickhandler} className="navlink" to="/about">About</Link>
+                    {
+                        !data && <h4 >Please Login to see your List of anime/characters</h4>
+                    }
                    </div>
-                   <div className="smallnav-userlist">
-                        <h3>User's List</h3>
+                  {
+                    data && <div className="smallnav-userlist">
+
                         <div className="smallnav-list-nav">
-                        <Link className="navlink" to="useranimelist" onClick={clickhandler}>
-                           Anime List
-                        </Link>
-                        <Link className="navlink" to="usercharacterlist" onClick={clickhandler}>
-                           Character List
-                        </Link>
+                            <Link className="navlink" to={`useranimelist/${data.userID}`} onClick={clickhandler}>
+                                Anime List
+                            </Link>
+                            <Link className="navlink" to={`usercharacterlist/${data.userID}`} onClick={clickhandler}>
+                                Character List
+                            </Link>
                         </div>
-                   </div>
+                    </div> 
+                  }
                 </div>
         </div>
     </>
