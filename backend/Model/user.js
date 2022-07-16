@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
@@ -63,11 +63,19 @@ const userSchema = new mongoose.Schema({
 })
 
 //* a pre hook middleware used to has the password before saving to database
-userSchema.pre("save",async function(){
+userSchema.pre("save",async function(next){
 
-    //* hash password with bcrypt
+    //*only hashed if it is the first time it is being saved to the db or if it has been modified. 
+    if (this.isModified("password") || this.isNew) {
+     
+         //* hash password with bcrypt
     const salt = await bcrypt.genSalt(9);
-   this.password = await bcrypt.hash(this.password,salt);
+    this.password = await bcrypt.hash(this.password,salt);
+    } else {
+        return next();
+    }
+    
+   
 })
 
 //* error handling middleware , where an error from mongoose is passed in the next() after the document done it's validation
@@ -90,7 +98,8 @@ userSchema.methods.getToken = function(){
 
 //*instance method to compare password
 userSchema.methods.comparePassword = function(userPassword){
-    return bcrypt.compare(userPassword,this.password)
+    
+    return bcrypt.compare(userPassword +"",this.password+"")
 }
 
 userSchema.methods.updateProfile = function(obj){
