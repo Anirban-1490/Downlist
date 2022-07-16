@@ -224,7 +224,7 @@
 {
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 20px;
     font-size: 2.0rem;
    
     color: white;
@@ -302,12 +302,17 @@
 }
 
 .user-details-container{
-    border: 2px solid red;
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
     min-height: 10em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 30em;
+   
 }
 .smallnav-nav-container
 {
@@ -319,7 +324,7 @@
     top: 50%;
     transform: translateY(-50%);
     min-height: 65%;
-    overflow: hidden;
+    /* overflow: hidden; */
    opacity: 0;
     
 }
