@@ -215,7 +215,7 @@
 .smallnav{
     width: 0;
     height: 100vh;
-  
+  display: none;
     z-index: 11;
     position: fixed;
     
@@ -427,6 +427,10 @@
         opacity: 1;
     }
    
+    .smallnav{
+      display: block;
+        
+    }
 }
 .toggle-style-ham
 {
