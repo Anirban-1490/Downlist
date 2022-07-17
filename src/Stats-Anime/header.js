@@ -86,7 +86,7 @@ export function Header({data,signoutHandler})
       
         const left = (54.4 * index) +  totaLWidth+2 + 42 *(index-1);
         borderRef.current.style.display =  "block"
-        borderRef.current.style.left = `${(index == 0)?42:left}px`
+        borderRef.current.style.left = `${(index === 0)?42:left}px`
         borderRef.current.style.width = `${currentEle.clientWidth}px`
     }
 
@@ -95,8 +95,8 @@ export function Header({data,signoutHandler})
         
         //*check for any path match
         const isMatch = [...ulRef.current.childNodes].some(node => {
-            if (node.nodeName == "NAV") {
-                if (node.children[0].pathname == path) {
+            if (node.nodeName === "NAV") {
+                if (node.children[0].pathname === path) {
                     return true;
                 }
                 else {
@@ -109,8 +109,8 @@ export function Header({data,signoutHandler})
         //* if atleast one then show the bottom border
         if(isMatch){
             [...ulRef.current.childNodes].forEach((node, index) => {
-                if (node.nodeName == "NAV") {
-                    if (node.children[0].pathname == path) {
+                if (node.nodeName === "NAV") {
+                    if (node.children[0].pathname === path) {
                         getLeft(index, ulRef.current, node)
                     }
                 }
