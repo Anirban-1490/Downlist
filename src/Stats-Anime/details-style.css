@@ -488,14 +488,14 @@ ion-icon
     width: 100%;
     gap: 0.76em;
 }
-.item-container .profile-img-container
+.item-container .user-profile-img-container
 {
     /* outline: 3px solid greenyellow; */
     flex:0 0 2.5em;
     /* height: 4em; */
     
 }
-.item-container .profile-img-container img
+.item-container .user-profile-img-container img
 {
     width: 100%;
     cursor: pointer;
