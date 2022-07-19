@@ -1,15 +1,16 @@
 import React from "react";
 import "./genreAnime-style.css";
-import { useQuery } from "react-query";
+import { useQuery,useQueryClient } from "react-query";
 import axios from "axios";
 import {Mulimgslider} from "./mul_img_slider";
 import react from "react";
-
+import {Spinner} from "./loading-spinner"
 
 export const Genres = ()=>
 {
-    
+    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
     const [genre_id,setID] = react.useState(4);
+    
    
     const options = [{genre_id:1,name:"Action"},
                     {genre_id:2,name:"Adventure"},
@@ -22,12 +23,28 @@ export const Genres = ()=>
                     {genre_id:24,name:"Sci Fi"}
                 ];
 
-    const { data} = useQuery("genre1", () => getResult(genre_id),{refetchInterval:3000 ,refetchIntervalInBackground:false});
-    const getResult = (genre_id)=>
-    {
-        return axios.get(`https://api.jikan.moe/v3/genre/anime/${genre_id}/1`).then(res=>res.data.anime.slice(0,16));
+
+    const getResult = async (genre_id) => {
+        await delay()
+        return axios.get(`https://api.jikan.moe/v3/genre/anime/${genre_id}/1`).then(res => res.data.anime.slice(0, 16));
     }
 
+
+    const { data,isLoading} = useQuery(["genre",genre_id], () => getResult(genre_id),
+    {
+        refetchIntervalInBackground:false,
+        staleTime:0,
+        cacheTime:0,
+        onSettled: async(data,err)=>{
+            if(err) return console.log(err);
+            //* delay to show a loading animation
+            await delay()
+            return data;
+        }
+        
+    });
+  
+    
   
     return <>
         <div className="genre-first">
@@ -36,8 +53,11 @@ export const Genres = ()=>
                 
             </h2>
             <div className="item">
-            
-                <Mulimgslider items={data} switch_details="/anime" />
+               {
+                    (isLoading) ?  <Spinner/>:
+                    <Mulimgslider items={data} switch_details="/anime" />
+               } 
+               
             </div>
         </div>
 
@@ -55,6 +75,9 @@ export const Dropdown = (prop)=>
 {
     const {options , setID ,placeholder,stats_anime} = prop;
     const optionref = react.useRef();
+
+    const client = useQueryClient();
+    
    
     const dropDownToggle = ()=>
     {
@@ -76,6 +99,17 @@ export const Dropdown = (prop)=>
     }, [clrDrop]);
 
 
+    const optionClickHandler =async (_name,genre_id,name)=>{
+        if(_name) return setID(_name);
+
+        //* refetch the query on diffrent genre id
+       await client.refetchQueries(["genre",genre_id])
+        setID(genre_id);
+        document.querySelector(".genre-display").value = name;
+        optionref.current.classList.toggle("active");
+        document.querySelector(".wrapper-input").classList.toggle("active")
+    }
+
    return <div className="wrapper-input">
                 <ion-icon name="chevron-down-outline"></ion-icon>
                 <input className="genre-display" placeholder={placeholder} type="text" name="" readOnly onClick={dropDownToggle}/>
@@ -84,12 +118,9 @@ export const Dropdown = (prop)=>
                         options.map(option => {
                             const {genre_id,name,_name} = option;
                             return (genre_id) ? <div
-                                onClick={() => {
-                                    (_name) ? setID(_name) : setID(genre_id);
-                                    document.querySelector(".genre-display").value = name;
-                                    optionref.current.classList.toggle("active");
-                                    document.querySelector(".wrapper-input").classList.toggle("active")
-                                }} key={genre_id}>
+                                onClick={
+                                    optionClickHandler.bind(this,_name,genre_id,name)
+                                } key={genre_id}>
                                 <h4>{name}</h4>
                             </div> : ""
                         })
