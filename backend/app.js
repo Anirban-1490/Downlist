@@ -50,7 +50,7 @@ const startServer = async()=>{
         await connectDB(process.env.DATABASE_CONNECTION);
     
         app.listen(Port,()=>{
-            console.log("server is up....");
+            console.log("server is up.... on " + Port);
         })
         
     } catch (error) {
