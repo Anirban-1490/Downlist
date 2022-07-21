@@ -100,11 +100,14 @@ export const Dropdown = (prop)=>
 
 
     const optionClickHandler =async (_name,genre_id,name)=>{
-        if(_name) return setID(_name);
-
-        //* refetch the query on diffrent genre id
-       await client.refetchQueries(["genre",genre_id])
-        setID(genre_id);
+        //* if _name is valid meaning if this is a userlist page
+        if(_name) setID(_name);
+        else{
+            //* refetch the query on diffrent genre id
+            await client.refetchQueries(["genre", genre_id])
+            setID(genre_id);
+        }
+       
         document.querySelector(".genre-display").value = name;
         optionref.current.classList.toggle("active");
         document.querySelector(".wrapper-input").classList.toggle("active")
