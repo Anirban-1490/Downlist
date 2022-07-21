@@ -186,7 +186,9 @@ export const Details =  (prop)=>
         
         //* show the loadnig... text when click the button
         setLoading(true)
-        if(!clientData.userID){
+
+        if(!clientData?.userID){
+            //* if user not logged in then redirect to login page
             navigate("/userauth");
         }
         else{
