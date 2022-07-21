@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import react , {useState , useEffect ,useRef,useContext} from "react";
 import "./details-style.css";
 import "./animestyle.css";
@@ -146,6 +146,7 @@ export const Details =  (prop)=>
     const {animedetails,animegenres,stats,malid} = prop.details;
     const {fav,about,name_kenji,name,switch_item,switch_path} = prop;
     const[itemadd , setItemadd] = useState(false);
+    const[isLoading , setLoading] = useState(false);
     const [seemorebtn , Setbtn] = useState(false);
     
     const btn = useRef();
@@ -180,14 +181,17 @@ export const Details =  (prop)=>
 
 
    //* function to add item into local storage
-    async function Additem()
+    async function Additem(e)
     {
         
-       
+        //* show the loadnig... text when click the button
+        setLoading(true)
         if(!clientData.userID){
             navigate("/userauth");
         }
         else{
+            
+
             if(itemadd ===false)
             {
                 
@@ -221,9 +225,11 @@ export const Details =  (prop)=>
                     })
                    
                 }
-    
+                //* remove the loading text
+                setLoading(false)
                 //*item added
                 setItemadd(true);
+                
                
             }
             else
@@ -254,6 +260,7 @@ export const Details =  (prop)=>
                    
                    
                 }
+                setLoading(false)
                 setItemadd(false);
             }
            
@@ -308,13 +315,26 @@ export const Details =  (prop)=>
                     onMouseUp={()=> btn.current.style.animation = "none"} 
                     style={(itemadd)?
                     {background:"#fb2f00"}:{background:"#802bb1"}}>
-                        {(itemadd) ? <span>
-                            <i className="fas fa-minus" style={{ margin: "0 3px" }}></i>Remove from list
-                            </span>
-                             : 
-                            <span>
-                            <i className="fas fa-plus" style={{ margin: "0 3px" }}></i>Add to list
-                            </span>}
+                        <span>
+                            {
+                                (isLoading) ? "Loading...":(itemadd)?  
+
+                                <>
+                                <i className="fas fa-minus" style={{ margin: "0 3px" }}> 
+                                </i>
+                                Remove from list
+                                </>
+                                :
+                               <>
+                                 <i className="fas fa-plus" style={{ margin: "0 3px" }}>
+                                 </i>
+                                Add to list
+                               </>
+                                
+                               
+                            }
+                        </span>
+                       
                     </button>
                 </li>
             </ul>
@@ -474,6 +494,10 @@ export const Roles =  react.memo((prop)=>
 export const CommentsBox = react.memo(({user,malid})=>{
 
     const [isBtnVisable,btnVisibilityHandler] = useState(false);
+    const [likedComments,setLikedCommetns] = useState(user?.likedComments)
+  
+    const [dislikedComments,setDislikedComments] = useState(user?.dislikeComments);
+
     let isThereValue = false;
     const formRef=  useRef()
     const textInputref = useRef()
@@ -482,19 +506,27 @@ export const CommentsBox = react.memo(({user,malid})=>{
     const client = useQueryClient();
     const clientDetails = client.getQueryData(["user",token])
    
+    const lc = user?.likedComments;
 
-    
+    //* initialize the likedComments state optimally
+    react.useMemo(()=>{
+       console.log("ran 2 times");
+        setLikedCommetns(user?.likedComments)
+        setDislikedComments(user?.dislikeComments)
+    },[lc])
 
-
+    console.log(user);
+    //* fetch all comments from the DB
     const getCommentList =async ()=>{
+       
         return (await axios.get(`http://localhost:4000/${malid}/comment/list`)).data
     }
     const {data,isLoading,isError} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false,staleTime:0})
 
-    console.log(data);
+ 
+    
 
-
-
+    //* toggle the comment and cancel button depending on if there is value or not in the comment text field
     const getValue = (e)=>{
         if(e.target.value && !isThereValue){
             btnVisibilityHandler(true)
@@ -507,6 +539,8 @@ export const CommentsBox = react.memo(({user,malid})=>{
         
     }
 
+
+    //* handler to submit the value to server
      async function submitValue (e){
         e.preventDefault();
         
@@ -532,13 +566,44 @@ export const CommentsBox = react.memo(({user,malid})=>{
        
     }
 
+    //* handler for the cancel button 
     const cancelBtnHandler = (e)=>{
         e.preventDefault();
         e.target.previousSibling.previousSibling.value = "";
         btnVisibilityHandler(false)
        
     }
-    
+
+    //* handler for like and dislike button
+    const like_dislikeHandler =async (userID,_id,malID,e,like)=>{
+       
+    console.log(userID);
+        try {
+            let response;
+            //* condiiton for liked button
+           
+            
+                response = (await axios.put(`http://localhost:4000/${malid}/comment/${like? "like":"dislike"}`,{userID,_id,malID})).data;
+                
+         
+         
+            //* refetch this queries so it will update and re-render the result
+                
+            await client.prefetchQuery(["profile",token])
+            await client.prefetchQuery(["commentList",malid])
+
+             setLikedCommetns(response.userLikedComment)
+             setDislikedComments(response.userDislikedComment)
+            
+        } catch (error) {
+
+            //* should be a popup message 
+            console.log(error);
+        }
+       
+    }
+
+ 
     return <>
        
         <div className="comment-box-container">
@@ -577,8 +642,13 @@ export const CommentsBox = react.memo(({user,malid})=>{
                                     userProfileImg,
                                     _id}
                                 )=>{
+
+                                 //* if the comment is in user's liked comment list    
+                                const isLiked = likedComments?.find((ele)=>ele.commentId === _id)
+                                const isDisliked = dislikedComments?.find((ele)=>ele.commentId === _id)
+
                                 return <div className="item-container" key={_id}>
-                                    <div className="profile-img-container">
+                                    <div className="user-profile-img-container">
                                         <img src={userProfileImg} onError ={function(e){e.target.src = default_img}} alt="" />
                                     </div>
                                     <div className="body-container">
@@ -586,11 +656,21 @@ export const CommentsBox = react.memo(({user,malid})=>{
                                         <span>
                                             <Link to={
                                                 (userID !== clientDetails?.userID)?`/user/${userID}`:`/user/${userID}/view`
-                                            }> {userName}</Link>
+                                            }> {userName}</Link> &bull;
                                             </span> 
-                                        &bull;<span>{timeAgo.format(new Date(date),"mini-minute-now")}</span>
+                                        <span>{timeAgo.format(new Date(date),"mini-minute-now")}</span>
                                         </div>
                                         <p>{body}</p>
+                                        <div className="extra-features">
+                                            <ion-icon name={!(isLiked) ?"thumbs-up-outline":"thumbs-up"} onClick={(e)=>like_dislikeHandler(clientDetails?.userID,_id,malid,e,true)}>
+                                                
+                                            </ion-icon>
+
+                                            <p className="like-counter counter">{likeCount}</p>
+
+                                            <ion-icon name={!(isDisliked) ?"thumbs-down-outline":"thumbs-down"} onClick={e=>like_dislikeHandler(clientDetails?.userID,_id,malid,e,false)}></ion-icon>
+                                            <p className="dislike-counter counter">{dislikeCount}</p>
+                                        </div>
                                     </div>
                                 </div>
                             })
