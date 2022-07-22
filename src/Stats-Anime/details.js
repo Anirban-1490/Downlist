@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import react , {useState , useEffect ,useRef,useContext} from "react";
 import "./details-style.css";
 import "./animestyle.css";
@@ -202,7 +202,7 @@ export const Details =  (prop)=>
                 {
                     const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites,addedOn:new Date().toDateString()};
                     
-                    const response = await axios.post(`http://localhost:4000/user/${clientData?.userID}/addanime`,item)
+                     await axios.post(`http://localhost:4000/user/${clientData?.userID}/addanime`,item)
 
                     await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
                         actDone:"Added",
@@ -523,7 +523,7 @@ export const CommentsBox = react.memo(({user,malid})=>{
        
         return (await axios.get(`http://localhost:4000/${malid}/comment/list`)).data
     }
-    const {data,isLoading,isError} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false,staleTime:0})
+    const {data} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false,staleTime:0})
 
  
     

@@ -34,7 +34,7 @@ export const SignupMain = () => {
         e.preventDefault()
       
         const type = e.target.parentElement.previousSibling.type
-        if(type == "password"){
+        if(type === "password"){
             e.target.parentElement.previousSibling.type = "text";
             e.target.parentElement.innerHTML =`<ion-icon name="eye-off-outline"></ion-icon>`;
         } 
