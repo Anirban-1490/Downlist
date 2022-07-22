@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import react from "react";
 import "./animestyle.css";
 import "./topanimestyle.css";
@@ -27,7 +27,6 @@ export function useToplist(switch_item)
     const client = useQueryClient();
     const token = localStorage.getItem("token")
     const user = client.getQueryData(["user",token])
-    console.log();
 
     //* get users saved anime or character list
     let userList = useList(switch_item,user?.userID)?.list
@@ -65,7 +64,7 @@ export function useToplist(switch_item)
         }
     },[userList,switch_item])
 
-    useEffect(()=> {
+    useLayoutEffect(()=> {
 
     
         fetchTopItemFromList()
@@ -87,21 +86,18 @@ function TopanimeMain()
 
     const results = useQueries([{queryKey:"upcoming_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/upcoming"),
-        retry:false,
-        staleTime:Infinity,
-        cacheTime:Infinity
+        retry:false
+        
     },
     {queryKey:"popular_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),
-        retry:false,
-        staleTime:Infinity,
-        cacheTime:Infinity
+        retry:false
+       
     } , 
     {queryKey:"airing_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),
-        retry:false,
-        staleTime:Infinity,
-        cacheTime:Infinity
+        retry:false
+       
     }])
 
     
