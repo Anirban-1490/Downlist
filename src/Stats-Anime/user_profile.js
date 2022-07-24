@@ -3,6 +3,7 @@ import {useQueryClient} from "react-query"
 import {Appcontext} from "./context"
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import {path} from "../server-path"
 
 import {Spinner} from "./loading-spinner"
 
@@ -12,7 +13,6 @@ import en from 'javascript-time-ago/locale/en.json'
 
 //*global css
 import "./user_profileStyle.css";
-
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo("en-US")
 
@@ -53,7 +53,7 @@ export const UserProfileMain = ()=>{
       try {
        
 
-      await axios.post(`http://localhost:4000/user/${userID}/profile/update`,formData
+      await axios.post(`${path.domain}user/${userID}/profile/update`,formData
       )
         window.location.reload()
 

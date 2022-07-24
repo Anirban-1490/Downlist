@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-
+import {path} from "../server-path"
 
 import "./User_Profile_Read_Only_Style.css";
 import { useState,useMemo ,useContext} from "react";
@@ -13,7 +13,7 @@ export const ReadOnlyProfileMain =()=>{
 
 
     const fetchDetails = async()=>{
-        return (await axios.get(`http://localhost:4000/user/${userID}/profile/view`)).data
+        return (await axios.get(`${path.domain}user/${userID}/profile/view`)).data
     }
 
 
@@ -48,7 +48,7 @@ const ReadOnlyProfile = ({name,image,bio,followers,following,top,userToFollowUse
         e.preventDefault()
 
         try {
-           const response = await ( await axios.put(`http://localhost:4000/u/follow`,{visitorID,userToFollowUserID})).data
+           const response = await ( await axios.put(`${path.domain}/u/follow`,{visitorID,userToFollowUserID})).data
 
             const isFollowerinArray = response?.find(followerID=>followerID===userToFollowUserID ) ? 
             true:false

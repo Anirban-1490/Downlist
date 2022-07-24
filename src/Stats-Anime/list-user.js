@@ -5,6 +5,7 @@ import "./genreAnime-style.css";
 import "./list-style.css";
 import react from "react";
 import axios from "axios";
+import {path} from "../server-path"
 import { useQueryClient,useQuery } from "react-query";
 var token = localStorage.getItem("token");
 
@@ -34,9 +35,9 @@ function Listmain({header,switch_item})
 export function useList(switch_item,userID)
 {
     async function fetchUserList() {
-        if (switch_item === "character") return (await axios.get(`http://localhost:4000/user/${userID}/viewsavedchar`)).data;
+        if (switch_item === "character") return (await axios.get(`${path.domain}user/${userID}/viewsavedchar`)).data;
 
-        return (await axios.get(`http://localhost:4000/user/${userID}/viewsavedanime`)).data
+        return (await axios.get(`${path.domain}user/${userID}/viewsavedanime`)).data
 
     }
  
@@ -79,9 +80,9 @@ function List(props)
 
     const clearlist = async()=> 
     {
-        const response = await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeall/${switch_item}`)
+        const response = await axios.delete(`${path.domain}user/${clientData?.userID}/removeall/${switch_item}`)
         window.location.reload()
-        console.log(response.data);
+       
        
     }
 

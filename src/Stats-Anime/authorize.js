@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import {path} from "../server-path"
 
 export const useAuth = (isenabled,redirect=false)=>{
 
@@ -11,7 +11,7 @@ export const useAuth = (isenabled,redirect=false)=>{
     const token = localStorage.getItem("token")
 
     const authorizeUser = ()=>{
-        return axios.get("http://localhost:4000/api/v1/auth/authorize",{
+        return axios.get(`${path.domain}api/v1/auth/authorize`,{
             headers:{
                 Authorization:`Bearer ${token}`
             }

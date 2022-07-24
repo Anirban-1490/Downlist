@@ -9,6 +9,7 @@ import { useQueries,useQuery,useQueryClient } from "react-query";
 import {Spinner} from "./loading-spinner";
 import {Errorpage} from "./error";
 import { useNavigate } from "react-router-dom";
+import {path} from "../server-path"
 
 import {Appcontext} from "./context"
 import default_img from "./logo/default-placeholder.png";
@@ -158,9 +159,9 @@ export const Details =  (prop)=>
     
 
     async function fetchUserList(){
-       if(switch_item === "character")  return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedchar`)).data;
+       if(switch_item === "character")  return (await axios.get(`${path.domain}user/${clientData?.userID}/viewsavedchar`)).data;
 
-        return (await axios.get(`http://localhost:4000/user/${clientData?.userID}/viewsavedanime`)).data
+        return (await axios.get(`${path.domain}user/${clientData?.userID}/viewsavedanime`)).data
      
 
     }
@@ -202,9 +203,9 @@ export const Details =  (prop)=>
                 {
                     const item = {malid,img_url:animedetails.image_url,title:animedetails.title,score:animedetails.score,episodes:animedetails.episodes,fav:animedetails.favorites,addedOn:new Date().toDateString()};
                     
-                     await axios.post(`http://localhost:4000/user/${clientData?.userID}/addanime`,item)
+                     await axios.post(`${path.domain}user/${clientData?.userID}/addanime`,item)
 
-                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                    await axios.put(`${path.domain}user/${clientData?.userID}/profile/activity`,{
                         actDone:"Added",
                         detail:animedetails.title,
                         doneAt:new Date()
@@ -218,9 +219,9 @@ export const Details =  (prop)=>
                 {
                     const item = {malid,img_url:animedetails.image_url,title:name,fav,addedOn:new Date().toDateString()};
     
-                    await axios.post(`http://localhost:4000/user/${clientData?.userID}/addChar`,item)
+                    await axios.post(`${path.domain}user/${clientData?.userID}/addChar`,item)
 
-                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                    await axios.put(`${path.domain}user/${clientData?.userID}/profile/activity`,{
                         actDone:"Added",
                         detail:name,
                         doneAt:new Date()
@@ -240,9 +241,9 @@ export const Details =  (prop)=>
     
                 if(switch_item === "anime")
                 {
-                    await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removeanime/${malid}`)
+                    await axios.delete(`${path.domain}user/${clientData?.userID}/removeanime/${malid}`)
 
-                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                    await axios.put(`${path.domain}user/${clientData?.userID}/profile/activity`,{
                         actDone:"Removed",
                         detail:animedetails.title,
                         doneAt:new Date()
@@ -252,9 +253,9 @@ export const Details =  (prop)=>
                 }
                 else if(switch_item ==="character")
                 {
-                     await axios.delete(`http://localhost:4000/user/${clientData?.userID}/removechar/${malid}`)
+                     await axios.delete(`${path.domain}user/${clientData?.userID}/removechar/${malid}`)
 
-                    await axios.put(`http://localhost:4000/user/${clientData?.userID}/profile/activity`,{
+                    await axios.put(`${path.domain}user/${clientData?.userID}/profile/activity`,{
                         actDone:"Removed",
                         detail:name,
                         doneAt:new Date()
@@ -521,7 +522,7 @@ export const CommentsBox = react.memo(({user,malid})=>{
     //* fetch all comments from the DB
     const getCommentList =async ()=>{
        
-        return (await axios.get(`http://localhost:4000/${malid}/comment/list`)).data
+        return (await axios.get(`${path.domain}${malid}/comment/list`)).data
     }
     const {data} = useQuery(["commentList",malid],getCommentList,{refetchOnWindowFocus:false,staleTime:0})
 
@@ -550,9 +551,9 @@ export const CommentsBox = react.memo(({user,malid})=>{
         const formValueObject = Object.fromEntries(formValue)
         textInputref.current.disabled = true;
         // e.target.disabled = true;
-        console.log();
+    
         try {
-          const response =  (await axios.post(`http://localhost:4000/${malid}/comment/user/${clientDetails?.userID}/add`,formValueObject)).data;
+          const response =  (await axios.post(`${path.domain}${malid}/comment/user/${clientDetails?.userID}/add`,formValueObject)).data;
 
           console.log(response);
             textInputref.current.value = "";
@@ -579,13 +580,13 @@ export const CommentsBox = react.memo(({user,malid})=>{
     //* handler for like and dislike button
     const like_dislikeHandler =async (userID,_id,malID,e,like)=>{
        
-    console.log(userID);
+    
         try {
             let response;
             //* condiiton for liked button
            
             
-                response = (await axios.put(`http://localhost:4000/${malid}/comment/${like? "like":"dislike"}`,{userID,_id,malID})).data;
+                response = (await axios.put(`${path.domain}${malid}/comment/${like? "like":"dislike"}`,{userID,_id,malID})).data;
                 
          
          

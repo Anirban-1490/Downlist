@@ -6,6 +6,7 @@ import {Appcontext} from "./context";
 import axios from "axios";
 import { useQuery } from "react-query";
 import {useAuth} from "./authorize"
+import {path} from "../server-path"
 
 
  function Main()
@@ -21,7 +22,7 @@ import {useAuth} from "./authorize"
     const token = localStorage.getItem("token")
     function fetchUserProfile(){
        
-        return axios.get(`http://localhost:4000/user/${userData.userID}/profile/view`)
+        return axios.get(`${path.domain}user/${userData.userID}/profile/view`)
     }
 
     const {data} = useQuery(["profile",token],fetchUserProfile,{refetchOnWindowFocus:false,staleTime:Infinity,cacheTime:0,enabled:!!userData,onSettled:(data,err)=>{

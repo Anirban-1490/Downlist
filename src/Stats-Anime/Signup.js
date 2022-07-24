@@ -1,6 +1,7 @@
 import {useRef,useState} from "react";
 import "./signup.css"
 import axios from "axios";
+import {path} from "../server-path"
 
 import { useAuth } from "./authorize";
 
@@ -61,11 +62,11 @@ export const SignupMain = () => {
 
             //* for signup form request
             if(formName === "signup"){
-                response = await axios.post("http://localhost:4000/api/v1/auth/signup",userInfo)
+                response = await axios.post(`${path.domain}api/v1/auth/signup`,userInfo)
                 
             }
             else if(formName === "signin"){
-                response = await axios.post("http://localhost:4000/api/v1/auth/signin",userInfo)
+                response = await axios.post(`${path.domain}api/v1/auth/signin`,userInfo)
             }
             
             //* store the token in localstorage
