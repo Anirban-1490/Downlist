@@ -80,7 +80,7 @@ function List(props)
 
     const clearlist = async()=> 
     {
-        const response = await axios.delete(`${path.domain}user/${clientData?.userID}/removeall/${switch_item}`)
+        await axios.delete(`${path.domain}user/${clientData?.userID}/removeall/${switch_item}`)
         window.location.reload()
        
        
