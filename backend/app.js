@@ -43,7 +43,7 @@ app.post("/user/:userID/image",(req,res,next)=>
 
 app.use(errorHandler)
 
-const Port = process.env.PORT || 4000
+const Port = process.env.PORT || 5000
 
 const startServer = async()=>{
     try {
