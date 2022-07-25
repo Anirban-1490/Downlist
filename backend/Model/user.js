@@ -23,8 +23,7 @@ const userSchema = new mongoose.Schema({
         required:[true,"Please provide a password"]
     },
     image:{
-        type: String,
-        default:"http://localhost:4000/public/default-profile.jpg"
+        type: String
     },
     bio:{
         type:String,
