@@ -41,7 +41,13 @@ const newUser_handler = async(req,res,next)=>{
     try {
 
        
-       const user = await userModel.create({name,email,password:pass})
+       const user = await userModel.create(
+        {
+            name,
+            email,
+            password:pass,
+            image:`${req.protocol}://${req.header('Host')}/public/default-profile.jpg`
+        })
        const token = user.getToken();
        await userList.create({username:name,email,userid:user._id})
         res.status(201).json({"message":"User created successfully!",token})
@@ -55,6 +61,7 @@ const newUser_handler = async(req,res,next)=>{
 
 const authorizeUser = async (req,res)=>{
 
+    
     //* get the token from client side
     const userToken = req.headers.authorization;
     if(!userToken || !userToken.startsWith("Bearer")){
