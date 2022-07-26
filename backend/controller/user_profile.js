@@ -7,7 +7,7 @@ const updateProfile =async (req,res,next)=>{
     var data = req.body;
     
      if(req.file){
-        const url = req.protocol + "://" + req.headers.host;
+        const url = `${req.headers['x-forwarded-proto'] || 'http'}://${req.header('Host')}`;
         const imageFilePath = url + "/public/" + req.file?.filename
 
         data = {...data ,imageFilePath};

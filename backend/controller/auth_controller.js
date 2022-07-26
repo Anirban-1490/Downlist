@@ -46,7 +46,7 @@ const newUser_handler = async(req,res,next)=>{
             name,
             email,
             password:pass,
-            image:`${req.protocol}://${req.header('Host')}/public/default-profile.jpg`
+            image:`${req.headers['x-forwarded-proto'] || 'http'}://${req.header('Host')}/public/default-profile.jpg`
         })
        const token = user.getToken();
        await userList.create({username:name,email,userid:user._id})
@@ -61,7 +61,7 @@ const newUser_handler = async(req,res,next)=>{
 
 const authorizeUser = async (req,res)=>{
 
-    
+
     //* get the token from client side
     const userToken = req.headers.authorization;
     if(!userToken || !userToken.startsWith("Bearer")){
