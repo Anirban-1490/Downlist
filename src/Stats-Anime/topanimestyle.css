@@ -574,13 +574,19 @@ footer div h3:nth-child(1) a i{
 }
 .no-item
 {
-    color: red;
-    text-transform: capitalize;
+    color: #948f8ffa;
+    
     letter-spacing: 2px;
     position: relative;
-    top: 650px;
+    top: 520px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    outline: 2px solid #f4f4f452;
+    width: clamp(7em,67vw,34em);
+    padding: 6em 0.7em;
+    font-family: sans-serif;
+    margin:  0 auto;
+    font-weight: 200;
 }
 .top-list-inner
 {
