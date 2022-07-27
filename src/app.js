@@ -36,9 +36,9 @@ function App()
                 <Route path="/user/:userID/view" element={<UserProfileMain/>}/>
                 <Route path="/user/:userID" element={<ReadOnlyProfileMain/>}/>
                 
-                 <Route path = "/useranimelist/:userID" element = {<Listuser header = "Your anime list" switch_item = "anime"/>}/>
+                 <Route path = "/useranimelist/:userID" element = {<Listuser header = "anime list" switch_item = "anime"/>}/>
 
-                 <Route path = "/usercharacterlist/:userID" element = {<Listuser header = "Your character list" switch_item = "character"/>}/>
+                 <Route path = "/usercharacterlist/:userID" element = {<Listuser header = "character list" switch_item = "character"/>}/>
 
                  <Route path = "anime/:id" element = {<Details/>} />
                  <Route path = "character/:id" element = {<Detailschar/>}/>
