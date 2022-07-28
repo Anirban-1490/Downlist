@@ -145,7 +145,7 @@
     /* border: 2.7px solid #8080804a; */
     position: relative;
     z-index: -33;
-    
+    margin-bottom: 5em;
     align-items: center;
 }
 
@@ -246,6 +246,14 @@
    color: rgba(119, 136, 153, 0.486);
 }
 
+.thats-it{
+    color: #e4e1ff7e;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: 300;
+    font-size: 0.935em;
+   
+}
 
 
 @keyframes anime-list-item

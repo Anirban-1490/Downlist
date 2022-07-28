@@ -155,8 +155,10 @@ function List(props) {
 
         </ul>
 
-        
-        <div style={{ height: "150px" }}></div>
+        {
+            list.length>0 && <h5 className="thats-it">Looks like that's it...</h5>
+        }
+        <div style={{ height: "100px" }}></div>
     </>
 }
 
