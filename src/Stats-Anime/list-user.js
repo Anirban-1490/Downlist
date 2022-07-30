@@ -143,7 +143,7 @@ function List(props) {
         <ul 
         className="search-container" 
         style={
-          (data?.pages?.[0]>0) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
+          (data?.pages?.[0]?.list?.length>0) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
         }
         ref = {containerRef}
         >
