@@ -46,7 +46,7 @@ function Listmain({ header, switch_item }) {
 export function useList(switch_item, userID) {
     async function fetchUserList({pageParam=0}) {
        
-        if (switch_item === "character") return (await axios.get(`${path.domain}user/${userID}/viewsavedchar`)).data;
+        if (switch_item === "character") return (await axios.get(`${path.domain}user/${userID}/viewsavedchar?cursor=${pageParam}`)).data;
 
         return (await axios.get(`${path.domain}user/${userID}/viewsavedanime?cursor=${pageParam}`)).data
 
@@ -143,7 +143,7 @@ function List(props) {
         <ul 
         className="search-container" 
         style={
-          (data?.pages?.length>0) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
+          (data?.pages?.[0]>0) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
         }
         ref = {containerRef}
         >
