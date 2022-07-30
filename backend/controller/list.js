@@ -34,10 +34,6 @@ const removeSavedAnime = async (req,res)=>{
 }
 
 
-
-
-
-
 const addCharHandler =async (req,res)=>{
     const {userID} = req.params;
     const character = req.body;
@@ -51,10 +47,12 @@ const addCharHandler =async (req,res)=>{
 
 const getSavedCharacter = async(req,res)=>{
     const {userID} = req.params;
-    // const {malid} = req.body;
+    const cursor = parseInt(req.query.cursor) || 0;
+    let itemLimit=5 ;
     const userListDetails = await userList.findOne({userid:userID})
-    // const isAnimeFound = userListDetails.includesAnime(malid)
-   res.status(200).json({list:userListDetails.charList,userID:userListDetails.userid})
+    let list = userListDetails.charList.slice(cursor,cursor+itemLimit)
+    const nextPage = cursor+itemLimit
+   res.status(200).json({list,userID:userListDetails.userid,nextPage})
 }
 
 
