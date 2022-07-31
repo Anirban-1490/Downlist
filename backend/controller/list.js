@@ -16,10 +16,11 @@ const addAnimeHandler = async (req,res)=>{
 const getSavedAnime = async(req,res)=>{
     const {userID} = req.params;
     const cursor = parseInt(req.query.cursor) || 0;
+    const sortBy = req.query?.sortby;
     let itemLimit=5 ;
     
     const userListDetails = await userList.findOne({userid:userID})
-    let list = userListDetails.animeList.slice(cursor,cursor+itemLimit)
+    let list = userListDetails.animeList.sort((a,b)=>b[sortBy]-a[sortBy]).slice(cursor,cursor+itemLimit)
     const nextPage = cursor+itemLimit
    res.status(200).json({list,userID:userListDetails.userid,nextPage})
 }
@@ -48,10 +49,14 @@ const addCharHandler =async (req,res)=>{
 const getSavedCharacter = async(req,res)=>{
     const {userID} = req.params;
     const cursor = parseInt(req.query.cursor) || 0;
+    const sortBy = req.query?.sortby;
     let itemLimit=5 ;
+
     const userListDetails = await userList.findOne({userid:userID})
-    let list = userListDetails.charList.slice(cursor,cursor+itemLimit)
+    let list = userListDetails.charList.sort((a,b)=>b[sortBy]-a[sortBy]).slice(cursor,cursor+itemLimit)
+
     const nextPage = cursor+itemLimit
+    
    res.status(200).json({list,userID:userListDetails.userid,nextPage})
 }
 
