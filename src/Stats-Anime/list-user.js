@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useCallback } from "react";
 
 import { Link, useLocation, useParams } from "react-router-dom";
 import { Dropdown } from "./genres-anime";
@@ -16,8 +16,9 @@ var token = localStorage.getItem("token");
 function Listmain({ header, switch_item }) {
     useLocation()
     const { userID } = useParams()
+    const [whatToSortBy,setWhatToSortBy] = useState(undefined)
 
-    const [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading] = useList(switch_item, userID);
+    const [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading,refetch] = useList(switch_item, userID,whatToSortBy);
 
     return <>
 
@@ -33,6 +34,9 @@ function Listmain({ header, switch_item }) {
                 isFetchingNextPage={isFetchingNextPage}
                 {...isLoading}
                 fetchNextPage={fetchNextPage}
+                userID = {userID}
+                setWhatToSortBy = {setWhatToSortBy}
+                refetch = {refetch}
                 /> : ""
             }
         </div>
@@ -43,30 +47,34 @@ function Listmain({ header, switch_item }) {
 
 //* custom hook to get the user's list items
 
-export function useList(switch_item, userID) {
-    async function fetchUserList({pageParam=0}) {
-       
-        if (switch_item === "character") return (await axios.get(`${path.domain}user/${userID}/viewsavedchar?cursor=${pageParam}`)).data;
+export function useList(switch_item, userID,sortBy=undefined) {
+    
 
-        return (await axios.get(`${path.domain}user/${userID}/viewsavedanime?cursor=${pageParam}`)).data
+    async function fetchUserList({pageParam=0}) {
+      
+        if (switch_item === "character") return (await axios.get(`${path.domain}user/${userID}/viewsavedchar?cursor=${pageParam}${sortBy && `&sortby=${sortBy}`}`)).data;
+
+        return (await axios.get(`${path.domain}user/${userID}/viewsavedanime?cursor=${pageParam}${sortBy && `&sortby=${sortBy}`}`)).data
 
     }
 
-    const { data,isLoading,fetchNextPage,isFetchingNextPage,hasNextPage } = useInfiniteQuery((switch_item === "anime") ? "userAnimeList" : "userCharList"
+    const { data,isLoading,fetchNextPage,isFetchingNextPage,hasNextPage,refetch } = useInfiniteQuery((switch_item === "anime") ?"userAnimeList": "userCharList"
 
         , fetchUserList,
         {
             
             getNextPageParam:(lastPage)=> {
-                    console.log(lastPage);
+                    // console.log(lastPage);
                return lastPage.nextPage
             },
-            refetchOnWindowFocus:false
+            refetchOnWindowFocus:false,
+            staleTime:0,
+            cacheTime:0
         }
     )
 
-       
-    return [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading]
+     
+    return [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading,refetch]
 
 
 }
@@ -74,14 +82,14 @@ export function useList(switch_item, userID) {
 
 function List(props) {
 
-    const { header, switch_item, data,hasNextPage,isFetchingNextPage ,fetchNextPage} = props;
+    const { header, switch_item, data,hasNextPage,isFetchingNextPage ,fetchNextPage,userID,setWhatToSortBy,refetch} = props;
     const client = useQueryClient();
     const clientData = client.getQueryData(["user", token]);
     const containerRef = useRef()
 
     const {ref,inView} = useInView({threshold:0})
 
-  
+    
 
     const [stat, setStat] = useState("");
     //* sorting by options
@@ -93,7 +101,7 @@ function List(props) {
 
 
     const clearlist = async () => {
-        await axios.delete(`${path.domain}user/${clientData?.userID}/removeall/${switch_item}`)
+        await axios.delete(`${path.domain}user/${userID}/removeall/${switch_item}`)
         window.location.reload()
 
 
@@ -102,16 +110,23 @@ function List(props) {
 
 
     //*sort by which ?
-    // const sortCheck = react.useCallback(() => {
-    //     setList(list => [...list].sort((a, b) => b[stat] - a[stat]))
+   
 
-    // }, [stat])
+    useEffect( () => {
+        
+        //* if the sort parameter is set , then first update the state and then refetch the query
+        (async()=>{
 
-    // useEffect(() => {
+            await setWhatToSortBy(stat);
+            await refetch({
+                refetchPage: (lastPage, index, allPages) => {
+                    return true
+                }
+            })
+        
+        })()
 
-    //     sortCheck()
-
-    // }, [sortCheck])
+    }, [stat])
 
 
     
@@ -143,7 +158,7 @@ function List(props) {
         <ul 
         className="search-container" 
         style={
-          (data?.pages?.[0]?.list?.length>0) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
+          (data?.pages?.[0]?.list) ? { "border": "none" } : { "border": "2.7px solid #8080804a" }
         }
         ref = {containerRef}
         >
