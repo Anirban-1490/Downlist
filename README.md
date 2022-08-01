@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="/src/Stats-Anime/logo/default-placeholder.png"></a>
+<img src="src/Stats-Anime/logo/default-placeholder.png"></a>
 </p>
 
 <p align="center">
