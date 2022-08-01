@@ -18,24 +18,24 @@ const year = new Date().getFullYear();
 
 //* --- custom hook for fetching top anime/character from the user list
 
-export function useToplist(switch_item)
+export function useToplist(switch_item,userID)
 {
     
     const [listitem , setListitem] = useState([]);
-    const [listcount,setListcount] = useState(0);
+    const [listCount,setListcount] = useState(0);
 
-    const client = useQueryClient();
-    const token = localStorage.getItem("token")
-    const user = client.getQueryData(["user",token])
-
+    
+   
     //* get users saved anime or character list
-    let userList = useList(switch_item,user?.userID)?.list
+    let [data] = useList(switch_item,userID,"fav")
+
+    let userList = data?.pages[0].list;
     console.log(userList);
     //* this is used so that the data don't get lost at a rerender
     const listData = useRef();
     
    
-    const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
+    const delay = (ms = 2000) => new Promise(r => setTimeout(r, ms));
 
 
     const fetchTopItemFromList = useCallback(async()=>{
@@ -71,13 +71,17 @@ export function useToplist(switch_item)
 
 
     } , [fetchTopItemFromList]);
-    return [listitem,listcount]
+    return [listitem,listCount]
     
 }
 
 
 function TopanimeMain()
 {
+    const client = useQueryClient();
+    const token = localStorage.getItem("token")
+    const user = client.getQueryData(["user",token])
+    
 
     const fetchQuery = (url)=>
     {
@@ -86,26 +90,26 @@ function TopanimeMain()
 
     const results = useQueries([{queryKey:"upcoming_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/upcoming"),
-        retry:false
+        retry:false,refetchOnWindowFocus:false
         
     },
     {queryKey:"popular_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),
-        retry:false
+        retry:false,refetchOnWindowFocus:false
        
     } , 
     {queryKey:"airing_anime",
         queryFn:()=>fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),
-        retry:false
+        retry:false,refetchOnWindowFocus:false
        
     }])
 
     
-    const [listitem,listcount] = useToplist("anime");
+    
     
 
     return <>  
-        {(results.every(item => item.isLoading) || listitem.length<listcount) ? <Spinner/>
+        {(results.some(item => item.isFetching) ) ? <Spinner/>
             : results.some(item => item.isError) ? <Errorpage/>
                 : <div className="container1" style={{ height: "1300px" }}>
 
@@ -135,7 +139,7 @@ function TopanimeMain()
                         </div>
                     </div>
                     <div className="section-4">
-                        {(listitem  && results.every(item=>!item.isLoading)) ? <TopofyourList listitem={listitem} text_={"Top anime from your list"} switch_details = {"/anime"} /> : ""}
+                        {(results.every(item=>!item.isLoading)) ? <TopofyourList  text_={"Top anime from your list"} switch_details = {"/anime"} userId ={user?.userID}/> : ""}
                     </div>
                     <section className="section-5">
                         <Genres/>
@@ -144,7 +148,7 @@ function TopanimeMain()
 
         }
        
-       {  (results.some(item => item.isLoading) || listitem.length < listcount)?"":<Footer marginTop = "2009"/>}
+       {  (results.some(item => item.isLoading) )?"":<Footer marginTop = "2009"/>}
        
 
         </>
@@ -234,9 +238,12 @@ export const Currentlyairing = react.memo ((prop)=>
 //* what's on your inventory section
 export const TopofyourList  = react.memo((prop)=>
 {
-    const {listitem , text_ ,switch_details} =prop;
+    const { text_ ,switch_details,userId} =prop;
     const handle_container = useRef();
+    const [listitem,listCount] = useToplist("anime",userId);
    
+    console.log(listitem,listCount);
+
     const [currnum , setCurrnum] = useState(0);
     const [offset,setoffset] = useState(0);
     const [ innerwidth , setInnerwidth]  = useState();
@@ -353,52 +360,63 @@ export const TopofyourList  = react.memo((prop)=>
 
         return <>
             <h2 className="top-list-header">{text_}</h2>
-             {listitem.length>0 ? <div className = "top-list" >
-                <button type="button" className="prev-btn" onClick={goprev}><i className="fas fa-chevron-left"></i></button>
-                <button type="button" className="next-btn" onClick={gonext}><i className="fas fa-chevron-right"></i></button>
-                <div className="top-list-inner">
+            
+           <div className="main-list-container" style={
+            {
+                border:(listitem.length> 0 )?"none":"2px solid #f4f4f452"
+            }
+           }>
 
-                    <div className="top-list-item-container" ref={handle_container} onLoad={getinnerwidth} style={{left :`${offset}px`,transition:"none"}}>
-                        {
-                            listitem.map((item)=>
+           {(listitem.length === 0 && listitem.length !== listCount) ? <Spinner/>
+                : (listitem.length > 0 && listitem.length === listCount) ? <div className="top-list" >
+                    <button type="button" className="prev-btn" onClick={goprev}><i className="fas fa-chevron-left"></i></button>
+                    <button type="button" className="next-btn" onClick={gonext}><i className="fas fa-chevron-right"></i></button>
+                    <div className="top-list-inner">
+
+                        <div className="top-list-item-container" ref={handle_container} onLoad={getinnerwidth} style={{ left: `${offset}px`, transition: "none" }}>
                             {
-                                const {malid,img_url,about,title} = item;
-                                return <div className="list-item" key={malid} >
-                                    <img src={img_url} alt="" />
-                                   {
-                                        (trigger_comp===false) ? <div className="info">
-                                            <h2>{title}</h2>
-                                            <p>{(about)?(about.length > 125) ? about.substr(0, 125) + "..." : about:"No Information"}</p>
-                                            <Link to={(switch_details)? switch_details + `/${malid}`:""}  className="btn-seemore">
-                                                <div className="inner-div">
-                                                    <span><i className="fas fa-chevron-right"></i></span>
-                                                    <span>See more</span>
-                                                </div>
-                                            </Link>
-                                        </div> : <div className="info-sc"  onMouseEnter={textanimation_enter} onMouseLeave={textanimation_leave}>
-                                            <h3 className="list-heading-sc" 
-                                            style={(textanime)?{transform:"translateX(0)"}:
-                                            {transform:"translateX(-120%)"}}>
-                                                {(title.length>35)?title.substr(0,34)+"...":title}
-                                            </h3>
-                                            <p className="list-para-sc" 
-                                            style={(textanime)?{transform:"translateX(0)"}:
-                                            {transform:"translateX(-120%)"}}>
-                                                {(about)?(about.length > 75) ? about.substr(0, 75) + "..." : about:"No Information"}
-                                            </p>
-                                            <Link to={(switch_details)? switch_details + `/${malid}`:""} className="btn-seemore-sc" style={(textanime)?{top:"0"}:{top:"25%"}}>See more</Link>
-                                        </div>
-                                   }
-                                </div>
-                            })
-                        }
-                     
-                       
-                        
+                                listitem.map((item) => {
+                                    const { malid, img_url, about, title } = item;
+                                    return <div className="list-item" key={malid} >
+                                        <img src={img_url} alt="" />
+                                        {
+                                            (trigger_comp === false) ? <div className="info">
+                                                <h2>{title}</h2>
+                                                <p>{(about) ? (about.length > 125) ? about.substr(0, 125) + "..." : about : "No Information"}</p>
+                                                <Link to={(switch_details) ? switch_details + `/${malid}` : ""} className="btn-seemore">
+                                                    <div className="inner-div">
+                                                        <span><i className="fas fa-chevron-right"></i></span>
+                                                        <span>See more</span>
+                                                    </div>
+                                                </Link>
+                                            </div> : <div className="info-sc" onMouseEnter={textanimation_enter} onMouseLeave={textanimation_leave}>
+                                                <h3 className="list-heading-sc"
+                                                    style={(textanime) ? { transform: "translateX(0)" } :
+                                                        { transform: "translateX(-120%)" }}>
+                                                    {(title.length > 35) ? title.substr(0, 34) + "..." : title}
+                                                </h3>
+                                                <p className="list-para-sc"
+                                                    style={(textanime) ? { transform: "translateX(0)" } :
+                                                        { transform: "translateX(-120%)" }}>
+                                                    {(about) ? (about.length > 75) ? about.substr(0, 75) + "..." : about : "No Information"}
+                                                </p>
+                                                <Link to={(switch_details) ? switch_details + `/${malid}` : ""} className="btn-seemore-sc" style={(textanime) ? { top: "0" } : { top: "25%" }}>See more</Link>
+                                            </div>
+                                        }
+                                    </div>
+                                })
+                            }
+
+
+
+                        </div>
                     </div>
-                </div>
-            </div>
-           : <h4 className="no-item">looks very empty....</h4>}
+         </div>
+         : <h4 className="no-item">Looks pretty empty...</h4>
+        }
+
+
+           </div>
         </>
 });
 
