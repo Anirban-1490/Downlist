@@ -115,10 +115,7 @@
     margin-top: -300px;
     height: 860px;
 }
-.section-4 .top-list
-{
-    top: 400px;
-}
+
 
 .section-5
 {
@@ -523,15 +520,29 @@ footer div h3:nth-child(1) a i{
 {
     bottom: 1.2em;
 }
+
+/* //* user top list styling ------ */
+.main-list-container
+{
+    color: #948f8ffa;
+    position: relative;
+    top: 520px;
+    text-align: center;
+    width: clamp(7em,67vw,42em);
+    font-family: sans-serif;
+    margin:  0 auto;
+    font-weight: 200;
+    height: 280px;
+   
+}
 .top-list
 {
     
-    width:42em;
+    width:100%;
     height: 320px;
-    position:  relative;
-    margin: 0 auto;
-    margin-top: 100px;
-   
+    position:  absolute;
+    left: 0;
+    top: 0;
 }
 
 .top-list .next-btn, .top-list .prev-btn{
@@ -572,22 +583,7 @@ footer div h3:nth-child(1) a i{
     position:relative;
     top: 480px;
 }
-.no-item
-{
-    color: #948f8ffa;
-    
-    letter-spacing: 2px;
-    position: relative;
-    top: 520px;
-    text-align: center;
-    font-size: 1.2em;
-    outline: 2px solid #f4f4f452;
-    width: clamp(7em,67vw,34em);
-    padding: 6em 0.7em;
-    font-family: sans-serif;
-    margin:  0 auto;
-    font-weight: 200;
-}
+
 .top-list-inner
 {
     height: 89%;
@@ -667,11 +663,11 @@ footer div h3:nth-child(1) a i{
 }
 .list-item .info .btn-seemore span:nth-child(1)
 {
-    margin-left: -10px;
+    margin-left: -38px;
 }
 .list-item .info .btn-seemore:hover span:nth-child(1)
 {
-    margin-left: 0px;
+    margin-left: -15px;
 }
 .top-list-item-container .list-item .info-sc
 {
@@ -711,7 +707,7 @@ footer div h3:nth-child(1) a i{
     text-decoration: none;
     border-radius: 20px;
     position: relative;
-    left: 30%;
+    
     top: 25%;
     transition: 0.25s linear;
 }
@@ -720,6 +716,16 @@ footer div h3:nth-child(1) a i{
     background: white;
     color: black;
 }
+
+.no-item{
+    font-size:0.97em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+}
+
 @keyframes anime-text-from-list
 {
     100%
@@ -742,13 +748,7 @@ footer div h3:nth-child(1) a i{
 
 @media screen and (max-width : 940px)
 {
-    .top-list
-    {
-    
-        width:70%;
-      
-       
-    }
+  
     .top-list-item-container .list-item .info h2{
         text-align: center;
         margin-top: 20px;
@@ -769,7 +769,7 @@ footer div h3:nth-child(1) a i{
 @media screen and (max-width:650px)
 {
   
-    .top-list
+    .main-list-container
     {
     
       width: 200px;
