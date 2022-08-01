@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/Anirban-1490/Project-Uplist/blob/master/src/Stats-Anime/logo/uplist-logo.jpg"></a>
+<img src="https://github.com/Anirban-1490/Uplist/blob/master/src/Stats-Anime/logo/uplist-logo.jpg"></a>
 </p>
 
 <p align="center">
