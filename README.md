@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="src/Stats-Anime/logo/uplist-logo.jpg"></a>
+<img src="/src/Stats-Anime/logo/uplist-logo.jpg"></a>
 </p>
 
 <p align="center">
