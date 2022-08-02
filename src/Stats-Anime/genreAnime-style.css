@@ -43,7 +43,6 @@
    letter-spacing: 30px;
    position: relative;
    top: -0.7em;
- 
    
 }
 .genre-first h2 span
@@ -167,7 +166,7 @@
     }
     .genre-first h2
     {
-        font-size: clamp(0.5em,20vw,26vw);
+        font-size: clamp(3em,16.6vw,26vw);
        left: 0;
        top: -0.5em;
     }
@@ -177,11 +176,12 @@
   
 }
 
-@media screen and (max-width:530px) {
+@media screen and (max-width:630px) {
     .genre-first h2
     {
        
        letter-spacing: 20px;
        text-align: center;
+       padding-left: 0.19em;
     }
 }
