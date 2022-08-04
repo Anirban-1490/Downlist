@@ -163,7 +163,7 @@ function List(props) {
         ref = {containerRef}
         >
 
-            {(data?.pages?.length > 0) ?
+            {(data?.pages[0]?.list?.length > 0) ?
                data?.pages?.map(page=>{
                    return <>
                        {
@@ -211,7 +211,7 @@ function List(props) {
         </ul>
 
         {
-            data?.pages.length>0 && <h5 className="thats-it" ref={ref}>{inView && hasNextPage && isFetchingNextPage ? "loading..." : "Looks like that's it..."}</h5>
+            data?.pages[0]?.list?.length > 0 && <h5 className="thats-it" ref={ref}>{inView && hasNextPage && isFetchingNextPage ? "loading..." : "Looks like that's it..."}</h5>
         }
         <div style={{ height: "100px" }}></div>
     </>
