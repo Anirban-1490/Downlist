@@ -18,25 +18,20 @@ function Listmain({ header, switch_item }) {
     const { userID } = useParams()
     const [whatToSortBy,setWhatToSortBy] = useState(undefined)
 
-    const [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading,refetch] = useList(switch_item, userID,whatToSortBy);
+    const returnedPackage = useList(switch_item, userID,whatToSortBy);
 
     return <>
 
         <div className="container1" style={{ height: "auto", minHeight: "100vh" }}>
 
             {
-                (data !== undefined) ? 
+                (returnedPackage.data !== undefined) ? 
                 <List 
                 header={header} 
                 switch_item={switch_item} 
-                data={data} 
-                hasNextPage={hasNextPage} 
-                isFetchingNextPage={isFetchingNextPage}
-                {...isLoading}
-                fetchNextPage={fetchNextPage}
                 userID = {userID}
                 setWhatToSortBy = {setWhatToSortBy}
-                refetch = {refetch}
+                {...returnedPackage}
                 /> : ""
             }
         </div>
@@ -74,14 +69,14 @@ export function useList(switch_item, userID,sortBy=undefined) {
     )
 
      
-    return [data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading,refetch]
+    return {data,hasNextPage,isFetchingNextPage,fetchNextPage,isLoading,refetch}
 
 
 }
 
 
 function List(props) {
-
+    
     const { header, switch_item, data,hasNextPage,isFetchingNextPage ,fetchNextPage,userID,setWhatToSortBy,refetch} = props;
     const client = useQueryClient();
     const clientData = client.getQueryData(["user", token]);
