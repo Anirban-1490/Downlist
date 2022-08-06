@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@900&display=swap');
+
+
 *
 {
     margin: 0;
@@ -66,7 +69,8 @@
 {
     
    
-    
+    position: relative;
+    top: -0.7em;
     color: white;
     font-size: 5.0em;
    
@@ -78,7 +82,7 @@
 }
 .title1-toggle
 {
-    top: 45%;
+    /* top: 55%; */
 }
 .title1 span:nth-child(1)
 {
@@ -108,7 +112,8 @@
     
     color: white;
     font-size: 1.5em;
-    
+    position: relative;
+    top: -1.8em;
     display: inline-block;
     text-align: center;
     animation-name: infoanim;
@@ -132,7 +137,7 @@
 
 .info1-toggle
 {
-    top: 50%;
+    /* top: 50%; */
 }
 .main-container .wrapper
 {
@@ -146,7 +151,8 @@
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
     transform: translateY(20px);
-    
+    position: absolute;
+    top: 60%;
 }
 .wrapper-toggle
 {
@@ -252,6 +258,8 @@
     align-items: center;
     gap: 0.7em;
     overflow: visible;
+    position: relative;
+    top: 40%;
     background: rgba(43, 43, 136, 0.434);
 }
 .search-result-container .loading
@@ -323,6 +331,57 @@ footer ul li:hover a{
 {
     height: 102%;
 }
+
+
+
+
+
+/*  //*----------------------- section 1 starts here */
+
+.home-section-1{
+    height: 85vh;
+    
+}
+.home-section-1 .main-text-container{
+   
+    /* border: 2px solid red; */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 0.6em;
+}   
+
+.home-section-1 .main-text-container h1{
+   
+   text-transform: capitalize;
+   font-family: 'Fira Sans', sans-serif;
+   font-size: clamp(13vw,8em,14em);
+    line-height: 0.81em;
+
+} 
+
+
+
+ .home-section-1 .main-text-container p{
+   
+   text-align: center;
+   font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+     line-height: 0.81em;
+    color: #ffffff6f;
+    transform: translateY(3em);
+    line-height: 1.5em;
+    padding-inline: 3em;
+
+ } 
+
+
+
+
+
+
 
 
 
