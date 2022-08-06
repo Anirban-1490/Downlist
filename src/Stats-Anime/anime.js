@@ -43,13 +43,14 @@ function Main()
                     justifyContent: "center",
                     transform: "scaleY(1.15)",
                     top: "-50px",
-                    height: "110vh"
+                    height: "90vh"
                 }} 
             ref={mydiv} >
               
                 <Content/>
+               
             </div>
-           
+            <HomeHeader/>
         </>
     );
 }
@@ -175,6 +176,20 @@ function Content()
 }
 
 
+function HomeHeader(){
+
+
+    return <>
+        <section className="home-section-1">
+            <div className="main-text-container">
+                <h1>your</h1>
+                <h1>own</h1>
+                <h1>world</h1>
+                <p>Explore a vast list of Anime and Characters. Comes with full details on them.</p>
+            </div>
+        </section>
+    </>
+}
 
 
 //* Loading text ----
