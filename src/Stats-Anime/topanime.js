@@ -29,8 +29,7 @@ export function useToplist(switch_item,userID)
     //* get users saved anime or character list
     let {data} = useList(switch_item,userID,"fav")
 
-    let userList = data?.pages[0].list;
-    console.log(userList);
+    let userList = data?.pages?.[0].list;
     //* this is used so that the data don't get lost at a rerender
     const listData = useRef();
     
