@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState,useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Link, useLocation, useParams } from "react-router-dom";
 import { Dropdown } from "./genres-anime";
