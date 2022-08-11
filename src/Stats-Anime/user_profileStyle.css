@@ -47,8 +47,6 @@
     
     width: 100%;
     height: 100%;
-    /* border: 2px solid red; */
-   
    border: 3px solid lightblue;
   overflow: hidden;
 }
@@ -66,8 +64,6 @@
 }
 .img-outer-container .img-edit #label-img{
     position: absolute;
-    /* width: 2em;
-    height: 2em; */
     right: -1em;
     bottom: -1em;
     background-color: lightcoral;
@@ -257,8 +253,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    /* gap: 1em; */
+   
     overflow: hidden;
     position: relative;
     

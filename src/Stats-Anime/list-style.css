@@ -23,7 +23,7 @@
     left: 50%;
     top: -50px;
     transform: translateX(-50%);
-    /* border: 2px solid red; */
+  
 }
 .option-container 
 {
@@ -142,7 +142,7 @@
     margin: 0 auto;
    background:#a1a1c408 ;
     gap: 10px;
-    /* border: 2.7px solid #8080804a; */
+  
     position: relative;
     z-index: -33;
     margin-bottom: 5em;
