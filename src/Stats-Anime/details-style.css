@@ -374,11 +374,11 @@ ion-icon
 }
 
 
-/* Comments --------- */
+/* //* Comments --------- */
 
 .comments-counter{
     color: white;
-    /* text-align: start; */
+    
     margin: 1em auto;
     font-size: 1.25em;
     width: clamp(35vmax ,66vw,80%);
@@ -390,20 +390,12 @@ ion-icon
     min-height: 10em;
     width: 80%;
     margin:  0 auto;
-    /* display: flex;
-    align-items: center;
-    flex-direction: column; */
     margin-bottom: 9em;
-    /* outline: 3px solid red; */
-   
     
 }
 .comment-input-container{
-  
-   
     margin: 3.6em auto 7em auto;
     position: relative;
-   
     width: clamp(35vmax ,66vw,80%);
    
 }
@@ -421,7 +413,7 @@ ion-icon
 
 
 #comment::placeholder{
-    color: rgba(255, 255, 255, 0.716);
+    color: #ffffffb7;
     
 }
 .comment-input-container .cancel{
@@ -448,21 +440,17 @@ ion-icon
     cursor: pointer;
 }
 .comment-input-container button[type="submit"]:hover{
-  background-color: rgb(203, 235, 245);
+  background-color: #cbebf5;
 }
 
 
 .comments{
-   
     margin: 0 auto;
     width: clamp(35vmax ,66vw,80%);
-    /* background-color: rgba(106, 106, 194, 0.072); */
    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: #986cb205; */
-    /* outline: 3px solid red; */
    
 }
 .comments p {
@@ -472,7 +460,6 @@ ion-icon
 }
 
 .comments .comments-inner{
-    /* border: 2px solid red; */
     width:   100%;
     min-height: 10em;
     display: flex;
@@ -482,7 +469,7 @@ ion-icon
     
 }
 .item-container{
-    /* outline: 3px solid yellow; */
+   
     min-height: 5.5em;
     display: flex;
     width: 100%;
@@ -490,25 +477,19 @@ ion-icon
 }
 .item-container .user-profile-img-container
 {
-    /* outline: 3px solid greenyellow; */
     flex:0 0 2.5em;
-    /* height: 4em; */
     
 }
 .item-container .user-profile-img-container img
 {
     width: 100%;
     cursor: pointer;
-    /* height: 100%; */
-    /* height: 100%; */
-    /* transform: scale(0.5) translateY(-2.6em); */
     border-radius: 50%;
     aspect-ratio: 1/1;
 }
 .item-container .body-container{
     /* outline: 3px solid red; */
    width: clamp(100%,calc(100% - 5em),100%);
-  
    color: white;
   
 }
