@@ -42,13 +42,13 @@ const Resultmain =()=>
 
     const result = useQueries([
         { queryKey: ["details",id], 
-        queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),cacheTime:0,refetchOnWindowFocus:false }
+        queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),refetchOnWindowFocus:false }
         ,
         { queryKey: ["people_reaction",id], 
-        queryFn: () => getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`) ,cacheTime:0,refetchOnWindowFocus:false }
+        queryFn: () => getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`) ,refetchOnWindowFocus:false }
         ,
         {queryKey:["characters",id],
-        queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),cacheTime:0 ,refetchOnWindowFocus:false}
+        queryFn:()=>getAllCharacters(`https://api.jikan.moe/v3/anime/${malid}/characters_staff`),refetchOnWindowFocus:false}
     ])
 
 
