@@ -22,7 +22,7 @@ const About = ()=>
          <br /> It's a place where you can view any <strong>Upcoming</strong> anime or some of the <strong>Top</strong> ones. <br /> Want to checkout any of your favourite anime ? don't worry we have <b>Live Search</b> through which you can check details of any of your favourite anime. <br /> 
          Want to checkout out about your favourite <strong>Character</strong>? the character section got information about <strong>Top</strong> characters and much more....</p>
          <h3>This Project is made using Jikan API - <a href="https://github.com/jikan-me/jikan" target={"_blank"} rel="noreferrer">More details</a></h3>
-         <h3>More information on <i>Uplist</i> - <a href="https://github.com/Anirban-1490/Project-Uplist" target={"_blank"} rel="noreferrer">Github Page</a></h3>
+         <h3>More information on <i>Uplist</i> - <a href="https://github.com/Anirban-1490/Uplist" target={"_blank"} rel="noreferrer">Github Page</a></h3>
 
          <h3 className="connect">Connect with me</h3>
          <ul className="social">

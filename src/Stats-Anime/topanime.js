@@ -184,7 +184,7 @@ export function Footer( {marginTop}){
                 </ul>
                <div className="border"></div>
                 <div className="important-links">
-                    <h3>Report a bug <a href="https://github.com/Anirban-1490/Project-Uplist" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a></h3>
+                    <h3>Report a bug <a href="https://github.com/Anirban-1490/Uplist" target="_blank" rel="noreferrer"><i class="fab fa-github"></i></a></h3>
                     <h3>&copy;Uplist{year}</h3>
                 </div>
             </footer>
