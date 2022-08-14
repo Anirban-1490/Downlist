@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams,useNavigate } from "react-router-dom";
 import { Dropdown } from "./genres-anime";
 import "./genreAnime-style.css";
 import "./list-style.css";
@@ -15,10 +15,19 @@ var token = localStorage.getItem("token");
 
 function Listmain({ header, switch_item }) {
     useLocation()
+    const navigate = useNavigate()
     const { userID } = useParams()
     const [whatToSortBy,setWhatToSortBy] = useState(undefined)
 
+    const client = useQueryClient();
+    const clientData = client.getQueryData(["user", token]);
     const returnedPackage = useList(switch_item, userID,whatToSortBy);
+
+    
+    //* --if user not logged in then redirect to login page
+    if(!clientData?.userID){
+        navigate("/userauth");
+    }
 
     return <>
 
@@ -28,6 +37,7 @@ function Listmain({ header, switch_item }) {
                 (returnedPackage.data !== undefined) ? 
                 <List 
                 header={header} 
+                clientData = {clientData}
                 switch_item={switch_item} 
                 userID = {userID}
                 setWhatToSortBy = {setWhatToSortBy}
@@ -77,9 +87,8 @@ export function useList(switch_item, userID,sortBy=undefined) {
 
 function List(props) {
     
-    const { header, switch_item, data,hasNextPage,isFetchingNextPage ,fetchNextPage,userID,setWhatToSortBy,refetch} = props;
-    const client = useQueryClient();
-    const clientData = client.getQueryData(["user", token]);
+    const { header, switch_item, data,hasNextPage,isFetchingNextPage ,fetchNextPage,userID,setWhatToSortBy,refetch,clientData} = props;
+    
     const containerRef = useRef()
 
     const {ref,inView} = useInView({threshold:0})
