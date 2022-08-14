@@ -44,12 +44,8 @@
     height: 95vh;
    position: relative;
     z-index: 1;
-  
-   
+
 }
-
-
-
 
 .main-container
 {
@@ -80,10 +76,7 @@
     animation-duration: 0.5s;
     
 }
-.title1-toggle
-{
-    /* top: 55%; */
-}
+
 .title1 span:nth-child(1)
 {
     color: #E94B3CFF;
@@ -135,10 +128,6 @@
     }
 }
 
-.info1-toggle
-{
-    /* top: 50%; */
-}
 .main-container .wrapper
 {
     
@@ -282,7 +271,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    /* margin: 4px 0; */
+    
     
 }
 .wrapper .search-result-container .link
