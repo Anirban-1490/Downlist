@@ -332,25 +332,40 @@ footer ul li:hover a{
     margin-bottom: 10%;
 }
 .home-section-1 .main-text-container{
-   
-    /* border: 2px solid red; */
-    color: white;
+    color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 5rem;
     gap: 0.6em;
+
 }   
 
 .home-section-1 .main-text-container h1{
-   
+    color: #86868743;
    text-transform: capitalize;
-   font-family: 'Fira Sans', sans-serif;
    font-size: clamp(13vw,8em,14em);
-    line-height: 0.81em;
-
+   
+    line-height: .76em;
+    letter-spacing: 0.03em;
+    
+} 
+.home-section-1 .main-text-container h1 span{
+    
+    font-family: 'Fira Sans', sans-serif !important;
+    transition: 500ms linear;
+} 
+.home-section-1 .main-text-container h1 span.active{
+    
+   color: white;
+    filter: drop-shadow(0 0 5px #ffffffbc);
+    
 } 
 
+
+@keyframes textanimation{
+    30%{}
+}
 
 
  .home-section-1 .main-text-container p{
