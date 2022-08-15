@@ -170,13 +170,58 @@ function Content() {
 }
 
 function HomeHeader() {
+
+    const textContainerRef = useRef()
+    const childNodesOfTextContainer = textContainerRef.current?.childNodes
+
+    useEffect(() => {
+      let activeChildrens = [];
+
+      const interId = setInterval(() => {
+
+        //* remove the styles for activated childrens
+        activeChildrens.forEach((childNode) => {
+          childNode.classList.remove("active");
+        });
+
+        childNodesOfTextContainer.forEach((node) => {
+          if (node.nodeName === "H1") {
+            const randomIndex =
+              Math.floor(Math.random() * 10) % node.children.length;
+           
+            const randomChild = node.children[randomIndex];
+            randomChild.classList.add("active");
+            activeChildrens.push(randomChild);
+          }
+        });
+      }, 2000);
+
+      return () => clearInterval(interId);
+    });
+
+
   return (
     <>
       <section className="home-section-1">
-        <div className="main-text-container">
-          <h1>your</h1>
-          <h1>own</h1>
-          <h1>world</h1>
+        <div className="main-text-container" ref={textContainerRef}>
+          <h1>
+            <span>y</span>
+            <span>o</span>
+            <span>u</span>
+            <span>r</span>
+          </h1>
+          <h1>
+            <span>o</span>
+            <span>w</span>
+            <span>n</span>
+          </h1>
+          <h1>
+            <span>w</span>
+            <span>o</span>
+            <span>r</span>
+            <span>l</span>
+            <span>d</span>
+          </h1>
           <p>
             Explore a vast list of Anime and Characters. Comes with full details
             on them.
