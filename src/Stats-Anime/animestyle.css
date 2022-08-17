@@ -270,7 +270,7 @@ footer ul li:hover a {
 }
 
 .home-section-1 .main-text-container h1 {
-  color: white;
+  color: #ffffffe1;
   text-transform: capitalize;
   font-size: clamp(13vw, 8em, 14em);
 
@@ -280,10 +280,6 @@ footer ul li:hover a {
 .home-section-1 .main-text-container h1 span {
   font-family: "Fira Sans", sans-serif !important;
   transition: 500ms linear;
-}
-.home-section-1 .main-text-container h1 span.active {
-  color: blue;
-  /* filter: drop-shadow(0 0 5px #ffffffbc); */
 }
 
 @keyframes textanimation {
