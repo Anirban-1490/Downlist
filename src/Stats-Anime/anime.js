@@ -7,14 +7,13 @@ import { Appcontext } from "./context";
 import { useContext } from "react";
 import react from "react";
 import Fog from "vanta/dist/vanta.fog.min";
-import animeSectionImage from "./Home_page_images/information-anime.JPG"
-import characterSectionImage from "./Home_page_images/information-character.JPG"
-import addingStuffToListGIF from "./Home_page_images/information-adding-stuff.gif"
+import animeSectionImage from "./Home_page_images/information-anime.JPG";
+import characterSectionImage from "./Home_page_images/information-character.JPG";
+import addingStuffToListGIF from "./Home_page_images/information-adding-stuff.gif";
 
-import openSourceImages from "./Home_page_images/github-github-com.svg"
+import openSourceImages from "./Home_page_images/github-github-com.svg";
 
 function Main() {
-    
   const mydiv = useRef();
   const [vantaEffect, setVantaEffect] = useState();
   //* Vanta.js fog animated background initializer
@@ -170,35 +169,66 @@ function Content() {
 }
 
 function HomeHeader() {
+  const textContainerRef = useRef();
+  const childNodesOfTextContainer = textContainerRef.current?.childNodes;
+  let colors = ["lightgreen", "#FFD700", "#FF6103", "#ADD8E6"];
 
-    const textContainerRef = useRef()
-    const childNodesOfTextContainer = textContainerRef.current?.childNodes
+  useEffect(() => {
+    let activeChildrensIndex = [];
 
-    useEffect(() => {
-      let activeChildrens = [];
-
-      const interId = setInterval(() => {
-
-        //* remove the styles for activated childrens
-        activeChildrens.forEach((childNode) => {
-          childNode.classList.remove("active");
-        });
-
-        childNodesOfTextContainer.forEach((node) => {
-          if (node.nodeName === "H1") {
-            const randomIndex =
-              Math.floor(Math.random() * 10) % node.children.length;
-           
-            const randomChild = node.children[randomIndex];
-            randomChild.classList.add("active");
-            activeChildrens.push(randomChild);
-          }
-        });
-      }, 2000);
-
-      return () => clearInterval(interId);
+    let allChildrens = [];
+    childNodesOfTextContainer?.forEach((node, index) => {
+      if (node.nodeName === "H1") {
+        allChildrens = [...allChildrens, ...node.children];
+      }
     });
+    // *maybe a external package will be more appearant in this case , but this will do the job
 
+    function getRandomChildrens(limit) {
+      let i = 0;
+
+      while (i < limit) {
+        const randomChildIndex = pickARndomChildrenIndex(
+          activeChildrensIndex,
+          allChildrens.length
+        );
+
+        const randomChild = allChildrens[randomChildIndex];
+        const randomColorIndex = Math.floor(Math.random() * 10) % colors.length;
+
+        randomChild.style.color = `${colors[randomColorIndex]}`;
+        activeChildrensIndex.push(randomChildIndex);
+        i++;
+      }
+    }
+
+    function pickARndomChildrenIndex(activeChildrensIndex, totalChildrens) {
+      const randomIndex = Math.floor(Math.random() * 100) % totalChildrens;
+
+      return activeChildrensIndex.includes(randomIndex)
+        ? pickARndomChildrenIndex(activeChildrensIndex, totalChildrens)
+        : randomIndex;
+    }
+
+    const interId = setInterval(() => {
+      //* remove the styles for activated childrens
+      allChildrens.forEach((childNode, index) => {
+        if (activeChildrensIndex.includes(index)) {
+          childNode.style.color = "#ffffffe1";
+        }
+      });
+
+      //* clear all the array
+      activeChildrensIndex.length = 0;
+
+      const getARandomLimit =
+        (Math.floor(Math.random() * 10) % (allChildrens.length - 5)) + 1;
+
+      getRandomChildrens(getARandomLimit);
+    }, 1450);
+
+    return () => clearInterval(interId);
+  });
 
   return (
     <>
@@ -239,41 +269,50 @@ function HomeExtraInformation() {
         <div className="site-info-container">
           <div className="visual-content">
             <img src={animeSectionImage} className="anime-section-img" alt="" />
-            <img src={characterSectionImage} className="character-section-img" alt="" />
+            <img
+              src={characterSectionImage}
+              className="character-section-img"
+              alt=""
+            />
           </div>
           <div className="information">
             <h3>At your fingertip </h3>
-            <p>Check out your favorites from a large list of anime and character collection, new or even top ones.</p>
-          </div>
-        </div>
-        <div className="site-info-container">
-          <div className="visual-content">
-            <img src={addingStuffToListGIF} className="addto-list-gif"  alt="" />
-          </div>
-          <div className="information">
-            <h3>Add it to your list</h3>
-            <p>One click, to add your favorites into <span>
-            your list.
-            </span>
+            <p>
+              Check out your favorites from a large list of anime and character
+              collection, new or even top ones.
             </p>
           </div>
         </div>
         <div className="site-info-container">
           <div className="visual-content">
-
+            <img src={addingStuffToListGIF} className="addto-list-gif" alt="" />
+          </div>
+          <div className="information">
+            <h3>Add it to your list</h3>
+            <p>
+              One click, to add your favorites into <span>your list.</span>
+            </p>
+          </div>
+        </div>
+        <div className="site-info-container">
+          <div className="visual-content">
             <img src={openSourceImages} className="github-image" alt="" />
           </div>
           <div className="information">
             <h3>Open to all</h3>
             <p>
-                <a href="https://github.com/Anirban-1490/Uplist" target={"_blank"} rel="noreferrer" >Uplist</a> 
-                
-                is a open-source project, meaning anyone can contribute their new ideas.
+              <a
+                href="https://github.com/Anirban-1490/Uplist"
+                target={"_blank"}
+                rel="noreferrer"
+              >
+                Uplist
+              </a>
+              is a open-source project, meaning anyone can contribute their new
+              ideas.
             </p>
-            
           </div>
         </div>
-        
       </div>
     </section>
   );
