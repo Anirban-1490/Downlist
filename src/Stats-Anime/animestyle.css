@@ -270,6 +270,7 @@ footer ul li:hover a {
   top: -5.5em;
   background: linear-gradient(185deg, #326d80 0%, #1f2833 70%);
   z-index: -1;
+  box-shadow: 0 -10px 15px #00000029;
 }
 
 .home-section-1 .main-text-container {
