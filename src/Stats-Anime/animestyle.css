@@ -282,11 +282,6 @@ footer ul li:hover a {
   transition: 500ms linear;
 }
 
-@keyframes textanimation {
-  30% {
-  }
-}
-
 .home-section-1 .main-text-container p {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
