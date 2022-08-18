@@ -264,13 +264,15 @@ footer ul li:hover a {
 }
 .home-section-1::before {
   content: "";
-  width: 100%;
+  width: 90%;
   height: 22em;
   position: absolute;
-  top: -5.5em;
-  background: linear-gradient(185deg, #326d80 0%, #1f2833 70%);
+  top: -9em;
+  background: linear-gradient(to bottom, #9cbbc5 4%, #1f2833 70%);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: -1;
-  box-shadow: 0 -10px 15px #00000029;
+  box-shadow: 0 -10px 15px #0000003e;
 }
 
 .home-section-1 .main-text-container {
@@ -323,6 +325,13 @@ footer ul li:hover a {
   align-items: center;
   min-height: 23em;
 }
+
+.line-separator {
+  width: 2em;
+  height: 100%;
+  background-color: yellow;
+}
+
 .visual-content {
   width: 60%;
   height: 20em;
