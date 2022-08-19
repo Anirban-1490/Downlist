@@ -171,7 +171,14 @@ function Content() {
 function HomeHeader() {
   const textContainerRef = useRef();
   const childNodesOfTextContainer = textContainerRef.current?.childNodes;
-  let colors = ["lightgreen", "#FFD700", "#FF6103", "#ADD8E6", "#D4C2B0"];
+  let colors = [
+    "lightgreen",
+    "#FFD700",
+    "#FF6103",
+    "#ADD8E6",
+    "#D4C2B0",
+    "#D15D84",
+  ];
 
   useEffect(() => {
     let activeChildrensIndex = [];
