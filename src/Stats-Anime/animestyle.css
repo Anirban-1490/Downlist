@@ -264,9 +264,9 @@ footer ul li:hover a {
 .home-section-1::before {
   content: "";
   width: 90%;
-  height: 22em;
+  height: 14em;
   position: absolute;
-  top: -9em;
+  top: -6.6em;
   background: linear-gradient(to bottom, #9cbbc5 4%, #1f2833 70%);
   left: 50%;
   transform: translateX(-50%);
