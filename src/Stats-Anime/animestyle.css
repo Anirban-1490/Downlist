@@ -257,8 +257,7 @@ footer ul li:hover a {
 /*  //*----------------------- section 1 starts here */
 
 .home-section-1 {
-  height: 85vh;
-  margin-bottom: 10%;
+  margin-bottom: 17%;
   position: relative;
   z-index: 2;
 }
@@ -303,9 +302,9 @@ footer ul li:hover a {
   font-size: 1.1rem;
   line-height: 0.81em;
   color: #ffffff6f;
-  transform: translateY(3em);
   line-height: 1.5em;
   padding-inline: 3em;
+  margin-top: 2em;
 }
 
 /*  //* extra information on home  */
@@ -320,16 +319,33 @@ footer ul li:hover a {
   flex-direction: column;
   gap: 2vh;
 }
-.site-info-container {
+.flex-container .site-info-container {
   display: flex;
   align-items: center;
-  min-height: 23em;
+  height: 23em;
 }
 
 .line-separator {
-  width: 2em;
-  height: 100%;
-  background-color: yellow;
+  width: 0.2em;
+  height: 24em;
+  background-color: #404f5c;
+  position: relative;
+}
+.line-separator::before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  border: 3px solid #404f5c;
+  background: #1f2833;
+}
+.line-separator-1 {
+  height: 44em;
+  background: linear-gradient(to top, #404f5c 54%, transparent 93%);
 }
 
 .visual-content {
@@ -401,11 +417,12 @@ footer ul li:hover a {
 
 @media screen and (max-width: 892px) {
   .home-section-2 .flex-container {
-    gap: 4vh;
+    gap: 0vh;
   }
   .site-info-container {
     flex-direction: column-reverse;
-    gap: 10vh;
+    gap: 1em;
+    height: auto !important;
   }
   .visual-content {
     width: 100%;
@@ -416,6 +433,14 @@ footer ul li:hover a {
   }
   .information h3 {
     text-align: center;
+  }
+  .line-separator {
+    height: 10em !important;
+    order: 1;
+    background: linear-gradient(to top, #404f5c 54%, transparent 93%);
+  }
+  .line-separator::before {
+    top: 100%;
   }
 }
 

@@ -171,7 +171,7 @@ function Content() {
 function HomeHeader() {
   const textContainerRef = useRef();
   const childNodesOfTextContainer = textContainerRef.current?.childNodes;
-  let colors = ["lightgreen", "#FFD700", "#FF6103", "#ADD8E6"];
+  let colors = ["lightgreen", "#FFD700", "#FF6103", "#ADD8E6", "#D4C2B0"];
 
   useEffect(() => {
     let activeChildrensIndex = [];
@@ -275,6 +275,7 @@ function HomeExtraInformation() {
               alt=""
             />
           </div>
+          <div className="line-separator line-separator-1"></div>
           <div className="information">
             <h3>At your fingertip </h3>
             <p>
@@ -287,6 +288,7 @@ function HomeExtraInformation() {
           <div className="visual-content">
             <img src={addingStuffToListGIF} className="addto-list-gif" alt="" />
           </div>
+          <div className="line-separator"></div>
           <div className="information">
             <h3>Add it to your list</h3>
             <p>
@@ -298,6 +300,7 @@ function HomeExtraInformation() {
           <div className="visual-content">
             <img src={openSourceImages} className="github-image" alt="" />
           </div>
+          <div className="line-separator"></div>
           <div className="information">
             <h3>Open to all</h3>
             <p>
