@@ -1,438 +1,361 @@
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+.nav-container {
+  width: 100%;
+  height: 50px;
 
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
- .nav-container
-{
-    width: 100%;
-    height: 50px;
-   
-    position: relative;
-   
-    background-color: transparent;
-    z-index: 10;
-    
+  position: relative;
+
+  background-color: transparent;
+  z-index: 10;
 }
-.logo-container
-{
-    color: white;
-   text-decoration: none;
- 
-    position: relative;
-    top: 4%;
-    left: 10%;
-    font-size: 1.1em;
+.logo-container {
+  color: white;
+  text-decoration: none;
+
+  position: relative;
+  top: 4%;
+  left: 10%;
+  font-size: 1.1em;
 }
-.logo-container h3{
-   
-    display: inline-block;
+.logo-container h3 {
+  display: inline-block;
 }
-.logo-container h3::first-letter
-{
-    font-size: 1.5em;
-    color: #4a0ffa;
-    text-shadow: 0 0 20px #4a0ffa,
-                0 0 40px #4a0ffa ,
-                0 0 60px #4a0ffa    
-    ;
+.logo-container h3::first-letter {
+  font-size: 1.5em;
+  color: #4a0ffa;
+  text-shadow: 0 0 20px #4a0ffa, 0 0 40px #4a0ffa, 0 0 60px #4a0ffa;
 }
 
-.nav-container ul{
-   
-    color: #d1d7e0;
-    width: 400px;
-    position: absolute;
-    right: 12%;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    gap: 3.4em;
-    
-
+.nav-container ul {
+  color: #d1d7e0;
+  width: 400px;
+  position: absolute;
+  right: 12%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 3.4em;
 }
-.bottom-border{
-    background: rgb(255, 255, 11);
-    width: 5em;
-    height: 0.2em;
-    position: absolute;
-    bottom: 0;
-    display: none;
-    transition: left 400ms ease;
+.bottom-border {
+  background: rgb(255, 255, 11);
+  width: 5em;
+  height: 0.2em;
+  position: absolute;
+  bottom: 0;
+  display: none;
+  transition: left 400ms ease;
 }
-.nav-container ul nav{
-    position: relative;
-    padding: 5px;
-   
+.nav-container ul nav {
+  position: relative;
+  padding: 5px;
 }
-.nav-container ul nav .link 
-{
-    text-decoration: none;
-    color: #d1d7e0;
-    
+.nav-container ul nav .link {
+  text-decoration: none;
+  color: #d1d7e0;
 }
 
-.nav-container ul nav:hover .link
-{
-   color: white;
-   filter: drop-shadow(0 0 20px white);
+.nav-container ul nav:hover .link {
+  color: white;
+  filter: drop-shadow(0 0 20px white);
 }
-.menutoggle
-{
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    
-    transform: translate(0,-50%);
-    color: white;
-   
-    font-size: 1.6rem;
-    opacity: 0;
+.menutoggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+
+  transform: translate(0, -50%);
+  color: white;
+
+  font-size: 1.6rem;
+  opacity: 0;
 }
 
-.signup{
-    
-    position: absolute;
-    right: 3.5em;
-    top: 50%;
-    transform: translate(0,-50%);
+.signup {
+  position: absolute;
+  right: 3.5em;
+  top: 50%;
+  transform: translate(0, -50%);
 
-    color: white;
-    text-align: center;
-    font-size: 1.05em;
-    z-index: 2;
-    padding: 0.3em 0.75em;
-    text-decoration: none;
-    background: rgba(244, 200, 117, 0.135);
-    border-radius: 0.2em;
-    font-family: sans-serif;
-    transition: background 300ms ease;
+  color: white;
+  text-align: center;
+  font-size: 1.05em;
+  z-index: 2;
+  padding: 0.3em 0.75em;
+  text-decoration: none;
+  background: rgba(244, 200, 117, 0.135);
+  border-radius: 0.2em;
+  font-family: sans-serif;
+  transition: background 300ms ease;
 }
-.signup:hover{
-    background-color: rgb(218, 145, 9);
-}
-
- .user
-{
-    position: absolute;
-    right: 8.5%;
-    top: 50%;
-    transform: translate(0,-50%);
-    width: 35px;
-    height: 35px;
-   
-    text-align: center;
-    font-size: 23px;
-    z-index: 2;
-    
-    
-}
- .profile-img-container{
-    width: 35px;
-    height: 35px;
-    border: 2px solid yellow;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-}
-.profile-img-container img{
-    width: 100%;
-   
-
-}
-.user .yourlist
-{
-    
-    width: 8.6em;
-    height: 0px;
-    position: absolute;
-    right: -240%;
-    top: 60px;
-    z-index: 4;
-    overflow: hidden;
-    transition: 0.1s;
-    background: white;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.529));
-    border-radius: 0.2em;
+.signup:hover {
+  background-color: rgb(218, 145, 9);
 }
 
+.user {
+  position: absolute;
+  right: 8.5%;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 35px;
+  height: 35px;
 
-.user-name
-{
-    font-size: 0.74em;
-    padding: 0.6em;
-    color: #127570;
-    font-family: sans-serif;
-    letter-spacing: 0.15em;
-    margin-top: 0.5em;
+  text-align: center;
+  font-size: 23px;
+  z-index: 2;
 }
-.user .yourlist .user-status
-{
-    font-size: 0.55em;
-    padding: 0.6em 40px;
-    border: 2px solid rgba(162, 170, 12, 0.289);
-    color: yellowgreen;
-    font-family: sans-serif;
-    letter-spacing: 0.15em;
-    margin: 0.5em 0;
-    display: inline-block;
+.profile-img-container {
+  width: 35px;
+  height: 35px;
+  border: 2px solid yellow;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
 }
-.user .yourlist .your-anime,.user .yourlist .your-char,.sign-out
-{
-    width: 100%;
-    height: 45px;
-    border: none;
-    outline: none;
-    font-size: 0.87rem;
-    text-decoration: none;
-    text-align: start;
-    padding-left: 1em;
-    background: transparent;
-    cursor: pointer;
-  
+.profile-img-container img {
+  width: 100%;
+}
+.user .yourlist {
+  width: 8.6em;
+  height: 0px;
+  position: absolute;
+  right: -240%;
+  top: 60px;
+  z-index: 4;
+  overflow: hidden;
+  transition: 0.1s;
+  background: white;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.529));
+  border-radius: 0.2em;
 }
 
-.sign-out{
-    width: auto;
-    position: relative;
-    z-index: 15;
-    margin: 1em 0;
+.user-name {
+  font-size: 0.74em;
+  padding: 0.6em;
+  color: #127570;
+  font-family: sans-serif;
+  letter-spacing: 0.15em;
+  margin-top: 0.5em;
+}
+.user .yourlist .user-status {
+  font-size: 0.55em;
+  padding: 0.6em 40px;
+  border: 2px solid rgba(162, 170, 12, 0.289);
+  color: yellowgreen;
+  font-family: sans-serif;
+  letter-spacing: 0.15em;
+  margin: 0.5em 0;
+  display: inline-block;
+}
+.user .yourlist .your-anime,
+.user .yourlist .your-char,
+.sign-out {
+  width: 100%;
+  height: 45px;
+  border: none;
+  outline: none;
+  font-size: 0.87rem;
+  text-decoration: none;
+  text-align: start;
+  padding-left: 1em;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sign-out {
+  width: auto;
+  position: relative;
+  z-index: 15;
+  margin: 1em 0;
   display: inline-block;
   background: #dbd2d241;
 }
-.sign-out p{
- display: inline-block;
+.sign-out p {
+  display: inline-block;
 }
-.sign-out ion-icon{
-    margin: 0 0.3em;
-   
+.sign-out ion-icon {
+  margin: 0 0.3em;
 }
-.sign-out:hover{
-   color: rgb(255, 34, 34) !important;
-}
-
-.smallnav{
-    width: 0;
-    height: 100vh;
-  display: none;
-    z-index: 11;
-    position: fixed;
-    
-}
-.smallnav .fas
-{
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 2.0rem;
-   
-    color: white;
-    z-index: 15;
-    opacity: 0;
-    transition: all 0s 0.6s;
+.sign-out:hover {
+  color: rgb(255, 34, 34) !important;
 }
 
-.smallnav .smallnav-parts-container
-{
-   
-   width: 100%;
-   height: 100%;
-   display: flex;
-    position: absolute;
+/*  //* ---- mobile navbar ------------------- */
 
+.smallnav {
+  height: 100vh;
+  opacity: 0;
+  z-index: 11;
+  position: fixed;
 }
-.smallnav .smallnav-parts-container .parts
-{
-    flex:  0 0 25.5%;
-    position: relative;
+.smallnav .fas {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 2rem;
+
+  color: white;
+  z-index: 15;
+  opacity: 0;
+  transition: all 0s 0.6s;
+}
+
+.smallnav .smallnav-parts-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+}
+.smallnav .smallnav-parts-container .parts {
+  flex: 0 0 25.5%;
+  position: relative;
+  top: -1400px;
+  z-index: 4;
+}
+.smallnav .smallnav-parts-container .parts.part-1 {
+  background: white;
+}
+.smallnav .smallnav-parts-container .parts.part-2 {
+  background: red;
+}
+.smallnav .smallnav-parts-container .parts.part-3 {
+  background: rgb(16, 173, 16);
+}
+.smallnav .smallnav-parts-container .parts.part-4 {
+  background: yellow;
+}
+.anime-default {
+  animation: anime-parts-reverse 1.5s calc(var(--i) * 0.1s);
+  animation-fill-mode: forwards;
+}
+.animate {
+  animation: anime-parts 0.5s calc(var(--i) * 0.1s) 1 forwards,
+    anime-parts-color 1s calc(var(--i) * 0.2s) 1 forwards;
+}
+@keyframes anime-parts-color {
+  100% {
+    background: rgba(143, 52, 228, 0.864);
+  }
+}
+@keyframes anime-parts {
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes anime-parts-reverse {
+  0% {
+    top: 0;
+  }
+  100% {
     top: -1400px;
-    z-index: 4;
-   
-}
-.smallnav .smallnav-parts-container .parts.part-1
-{
-    background: white;
-}
-.smallnav .smallnav-parts-container .parts.part-2
-{
-    background: red;
-}
-.smallnav .smallnav-parts-container .parts.part-3
-{
-    background: rgb(16, 173, 16);
-}
-.smallnav .smallnav-parts-container .parts.part-4
-{
-    background: yellow;
-}
-.anime-default
-{
-    animation:anime-parts-reverse 1.5s calc(var(--i)*0.1s);
-    animation-fill-mode: forwards;
-}
-.animate
-{
-    animation:anime-parts 0.5s calc(var(--i)*0.1s) 1 forwards,anime-parts-color 1s calc(var(--i)*0.2s) 1 forwards;
-}
-@keyframes anime-parts-color
-{
-    100%{
-        background: rgba(143, 52, 228, 0.864);
-    }
-}
-@keyframes anime-parts
-{
-    100%
-    {
-        top: 0;
-    }
+  }
 }
 
-@keyframes anime-parts-reverse
-{
-    0%
-    {
-        top: 0;
-    }
-    100%
-    {
-        top: -1400px;
-    }
+.user-details-container {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 10em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 30em;
+}
+.smallnav-nav-container {
+  width: 75%;
+  visibility: hidden;
+  z-index: 10;
+  position: relative;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 65%;
+  transition: visibility 1s ease 0.55s;
+}
+.smallnav-nav-container .smallnav-nav {
+  width: 85%;
+  margin: 30px auto;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20%;
+}
+.smallnav-nav h4 {
+  font-weight: lighter;
+  color: white;
+  transform: translateY(2em);
+}
+.navlink {
+  text-decoration: none;
+  text-align: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 150px;
+  padding: 2%;
+  color: white;
+  border-bottom: 3px solid beige;
+  min-height: 35px;
+  transition: all 0.5s;
+}
+.navlink:hover {
+  background: white;
+  color: black;
+}
+.smallnav-nav-container .smallnav-userlist {
+  text-align: center;
+  color: #90cecf;
+}
+.smallnav-nav-container .smallnav-userlist h3 {
+  font-family: "Luckiest Guy", cursive;
+  letter-spacing: 3px;
+  margin-bottom: 3%;
+}
+.smallnav-nav-container .smallnav-userlist .smallnav-list-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
-.user-details-container{
-    position: absolute;
-    top: -40%;
-    left: 50%;
-    transform: translateX(-50%);
-    min-height: 10em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 30em;
-   
+.nav-container ul li:nth-child(2) {
+  transform: translateX(-20px);
 }
-.smallnav-nav-container
-{
-    
-    width: 75%;
-    z-index: 10;
-    position: relative;
-    margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
-    min-height: 65%;
-    /* overflow: hidden; */
-   opacity: 0;
-    
+.nav-container ul li:nth-child(2) a span {
+  left: 80px;
 }
-.smallnav-nav-container .smallnav-nav
-{
-  
-    width: 85%;
-    margin: 30px auto;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20%;
-}
-.smallnav-nav h4{
-    font-weight: lighter;
-    color: white;
-    transform: translateY(2em);
-}
- .navlink
-{
-    
-    text-decoration: none;
-    text-align: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 150px;
-    padding: 2%;
-    color: white;
-    border-bottom: 3px solid beige;
-    min-height: 35px;
-    transition: all 0.5s;
-}
- .navlink:hover
-{
-    background: white;
-    color: black;
-    
-}
-.smallnav-nav-container .smallnav-userlist
-{
-    
-    text-align: center;
-    color: #90cecf;
-   
-}
-.smallnav-nav-container .smallnav-userlist h3{
-    font-family: 'Luckiest Guy', cursive;
-    letter-spacing: 3px;
-    margin-bottom: 3%;
-}
-.smallnav-nav-container .smallnav-userlist .smallnav-list-nav
-{
-   
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+.nav-container ul li:hover a span {
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: transform 0.5s;
 }
 
-.nav-container ul li:nth-child(2)
-{
-    transform: translateX(-20px);
-}
-.nav-container ul li:nth-child(2) a span
-{
-    left: 80px;
-}
- .nav-container ul li:hover a span
-{
-    transform: scaleY(1);
-    transform-origin: top;
-    transition: transform 0.5s;
+.nav-container ul li:nth-child(n):hover {
+  font-size: 1.1em;
 }
 
-.nav-container ul li:nth-child(n):hover{
-    font-size: 1.1em;
+.yourlist button:nth-child(n):hover {
+  color: orange;
 }
 
-.yourlist button:nth-child(n):hover
-{
-   
-    color: orange;
-    
+@media screen and (max-width: 700px) {
+  .nav-container ul {
+    display: none;
+  }
+  .user,
+  .yourlist {
+    display: none;
+  }
+  .menutoggle {
+    opacity: 1;
+  }
 }
-
-
-@media screen and (max-width:700px) {
-   
-    .nav-container ul{
-       display: none;
-    }
-    .user ,.yourlist
-    {
-        display:  none;
-    }
-    .menutoggle
-    {
-        
-        opacity: 1;
-    }
-   
-    .smallnav{
-      display: block;
-        
-    }
-}
-.toggle-style-ham
-{
-    opacity: 0;
+.toggle-style-ham {
+  opacity: 0;
 }
