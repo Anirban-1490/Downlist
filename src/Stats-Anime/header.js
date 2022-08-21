@@ -215,7 +215,7 @@ export function Navbar({ data, signoutHandler }) {
   );
 }
 
-//* mobile view navbar ------
+//* mobile view navbar ----
 
 export function Smallnav({ data, signoutHandler }) {
   //*end animation after clicking a navigation link or the close button
