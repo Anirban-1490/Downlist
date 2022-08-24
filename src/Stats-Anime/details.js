@@ -662,6 +662,7 @@ export const CommentsBox = react.memo(({ user, malid }) => {
 
   //* handler for like and dislike button
   const like_dislikeHandler = async (userID, _id, malID, e, like) => {
+    console.log("running like/dislike handler");
     try {
       let response;
       //* condiiton for liked button
@@ -684,6 +685,21 @@ export const CommentsBox = react.memo(({ user, malid }) => {
       //* should be a popup message
       console.log(error);
     }
+  };
+
+  const throttledLikeDislikeHnadler = function (cb, timeout = 2000) {
+    let timeoutID;
+
+    return (...args) => {
+      console.log(timeoutID);
+      if (!timeoutID) {
+        cb.apply(this, ...args);
+      }
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        timeoutID = null;
+      }, timeout);
+    };
   };
 
   return (
@@ -777,15 +793,17 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                         <div className="extra-features">
                           <ion-icon
                             name={!isLiked ? "thumbs-up-outline" : "thumbs-up"}
-                            onClick={(e) =>
-                              like_dislikeHandler(
-                                clientDetails?.userID,
-                                _id,
-                                malid,
-                                e,
-                                true
-                              )
-                            }
+                            onClick={throttledLikeDislikeHnadler(
+                              (e) =>
+                                like_dislikeHandler(
+                                  clientDetails?.userID,
+                                  _id,
+                                  malid,
+                                  e,
+                                  true
+                                ),
+                              3000
+                            )}
                           ></ion-icon>
 
                           <p className="like-counter counter">{likeCount}</p>
@@ -796,15 +814,17 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                                 ? "thumbs-down-outline"
                                 : "thumbs-down"
                             }
-                            onClick={(e) =>
-                              like_dislikeHandler(
-                                clientDetails?.userID,
-                                _id,
-                                malid,
-                                e,
-                                false
-                              )
-                            }
+                            onClick={throttledLikeDislikeHnadler(
+                              (e) =>
+                                like_dislikeHandler(
+                                  clientDetails?.userID,
+                                  _id,
+                                  malid,
+                                  e,
+                                  false
+                                ),
+                              3000
+                            )}
                           ></ion-icon>
                           <p className="dislike-counter counter">
                             {dislikeCount}
