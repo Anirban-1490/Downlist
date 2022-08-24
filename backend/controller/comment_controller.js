@@ -63,7 +63,8 @@ const fetchComment = async (req, res) => {
 const likeCommentHandler = async (req, res, next) => {
   const { userID, _id, malID } = req.body;
   try {
-    const user = await userModel.findOne({ _id: userID });
+    const user = await userModel.findById(userID);
+
     const commentForObject = await commnetModel.findOne({ malid: malID });
 
     const isCommentHaveLike = user.likedComments.find(
@@ -87,9 +88,8 @@ const likeCommentHandler = async (req, res, next) => {
       user.removeComment(_id, true);
       commentForObject.addLikeOrDislike(_id, false);
     }
-    user.save();
-    commentForObject.save();
-
+    await user.save();
+    await commentForObject.save();
     res.status(200).json({
       message: "success",
       userLikedComment: user.likedComments,
@@ -130,8 +130,8 @@ const dislikeCommentHandler = async (req, res, next) => {
       commentForObject.addLikeOrDislike(_id, false, "dislikeCount");
     }
 
-    user.save();
-    commentForObject.save();
+    await user.save();
+    await commentForObject.save();
 
     res.status(200).json({
       message: "success",
