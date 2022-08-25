@@ -279,7 +279,7 @@ footer ul li:hover a {
   height: 14em;
   position: absolute;
   top: -6.6em;
-  background: linear-gradient(to bottom, #74a1b0 4%, #1f2833 70%);
+  background: linear-gradient(to bottom, #565cc2 0%, #1f2833 90%);
   left: 50%;
   transform: translateX(-50%);
   z-index: -1;
