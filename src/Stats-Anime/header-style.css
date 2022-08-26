@@ -1,12 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+/* .parent-nav-container {
+  width: auto;
+  height: auto;
+} */
 .nav-container {
   width: 100%;
   height: 50px;
 
-  position: relative;
-
+  position: sticky;
+  position: -webkit-sticky;
   background-color: transparent;
   z-index: 10;
+  top: 0;
 }
 .logo-container {
   color: white;
