@@ -9,6 +9,10 @@
   background-color: transparent;
   z-index: 10;
   top: 0;
+  transition: 300ms ease-in;
+}
+.nav-container.scrolling {
+  background-color: #ffffff47;
 }
 .logo-container {
   color: white;

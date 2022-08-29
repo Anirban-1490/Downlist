@@ -64,11 +64,13 @@ function Main() {
 export function Navbar({ data, signoutHandler }) {
   const { ishamclick, toggle } = useContext(Appcontext);
   const [isexpand, setIsexpand] = useState(false);
+  const [isScrolling, setScrolling] = useState(false);
   const path = window.location.pathname;
   const refdropmenu = useRef(null);
   const userbtn = useRef(null);
   const borderRef = useRef(null);
   const ulRef = useRef(null);
+  const navParentRef = useRef(null);
 
   const toggelnav = () => {
     [...document.getElementsByClassName("parts")].forEach((ele) =>
@@ -140,6 +142,13 @@ export function Navbar({ data, signoutHandler }) {
     }
   });
 
+  window.addEventListener("scroll", (e) => {
+    if (window.scrollY) {
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  });
   const bottomBorderHandler = (e) => {
     const index = [
       ...e.target.parentElement.parentElement.childNodes,
@@ -150,7 +159,10 @@ export function Navbar({ data, signoutHandler }) {
 
   return (
     <>
-      <div className="nav-container">
+      <div
+        className={`nav-container ${isScrolling ? `scrolling` : ``}`}
+        ref={navParentRef}
+      >
         <Link to="/" className="logo-container">
           <h3>Uplist</h3>
         </Link>
