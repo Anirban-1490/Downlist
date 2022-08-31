@@ -143,7 +143,7 @@ export function Navbar({ data, signoutHandler }) {
   });
 
   window.addEventListener("scroll", (e) => {
-    if (window.scrollY) {
+    if (window.scrollY > 85) {
       setScrolling(true);
     } else {
       setScrolling(false);
@@ -159,10 +159,10 @@ export function Navbar({ data, signoutHandler }) {
 
   return (
     <>
-      <div
-        className={`nav-container ${isScrolling ? `scrolling` : ``}`}
-        ref={navParentRef}
-      >
+      <div className={`nav-container`}>
+        <div
+          className={`nav-scroll-background ${isScrolling ? `scrolling` : ``}`}
+        ></div>
         <Link to="/" className="logo-container">
           <h3>Uplist</h3>
         </Link>

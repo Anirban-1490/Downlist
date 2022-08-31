@@ -11,10 +11,17 @@
   background-color: transparent;
   z-index: 10;
   top: 0;
-  transition: 300ms ease-in;
 }
-.nav-container.scrolling {
-  background-color: #ffffff47;
+
+.nav-scroll-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  transition: background-color 300ms ease-in;
+}
+.nav-scroll-background.scrolling {
+  background-color: black;
 }
 .logo-container {
   color: white;
