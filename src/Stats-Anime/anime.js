@@ -12,11 +12,14 @@ import characterSectionImage from "./Home_page_images/information-character.JPG"
 import addingStuffToListGIF from "./Home_page_images/information-adding-stuff.gif";
 
 import openSourceImages from "./Home_page_images/github-github-com.svg";
+import simpleParallax from "simple-parallax-js";
 
 function Main() {
   const mydiv = useRef();
-  const [vantaEffect, setVantaEffect] = useState();
   //* Vanta.js fog animated background initializer
+  const [vantaEffect, setVantaEffect] = useState();
+
+  const [parallaxEffect, setParallaxEffect] = useState();
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -37,21 +40,36 @@ function Main() {
     };
   }, [vantaEffect]);
 
+  useEffect(() => {
+    console.log(document.querySelector(".vanta-canvas"));
+    if (!parallaxEffect) {
+      const instance = new simpleParallax(mydiv.current, {
+        scale: 1.8,
+        orientation: "down",
+        customWrapper: ".parent-wrapper",
+        // overflow: true,
+      });
+      setParallaxEffect(instance);
+    }
+    return () => {
+      parallaxEffect?.destroy();
+    };
+  }, [parallaxEffect]);
+
   return (
     <>
-      <div
-        className="container1"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          transform: "scaleY(1.15)",
-          top: "-50px",
-          height: "90vh",
-        }}
-        ref={mydiv}
-      >
-        <Content />
+      <div className="parent-wrapper">
+        <div
+          className="container1"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          ref={mydiv}
+        >
+          <Content />
+        </div>
       </div>
       <HomeHeader />
       <HomeExtraInformation />
@@ -64,11 +82,13 @@ function Content() {
     useContext(Appcontext);
   const [keyward, setKeyward] = useState("");
   const [searchresult, setSearchresult] = useState([]);
+  const [opacity, setOpacity] = useState(1);
 
   const searchContainer = useRef();
   const mainheader = useRef();
   const mainionfo = useRef();
   const wrapper = useRef();
+  const mainContainerRef = useRef();
 
   //* set up a axios cancel token
   const [cancel, setcancel] = useState(null);
@@ -118,9 +138,33 @@ function Content() {
 
   useEffect(() => getResult(), [getResult]);
 
+  useEffect(() => {
+    const scrollHandler = (e) => {
+      const offsetFromTop =
+        window.scrollY +
+        mainContainerRef.current.getBoundingClientRect().top -
+        97;
+
+      const heightOfElement = mainContainerRef.current.offsetHeight;
+      const scrollToTop = document.documentElement.scrollTop;
+
+      if (scrollToTop > offsetFromTop) {
+        const op = 1 - (scrollToTop - offsetFromTop) / heightOfElement;
+        setOpacity(op >= 0 ? op : 0);
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+
+    return () => window.removeEventListener("scroll", scrollHandler);
+  });
+
   return (
     <>
-      <div className="main-container">
+      <div
+        className="main-container"
+        ref={mainContainerRef}
+        style={{ opacity: `${opacity}` }}
+      >
         <h2 className="title1" ref={mainheader}>
           <span>S</span>earch an <span>A</span>nime
         </h2>
