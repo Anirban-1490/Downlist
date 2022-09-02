@@ -44,7 +44,7 @@ function Main() {
     console.log(document.querySelector(".vanta-canvas"));
     if (!parallaxEffect) {
       const instance = new simpleParallax(mydiv.current, {
-        scale: 1.8,
+        scale: 2.1,
         orientation: "down",
         customWrapper: ".parent-wrapper",
         // overflow: true,
@@ -143,7 +143,7 @@ function Content() {
       const offsetFromTop =
         window.scrollY +
         mainContainerRef.current.getBoundingClientRect().top -
-        97;
+        150;
 
       const heightOfElement = mainContainerRef.current.offsetHeight;
       const scrollToTop = document.documentElement.scrollTop;
