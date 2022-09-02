@@ -142,12 +142,19 @@ export function Navbar({ data, signoutHandler }) {
     }
   });
 
-  window.addEventListener("scroll", (e) => {
-    if (window.scrollY > 85) {
-      setScrolling(true);
-    } else {
-      setScrolling(false);
-    }
+  useEffect(() => {
+    //* a scroll event handler to let the sticky navbar have a background color change
+    const scrollHandler = (e) => {
+      if (window.scrollY > 85) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+
+    //* remove the event listner on unmount
+    return () => window.removeEventListener("scroll", scrollHandler);
   });
   const bottomBorderHandler = (e) => {
     const index = [
