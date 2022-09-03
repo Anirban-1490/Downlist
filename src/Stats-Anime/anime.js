@@ -47,7 +47,6 @@ function Main() {
         scale: 2.1,
         orientation: "down",
         customWrapper: ".parent-wrapper",
-        // overflow: true,
       });
       setParallaxEffect(instance);
     }
