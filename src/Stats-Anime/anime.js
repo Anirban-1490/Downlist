@@ -1,11 +1,8 @@
 import React from "react";
 import "./animestyle.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useReducer } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Appcontext } from "./context";
-import { useContext } from "react";
-import react from "react";
 import Fog from "vanta/dist/vanta.fog.min";
 import animeSectionImage from "./Home_page_images/information-anime.JPG";
 import characterSectionImage from "./Home_page_images/information-character.JPG";
@@ -77,11 +74,40 @@ function Main() {
 }
 
 function Content() {
-  const { toggle_loading_state, loading, set_loading_text } =
-    useContext(Appcontext);
-  const [keyward, setKeyward] = useState("");
-  const [searchresult, setSearchresult] = useState([]);
   const [opacity, setOpacity] = useState(1);
+
+  //*set up a canceltoken
+  const [cancel, setcancel] = useState(null);
+
+  const reducer = (state, action) => {
+    if (action.type === "loading") {
+      return {
+        ...state,
+        text: "Loading...",
+      };
+    } else if (action.type === "success") {
+      return {
+        ...state,
+        isLoading: action.isLoading,
+        searchResult: action.searchResult,
+      };
+    } else if (action.type === "error") {
+      return { ...state, text: "No results found" };
+    } else if (action.type === "initial") {
+      return {
+        searchResult: [],
+        isLoading: true,
+        text: "",
+      };
+    }
+    return state;
+  };
+
+  const [data, dispatch] = useReducer(reducer, {
+    searchResult: [],
+    isLoading: true,
+    text: "",
+  });
 
   const searchContainer = useRef();
   const mainheader = useRef();
@@ -89,15 +115,12 @@ function Content() {
   const wrapper = useRef();
   const mainContainerRef = useRef();
 
-  //* set up a axios cancel token
-  const [cancel, setcancel] = useState(null);
+  const searchHandler = (e) => {
+    e.preventDefault();
+    const textValue = e.target.value;
+    if (textValue !== "") {
+      dispatch({ type: "loading" });
 
-  //* show the live search result
-  const getResult = react.useCallback(() => {
-    if (keyward !== "") {
-      setSearchresult([]);
-      toggle_loading_state(true); //*show loading text
-      set_loading_text("Loading...");
       searchContainer.current.classList.remove(
         "search-result-container-toggle"
       );
@@ -114,28 +137,28 @@ function Content() {
       setcancel(abortController);
 
       axios
-        .get(`https://api.jikan.moe/v3/search/anime?q=${keyward}&page=1`, {
+        .get(`https://api.jikan.moe/v3/search/anime?q=${textValue}&page=1`, {
           signal: abortController.signal,
         })
         .then((res) => {
-          setSearchresult([...res.data.results].slice(0, 4));
-          toggle_loading_state(false);
+          dispatch({
+            type: "success",
+            searchResult: [...res.data.results].slice(0, 4),
+            isLoading: false,
+          });
         })
         .catch((err) => {
           console.log(err);
-          set_loading_text("No results");
+          dispatch({ type: "error" });
         });
     } else {
       searchContainer.current.classList.add("search-result-container-toggle");
       mainheader.current.classList.add("title1-toggle");
       mainionfo.current.classList.add("info1-toggle");
       wrapper.current.classList.add("wrapper-toggle");
-      setKeyward("");
-      setSearchresult([]);
+      dispatch({ type: "initial" });
     }
-  }, [keyward]);
-
-  useEffect(() => getResult(), [getResult]);
+  };
 
   useEffect(() => {
     const scrollHandler = (e) => {
@@ -176,20 +199,19 @@ function Content() {
             name=""
             id="search"
             placeholder="Search e.g. naruto ,fate"
-            value={keyward}
             autoComplete="off"
-            onChange={(e) => {
-              e.preventDefault();
-              setKeyward(e.target.value);
-            }}
+            onChange={searchHandler}
           />
 
           <span className="search-cover"></span>
-          <div className="search-result-container" ref={searchContainer}>
-            {loading && <Loading />}
+          <div
+            className="search-result-container search-result-container-toggle"
+            ref={searchContainer}
+          >
+            {data.isLoading && <Loading loadingtext={data.text} />}
             {
               //* show the search result ----
-              searchresult.map((result) => {
+              data?.searchResult.map((result) => {
                 const { mal_id, title, image_url } = result;
 
                 return (
@@ -373,8 +395,7 @@ function HomeExtraInformation() {
 
 //* Loading text ----
 
-function Loading() {
-  const { loadingtext } = useContext(Appcontext);
+function Loading({ loadingtext }) {
   return (
     <>
       <h3 style={{ color: "white" }} className="loading">
