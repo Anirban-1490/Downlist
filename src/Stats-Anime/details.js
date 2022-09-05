@@ -1,12 +1,12 @@
 import React from "react";
 import react, { useState, useEffect, useRef, useContext } from "react";
 import "./details-style.css";
-import "./animestyle.css";
+// import "./animestyle.css";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useQueries, useQuery, useQueryClient } from "react-query";
-import { Spinner } from "./loading-spinner";
+import { Spinner } from "./Components/LoadingSpinner";
 import { Errorpage } from "./error";
 import { useNavigate } from "react-router-dom";
 import { path } from "../server-path";

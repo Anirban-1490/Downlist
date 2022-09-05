@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
-import { Dropdown } from "./genres-anime";
-import "./genreAnime-style.css";
+import { Dropdown } from "./Components/DropDownSelectMenu/DropDownSelectMenu";
+// import "./genreAnime-style.css";
 import "./list-style.css";
 import axios from "axios";
 import { path } from "../server-path";

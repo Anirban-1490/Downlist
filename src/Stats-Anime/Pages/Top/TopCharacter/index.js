@@ -1,22 +1,15 @@
 import React from "react";
-import {
-  Footer,
-  Toppopular,
-  Upcoming,
-  Currentlyairing,
-  Header,
-} from "./topanime";
-import "./animestyle.css";
-import "./topanimestyle.css";
-import { TopofyourList } from "./topanime";
+import { StyledListCarousel } from "../Components/StyledListCarousel";
 import { useQueries, useQueryClient } from "react-query";
 import axios from "axios";
 import reduce from "awaity/reduce";
-import { Spinner } from "./loading-spinner";
-import { useToplist } from "./topanime";
-import { Errorpage } from "./error";
+import { Spinner } from "../../../Components/LoadingSpinner/index";
+import { useToplist } from "../Hooks/useTopList";
+import { Errorpage } from "../../../error";
+import { StyledSection } from "../Components/StyledSection";
+import { StyledMainHeader } from "../Components/StyledMainHeader";
 
-function TopacharMain() {
+export function TopacharMain() {
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   const client = useQueryClient();
@@ -125,9 +118,9 @@ function TopacharMain() {
       ) : results.some((item) => item.isError) ? (
         <Errorpage />
       ) : (
-        <div className="container1" style={{ height: "1300px" }}>
+        <div className="container-topsection">
           <div className="section-1">
-            <Header
+            <StyledMainHeader
               content={{
                 text: ["Character", "", "", "VERSE"],
                 isanimateable: false,
@@ -135,10 +128,11 @@ function TopacharMain() {
               }}
             />
             {!results[0].isLoading ? (
-              <Currentlyairing
-                airing={results[0].data}
+              <StyledSection
+                data={results[0].data}
                 switch_details={"/character"}
-                text_={["Most", "popular"]}
+                text_={"Most popular"}
+                className="airing"
               />
             ) : (
               ""
@@ -154,10 +148,11 @@ function TopacharMain() {
           </div>
           <div className="section-2">
             {!results[1].isLoading ? (
-              <Upcoming
-                upcoming={results[1].data}
+              <StyledSection
+                data={results[1].data}
                 switch_details={"/character"}
-                text_={["Popular in ", "Summer"]}
+                text_={"Popular in Summer"}
+                className="airing upcoming"
               />
             ) : (
               ""
@@ -177,10 +172,11 @@ function TopacharMain() {
           </div>
           <div className="section-3">
             {!results[2].isLoading ? (
-              <Toppopular
-                popular={results[2].data}
+              <StyledSection
+                data={results[2].data}
                 switch_details={"/character"}
-                text_={["Popular", " in", "Fall"]}
+                text_={"Popular in Fall"}
+                className="airing popular"
               />
             ) : (
               ""
@@ -196,7 +192,7 @@ function TopacharMain() {
           </div>
           <div className="section-4">
             {results.every((item) => !item.isLoading) ? (
-              <TopofyourList
+              <StyledListCarousel
                 text_={"Top characters from your list"}
                 switch_details={"character"}
                 userId={user?.userID}
@@ -207,13 +203,9 @@ function TopacharMain() {
           </div>
         </div>
       )}
-      {results.some((item) => item.isLoading) || listitem.length < listcount ? (
-        ""
-      ) : (
-        <Footer marginTop="1252" />
-      )}
+      {results.some((item) => item.isLoading) || listitem.length < listcount
+        ? ""
+        : ""}
     </>
   );
 }
-
-export default TopacharMain;
