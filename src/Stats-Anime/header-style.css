@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap");
 
 /*  //* large screen navbar ------- */
 
 .nav-container {
   width: 100%;
-  height: 50px;
+  height: 4.5em;
 
   position: relative;
   background-color: transparent;
@@ -14,6 +16,7 @@
 .nav-container.sticky {
   position: sticky;
   position: -webkit-sticky;
+  height: 3.2rem;
 }
 
 .nav-scroll-background {
@@ -21,7 +24,6 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
-  transition: 300ms ease-in;
 }
 .nav-scroll-background.scrolling {
   background-color: black;
@@ -30,15 +32,20 @@
   color: white;
   text-decoration: none;
 
-  position: relative;
-  top: 4%;
+  position: absolute;
+  top: 50%;
   left: 10%;
-  font-size: 1.1em;
+  transform: translateY(-50%);
 }
-.logo-container h3 {
-  display: inline-block;
+.logo-container .logo-text {
+  font-family: "Space Mono", monospace;
+  font-size: 1.7rem;
+  text-transform: uppercase;
 }
-.logo-container h3::first-letter {
+.logo-container .logo-text.sticky {
+  font-size: 1.34rem;
+}
+.logo-container .logo-text::first-letter {
   font-size: 1.5em;
   color: #4a0ffa;
   text-shadow: 0 0 20px #4a0ffa, 0 0 40px #4a0ffa, 0 0 60px #4a0ffa;

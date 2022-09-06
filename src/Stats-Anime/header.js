@@ -171,7 +171,7 @@ export function Navbar({ data, signoutHandler }) {
           className={`nav-scroll-background ${isScrolling ? `scrolling` : ``}`}
         ></div>
         <Link to="/" className="logo-container">
-          <h3>Uplist</h3>
+          <h3 className={`logo-text ${isScrolling ? `sticky` : ``}`}>Uplist</h3>
         </Link>
         <ul ref={ulRef}>
           <nav onClick={bottomBorderHandler}>
