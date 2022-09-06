@@ -145,7 +145,7 @@ export function Navbar({ data, signoutHandler }) {
   useEffect(() => {
     //* a scroll event handler to let the sticky navbar have a background color change
     const scrollHandler = (e) => {
-      if (window.scrollY > 485) {
+      if (window.scrollY > 0) {
         setScrolling(true);
       } else {
         setScrolling(false);
