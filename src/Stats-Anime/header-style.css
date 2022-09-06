@@ -6,11 +6,14 @@
   width: 100%;
   height: 50px;
 
-  position: sticky;
-  position: -webkit-sticky;
+  position: relative;
   background-color: transparent;
   z-index: 10;
   top: 0;
+}
+.nav-container.sticky {
+  position: sticky;
+  position: -webkit-sticky;
 }
 
 .nav-scroll-background {
@@ -18,7 +21,7 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
-  transition: background-color 300ms ease-in;
+  transition: 300ms ease-in;
 }
 .nav-scroll-background.scrolling {
   background-color: black;
