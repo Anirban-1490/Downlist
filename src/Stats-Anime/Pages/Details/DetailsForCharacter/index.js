@@ -1,16 +1,17 @@
-import react from "react";
-import "./details-style.css";
+import "../Style/details-style.css";
 import { useParams } from "react-router";
-import { Details, Roles } from "./details";
+import { CoreDetails } from "../Components/CoreDetails";
 import { useQuery } from "react-query";
-import { Spinner } from "./Components/LoadingSpinner";
-import { Errorpage } from "./error";
+import { Spinner } from "../../../Components/LoadingSpinner";
+import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
 import axios from "axios";
 import React from "react";
+import { AnimeAppearances } from "./Components/AnimeAppearances";
+import { VoiceActors } from "./Components/VoiceActors";
 
 //* component for character details
 
-function Resultmain() {
+export function CharacetrDetailsMain() {
   const { id } = useParams();
   const malid = id;
 
@@ -27,10 +28,10 @@ function Resultmain() {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <Errorpage />
+        <PageNotFound />
       ) : (
         <div className="container1" style={{ height: "auto" }}>
-          <Details
+          <CoreDetails
             details={{
               animedetails: data,
               animegenres: null,
@@ -58,7 +59,7 @@ function Resultmain() {
           >
             Anime Appearances
           </h4>
-          <Animeappp appearances={data?.animeography} />
+          <AnimeAppearances appearances={data?.animeography} />
           <h4
             style={{
               color: "white",
@@ -72,18 +73,9 @@ function Resultmain() {
           >
             Voice Actors
           </h4>
-          <Voiceactors voiceactors={data?.voice_actors} />
+          <VoiceActors voiceactors={data?.voice_actors} />
         </div>
       )}
     </>
   );
 }
-const Animeappp = react.memo(({ appearances }) => {
-  return <Roles char={appearances} path={`/anime`} />;
-});
-
-const Voiceactors = react.memo(({ voiceactors }) => {
-  return <Roles char={voiceactors} />;
-});
-
-export default Resultmain;

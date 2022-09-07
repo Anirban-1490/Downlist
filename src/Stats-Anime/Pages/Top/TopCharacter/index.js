@@ -5,7 +5,7 @@ import axios from "axios";
 import reduce from "awaity/reduce";
 import { Spinner } from "../../../Components/LoadingSpinner/index";
 import { useToplist } from "../Hooks/useTopList";
-import { Errorpage } from "../../../error";
+import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
 import { StyledSection } from "../Components/StyledSection";
 import { StyledMainHeader } from "../Components/StyledMainHeader";
 
@@ -116,7 +116,7 @@ export function TopacharMain() {
       {results.some((item) => item.isLoading) || listitem.length < listcount ? (
         <Spinner />
       ) : results.some((item) => item.isError) ? (
-        <Errorpage />
+        <PageNotFound />
       ) : (
         <div className="container-topsection">
           <div className="section-1">

@@ -1,109 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
-import { Dropdown } from "./Components/DropDownSelectMenu/DropDownSelectMenu";
-// import "./genreAnime-style.css";
-import "./list-style.css";
-import axios from "axios";
-import { path } from "../server-path";
-import { useQueryClient, useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+import { useRef, useState, useEffect } from "react";
+import { path } from "../../../../server-path";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { Dropdown } from "../../../Components/DropDownSelectMenu/DropDownSelectMenu";
 
-var token = localStorage.getItem("token");
-
-function Listmain({ header, switch_item }) {
-  useLocation();
-  const navigate = useNavigate();
-  const { userID } = useParams();
-  const [whatToSortBy, setWhatToSortBy] = useState(undefined);
-
-  const client = useQueryClient();
-  const clientData = client.getQueryData(["user", token]);
-  const returnedPackage = useList(switch_item, userID, whatToSortBy);
-
-  //* --if user not logged in then redirect to login page
-  if (!clientData?.userID) {
-    navigate("/userauth");
-  }
-
-  return (
-    <>
-      <div
-        className="container1"
-        style={{ height: "auto", minHeight: "100vh" }}
-      >
-        {returnedPackage.data !== undefined ? (
-          <List
-            header={header}
-            clientData={clientData}
-            switch_item={switch_item}
-            userID={userID}
-            setWhatToSortBy={setWhatToSortBy}
-            {...returnedPackage}
-          />
-        ) : (
-          ""
-        )}
-      </div>
-    </>
-  );
-}
-
-//* custom hook to get the user's list items
-
-export function useList(switch_item, userID, sortBy = undefined) {
-  async function fetchUserList({ pageParam = 0 }) {
-    if (switch_item === "character")
-      return (
-        await axios.get(
-          `${path.domain}user/${userID}/viewsavedchar?cursor=${pageParam}${
-            sortBy ? `&sortby=${sortBy}` : ``
-          }`
-        )
-      ).data;
-
-    return (
-      await axios.get(
-        `${path.domain}user/${userID}/viewsavedanime?cursor=${pageParam}${
-          sortBy ? `&sortby=${sortBy}` : ``
-        }`
-      )
-    ).data;
-  }
-
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-    refetch,
-  } = useInfiniteQuery(
-    switch_item === "anime" ? "userAnimeList" : "userCharList",
-
-    fetchUserList,
-    {
-      getNextPageParam: (lastPage) => {
-        // console.log(lastPage);
-        return lastPage.nextPage;
-      },
-      refetchOnWindowFocus: false,
-      staleTime: 0,
-      cacheTime: 0,
-    }
-  );
-
-  return {
-    data,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-    isLoading,
-    refetch,
-  };
-}
-
-function List(props) {
+export function ListCore(props) {
   const {
     header,
     switch_item,
@@ -264,5 +166,3 @@ function List(props) {
     </>
   );
 }
-
-export default Listmain;

@@ -1,16 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "../src/Stats-Anime/header";
+import { ParentNavbar } from "./Stats-Anime/Components/Navbar";
 import { HomeMain } from "./Stats-Anime/Pages/Home";
 import { TopAnimeMain } from "./Stats-Anime/Pages/Top/TopAnime";
 import { TopacharMain } from "./Stats-Anime/Pages/Top/TopCharacter";
-import Details from "../src/Stats-Anime/details";
-import Detailschar from "../src/Stats-Anime/details-char";
-import Listuser from "../src/Stats-Anime/list-user";
-import ScrollToTop from "../src/Stats-Anime/scrollTotop";
+import { AnimeDetailsMain } from "./Stats-Anime/Pages/Details/DetailsForAnime";
+import { CharacetrDetailsMain } from "./Stats-Anime/Pages/Details/DetailsForCharacter";
+
+import { MainListContainer } from "./Stats-Anime/Pages/UserList";
+import { ScrollToTop } from "./Stats-Anime/Components/ScrollToTop/ScrollToTop";
 import { About } from "./Stats-Anime/Pages/About";
-import { Errorpage } from "./Stats-Anime/error";
-import { SignupMain } from "./Stats-Anime/Signup";
+import { PageNotFound } from "./Stats-Anime/Components/PageNotFound/PageNotFound";
+import { UserAuthentication } from "./Stats-Anime/Pages/UserAuthentication";
 import { UserProfileMain } from "./Stats-Anime/user_profile";
 import { ReadOnlyProfileMain } from "./Stats-Anime/User_Profile_Read_Only";
 
@@ -20,7 +21,7 @@ function App() {
     <>
       <Router>
         <ScrollToTop />
-        <Header />
+        <ParentNavbar />
         <div className="inner-root-container">
           <Routes>
             <Route index path="/" element={<HomeMain />} />
@@ -36,22 +37,27 @@ function App() {
 
             <Route
               path="/useranimelist/:userID"
-              element={<Listuser header="anime list" switch_item="anime" />}
+              element={
+                <MainListContainer header="anime list" switch_item="anime" />
+              }
             />
 
             <Route
               path="/usercharacterlist/:userID"
               element={
-                <Listuser header="character list" switch_item="character" />
+                <MainListContainer
+                  header="character list"
+                  switch_item="character"
+                />
               }
             />
 
-            <Route path="anime/:id" element={<Details />} />
-            <Route path="character/:id" element={<Detailschar />} />
+            <Route path="anime/:id" element={<AnimeDetailsMain />} />
+            <Route path="character/:id" element={<CharacetrDetailsMain />} />
 
-            <Route path="userauth" element={<SignupMain />} />
+            <Route path="userauth" element={<UserAuthentication />} />
             {/* routing to non-existing path */}
-            <Route path="*" element={<Errorpage />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </Router>

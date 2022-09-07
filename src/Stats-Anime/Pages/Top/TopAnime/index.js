@@ -5,7 +5,7 @@ import { useQueries, useQueryClient } from "react-query";
 import axios from "axios";
 import { Spinner } from "../../../Components/LoadingSpinner";
 
-import { Errorpage } from "../../../error";
+import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
 import { StyledSection } from "../Components/StyledSection";
 import { StyledMainHeader } from "../Components/StyledMainHeader";
 
@@ -50,7 +50,7 @@ export function TopAnimeMain() {
       {results.some((item) => item.isFetching) ? (
         <Spinner />
       ) : results.some((item) => item.isError) ? (
-        <Errorpage />
+        <PageNotFound />
       ) : (
         <div className="container-topsection">
           <div className="section-1">
