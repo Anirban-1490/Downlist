@@ -319,6 +319,7 @@
   font-weight: lighter;
   color: white;
   transform: translateY(2em);
+  text-align: center;
 }
 .navlink {
   text-decoration: none;
