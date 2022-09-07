@@ -22,44 +22,43 @@ function App() {
       <Router>
         <ScrollToTop />
         <ParentNavbar />
-        <div className="inner-root-container">
-          <Routes>
-            <Route index path="/" element={<HomeMain />} />
 
-            <Route path="/topanime" element={<TopAnimeMain />} />
+        <Routes>
+          <Route index path="/" element={<HomeMain />} />
 
-            <Route path="/topcharacters" element={<TopacharMain />} />
+          <Route path="/topanime" element={<TopAnimeMain />} />
 
-            <Route path="/about" element={<About />} />
+          <Route path="/topcharacters" element={<TopacharMain />} />
 
-            <Route path="/user/:userID/view" element={<UserProfileMain />} />
-            <Route path="/user/:userID" element={<ReadOnlyProfileMain />} />
+          <Route path="/about" element={<About />} />
 
-            <Route
-              path="/useranimelist/:userID"
-              element={
-                <MainListContainer header="anime list" switch_item="anime" />
-              }
-            />
+          <Route path="/user/:userID/view" element={<UserProfileMain />} />
+          <Route path="/user/:userID" element={<ReadOnlyProfileMain />} />
 
-            <Route
-              path="/usercharacterlist/:userID"
-              element={
-                <MainListContainer
-                  header="character list"
-                  switch_item="character"
-                />
-              }
-            />
+          <Route
+            path="/useranimelist/:userID"
+            element={
+              <MainListContainer header="anime list" switch_item="anime" />
+            }
+          />
 
-            <Route path="anime/:id" element={<AnimeDetailsMain />} />
-            <Route path="character/:id" element={<CharacetrDetailsMain />} />
+          <Route
+            path="/usercharacterlist/:userID"
+            element={
+              <MainListContainer
+                header="character list"
+                switch_item="character"
+              />
+            }
+          />
 
-            <Route path="userauth" element={<UserAuthentication />} />
-            {/* routing to non-existing path */}
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </div>
+          <Route path="anime/:id" element={<AnimeDetailsMain />} />
+          <Route path="character/:id" element={<CharacetrDetailsMain />} />
+
+          <Route path="userauth" element={<UserAuthentication />} />
+          {/* routing to non-existing path */}
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </Router>
     </>
   );

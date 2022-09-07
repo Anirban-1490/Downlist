@@ -52,21 +52,23 @@ export function HomeMain() {
 
   return (
     <>
-      <div className="parent-wrapper">
-        <div
-          className="container1"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          ref={mydiv}
-        >
-          <Content />
+      <div className="inner-root-container">
+        <div className="parent-wrapper">
+          <div
+            className="container1"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            ref={mydiv}
+          >
+            <Content />
+          </div>
         </div>
+        <HomeHeader />
+        <HomeExtraInformation />
       </div>
-      <HomeHeader />
-      <HomeExtraInformation />
     </>
   );
 }
