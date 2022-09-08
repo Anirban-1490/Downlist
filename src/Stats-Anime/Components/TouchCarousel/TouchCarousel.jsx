@@ -10,29 +10,33 @@ import default_img from "../../logo/default-placeholder.png";
 
 export const TouchCarousel = (prop) => {
   const { items, switch_details } = prop;
-
+  console.log(items);
   return (
     <>
       <Swiper className="swiper" spaceBetween={10} slidesPerView={"auto"}>
         {items &&
           items.map((anime) => {
-            const { image_url, mal_id, title } = anime;
+            const {
+              image_url,
+              mal_id,
+              title,
+              name,
+              images: {
+                jpg: { image_url: newImageUrl },
+              },
+            } = anime;
             return (
               <SwiperSlide className="swiper-slide" key={mal_id}>
                 <div className="airing_container">
-                  {image_url ? (
-                    <img
-                      src={image_url}
-                      onError={(currentElement) =>
-                        (currentElement.target.src = default_img)
-                      }
-                      alt=""
-                    />
-                  ) : (
-                    ""
-                  )}
+                  <img
+                    src={image_url || newImageUrl}
+                    onError={(currentElement) =>
+                      (currentElement.target.src = default_img)
+                    }
+                    alt=""
+                  />
                   <div className="more">
-                    {title && <h3>{title}</h3>}
+                    {(title || name) && <h3>{title || name}</h3>}
                     <div className="see-more-container">
                       <Link
                         className="see-more"
