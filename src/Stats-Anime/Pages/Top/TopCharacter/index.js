@@ -4,7 +4,6 @@ import { useQueries, useQueryClient } from "react-query";
 import axios from "axios";
 import reduce from "awaity/reduce";
 import { Spinner } from "../../../Components/LoadingSpinner/index";
-import { useToplist } from "../Hooks/useTopList";
 import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
 import { StyledSection } from "../Components/StyledSection";
 import { StyledMainHeader } from "../Components/StyledMainHeader";
@@ -15,7 +14,6 @@ export function TopacharMain() {
   const client = useQueryClient();
   const token = localStorage.getItem("token");
   const user = client.getQueryData(["user", token]);
-  console.log(user?.userID);
   let tempyear = year;
   if (month < 6) {
     tempyear = year - 1;
@@ -31,49 +29,55 @@ export function TopacharMain() {
   };
 
   //* handler for fetching summer/fall top characters as API dosen't provide
-  const fetch_broad_request = async (url_init) => {
+  const fetchPopularCharacterBasedOnSeason = async (url) => {
     //*delay between each request
     const delay = (ms = 4000) => new Promise((r) => setTimeout(r, ms));
 
-    return await axios
-      .get(url_init)
-      .then(({ data: { data } }) => [...data].slice(0, 4))
-      .then((result_summer) => [...result_summer].slice(0, 4))
-      .then(async (summer_anime) => {
-        return await reduce(
-          summer_anime,
-          async (acc, anime) => {
-            const { mal_id } = anime;
-            await delay();
-            const value_charater_stuff = await axios
-              .get(`https://api.jikan.moe/v4/anime/${mal_id}/characters`)
-              .then(({ data: { data } }) => {
-                const anime_char_sum = [...data];
-                return anime_char_sum; //*return all summer character from sumer anime
-              })
-              .then((res_char_summer) => {
-                return res_char_summer.reduce((acc, char) => {
-                  const { role } = char;
-                  const { mal_id, name, images } = char.character;
+    const seasonalAnime = (await axios.get(url)).data?.data.slice(0, 4);
 
-                  //* return only the main character from summer/fall
-                  return role === "Main"
-                    ? [...acc, { mal_id, title: name, images }]
-                    : acc;
-                }, []);
-              })
-              .catch((err) => console.log(err));
+    return Promise.resolve(
+      reduce(
+        seasonalAnime,
+        async (acc, anime) => {
+          const { mal_id } = anime;
 
-            if (value_charater_stuff) {
-              acc.push(value_charater_stuff);
-            }
+          //* delay before starting this request
+          await delay();
 
-            return acc;
-          },
-          []
-        );
-      })
-      .then((result) => result);
+          //* get all characters of this anime
+          const charactersOfAnime = (
+            await axios.get(
+              `https://api.jikan.moe/v4/anime/${mal_id}/characters`
+            )
+          ).data?.data;
+
+          //* array of only main roled characters
+          const mainCharacters = await reduce(
+            charactersOfAnime,
+            async (accumulatedCharacters, { role, character }) => {
+              const { mal_id, name, images } = character;
+
+              //* if the character is a Main roled then put it in the accumulated array
+
+              if (role === "Main")
+                return [
+                  ...accumulatedCharacters,
+                  { mal_id, title: name, images },
+                ];
+              return accumulatedCharacters;
+            },
+            []
+          );
+
+          //* if the main roled characters array is not empty then put it in the accumulated array
+          if (mainCharacters.length > 0) {
+            acc.push(mainCharacters);
+          }
+          return acc;
+        },
+        []
+      )
+    );
   };
 
   const results = useQueries([
@@ -88,7 +92,7 @@ export function TopacharMain() {
     {
       queryKey: "summer_top_char",
       queryFn: () =>
-        fetch_broad_request(
+        fetchPopularCharacterBasedOnSeason(
           `https://api.jikan.moe/v4/seasons/${tempyear}/summer`
         ),
       refetchOnWindowFocus: false,
@@ -100,7 +104,7 @@ export function TopacharMain() {
     {
       queryKey: "fall_top_char",
       queryFn: () =>
-        fetch_broad_request(
+        fetchPopularCharacterBasedOnSeason(
           `https://api.jikan.moe/v4/seasons/${tempyear}/fall`
         ),
       refetchOnWindowFocus: false,
@@ -112,12 +116,9 @@ export function TopacharMain() {
     },
   ]);
 
-  console.log(results);
-  const [listitem, listcount] = useToplist("character");
-
   return (
     <>
-      {results.some((item) => item.isLoading) || listitem.length < listcount ? (
+      {results.some((item) => item.isLoading) ? (
         <Spinner />
       ) : results.some((item) => item.isError) ? (
         <PageNotFound />
@@ -207,9 +208,6 @@ export function TopacharMain() {
           </div>
         </div>
       )}
-      {results.some((item) => item.isLoading) || listitem.length < listcount
-        ? ""
-        : ""}
     </>
   );
 }
