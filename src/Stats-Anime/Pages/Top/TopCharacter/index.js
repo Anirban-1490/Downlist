@@ -25,7 +25,9 @@ export function TopacharMain() {
   }
 
   const fetchQuery = (url) => {
-    return axios.get(url).then((res) => [...res.data.top].slice(0, 16));
+    return axios.get(url).then(({ data: { data } }) => {
+      return [...data].slice(0, 16);
+    });
   };
 
   //* handler for fetching summer/fall top characters as API dosen't provide
@@ -35,7 +37,7 @@ export function TopacharMain() {
 
     return await axios
       .get(url_init)
-      .then((response) => response.data.anime)
+      .then(({ data: { data } }) => [...data].slice(0, 4))
       .then((result_summer) => [...result_summer].slice(0, 4))
       .then(async (summer_anime) => {
         return await reduce(
@@ -43,21 +45,20 @@ export function TopacharMain() {
           async (acc, anime) => {
             const { mal_id } = anime;
             await delay();
-            const value_charater_stuff = await fetch(
-              `https://api.jikan.moe/v3/anime/${mal_id}/characters_staff`
-            )
-              .then(async (res) => {
-                const result = await res.json();
-                const anime_char_sum = [...result.characters];
+            const value_charater_stuff = await axios
+              .get(`https://api.jikan.moe/v4/anime/${mal_id}/characters`)
+              .then(({ data: { data } }) => {
+                const anime_char_sum = [...data];
                 return anime_char_sum; //*return all summer character from sumer anime
               })
               .then((res_char_summer) => {
                 return res_char_summer.reduce((acc, char) => {
-                  const { mal_id, name, role, image_url } = char;
+                  const { role } = char;
+                  const { mal_id, name, images } = char.character;
 
                   //* return only the main character from summer/fall
                   return role === "Main"
-                    ? [...acc, { mal_id, title: name, image_url }]
+                    ? [...acc, { mal_id, title: name, images }]
                     : acc;
                 }, []);
               })
@@ -78,7 +79,7 @@ export function TopacharMain() {
   const results = useQueries([
     {
       queryKey: "top_char",
-      queryFn: () => fetchQuery("https://api.jikan.moe/v3/top/characters/1"),
+      queryFn: () => fetchQuery("https://api.jikan.moe/v4/top/characters"),
       refetchOnWindowFocus: false,
       staleTime: 4000,
       cacheTime: Infinity,
@@ -88,7 +89,7 @@ export function TopacharMain() {
       queryKey: "summer_top_char",
       queryFn: () =>
         fetch_broad_request(
-          `https://api.jikan.moe/v3/season/${tempyear}/summer`
+          `https://api.jikan.moe/v4/seasons/${tempyear}/summer`
         ),
       refetchOnWindowFocus: false,
       retryDelay: 2000,
@@ -99,7 +100,9 @@ export function TopacharMain() {
     {
       queryKey: "fall_top_char",
       queryFn: () =>
-        fetch_broad_request(`https://api.jikan.moe/v3/season/${tempyear}/fall`),
+        fetch_broad_request(
+          `https://api.jikan.moe/v4/seasons/${tempyear}/fall`
+        ),
       refetchOnWindowFocus: false,
       retry: 12,
       retryDelay: 2000,
@@ -109,6 +112,7 @@ export function TopacharMain() {
     },
   ]);
 
+  console.log(results);
   const [listitem, listcount] = useToplist("character");
 
   return (
