@@ -17,29 +17,33 @@ export function TopAnimeMain() {
   const client = useQueryClient();
   const token = localStorage.getItem("token");
   const user = client.getQueryData(["user", token]);
-
-  const fetchQuery = (url) => {
-    return axios.get(url).then((res) => [...res.data.top].slice(0, 16));
+  const delay = (ms = 3000) => new Promise((r) => setTimeout(r, ms));
+  const fetchQuery = async (url) => {
+    await delay();
+    return axios.get(url).then(({ data: { data } }) => [...data].slice(0, 16));
   };
 
   const results = useQueries([
     {
       queryKey: "upcoming_anime",
       queryFn: () =>
-        fetchQuery("https://api.jikan.moe/v3/top/anime/1/upcoming"),
+        fetchQuery("https://api.jikan.moe/v4/top/anime?filter=upcoming&page=1"),
       retry: false,
       refetchOnWindowFocus: false,
     },
     {
       queryKey: "popular_anime",
       queryFn: () =>
-        fetchQuery("https://api.jikan.moe/v3/top/anime/1/bypopularity"),
+        fetchQuery(
+          "https://api.jikan.moe/v4/top/anime?filter=bypopularity&page=1"
+        ),
       retry: false,
       refetchOnWindowFocus: false,
     },
     {
       queryKey: "airing_anime",
-      queryFn: () => fetchQuery("https://api.jikan.moe/v3/top/anime/1/airing"),
+      queryFn: () =>
+        fetchQuery("https://api.jikan.moe/v4/top/anime?filter=airing&page=1"),
       retry: false,
       refetchOnWindowFocus: false,
     },
@@ -112,7 +116,7 @@ export function TopAnimeMain() {
             </div>
           </div>
           <div className="section-4">
-            {results.every((item) => !item.isLoading) ? (
+            {!results.some((item) => item.isLoading) ? (
               <StyledListCarousel
                 text_={"Top anime from your list"}
                 switch_details={"anime"}

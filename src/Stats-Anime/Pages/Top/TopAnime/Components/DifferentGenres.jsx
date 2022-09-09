@@ -11,7 +11,7 @@ import { TouchCarousel } from "../../../../Components/TouchCarousel/TouchCarouse
 
 export const DifferentGenres = () => {
   const delay = (ms = 3000) => new Promise((r) => setTimeout(r, ms));
-  const [genre_id, setID] = react.useState(4);
+  const [genreId, setID] = react.useState(4);
 
   const options = [
     { genre_id: 1, name: "Action" },
@@ -25,16 +25,18 @@ export const DifferentGenres = () => {
     { genre_id: 24, name: "Sci Fi" },
   ];
 
-  const getResult = async (genre_id) => {
+  const getResult = async (genreId) => {
     await delay();
     return axios
-      .get(`https://api.jikan.moe/v3/genre/anime/${genre_id}/1`)
-      .then((res) => res.data.anime.slice(0, 16));
+      .get(
+        `https://api.jikan.moe/v4/anime?genres=${genreId}&order_by=members&sort=desc`
+      )
+      .then(({ data: { data } }) => data.slice(0, 16));
   };
 
   const { data, isLoading } = useQuery(
-    ["genre", genre_id],
-    () => getResult(genre_id),
+    ["genre", genreId],
+    () => getResult(genreId),
     {
       refetchIntervalInBackground: false,
       staleTime: 0,
