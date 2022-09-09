@@ -11,7 +11,7 @@ import default_img from "../../logo/default-placeholder.png";
 export const TouchCarousel = ({ items, switch_details }) => {
   return (
     <>
-      <Swiper className="swiper" spaceBetween={10} slidesPerView={"auto"}>
+      <Swiper className="swiper" spaceBetween={8} slidesPerView={"auto"}>
         {items &&
           items.map((anime) => {
             const {
