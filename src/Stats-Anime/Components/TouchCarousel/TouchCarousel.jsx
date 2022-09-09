@@ -8,9 +8,7 @@ import default_img from "../../logo/default-placeholder.png";
 
 //* image slider component
 
-export const TouchCarousel = (prop) => {
-  const { items, switch_details } = prop;
-  console.log(items);
+export const TouchCarousel = ({ items, switch_details }) => {
   return (
     <>
       <Swiper className="swiper" spaceBetween={10} slidesPerView={"auto"}>
@@ -24,6 +22,7 @@ export const TouchCarousel = (prop) => {
               images: {
                 jpg: { image_url: newImageUrl },
               },
+              type,
             } = anime;
             return (
               <SwiperSlide className="swiper-slide" key={mal_id}>
@@ -36,6 +35,7 @@ export const TouchCarousel = (prop) => {
                     alt=""
                   />
                   <div className="more">
+                    {type && <h5 className="type">{type}</h5>}
                     {(title || name) && <h3>{title || name}</h3>}
                     <div className="see-more-container">
                       <Link
