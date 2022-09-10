@@ -315,10 +315,20 @@ ion-icon {
   width: clamp(35vmax, 66vw, 80%);
 }
 .comment-box-container {
-  min-height: 18em;
+  min-height: 21em;
   width: 80%;
   margin: 0 auto;
-  /* margin-bottom: 9em; */
+}
+.comment-box-container .comments-login-text {
+  padding: 0.7em;
+  color: white;
+  text-align: center;
+  margin-bottom: 4em;
+}
+.comment-box-container .comments-login-text a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 2px solid yellow;
 }
 .comment-input-container {
   margin: 3.6em auto 7em auto;

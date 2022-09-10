@@ -1,4 +1,4 @@
-import react, { useState, useEffect, useMemo, useRef } from "react";
+import react, { useState, useRef } from "react";
 import { useQueryClient } from "react-query";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
@@ -137,7 +137,9 @@ export const CommentsBox = react.memo(({ user, malid }) => {
     <>
       <div className="comment-box-container">
         {!user ? (
-          <p className="comments-login-text">Please sign in to comment.</p>
+          <p className="comments-login-text">
+            Please {<Link to={"/userauth"}>sign in</Link>} to comment.
+          </p>
         ) : (
           <form className="comment-input-container" ref={formRef}>
             <input
