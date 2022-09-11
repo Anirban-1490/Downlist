@@ -74,21 +74,20 @@ ion-icon {
   display: flex;
   width: auto;
   height: auto;
-  margin-top: 2.7em;
+  margin-top: 8.7em;
   justify-content: center;
+  align-items: center;
   gap: 1em;
   flex-flow: wrap;
 }
 .inner-container .stats li {
   color: white;
-
   flex: 0 0 auto;
   text-align: center;
-  padding: 10px;
-  height: 40px;
   background: #314455;
-  border-radius: 20px;
   font-size: 0.94em;
+  padding: 0.45em 0.7em;
+  border-radius: 0.6em;
 }
 .inner-container .stats .add-to-list {
   background: transparent;
@@ -96,13 +95,16 @@ ion-icon {
 .inner-container .stats .add-to-list button {
   outline: none;
   border: none;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 0.42em 0.67em;
   background: #802bb1;
   color: white;
   cursor: pointer;
   font-size: 1em;
   transform: scale(1, 1);
+  border-radius: 0.44em;
+}
+.inner-container .stats .add-to-list button i {
+  margin-right: 0.4em;
 }
 @keyframes btnanime {
   25% {

@@ -219,12 +219,12 @@ export const CoreDetails = (prop) => {
                   "Loading..."
                 ) : itemadd ? (
                   <>
-                    <i className="fas fa-minus" style={{ margin: "0 3px" }}></i>
+                    <i className="fas fa-minus" ></i>
                     Remove from list
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-plus" style={{ margin: "0 3px" }}></i>
+                    <i className="fas fa-plus" ></i>
                     Add to list
                   </>
                 )}
