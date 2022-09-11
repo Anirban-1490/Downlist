@@ -4,16 +4,34 @@ import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { path } from "../../../../server-path";
 
-export const CoreDetails = (prop) => {
+export const CoreDetails = ({
+  animedetails,
+  animegenres,
+  stats,
+  malid,
+  switch_path,
+  switch_item,
+}) => {
+  const {
+    title,
+    title_english,
+    episodes,
+    score,
+    favorites,
+    synopsis,
+    aired,
+    status,
+    images: {
+      jpg: { image_url },
+    },
+  } = animedetails;
+
   const token = localStorage.getItem("token");
-  const { animedetails, animegenres, stats, malid } = prop.details;
-  const { fav, about, name_kenji, name, switch_item, switch_path } = prop;
   const [itemadd, setItemadd] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [seemorebtn, Setbtn] = useState(false);
 
   const btn = useRef();
-  let airedDetails = animedetails?.aired ? { ...animedetails.aired } : null;
 
   const navigate = useNavigate();
   const client = useQueryClient();
@@ -94,9 +112,9 @@ export const CoreDetails = (prop) => {
         else if (switch_item === "character") {
           const item = {
             malid,
-            img_url: animedetails.image_url,
-            title: name,
-            fav,
+            img_url: image_url,
+            title,
+            favorites,
             addedOn: new Date().toDateString(),
           };
 
@@ -109,7 +127,7 @@ export const CoreDetails = (prop) => {
             `${path.domain}user/${clientData?.userID}/profile/activity`,
             {
               actDone: "Added",
-              detail: name,
+              detail: title,
               doneAt: new Date(),
             }
           );
@@ -143,7 +161,7 @@ export const CoreDetails = (prop) => {
             `${path.domain}user/${clientData?.userID}/profile/activity`,
             {
               actDone: "Removed",
-              detail: name,
+              detail: title,
               doneAt: new Date(),
             }
           );
@@ -177,29 +195,27 @@ export const CoreDetails = (prop) => {
       <div className="inner-container">
         <div className="pic-header">
           <div className="pic-container">
-            <img src={animedetails?.image_url} alt="" />
+            <img src={image_url} alt="" />
           </div>
           <div className="title-container">
-            <h2 className="title">{name_kenji}</h2>
-            <p className="title-english">{name}</p>
+            <h2 className="title">{title}</h2>
+            <p className="title-english">{title_english}</p>
           </div>
         </div>
         <ul className="stats">
-          {animedetails?.episodes && (
+          {episodes && (
             <li>
               <i style={{ marginRight: "10px" }} className="fas fa-tv"></i>
-              {animedetails?.episodes}
+              {episodes}
             </li>
           )}
-          {animedetails?.score && (
-            <li style={{ color: `${color}` }}>{animedetails?.score}</li>
-          )}
+          {score && <li style={{ color: `${color}` }}>{score}</li>}
           <li>
             <i
               style={{ marginRight: "10px", color: "yellow" }}
               className="fas fa-star"
             ></i>
-            {fav}
+            {favorites}
           </li>
           <li className="add-to-list">
             <button
@@ -219,12 +235,12 @@ export const CoreDetails = (prop) => {
                   "Loading..."
                 ) : itemadd ? (
                   <>
-                    <i className="fas fa-minus" ></i>
+                    <i className="fas fa-minus"></i>
                     Remove from list
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-plus" ></i>
+                    <i className="fas fa-plus"></i>
                     Add to list
                   </>
                 )}
@@ -234,12 +250,12 @@ export const CoreDetails = (prop) => {
         </ul>
         <h4>Information</h4>
         <p className="description">
-          {about
-            ? !seemorebtn && about.length > 380
-              ? about.substr(0, 380).concat("...")
-              : about
+          {synopsis
+            ? !seemorebtn && synopsis.length > 380
+              ? synopsis.substr(0, 380).concat("...")
+              : synopsis
             : "No information available"}
-          {about && about.length > 380 ? (
+          {synopsis && synopsis.length > 380 ? (
             <p
               style={{
                 display: "inline",
@@ -252,7 +268,7 @@ export const CoreDetails = (prop) => {
             </p>
           ) : (
             ""
-          )}{" "}
+          )}
         </p>
         {animegenres && (
           <div>
@@ -265,12 +281,12 @@ export const CoreDetails = (prop) => {
             </ul>
           </div>
         )}
-        {airedDetails && (
+        {aired && (
           <div>
             <h4>Aired</h4>
             <div className="aired">
-              <p>{airedDetails.string}</p>
-              <p>{animedetails.status}</p>
+              <p>{aired.string}</p>
+              <p>{status}</p>
             </div>
           </div>
         )}

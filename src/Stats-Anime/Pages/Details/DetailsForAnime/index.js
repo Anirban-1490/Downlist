@@ -21,33 +21,32 @@ export const AnimeDetailsMain = () => {
   const { userProfileDetails } = useContext(Appcontext);
 
   //* details of that anime
-  const getDetails = (url) => axios.get(url).then((value) => value.data);
+  const getDetails = (url) =>
+    axios.get(url).then(({ data: { data } }) => ({ ...data }));
 
   //* get people reaction like favourites
   const getPeopleReaction = (url) =>
-    axios.get(url).then((result) => result.data);
+    axios.get(url).then(({ data: { data } }) => ({ ...data }));
   //* get all the characters in that anime
   const getAllCharacters = (url) =>
-    axios.get(url).then((res) => [...res.data.characters]);
+    axios.get(url).then(({ data: { data } }) => [...data]);
 
   const result = useQueries([
     {
       queryKey: ["details", id],
-      queryFn: () => getDetails(`https://api.jikan.moe/v3/anime/${malid}`),
+      queryFn: () => getDetails(`https://api.jikan.moe/v4/anime/${malid}/full`),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ["people_reaction", id],
       queryFn: () =>
-        getPeopleReaction(`https://api.jikan.moe/v3/anime/${malid}/stats`),
+        getPeopleReaction(`https://api.jikan.moe/v4/anime/${malid}/statistics`),
       refetchOnWindowFocus: false,
     },
     {
       queryKey: ["characters", id],
       queryFn: () =>
-        getAllCharacters(
-          `https://api.jikan.moe/v3/anime/${malid}/characters_staff`
-        ),
+        getAllCharacters(`https://api.jikan.moe/v4/anime/${malid}/characters`),
       refetchOnWindowFocus: false,
     },
   ]);
@@ -78,11 +77,7 @@ export const AnimeDetailsMain = () => {
           }}
         >
           <CoreDetails
-            details={details}
-            fav={result[0].data?.favorites}
-            about={result[0].data?.synopsis}
-            name={result[0].data?.title_english}
-            name_kenji={result[0].data?.title}
+            {...details}
             switch_item="anime"
             switch_path="topanime"
           />

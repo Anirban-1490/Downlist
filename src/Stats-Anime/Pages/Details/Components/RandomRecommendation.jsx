@@ -8,7 +8,7 @@ export const RandomRecommendations = ({ genres, path, malId }) => {
 
   const getRecommend = async (url) => {
     let randomAnime = [];
-    const { anime: arrayOfAnime } = (await axios.get(url)).data;
+    const { data: arrayOfAnime } = (await axios.get(url)).data;
 
     while (randomAnime.length < 14) {
       randomAnime.push(
@@ -24,7 +24,7 @@ export const RandomRecommendations = ({ genres, path, malId }) => {
     ["recommendations", malId],
     () =>
       getRecommend(
-        `https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`
+        `https://api.jikan.moe/v4/anime?genres=${randomGenre?.mal_id}&order_by=members&sort=desc`
       ),
     {
       refetchOnWindowFocus: false,
