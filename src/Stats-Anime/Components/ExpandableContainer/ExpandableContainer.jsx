@@ -65,42 +65,52 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
           ref={inner_character_container_handler}
         >
           {data &&
-            data.map((c) => {
-              const { name, mal_id, image_url, role, language, title } = c;
-              const itemName = name || title;
+            data.map(
+              ({
+                name,
+                mal_id,
+                images: {
+                  jpg: { image_url },
+                },
+                role,
+                language,
+                title,
+              }) => {
+                const itemName = name || title;
 
-              return (
-                <Link
-                  to={path ? path + `/${mal_id}` : ``}
-                  className="cards"
-                  key={mal_id}
-                >
-                  <div>
-                    <div className="img-container">
-                      {image_url ? <img src={image_url} alt="" /> : ""}
+                return (
+                  <Link
+                    to={path ? path + `/${mal_id}` : ``}
+                    className="cards"
+                    key={mal_id}
+                  >
+                    <div>
+                      <div className="img-container">
+                        {image_url ? <img src={image_url} alt="" /> : ""}
+                      </div>
+                      <div className="details-char">
+                        <h5
+                          style={
+                            title
+                              ? {
+                                  fontSize: "0.8em",
+                                  padding: "0 2%",
+                                  textAlign: "center",
+                                }
+                              : null
+                          }
+                        >
+                          {itemName.length <= 37
+                            ? itemName
+                            : itemName.substr(0, 37) + "..."}
+                        </h5>
+                        {(role || language) && <h5>{role || language}</h5>}
+                      </div>
                     </div>
-                    <div className="details-char">
-                      <h5
-                        style={
-                          title
-                            ? {
-                                fontSize: "0.8em",
-                                padding: "0 2%",
-                                textAlign: "center",
-                              }
-                            : null
-                        }
-                      >
-                        {itemName.length <= 37
-                          ? itemName
-                          : itemName.substr(0, 37) + "..."}
-                      </h5>
-                      {(role || language) && <h5>{role || language}</h5>}
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+                  </Link>
+                );
+              }
+            )}
         </div>
         <button
           type="button"
