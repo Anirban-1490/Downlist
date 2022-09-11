@@ -9,6 +9,7 @@ import { Spinner } from "../../../Components/LoadingSpinner";
 import { Appcontext } from "../../../context";
 import { CommentsBox } from "../Components/CommentsBox";
 import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
+import { RandomRecommendations } from "../Components/RandomRecommendation";
 import { Roles } from "../Components/Roles";
 import { CoreDetails } from "../Components/CoreDetails";
 //* component for anime details
@@ -52,8 +53,6 @@ export const AnimeDetailsMain = () => {
   ]);
 
   const genres = result[0].data?.genres;
-  const randomGenre =
-    genres && genres[Math.floor(Math.random() * 10) % genres.length];
 
   //*object for the metadeta of that anime
   const details = {
@@ -64,29 +63,6 @@ export const AnimeDetailsMain = () => {
   };
 
   //*get array of random anime recommendation
-
-  const getRecommend = async (url) => {
-    let randomAnime = [];
-    const { anime: arrayOfAnime } = (await axios.get(url)).data;
-
-    while (randomAnime.length < 14) {
-      randomAnime.push(
-        arrayOfAnime[Math.floor(Math.random() * 100) % arrayOfAnime.length]
-      );
-      randomAnime = [...new Set(randomAnime)];
-    }
-    return randomAnime;
-  };
-
-  //* fetch all the anime from a random genre with it's genre id
-  const { data } = useQuery(
-    ["recommendations", id],
-    () =>
-      getRecommend(
-        `https://api.jikan.moe/v3/genre/anime/${randomGenre.mal_id}`
-      ),
-    { refetchOnWindowFocus: false, enabled: !!genres }
-  );
 
   return (
     <>
@@ -125,7 +101,7 @@ export const AnimeDetailsMain = () => {
           >
             Characters
           </h4>
-          <Roles char={result[2].data} path={"/character"} />
+          <Roles data={result[2].data} path={"/character"} />
 
           {/* //* recommendations section */}
           <h4
@@ -140,7 +116,11 @@ export const AnimeDetailsMain = () => {
           >
             Recommended
           </h4>
-          <Roles char={data} path={"/anime"} />
+          <RandomRecommendations
+            genres={genres}
+            path={"/anime"}
+            malId={malid}
+          />
           <h4
             style={{
               color: "white",
