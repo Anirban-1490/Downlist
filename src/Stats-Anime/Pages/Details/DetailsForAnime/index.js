@@ -65,27 +65,21 @@ export const AnimeDetailsMain = () => {
 
   //*get array of random anime recommendation
 
-  const getRecommend = (url) => {
-    if (result[0].data) {
-      return axios.get(url).then((res) => {
-        let randomAnime = [];
-        while (randomAnime.length < 13) {
-          randomAnime.push(
-            res.data.anime[
-              Math.floor(Math.random() * 100) % res.data.anime.length
-            ]
-          );
+  const getRecommend = async (url) => {
+    let randomAnime = [];
+    const { anime: arrayOfAnime } = (await axios.get(url)).data;
 
-          randomAnime = [...new Set(randomAnime)];
-        }
-
-        return randomAnime;
-      });
+    while (randomAnime.length < 14) {
+      randomAnime.push(
+        arrayOfAnime[Math.floor(Math.random() * 100) % arrayOfAnime.length]
+      );
+      randomAnime = [...new Set(randomAnime)];
     }
+    return randomAnime;
   };
 
   //* fetch all the anime from a random genre with it's genre id
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["recommendations", id],
     () =>
       getRecommend(
@@ -96,7 +90,7 @@ export const AnimeDetailsMain = () => {
 
   return (
     <>
-      {result.some((item) => item.isLoading) && isLoading ? (
+      {result.some((item) => item.isLoading) ? (
         <Spinner />
       ) : result.some((item) => item.error) ? (
         <PageNotFound />
