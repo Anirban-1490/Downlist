@@ -1,12 +1,15 @@
-const {addComment,fetchComment,dislikeCommentHandler,likeCommentHandler} = require("../controller/comment_controller")
+const {
+  addComment,
+  fetchComment,
+  dislikeCommentHandler,
+  likeCommentHandler,
+} = require("../controller/comment_controller");
 
-const router = require("express").Router({mergeParams:true})
+const router = require("express").Router({ mergeParams: true });
 
+router.post("/user/:userID", addComment);
+router.get("/list", fetchComment);
+router.put("/like", likeCommentHandler);
+router.put("/dislike", dislikeCommentHandler);
 
-
-router.post("/user/:userID/add",addComment);
-router.get("/list",fetchComment);
-router.put("/like",likeCommentHandler)
-router.put("/dislike",dislikeCommentHandler)
-
-module.exports  = router;
+module.exports = router;
