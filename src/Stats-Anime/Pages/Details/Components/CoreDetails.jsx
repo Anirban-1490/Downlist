@@ -41,12 +41,12 @@ export const CoreDetails = ({
     if (switch_item === "character")
       return (
         await axios.get(
-          `${path.domain}user/${clientData?.userID}/viewsavedchar`
+          `${path.domain}user/${clientData?.userID}/list/character`
         )
       ).data;
 
     return (
-      await axios.get(`${path.domain}user/${clientData?.userID}/viewsavedanime`)
+      await axios.get(`${path.domain}user/${clientData?.userID}/list/anime`)
     ).data;
   }
 
@@ -95,7 +95,7 @@ export const CoreDetails = ({
           };
 
           await axios.post(
-            `${path.domain}user/${clientData?.userID}/addanime`,
+            `${path.domain}user/${clientData?.userID}/list/anime`,
             item
           );
 
@@ -119,7 +119,7 @@ export const CoreDetails = ({
           };
 
           await axios.post(
-            `${path.domain}user/${clientData?.userID}/addChar`,
+            `${path.domain}user/${clientData?.userID}/list/character`,
             item
           );
 
@@ -141,7 +141,7 @@ export const CoreDetails = ({
 
         if (switch_item === "anime") {
           await axios.delete(
-            `${path.domain}user/${clientData?.userID}/removeanime/${malid}`
+            `${path.domain}user/${clientData?.userID}/list/anime/${malid}`
           );
 
           await axios.put(
@@ -154,7 +154,7 @@ export const CoreDetails = ({
           );
         } else if (switch_item === "character") {
           await axios.delete(
-            `${path.domain}user/${clientData?.userID}/removechar/${malid}`
+            `${path.domain}user/${clientData?.userID}/list/character/${malid}`
           );
 
           await axios.put(

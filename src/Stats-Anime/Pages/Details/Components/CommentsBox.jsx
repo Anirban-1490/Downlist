@@ -67,7 +67,7 @@ export const CommentsBox = react.memo(({ user, malid }) => {
     try {
       const response = (
         await axios.post(
-          `${path.domain}${malid}/comment/user/${clientDetails?.userID}/add`,
+          `${path.domain}${malid}/comment/user/${clientDetails?.userID}`,
           formValueObject
         )
       ).data;

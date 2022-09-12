@@ -7,7 +7,7 @@ export function useList(switch_item, userID, sortBy = undefined) {
     if (switch_item === "character")
       return (
         await axios.get(
-          `${path.domain}user/${userID}/viewsavedchar?cursor=${pageParam}${
+          `${path.domain}user/${userID}/list/character?cursor=${pageParam}${
             sortBy ? `&sortby=${sortBy}` : ``
           }`
         )
@@ -15,7 +15,7 @@ export function useList(switch_item, userID, sortBy = undefined) {
 
     return (
       await axios.get(
-        `${path.domain}user/${userID}/viewsavedanime?cursor=${pageParam}${
+        `${path.domain}user/${userID}/list/anime?cursor=${pageParam}${
           sortBy ? `&sortby=${sortBy}` : ``
         }`
       )

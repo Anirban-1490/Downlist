@@ -33,7 +33,7 @@ export function ListCore(props) {
   ];
 
   const clearlist = async () => {
-    await axios.delete(`${path.domain}user/${userID}/removeall/${switch_item}`);
+    await axios.delete(`${path.domain}user/${userID}/list/all/${switch_item}`);
     window.location.reload();
   };
 
