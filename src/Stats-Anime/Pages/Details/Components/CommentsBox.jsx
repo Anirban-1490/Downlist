@@ -159,7 +159,6 @@ export const CommentsBox = react.memo(({ user, malid }) => {
             )}
             {isBtnVisable && (
               <button className="cancel" onClick={cancelBtnHandler}>
-                {" "}
                 Cancel
               </button>
             )}
@@ -213,9 +212,8 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                                   : `/user/${userID}/view`
                               }
                             >
-                              {" "}
                               {userName}
-                            </Link>{" "}
+                            </Link>
                             &bull;
                           </span>
                           <span>
