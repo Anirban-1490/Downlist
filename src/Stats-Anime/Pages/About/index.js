@@ -1,16 +1,15 @@
 import React from "react";
 import "./Styles/about-style.css";
-import logo from "../../logo/uplist-logo.jpg";
+import downlistBackground from "../../logo/DownlistLogoNew.svg";
 
 export const About = () => {
   return (
     <>
-      <h1 className="main-heading">About This Project</h1>
       <div className="banner">
-        <img src={logo} alt="" />
+        <img src={downlistBackground} alt="" />
       </div>
       <p className="main-details">
-        Uplist is a <b>Personal Project</b> of mine which is a place for{" "}
+        Downlist is a <b>Personal Project</b> of mine which is a place for{" "}
         <b>Anime Lovers</b>.
         <br /> It's a place where you can view any <strong>
           Upcoming
@@ -34,9 +33,9 @@ export const About = () => {
         </a>
       </h3>
       <h3>
-        More information on <i>Uplist</i> -{" "}
+        More information on <i>Downlist</i> -{" "}
         <a
-          href="https://github.com/Anirban-1490/Uplist"
+          href="https://github.com/Anirban-1490/Downlist"
           target={"_blank"}
           rel="noreferrer"
         >

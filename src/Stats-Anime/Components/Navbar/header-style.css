@@ -11,7 +11,6 @@
   position: relative;
   background-color: transparent;
   z-index: 10;
-
   transition: 300ms ease-out;
 }
 .nav-container.sticky {
@@ -33,25 +32,18 @@
 .logo-container {
   color: white;
   text-decoration: none;
-
   position: absolute;
   top: 50%;
-  left: 10%;
+  left: 4%;
   transform: translateY(-50%);
-}
-.logo-container .logo-text {
-  font-family: "Space Mono", monospace;
-  font-size: 1.7rem;
-  text-transform: uppercase;
+  width: 16em;
   transition: 300ms ease-out;
 }
-.logo-container .logo-text.sticky {
-  font-size: 1.34rem;
+.logo-container .logo {
+  width: 100%;
 }
-.logo-container .logo-text::first-letter {
-  font-size: 1.5em;
-  color: #4a0ffa;
-  text-shadow: 0 0 20px #4a0ffa, 0 0 40px #4a0ffa, 0 0 60px #4a0ffa;
+.logo-container.sticky {
+  width: 14em;
 }
 
 .nav-container ul {

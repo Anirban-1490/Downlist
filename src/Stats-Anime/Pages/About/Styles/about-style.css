@@ -1,75 +1,54 @@
-
-.main-heading
-{
-    color: white;
-    text-align: center;
-    margin: 150px 0 30px 0;
+.banner {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(27em, 58em, 85%);
+  margin: 7em 0 5em 0;
 }
-.banner
-{
-    
-    display: inline-block;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width:55%;
-    margin-bottom: 30px;
+.banner img {
+  width: 100%;
 }
-.banner img
-{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.main-details {
+  color: white;
+  text-align: center;
+  padding: 0 7%;
+  margin-bottom: 60px;
+  line-height: 30px;
 }
-.main-details
-{
-    color: white;
-    text-align: center;
-    padding: 0 7%;
-    margin-bottom: 60px;
-    line-height: 30px;
+strong {
+  color: rgb(250, 149, 132);
 }
-strong
-{
-    color: rgb(250, 149, 132);
+b {
+  color: #f2aa4cff;
 }
-b
-{
-    color: #F2AA4CFF;
-}
-h3
-{
-    color: white;
-    text-align: center;
-    padding: 0 4%;
-    line-height: 30px;
+h3 {
+  color: white;
+  text-align: center;
+  padding: 0 4%;
+  line-height: 30px;
 }
 
-h3 a
-{
-    color: yellow;
-    text-decoration: none;
+h3 a {
+  color: yellow;
+  text-decoration: none;
 }
-.connect
-{
-   margin: 50px 0 30px 0;
+.connect {
+  margin: 50px 0 30px 0;
 }
-.social
-{
-
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    gap: 20px;
-    list-style-type: none;
+.social {
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  gap: 20px;
+  list-style-type: none;
+  /* margin-bottom: 5em; */
 }
-.social a
-{
-   text-decoration: none;
+.social a {
+  text-decoration: none;
 }
-.social i
-{
-    color: white;
-    cursor: pointer;
-    font-size: 1.5em;
+.social i {
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
 }

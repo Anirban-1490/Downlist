@@ -2,6 +2,7 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { Appcontext } from "../../../context";
 
 import { Link } from "react-router-dom";
+import downlistLogo from "../../../logo/DownlistLogoNew.svg";
 
 export function Navbar({ data, signoutHandler }) {
   const { ishamclick, toggle } = useContext(Appcontext);
@@ -112,8 +113,8 @@ export function Navbar({ data, signoutHandler }) {
         <div
           className={`nav-scroll-background ${isScrolling ? `scrolling` : ``}`}
         ></div>
-        <Link to="/" className="logo-container">
-          <h3 className={`logo-text ${isScrolling ? `sticky` : ``}`}>Uplist</h3>
+        <Link to="/" className={`logo-container ${isScrolling && `sticky`}`}>
+          <img src={downlistLogo} className="logo" alt="downlistlogo" />
         </Link>
         <ul ref={ulRef}>
           <nav onClick={bottomBorderHandler}>
