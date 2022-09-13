@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/Anirban-1490/Uplist/blob/master/src/Stats-Anime/logo/uplist-logo.jpg"></a>
+<img src="https://github.com/Anirban-1490/Downlist/blob/master/src/Stats-Anime/logo/DownlistBackground.svg"></a>
 </p>
 
 <p align="center">
@@ -15,58 +15,68 @@
    
 </p> 
 
-# Uplist
+<br>
+<h1 align="center">DOWNLIST</h1>
 
-Uplist is my personal project which is basically a anime site for anime lovers.
-## You can view Upcoming anime or anime that are currently Airing 
-or
-## Check on your favourite badass Character
+<h3 align="center">Downlist is a Love Letter to Anime fans.</h3>
 
-This project is done by using 
-## <a href ="https://github.com/jikan-me/jikan">Jikan</a>
-
-Note : - Currently this project is in Frontend and there is NO backend being done by me
-(after learning some Backend i will update this project)
-
-## Tech stacks ---------
-   ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-   ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-   ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-   ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
-   ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-
-## 3rd party Library --------
-   ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+---
+ - view `Upcoming Anime` or anime that are `Currently Airing` and much More 
+ 
+ - view your `Favourite Character` or meet some `New` ones and much More 
+ 
+ - Add your favourite anime to your `Personal List`
+ 
+ - `Comment` your thoughts , `Follow` other users , Create your `Own` profile
+ 
+    & much more
+ 
+ 
+ <br>
+ 
+ <br>
  
 
-  React - query
-  
-  React - intersectionObserver
-  
-  Awaity
-  
-  Axios
-  
-  Vanta.js
-  
-  Swiper.js
+<h3 align="center">This project is done using <a align="center" href ="https://github.com/jikan-me/jikan">Jikan API</a></h3> 
 
+<br>
 
-## Hosting -------
-![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
+----
+<h2 align="center">Some Tech Stacks</h2>
 
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
+    <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+    <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" />
+    <img src="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white" />
+    <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" />
+    <img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" />
+    <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" />
+    <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" />
+    <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" />
+    <img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens" />
+    <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" />
+    <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" />
+    <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" />
+    <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" />
+    <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" />
+  </a>
+</p>
+   
+<h3 align="center"> & more </h3>
 
-
-## Version Control --------
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+<br>
 
 ## Want to Contribute ?
 
+   ```
    1. Create a issue in here
    2. Clone/Fork this project
    3. Work on your code
    4. Make PR
+   ```
 
-
-# <p align="center">Give this project a Star :)</p>
+ <br>
+ 
+ <h2 align="center">Give this project a Star :)</h2>
