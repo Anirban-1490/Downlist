@@ -13,7 +13,6 @@ export function Navbar({ data, signoutHandler }) {
   const userbtn = useRef(null);
   const borderRef = useRef(null);
   const ulRef = useRef(null);
-  const navParentRef = useRef(null);
 
   const toggelnav = () => {
     [...document.getElementsByClassName("parts")].forEach((ele) =>
