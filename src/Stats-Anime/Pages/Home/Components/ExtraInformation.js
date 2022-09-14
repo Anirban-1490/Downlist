@@ -47,11 +47,11 @@ export function HomeExtraInformation() {
             <h3>Open to all</h3>
             <p>
               <a
-                href="https://github.com/Anirban-1490/Uplist"
+                href="https://github.com/Anirban-1490/Downlist.git"
                 target={"_blank"}
                 rel="noreferrer"
               >
-                Uplist
+                Downlist
               </a>
               is a open-source project, meaning anyone can contribute their new
               ideas.
