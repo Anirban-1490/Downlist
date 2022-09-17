@@ -49,7 +49,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: translateY(-10px) scale(0.48) !important;
+  translate: 0 -10px;
+
   gap: 0.4em;
 }
 
