@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useReducer, useRef, useState, useEffect } from "react";
+import { useReducer, useRef, useState } from "react";
 import { reducerForSearchResult } from "../../../Reducer/reducer";
 import { Loading } from "../Helper/LoadingText";
+import { useScroll } from "../../../Hooks/useScroll";
 
-export function Content() {
-  const [opacity, setOpacity] = useState(1);
-
+export function Content({ isMotionEnabled }) {
   //*set up a canceltoken
   const [cancel, setcancel] = useState(null);
 
@@ -67,32 +66,36 @@ export function Content() {
     }
   };
 
-  useEffect(() => {
-    const scrollHandler = (e) => {
+  function getOpacity() {
+    let op = 1;
+    if (!isMotionEnabled) {
       const offsetFromTop =
         window.scrollY +
-        mainContainerRef.current.getBoundingClientRect().top -
+        mainContainerRef.current?.getBoundingClientRect().top -
         150;
 
-      const heightOfElement = mainContainerRef.current.offsetHeight;
-      const scrollToTop = document.documentElement.scrollTop;
+      const heightOfElement = mainContainerRef.current?.offsetHeight;
+      const scrollToTop = document.documentElement?.scrollTop;
 
       if (scrollToTop > offsetFromTop) {
-        const op = 1 - (scrollToTop - offsetFromTop) / heightOfElement;
-        setOpacity(op >= 0 ? op : 0);
+        op = 1 - (scrollToTop - offsetFromTop) / heightOfElement;
       }
-    };
-    window.addEventListener("scroll", scrollHandler);
+    }
+    return op >= 0 ? op : 0;
+  }
 
-    return () => window.removeEventListener("scroll", scrollHandler);
-  });
+  //* subscribing to external api
+  const opacity = useScroll(getOpacity);
 
   return (
     <>
       <div
         className="main-container"
         ref={mainContainerRef}
-        style={{ opacity: `${opacity}` }}
+        style={{
+          opacity,
+          scale: `${!isMotionEnabled ? `0.48` : ``}`,
+        }}
       >
         <h2 className="title1" ref={mainheader}>
           <span>S</span>earch an <span>A</span>nime

@@ -3,11 +3,11 @@ import { Appcontext } from "../../../context";
 
 import { Link } from "react-router-dom";
 import downlistLogo from "../../../logo/DownlistLogoNew.svg";
+import { useScroll } from "../../../Hooks/useScroll";
 
 export function Navbar({ data, signoutHandler }) {
   const { ishamclick, toggle } = useContext(Appcontext);
   const [isexpand, setIsexpand] = useState(false);
-  const [isScrolling, setScrolling] = useState(false);
   const path = window.location.pathname;
   const refdropmenu = useRef(null);
   const userbtn = useRef(null);
@@ -86,18 +86,19 @@ export function Navbar({ data, signoutHandler }) {
 
   useEffect(() => {
     //* a scroll event handler to let the sticky navbar have a background color change
-    const scrollHandler = (e) => {
-      if (window.scrollY > 0) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
+    const scrollHandler = (e) => {};
     window.addEventListener("scroll", scrollHandler);
 
     //* remove the event listner on unmount
     return () => window.removeEventListener("scroll", scrollHandler);
   });
+
+  function getScrollStatus() {
+    if (window.scrollY > 0) return true;
+    return false;
+  }
+
+  const isScrolling = useScroll(getScrollStatus);
   const bottomBorderHandler = (e) => {
     const index = [
       ...e.target.parentElement.parentElement.childNodes,
