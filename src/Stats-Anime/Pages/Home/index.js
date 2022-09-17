@@ -16,6 +16,15 @@ export function HomeMain() {
 
   const [parallaxEffect, setParallaxEffect] = useState();
 
+  const isMotionEnabled = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (isMotionEnabled) {
+    console.log("rrr", isMotionEnabled);
+  } else {
+    console.log("no");
+  }
+
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(
@@ -36,8 +45,7 @@ export function HomeMain() {
   }, [vantaEffect]);
 
   useEffect(() => {
-    console.log(document.querySelector(".vanta-canvas"));
-    if (!parallaxEffect) {
+    if (!parallaxEffect && !isMotionEnabled) {
       const instance = new simpleParallax(mydiv.current, {
         scale: 2.1,
         orientation: "down",
@@ -48,7 +56,7 @@ export function HomeMain() {
     return () => {
       parallaxEffect?.destroy();
     };
-  }, [parallaxEffect]);
+  }, [parallaxEffect, isMotionEnabled]);
 
   return (
     <>
@@ -63,7 +71,7 @@ export function HomeMain() {
             }}
             ref={mydiv}
           >
-            <Content />
+            <Content isMotionEnabled={isMotionEnabled} />
           </div>
         </div>
         <HomeHeader />
