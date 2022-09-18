@@ -84,15 +84,6 @@ export function Navbar({ data, signoutHandler }) {
     }
   });
 
-  useEffect(() => {
-    //* a scroll event handler to let the sticky navbar have a background color change
-    const scrollHandler = (e) => {};
-    window.addEventListener("scroll", scrollHandler);
-
-    //* remove the event listner on unmount
-    return () => window.removeEventListener("scroll", scrollHandler);
-  });
-
   function getScrollStatus() {
     if (window.scrollY > 0) return true;
     return false;
