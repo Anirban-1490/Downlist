@@ -19,11 +19,6 @@ export function HomeMain() {
   const isMotionEnabled = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  if (isMotionEnabled) {
-    console.log("rrr", isMotionEnabled);
-  } else {
-    console.log("no");
-  }
 
   useEffect(() => {
     if (!vantaEffect) {
