@@ -13,8 +13,11 @@
   color: white;
   text-align: center;
   padding: 0 7%;
-  margin-bottom: 60px;
+
   line-height: 30px;
+
+  max-width: 60em;
+  margin: 0 auto 1em auto;
 }
 strong {
   color: rgb(250, 149, 132);
