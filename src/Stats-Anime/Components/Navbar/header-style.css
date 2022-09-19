@@ -48,24 +48,24 @@
 
 .nav-container ul {
   color: #d1d7e0;
-  width: 400px;
+  width: auto;
   position: absolute;
-  right: 12%;
+  right: 12em;
   top: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 100%;
-  gap: 3.4em;
+  gap: 3em;
 }
 .bottom-border {
   background: rgb(255, 255, 11);
-  width: 5em;
-  height: 0.2em;
+
+  height: 0.2rem;
   position: absolute;
   bottom: 0;
   display: none;
   transition: left 400ms ease;
+  left: 0;
 }
 .nav-container ul nav {
   position: relative;
@@ -74,6 +74,8 @@
 .nav-container ul nav .link {
   text-decoration: none;
   color: #d1d7e0;
+  /* font-display: swap; */
+  font-family: "Inter", sans-serif !important;
 }
 
 .nav-container ul nav:hover .link {
@@ -102,13 +104,13 @@
 
   color: white;
   text-align: center;
-  font-size: 1.05em;
+  font-size: 0.95em;
   z-index: 2;
-  padding: 0.3em 0.75em;
+  padding: 0.35em 0.75em;
   text-decoration: none;
   background: rgba(244, 200, 117, 0.135);
   border-radius: 0.2em;
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif !important;
   transition: background 300ms ease;
 }
 .signup:hover {
