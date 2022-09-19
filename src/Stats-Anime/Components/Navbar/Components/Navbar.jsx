@@ -1,4 +1,10 @@
-import { useState, useRef, useContext, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import { Appcontext } from "../../../context";
 
 import { Link } from "react-router-dom";
@@ -23,22 +29,17 @@ export function Navbar({ data, signoutHandler }) {
 
   //*get the position to move from left
   function getLeft(index, parentEle, currentEle) {
-    var i = index;
-    var totaLWidth = 0;
-    while (i > 0) {
-      totaLWidth += parentEle.childNodes[i].clientWidth;
-      i--;
-    }
-
-    const left = 54.4 * index + totaLWidth + 2 + 42 * (index - 1);
+    console.log(currentEle.offsetLeft);
+    borderRef.current.style.left = `${currentEle.offsetLeft}px`;
+    borderRef.current.style.width = `${
+      currentEle.getBoundingClientRect().width + 4
+    }px`;
     borderRef.current.style.display = "block";
-    borderRef.current.style.left = `${index === 0 ? 42 : left}px`;
-    borderRef.current.style.width = `${currentEle.clientWidth}px`;
   }
 
   useEffect(() => {
     //*check for any path match
-    const isMatch = [...ulRef.current.childNodes].some((node) => {
+    const isMatch = [...ulRef.current.children].some((node) => {
       if (node.nodeName === "NAV") {
         if (node.children[0].pathname === path) {
           return true;
@@ -51,7 +52,7 @@ export function Navbar({ data, signoutHandler }) {
 
     //* if atleast one then show the bottom border
     if (isMatch) {
-      [...ulRef.current.childNodes].forEach((node, index) => {
+      [...ulRef.current.children].forEach((node, index) => {
         if (node.nodeName === "NAV") {
           if (node.children[0].pathname === path) {
             getLeft(index, ulRef.current, node);
