@@ -34,9 +34,9 @@
   text-decoration: none;
   position: absolute;
   top: 50%;
-  left: 4%;
+  left: 1.5em;
   transform: translateY(-50%);
-  width: 16em;
+  width: 13em;
   transition: 300ms ease-out;
 }
 .logo-container .logo {
@@ -74,7 +74,6 @@
 .nav-container ul nav .link {
   text-decoration: none;
   color: #d1d7e0;
-  /* font-display: swap; */
   font-family: "Inter", sans-serif !important;
 }
 
@@ -87,11 +86,8 @@
   right: 20px;
   top: 50%;
   width: 30px;
-  height: 30px;
-
   transform: translate(0, -50%);
   color: white;
-
   font-size: 1.6rem;
   opacity: 0;
 }
