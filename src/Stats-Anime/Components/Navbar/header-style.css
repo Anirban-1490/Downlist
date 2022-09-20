@@ -255,7 +255,7 @@
 }
 @keyframes anime-parts-color {
   100% {
-    background: rgba(143, 52, 228, 0.864);
+    background: #8f34e4;
   }
 }
 @keyframes anime-parts {
@@ -294,7 +294,18 @@
   top: 50%;
   transform: translateY(-50%);
   min-height: 65%;
-  transition: visibility 1s ease 0.55s;
+  transition: visibility 1s linear;
+}
+@keyframes visibility {
+  0% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+.smallnav-nav-container.active {
+  animation: visibility 1s linear 0.4s 1 forwards;
 }
 .smallnav-nav-container .smallnav-nav {
   width: 85%;
@@ -363,7 +374,7 @@
   color: orange;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 740px) {
   .nav-container ul {
     display: none;
   }
