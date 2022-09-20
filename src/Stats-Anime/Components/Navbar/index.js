@@ -8,9 +8,12 @@ import { useQuery } from "react-query";
 import { useAuth } from "../../Feature/Authorize/Authorize";
 import { path } from "../../../server-path";
 import { Navbar } from "./Components/Navbar";
+import { useWindowResize } from "../../Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
 
 export function ParentNavbar() {
+  const innerWidth = useWindowResize();
+
   const userData = useAuth(true); //* custom hook for checking if user logged in or not
 
   useLocation(); //* used to rerender the component if we hit back button to come here
@@ -48,15 +51,20 @@ export function ParentNavbar() {
 
   return (
     <>
-      <MobileNavbar
-        data={userData && { ...userData, ...data?.data.user }}
-        signoutHandler={signoutHandler}
-      />
+      {innerWidth <= 740 ? (
+        <MobileNavbar
+          data={userData && { ...userData, ...data?.data.user }}
+          signoutHandler={signoutHandler}
+        />
+      ) : (
+        ""
+      )}
 
       {
         <Navbar
           data={userData && { ...userData, ...data?.data.user }}
           signoutHandler={signoutHandler}
+          windowWidth={innerWidth}
         />
       }
     </>
