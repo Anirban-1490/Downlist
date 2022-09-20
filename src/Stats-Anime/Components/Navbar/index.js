@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import "./header-style.css";
 import { useState, useRef, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -12,20 +12,27 @@ import { useWindowResize } from "../../Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
 
 export function ParentNavbar() {
+  const [isHamClicked, setHamClicked] = useState(false);
   const innerWidth = useWindowResize();
 
   const userData = useAuth(true); //* custom hook for checking if user logged in or not
-
   useLocation(); //* used to rerender the component if we hit back button to come here
-
   const { changeUserData, changeUserProfileDetails } = useContext(Appcontext);
   changeUserData(userData);
 
-  const token = localStorage.getItem("token");
-  function fetchUserProfile() {
-    return axios.get(`${path.domain}user/${userData.userID}/profile/view`);
-  }
+  const isSmallScreenWidth = innerWidth > 740 ? false : true;
+  useMemo(() => {
+    if (!isSmallScreenWidth) {
+      setHamClicked(false);
+    }
+  }, [isSmallScreenWidth]);
 
+  const token = localStorage.getItem("token");
+  async function fetchUserProfile() {
+    return (
+      await axios.get(`${path.domain}user/${userData.userID}/profile/view`)
+    ).data;
+  }
   const { data } = useQuery(["profile", token], fetchUserProfile, {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -33,13 +40,13 @@ export function ParentNavbar() {
     enabled: !!userData,
     onSettled: (data, err) => {
       if (err) return console.log(err);
-      console.log(data);
+
       changeUserProfileDetails(data); //*store the data in the context
       return data.data.user.image;
     },
   });
 
-  const signoutHandler = () => {
+  const signoutHandler = useCallback(() => {
     localStorage.removeItem("token");
     if (window.location.pathname !== "/") {
       window.location.replace("/");
@@ -47,26 +54,25 @@ export function ParentNavbar() {
       return;
     }
     window.location.reload();
-  };
+  }, []);
+
+  const props = useMemo(
+    () => ({
+      signoutHandler,
+      setHamClicked,
+      isHamClicked,
+      data: userData && { ...userData, ...data?.user },
+    }),
+    [setHamClicked, isHamClicked, signoutHandler, userData, data?.user]
+  );
 
   return (
     <>
-      {innerWidth <= 740 ? (
-        <MobileNavbar
-          data={userData && { ...userData, ...data?.data.user }}
-          signoutHandler={signoutHandler}
-        />
-      ) : (
-        ""
-      )}
+      {isSmallScreenWidth ? <MobileNavbar {...props} /> : ""}
 
-      {
-        <Navbar
-          data={userData && { ...userData, ...data?.data.user }}
-          signoutHandler={signoutHandler}
-          windowWidth={innerWidth}
-        />
-      }
+      {useMemo(() => {
+        return <>{<Navbar {...{ ...props, isSmallScreenWidth }} />}</>;
+      }, [isSmallScreenWidth, props])}
     </>
   );
 }
