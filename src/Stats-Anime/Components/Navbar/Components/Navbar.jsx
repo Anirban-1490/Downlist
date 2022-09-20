@@ -1,17 +1,11 @@
-import {
-  useState,
-  useRef,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import { useState, useRef, useContext, useLayoutEffect } from "react";
 import { Appcontext } from "../../../context";
 
 import { Link } from "react-router-dom";
 import downlistLogo from "../../../logo/DownlistLogoNew.svg";
 import { useScroll } from "../../../Hooks/useScroll";
 
-export function Navbar({ data, signoutHandler }) {
+export function Navbar({ data, signoutHandler, windowWidth }) {
   const { ishamclick, toggle } = useContext(Appcontext);
   const [isexpand, setIsexpand] = useState(false);
   const path = window.location.pathname;
@@ -27,43 +21,35 @@ export function Navbar({ data, signoutHandler }) {
     toggle(true);
   };
 
-  //*get the position to move from left
-  function getLeft(index, parentEle, currentEle) {
-    console.log(currentEle.offsetLeft);
-    borderRef.current.style.left = `${currentEle.offsetLeft}px`;
-    borderRef.current.style.width = `${
-      currentEle.getBoundingClientRect().width + 4
-    }px`;
-    borderRef.current.style.display = "block";
-  }
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     //*check for any path match
-    const isMatch = [...ulRef.current.children].some((node) => {
-      if (node.nodeName === "NAV") {
-        if (node.children[0].pathname === path) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      return false;
-    });
-
-    //* if atleast one then show the bottom border
-    if (isMatch) {
-      [...ulRef.current.children].forEach((node, index) => {
+    if (windowWidth > 740) {
+      const isMatch = [...ulRef.current.children].some((node) => {
         if (node.nodeName === "NAV") {
           if (node.children[0].pathname === path) {
-            getLeft(index, ulRef.current, node);
+            return true;
+          } else {
+            return false;
           }
         }
+        return false;
       });
-    } else {
-      //* else just hide it
-      borderRef.current.style.display = "none";
+
+      //* if atleast one then show the bottom border
+      if (isMatch) {
+        [...ulRef.current.children].forEach((node, index) => {
+          if (node.nodeName === "NAV") {
+            if (node.children[0].pathname === path) {
+              getLeft(index, ulRef.current, node);
+            }
+          }
+        });
+      } else {
+        //* else just hide it
+        borderRef.current.style.display = "none";
+      }
     }
-  }, [path]);
+  }, [path, windowWidth]);
 
   //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened
 
@@ -91,6 +77,16 @@ export function Navbar({ data, signoutHandler }) {
   }
 
   const isScrolling = useScroll(getScrollStatus);
+
+  //*get the position to move from left
+  function getLeft(index, parentEle, currentEle) {
+    borderRef.current.style.left = `${currentEle.offsetLeft}px`;
+    borderRef.current.style.width = `${
+      currentEle.getBoundingClientRect().width + 4
+    }px`;
+    borderRef.current.style.display = "block";
+  }
+
   const bottomBorderHandler = (e) => {
     const index = [
       ...e.target.parentElement.parentElement.childNodes,
@@ -108,56 +104,61 @@ export function Navbar({ data, signoutHandler }) {
         <Link to="/" className={`logo-container ${isScrolling && `sticky`}`}>
           <img src={downlistLogo} className="logo" alt="downlistlogo" />
         </Link>
-        <ul ref={ulRef}>
-          <nav onClick={bottomBorderHandler}>
-            <Link className="link" to="/topanime">
-              Anime
-            </Link>
-          </nav>
-          <nav onClick={bottomBorderHandler}>
-            <Link className="link" to="/topcharacters">
-              Characters
-            </Link>
-          </nav>
-          <nav onClick={bottomBorderHandler}>
-            <Link className="link" to="/about">
-              About
-            </Link>
-          </nav>
-          <div className="bottom-border" ref={borderRef}></div>
-        </ul>
-        {data ? (
-          <div className="user" ref={userbtn}>
-            <div className="profile-img-container">
-              <img src={data.image} alt="" />
-            </div>
-            <div className="yourlist" ref={refdropmenu}>
-              <h4 className="user-name">
-                HI, <br />
-                {data.name}
-              </h4>
-              {data.status && <h5 className="user-status">{data.status}</h5>}
-              <Link to={`user/${data.userID}/view`}>
-                <button className="your-anime">Profile</button>
+        {windowWidth > 740 && (
+          <>
+            <ul ref={ulRef}>
+              <nav onClick={bottomBorderHandler}>
+                <Link className="link" to="/topanime">
+                  Anime
+                </Link>
+              </nav>
+              <nav onClick={bottomBorderHandler}>
+                <Link className="link" to="/topcharacters">
+                  Characters
+                </Link>
+              </nav>
+              <nav onClick={bottomBorderHandler}>
+                <Link className="link" to="/about">
+                  About
+                </Link>
+              </nav>
+              <div className="bottom-border" ref={borderRef}></div>
+            </ul>
+            {data ? (
+              <div className="user" ref={userbtn}>
+                <div className="profile-img-container">
+                  <img src={data.image} alt="" />
+                </div>
+                <div className="yourlist" ref={refdropmenu}>
+                  <h4 className="user-name">
+                    HI, <br />
+                    {data.name}
+                  </h4>
+                  {data.status && (
+                    <h5 className="user-status">{data.status}</h5>
+                  )}
+                  <Link to={`user/${data.userID}/view`}>
+                    <button className="your-anime">Profile</button>
+                  </Link>
+                  <Link to={`useranimelist/${data.userID}`}>
+                    <button className="your-anime">Anime list</button>
+                  </Link>
+                  <Link to={`usercharacterlist/${data.userID}`}>
+                    <button className="your-anime">Character list</button>
+                  </Link>
+                  <button className="sign-out" onClick={signoutHandler}>
+                    <p>Sign out</p>
+                    <ion-icon name="exit-outline"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Link to="userauth" className="signup">
+                Sign in
               </Link>
-              <Link to={`useranimelist/${data.userID}`}>
-                <button className="your-anime">Anime list</button>
-              </Link>
-              <Link to={`usercharacterlist/${data.userID}`}>
-                <button className="your-anime">Character list</button>
-              </Link>
-              <button className="sign-out" onClick={signoutHandler}>
-                <p>Sign out</p>
-                <ion-icon name="exit-outline"></ion-icon>
-              </button>
-            </div>
-          </div>
-        ) : (
-          <Link to="userauth" className="signup">
-            Sign in
-          </Link>
+            )}
+          </>
         )}
-
         <i
           className={`fas fa-bars menutoggle ${
             ishamclick ? "toggle-style-ham" : ""
