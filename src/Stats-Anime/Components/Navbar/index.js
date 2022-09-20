@@ -14,9 +14,9 @@ import { MobileNavbar } from "./Components/MobileNavbar";
 export function ParentNavbar() {
   const [isHamClicked, setHamClicked] = useState(false);
   const innerWidth = useWindowResize();
-
+  console.log("hey");
   const userData = useAuth(true); //* custom hook for checking if user logged in or not
-  useLocation(); //* used to rerender the component if we hit back button to come here
+  const { pathname } = useLocation(); //* used to rerender the component if we hit back button to come here
   const { changeUserData, changeUserProfileDetails } = useContext(Appcontext);
   changeUserData(userData);
 
@@ -71,8 +71,20 @@ export function ParentNavbar() {
       {isSmallScreenWidth ? <MobileNavbar {...props} /> : ""}
 
       {useMemo(() => {
-        return <>{<Navbar {...{ ...props, isSmallScreenWidth }} />}</>;
-      }, [isSmallScreenWidth, props])}
+        return (
+          <>
+            {
+              <Navbar
+                {...{
+                  ...props,
+                  isSmallScreenWidth,
+                  path: pathname,
+                }}
+              />
+            }
+          </>
+        );
+      }, [isSmallScreenWidth, props, pathname])}
     </>
   );
 }
