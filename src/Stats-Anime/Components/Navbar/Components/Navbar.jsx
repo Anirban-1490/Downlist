@@ -10,9 +10,10 @@ export const Navbar = ({
   isSmallScreenWidth,
   isHamClicked,
   setHamClicked,
+  path,
 }) => {
   const [isexpand, setIsexpand] = useState(false);
-  const path = window.location.pathname;
+
   const refdropmenu = useRef(null);
   const userbtn = useRef(null);
   const borderRef = useRef(null);
