@@ -1,12 +1,16 @@
-import { useState, useRef, useContext, useLayoutEffect } from "react";
-import { Appcontext } from "../../../context";
+import { useState, useRef, useLayoutEffect } from "react";
 
 import { Link } from "react-router-dom";
 import downlistLogo from "../../../logo/DownlistLogoNew.svg";
 import { useScroll } from "../../../Hooks/useScroll";
 
-export function Navbar({ data, signoutHandler, windowWidth }) {
-  const { ishamclick, toggle } = useContext(Appcontext);
+export const Navbar = ({
+  data,
+  signoutHandler,
+  isSmallScreenWidth,
+  isHamClicked,
+  setHamClicked,
+}) => {
   const [isexpand, setIsexpand] = useState(false);
   const path = window.location.pathname;
   const refdropmenu = useRef(null);
@@ -18,12 +22,12 @@ export function Navbar({ data, signoutHandler, windowWidth }) {
     [...document.getElementsByClassName("parts")].forEach((ele) =>
       ele.classList.add("animate")
     );
-    toggle(true);
+    setHamClicked(true);
   };
 
   useLayoutEffect(() => {
     //*check for any path match
-    if (windowWidth > 740) {
+    if (!isSmallScreenWidth) {
       const isMatch = [...ulRef.current.children].some((node) => {
         if (node.nodeName === "NAV") {
           if (node.children[0].pathname === path) {
@@ -49,7 +53,7 @@ export function Navbar({ data, signoutHandler, windowWidth }) {
         borderRef.current.style.display = "none";
       }
     }
-  }, [path, windowWidth]);
+  }, [path, isSmallScreenWidth]);
 
   //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened
 
@@ -104,7 +108,7 @@ export function Navbar({ data, signoutHandler, windowWidth }) {
         <Link to="/" className={`logo-container ${isScrolling && `sticky`}`}>
           <img src={downlistLogo} className="logo" alt="downlistlogo" />
         </Link>
-        {windowWidth > 740 && (
+        {!isSmallScreenWidth && (
           <>
             <ul ref={ulRef}>
               <nav onClick={bottomBorderHandler}>
@@ -161,11 +165,11 @@ export function Navbar({ data, signoutHandler, windowWidth }) {
         )}
         <i
           className={`fas fa-bars menutoggle ${
-            ishamclick ? "toggle-style-ham" : ""
+            isHamClicked ? "toggle-style-ham" : ""
           }`}
           onClick={toggelnav}
         ></i>
       </div>
     </>
   );
-}
+};
