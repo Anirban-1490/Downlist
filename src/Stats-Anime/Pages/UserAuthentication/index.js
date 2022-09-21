@@ -9,13 +9,15 @@ export const UserAuthentication = () => {
   const container_to_move = useRef();
   const [errors, setError] = useState({});
   const [isErrorMessageVisable, showErrorMessage] = useState(false);
-  const [isAuthorize, setAuth] = useState(false);
+  const [isAuthenticated, setAuth] = useState(false);
 
-  useAuth(isAuthorize, true);
+  useAuth(isAuthenticated, true);
 
   //* handler for switching between signup and sign in form
   const changeBtn = function (e) {
     e.preventDefault();
+    showErrorMessage(false);
+    setError({});
     const left_pos = getComputedStyle(container_to_move.current).left;
 
     if (left_pos.includes("0px")) {
@@ -151,7 +153,7 @@ export const UserAuthentication = () => {
               </h4>
             </form>
 
-            {/* ----------------Sign up-----------  */}
+            {/* //* ----------------Sign up-----------  */}
             <form className="newuser-container">
               <h2>Create account</h2>
               <input
@@ -175,8 +177,10 @@ export const UserAuthentication = () => {
                 placeholder="Email"
                 autoComplete="off"
               />
-              {errors?.field?.includes("email") && isErrorMessageVisable ? (
-                <p className="error-message">{errors.messages}</p>
+              {errors?.fields?.includes("email") && isErrorMessageVisable ? (
+                <p className="error-message">
+                  {errors.messages[errors.fields.indexOf("email")]}
+                </p>
               ) : (
                 ""
               )}
