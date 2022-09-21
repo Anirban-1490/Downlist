@@ -112,7 +112,9 @@ export function MobileNavbar({
                   About
                 </Link>
                 {!data && (
-                  <h4>Please Login to see your List of anime/characters</h4>
+                  <Link to="userauth" className="signup-sm">
+                    Sign in
+                  </Link>
                 )}
               </div>
               {data && (
