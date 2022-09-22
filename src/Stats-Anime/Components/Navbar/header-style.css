@@ -97,12 +97,12 @@
   right: 3.5em;
   top: 50%;
   transform: translate(0, -50%);
-
+  min-width: 4em;
   color: white;
   text-align: center;
   font-size: 0.95em;
   z-index: 2;
-  padding: 0.35em 0.75em;
+  padding: 0.45em 1.35em;
   text-decoration: none;
   background: rgba(244, 200, 117, 0.135);
   border-radius: 0.2em;
