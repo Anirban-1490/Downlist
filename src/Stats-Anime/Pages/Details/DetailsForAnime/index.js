@@ -1,10 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 import "../Style/details-style.css";
-// import "./animestyle.css";
 import { useParams } from "react-router";
 import axios from "axios";
-import { useQueries, useQuery } from "react-query";
+import { useQueries } from "react-query";
 import { Spinner } from "../../../Components/LoadingSpinner";
 import { Appcontext } from "../../../context";
 import { CommentsBox } from "../Components/CommentsBox";
