@@ -112,7 +112,11 @@ export function MobileNavbar({
                   About
                 </Link>
                 {!data && (
-                  <Link to="userauth" className="signup-sm">
+                  <Link
+                    onClick={clickhandler}
+                    to="userauth"
+                    className="signup-sm"
+                  >
                     Sign in
                   </Link>
                 )}
