@@ -18,10 +18,10 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
       inner_character_container_handler.current.scrollHeight > 200 &&
       inner_character_container_handler.current.scrollHeight < 500
     ) {
-      setHeight("530px");
+      setHeight("35em");
       showMorebtn_handle.current.style.display = "none";
     } else if (inner_character_container_handler.current.scrollHeight > 490) {
-      setHeight("530px");
+      setHeight("35em");
       showMorebtn_handle.current.style.display = "block";
     }
   }, [inner_character_container_handler.current?.scrollHeight]);
@@ -43,12 +43,12 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
   function handle_container() {
     if (!btnstate) {
       //* gets the innercontent height
-      const height = main_container.current.scrollHeight;
-      main_container.current.style.height = height + "px";
-      main_container.current.style.transition = "0.35s";
+      const height = main_container.current.scrollHeight + 20;
+
       setbtnState(true);
+      setHeight(height + "px");
     } else {
-      main_container.current.style.height = "530px";
+      setHeight("35em");
       setbtnState(false);
     }
   }
@@ -84,28 +84,21 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
                     className="cards"
                     key={mal_id}
                   >
-                    <div>
-                      <div className="img-container">
-                        {image_url ? <img src={image_url} alt="" /> : ""}
-                      </div>
-                      <div className="details-char">
-                        <h5
-                          style={
-                            title
-                              ? {
-                                  fontSize: "0.8em",
-                                  padding: "0 2%",
-                                  textAlign: "center",
-                                }
-                              : null
-                          }
-                        >
-                          {itemName.length <= 37
-                            ? itemName
-                            : itemName.substr(0, 37) + "..."}
-                        </h5>
-                        {(role || language) && <h5>{role || language}</h5>}
-                      </div>
+                    {image_url ? <img src={image_url} alt="" /> : ""}
+
+                    <div className="details-char">
+                      <h5
+                        style={
+                          title
+                            ? {
+                                padding: "1em 0",
+                              }
+                            : null
+                        }
+                      >
+                        {itemName}
+                      </h5>
+                      {(role || language) && <h5>{role || language}</h5>}
                     </div>
                   </Link>
                 );
