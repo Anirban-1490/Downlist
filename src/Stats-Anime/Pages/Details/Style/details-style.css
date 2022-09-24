@@ -192,6 +192,9 @@ ion-icon {
   border-radius: 20px;
   padding: 10px;
 }
+
+/*  //* Roles/character container starts ------------ */
+
 .characters-container {
   margin: 0 auto;
   margin-top: 2em;
@@ -207,7 +210,7 @@ ion-icon {
 
   width: 100%;
   height: auto;
-  gap: 15px;
+  gap: 1.4em;
   margin-top: 20px;
   margin-left: 4.5%;
 }
@@ -230,83 +233,66 @@ ion-icon {
   cursor: pointer;
 }
 .characters-container .cards {
-  margin: 10px 0;
-
-  flex: 0 0 150px;
-  height: 229px;
-  z-index: 1;
+  flex: 0 0 11em;
+  height: 16em;
+  z-index: 0;
   overflow: hidden;
   transition: 0.5s;
-}
-.characters-container .cards:hover {
-  box-shadow: 0 14px 28px #2a11eba8;
 
-  transform: translateY(-10px);
+  position: relative;
+  box-shadow: 0 0 15px #000000bb;
 }
-.characters-container .cards .img-container {
-  width: 100%;
-  height: 180px;
 
-  overflow: hidden;
-  z-index: 2;
-}
-.characters-container .cards .img-container img {
+.characters-container .cards img {
   width: 100%;
   height: 100%;
-
-  transition: 0.5s;
+  object-fit: cover;
+  transition: 600ms ease-in-out;
+  z-index: 1;
+  scale: 1.05;
 }
 
 .characters-container .cards .details-char {
-  height: 90px;
-  position: relative;
-
-  top: -38px;
-  background: rgba(52, 52, 238);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 4;
-}
-.characters-container .cards .details-char::after {
-  content: "";
+  height: 3.4em;
+  width: 100%;
   position: absolute;
-  left: -113px;
-  width: 170%;
-  border: 17px solid rgb(148, 148, 247);
-
-  border-top: none;
-  height: 43px;
-  top: -57px;
-  border-bottom-left-radius: 100%;
-  border-bottom-right-radius: 100%;
-  border-right: none;
-  transform: rotate(8deg);
+  bottom: 0;
+  background: #b5b5ff;
+  z-index: 4;
+  transition: 600ms ease-out;
 }
+
 .characters-container .cards .details-char h5 {
-  color: white;
-  text-align: center;
+  text-align: start;
   width: auto;
   font-size: 0.65em;
+  margin-left: 0.4em;
 }
 .characters-container .cards .details-char h5:nth-child(1) {
-  transform: translate(0, -1px);
-
-  height: 33px;
+  font-size: 0.9em;
+  padding: 0.5em 0;
+  padding-right: 1em !important;
+  color: #152c39;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .characters-container .cards .details-char h5:nth-child(2) {
-  background: rgba(223, 84, 79, 0.815);
-  padding: 4%;
-  border-radius: 10px;
+  font-size: 0.76em;
   letter-spacing: 2px;
+  margin-left: 0.53em;
+  color: #7575b5;
 }
 
-.characters-container .cards:hover .img-container img {
-  transform: scale(1.2, 1.2);
+.characters-container .cards:hover img {
+  scale: 1.4;
+  translate: -2em 0;
 }
+.characters-container .cards:hover .details-char {
+  bottom: -10em;
+}
+
 .empty-for-no-reason {
   margin-top: 10px;
   height: 40px;
