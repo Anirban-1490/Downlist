@@ -227,6 +227,7 @@
 }
 .wrapper .search-result-container .link {
   width: 100%;
+  text-decoration: none;
 }
 .wrapper .search-result-container .search-result .img-container {
   width: 70px;
