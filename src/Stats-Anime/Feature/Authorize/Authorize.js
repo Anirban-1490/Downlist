@@ -28,7 +28,6 @@ export const useAuth = (isenabled, redirect = false) => {
     notifyOnChangeProps: ["data"],
     onSettled: (data, err) => {
       if (err) {
-        console.log(err?.response?.data);
         return;
       }
 
