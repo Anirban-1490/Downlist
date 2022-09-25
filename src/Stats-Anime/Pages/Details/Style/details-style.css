@@ -196,12 +196,12 @@ ion-icon {
 /*  //* Roles/character container starts ------------ */
 
 .characters-container {
-  margin: 0 auto;
   margin-top: 2em;
-  width: 75%;
+  max-width: 61.9em;
   height: auto;
   position: relative;
   overflow: hidden;
+  margin-left: 15%;
 }
 .characters-container .characters-container-inner {
   display: flex;
@@ -209,10 +209,10 @@ ion-icon {
   justify-content: flex-start;
 
   width: 100%;
+  min-width: min-content;
   height: auto;
   gap: 1.4em;
   margin-top: 20px;
-  margin-left: 4.5%;
 }
 .characters-container button {
   position: absolute;
@@ -223,15 +223,16 @@ ion-icon {
   outline: none;
   border: none;
   border-radius: 6px;
-  font-size: 11px;
-  width: 80px;
-  height: 28px;
+  font-size: 0.85em;
+  min-width: 8em;
+  padding: 0.85em 2em;
   background: #f1c40f;
   font-weight: bold;
-  box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.603);
   display: none;
+  box-shadow: 0 0 36px 20px black;
   cursor: pointer;
 }
+
 .characters-container .cards {
   flex: 0 0 11em;
   height: 16em;
@@ -454,11 +455,11 @@ ion-icon {
 
 @media screen and (max-width: 720px) {
   .characters-container {
-    width: 85%;
+    /* width: 85%; */
   }
   .characters-container .characters-container-inner {
     justify-content: center;
-    margin-left: 0;
+    /* margin-left: 0; */
   }
 
   .inner-container .pic-header .pic-container {

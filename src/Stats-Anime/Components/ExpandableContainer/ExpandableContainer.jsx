@@ -40,16 +40,17 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
   }, [rolesContainerSize, setWindowsize]);
 
   //*handler for "see more" button
-  function handle_container() {
+  function handle_container(e) {
     if (!btnstate) {
       //* gets the innercontent height
-      const height = main_container.current.scrollHeight + 20;
-
+      const height = main_container.current.scrollHeight + 40;
+      e.target.style.boxShadow = "none";
       setbtnState(true);
       setHeight(height + "px");
     } else {
       setHeight("35em");
       setbtnState(false);
+      e.target.style.boxShadow = "0 0 36px 20px black";
     }
   }
 
@@ -108,7 +109,7 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
         <button
           type="button"
           ref={showMorebtn_handle}
-          onClick={() => handle_container()}
+          onClick={handle_container}
         >
           {btnstate ? "Show less" : "Show more"}
         </button>
