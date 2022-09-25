@@ -266,13 +266,13 @@ ion-icon {
 .characters-container .cards .details-char h5 {
   text-align: start;
   width: auto;
-  font-size: 0.65em;
   margin-left: 0.4em;
 }
 .characters-container .cards .details-char h5:nth-child(1) {
-  font-size: 0.9em;
+  font-size: 1.05em;
   padding: 0.5em 0;
   padding-right: 1em !important;
+  padding-bottom: 0.15em !important;
   color: #152c39;
   white-space: nowrap;
   text-overflow: ellipsis;
