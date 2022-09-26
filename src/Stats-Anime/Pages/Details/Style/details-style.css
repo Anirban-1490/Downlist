@@ -454,12 +454,8 @@ ion-icon {
 }
 
 @media screen and (max-width: 720px) {
-  .characters-container {
-    /* width: 85%; */
-  }
   .characters-container .characters-container-inner {
     justify-content: center;
-    /* margin-left: 0; */
   }
 
   .inner-container .pic-header .pic-container {
