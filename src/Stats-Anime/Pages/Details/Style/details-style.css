@@ -234,7 +234,7 @@ ion-icon {
 }
 
 .characters-container .cards {
-  flex: 0 0 11em;
+  flex: 0 0 10em;
   height: 16em;
   z-index: 0;
   overflow: hidden;
@@ -454,6 +454,9 @@ ion-icon {
 }
 
 @media screen and (max-width: 720px) {
+  .characters-container {
+    margin: 0 auto !important;
+  }
   .characters-container .characters-container-inner {
     justify-content: center;
   }
