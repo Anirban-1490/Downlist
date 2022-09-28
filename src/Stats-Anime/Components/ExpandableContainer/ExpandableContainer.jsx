@@ -18,10 +18,10 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
       inner_character_container_handler.current.scrollHeight > 200 &&
       inner_character_container_handler.current.scrollHeight < 500
     ) {
-      setHeight("35em");
+      setHeight("34em");
       showMorebtn_handle.current.style.display = "none";
     } else if (inner_character_container_handler.current.scrollHeight > 490) {
-      setHeight("35em");
+      setHeight("34em");
       showMorebtn_handle.current.style.display = "block";
     }
   }, [inner_character_container_handler.current?.scrollHeight]);
@@ -48,7 +48,7 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
       setbtnState(true);
       setHeight(height + "px");
     } else {
-      setHeight("35em");
+      setHeight("34em");
       setbtnState(false);
       e.target.style.boxShadow = "0 0 36px 20px black";
     }
