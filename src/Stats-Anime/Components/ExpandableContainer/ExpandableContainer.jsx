@@ -1,6 +1,6 @@
 import react, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-
+import { Card } from "../Card/Card";
 export const ExpandableContainer = react.memo(({ data, path }) => {
   const [, setWindowsize] = useState(0);
   const [btnstate, setbtnState] = useState(false);
@@ -77,32 +77,11 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
                 language,
                 title,
               }) => {
-                const itemName = name || title;
+                const mainTitle = name || title;
+                const subTitle = role || language;
+                const props = { mal_id, path, image_url, mainTitle, subTitle };
 
-                return (
-                  <Link
-                    to={path ? path + `/${mal_id}` : ``}
-                    className="cards"
-                    key={mal_id}
-                  >
-                    {image_url ? <img src={image_url} alt="" /> : ""}
-
-                    <div className="details-char">
-                      <h5
-                        style={
-                          title
-                            ? {
-                                padding: "1em 0",
-                              }
-                            : null
-                        }
-                      >
-                        {itemName}
-                      </h5>
-                      {(role || language) && <h5>{role || language}</h5>}
-                    </div>
-                  </Link>
-                );
+                return <Card {...props} />;
               }
             )}
         </div>
