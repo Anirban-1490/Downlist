@@ -211,7 +211,7 @@ ion-icon {
   width: 100%;
   min-width: min-content;
   height: auto;
-  gap: 1.4em;
+  gap: 0.7em;
   margin-top: 20px;
 }
 .characters-container button {
@@ -234,11 +234,11 @@ ion-icon {
 }
 
 .characters-container .cards {
-  flex: 0 0 10em;
+  flex: 0 0 10.8em;
   height: 16em;
   z-index: 0;
   overflow: hidden;
-  transition: 0.5s;
+  transition: scale 0.5s;
 
   position: relative;
   box-shadow: 0 0 15px #000000bb;
@@ -479,5 +479,11 @@ ion-icon {
     margin-bottom: 20px;
     height: auto;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .characters-container .cards {
+    flex: 0 0 46vw;
   }
 }
