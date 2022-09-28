@@ -233,67 +233,6 @@ ion-icon {
   cursor: pointer;
 }
 
-.characters-container .cards {
-  flex: 0 0 10.8em;
-  height: 16em;
-  z-index: 0;
-  overflow: hidden;
-  transition: scale 0.5s;
-
-  position: relative;
-  box-shadow: 0 0 15px #000000bb;
-}
-
-.characters-container .cards img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 600ms ease-in-out;
-  z-index: 1;
-  scale: 1.05;
-}
-
-.characters-container .cards .details-char {
-  height: 3.4em;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  background: #b5b5ff;
-  z-index: 4;
-  transition: 600ms ease-out;
-}
-
-.characters-container .cards .details-char h5 {
-  text-align: start;
-  width: auto;
-  margin-left: 0.4em;
-}
-.characters-container .cards .details-char h5:nth-child(1) {
-  font-size: 1.05em;
-  padding: 0.5em 0;
-  padding-right: 1em !important;
-  padding-bottom: 0.15em !important;
-  color: #152c39;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.characters-container .cards .details-char h5:nth-child(2) {
-  font-size: 0.76em;
-  letter-spacing: 2px;
-  margin-left: 0.53em;
-  color: #7575b5;
-}
-
-.characters-container .cards:hover img {
-  scale: 1.4;
-  translate: -2em 0;
-}
-.characters-container .cards:hover .details-char {
-  bottom: -10em;
-}
-
 .empty-for-no-reason {
   margin-top: 10px;
   height: 40px;
@@ -479,11 +418,5 @@ ion-icon {
     margin-bottom: 20px;
     height: auto;
     justify-content: center;
-  }
-}
-
-@media screen and (max-width: 365px) {
-  .characters-container .cards {
-    flex: 0 0 46vw;
   }
 }
