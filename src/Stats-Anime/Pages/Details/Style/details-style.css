@@ -195,7 +195,7 @@ ion-icon {
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  gap: 1.4vw;
+  gap: 1vw;
 }
 .stats-watching li {
   color: white;
@@ -429,5 +429,14 @@ ion-icon {
     margin-bottom: 20px;
     height: auto;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .stats-watching {
+    gap: 2vw;
+  }
+  .stats-watching li {
+    font-size: 3.8vw;
   }
 }
