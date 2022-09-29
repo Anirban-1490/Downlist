@@ -46,7 +46,7 @@ ion-icon {
 .inner-container .pic-header .pic-container .anime-type {
   position: absolute;
   color: white;
-  background-color: #b3f052;
+  background-color: #94d22f;
   min-width: 5em;
   rotate: -40deg;
   left: -1em;
@@ -55,6 +55,7 @@ ion-icon {
   padding: 0.04em;
   font-weight: 700;
   box-shadow: 0 0 20px #120404a2;
+  letter-spacing: 0.14em;
 }
 .inner-container .pic-header .pic-container img {
   width: 100%;
