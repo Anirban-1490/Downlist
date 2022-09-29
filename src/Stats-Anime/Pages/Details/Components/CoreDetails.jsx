@@ -24,6 +24,7 @@ export const CoreDetails = ({
     images: {
       jpg: { image_url },
     },
+    type,
   } = animedetails;
 
   const token = localStorage.getItem("token");
@@ -195,6 +196,7 @@ export const CoreDetails = ({
       <div className="inner-container">
         <div className="pic-header">
           <div className="pic-container">
+            <div className="anime-type">{type}</div>
             <img src={image_url} alt="" />
           </div>
           <div className="title-container">

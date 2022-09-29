@@ -36,12 +36,25 @@ ion-icon {
 }
 .inner-container .pic-header .pic-container {
   width: 10em;
-
   height: 12em;
   scale: 1.1;
   position: absolute;
   top: -2em;
   left: 2em;
+  overflow: hidden;
+}
+.inner-container .pic-header .pic-container .anime-type {
+  position: absolute;
+  color: white;
+  background-color: #b3f052;
+  min-width: 5em;
+  rotate: -40deg;
+  left: -1em;
+  top: 0.5em;
+  text-align: center;
+  padding: 0.04em;
+  font-weight: 700;
+  box-shadow: 0 0 20px #120404a2;
 }
 .inner-container .pic-header .pic-container img {
   width: 100%;
