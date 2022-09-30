@@ -221,7 +221,7 @@ ion-icon {
 .characters-container .characters-container-inner {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 
   width: 100%;
   min-width: min-content;
@@ -433,11 +433,14 @@ ion-icon {
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 450px) {
   .stats-watching {
     gap: 2vw;
   }
   .stats-watching li {
     font-size: 3.8vw;
+  }
+  .genres {
+    justify-content: center;
   }
 }
