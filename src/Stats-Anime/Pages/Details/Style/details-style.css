@@ -28,8 +28,8 @@ ion-icon {
   margin-bottom: 0;
 }
 .inner-container .pic-header {
-  background: #265077;
-  height: 130px;
+  background: linear-gradient(to top, transparent 4%, #2650776c 85%);
+  height: 9em;
   width: 110%;
   position: relative;
   transform: translate(-4.5%);
@@ -55,7 +55,7 @@ ion-icon {
   text-align: center;
   padding: 0.04em;
   font-weight: 700;
-  box-shadow: 0 0 20px #120404a2;
+  box-shadow: 0 0 20px #120404d6;
   letter-spacing: 0.14em;
 }
 .inner-container .pic-header .pic-container img {
@@ -65,11 +65,12 @@ ion-icon {
 }
 .inner-container .pic-header .title-container {
   position: absolute;
-  top: 13px;
+  top: 40%;
   right: 4%;
   width: auto;
   height: auto;
   padding-left: 35%;
+  translate: 0 -50%;
 }
 .inner-container .pic-header .title {
   font-size: 1.75em;
