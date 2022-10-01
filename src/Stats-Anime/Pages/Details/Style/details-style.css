@@ -192,7 +192,7 @@ ion-icon {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: flex-start; */
+
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 10px;
