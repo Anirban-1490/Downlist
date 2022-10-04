@@ -27,7 +27,8 @@
   background-color: transparent;
 }
 .nav-scroll-background.scrolling {
-  background-color: black;
+  background-color: #00000060;
+  backdrop-filter: blur(10px);
 }
 .logo-container {
   color: white;
