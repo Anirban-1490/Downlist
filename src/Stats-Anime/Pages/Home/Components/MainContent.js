@@ -26,10 +26,13 @@ export function Content({ isMotionEnabled }) {
 
     return (...args) => {
       clearTimeout(id);
-      id = setTimeout(() => {
-        fn(...args);
-        id = null;
-      }, timeout);
+
+      if (args[0]) {
+        id = setTimeout(() => {
+          fn(...args);
+          id = null;
+        }, timeout);
+      }
     };
   }, []);
 
@@ -62,6 +65,7 @@ export function Content({ isMotionEnabled }) {
   const searchHandler = (e) => {
     e.preventDefault();
     const textValue = e.target.value;
+
     if (textValue !== "") {
       dispatch({ type: "loading" });
 
@@ -71,8 +75,6 @@ export function Content({ isMotionEnabled }) {
       mainheader.current.classList.remove("title1-toggle");
       mainionfo.current.classList.remove("info1-toggle");
       wrapper.current.classList.remove("wrapper-toggle");
-
-      debounce(textValue);
     } else {
       searchContainer.current.classList.add("search-result-container-toggle");
       mainheader.current.classList.add("title1-toggle");
@@ -80,6 +82,7 @@ export function Content({ isMotionEnabled }) {
       wrapper.current.classList.add("wrapper-toggle");
       dispatch({ type: "initial" });
     }
+    debounce(textValue);
   };
 
   function getOpacity() {
