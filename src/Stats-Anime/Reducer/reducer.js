@@ -1,7 +1,8 @@
 export const reducerForSearchResult = (state, action) => {
   if (action.type === "loading") {
     return {
-      ...state,
+      searchResult: [],
+      isLoading: true,
       text: "Loading...",
     };
   } else if (action.type === "success") {

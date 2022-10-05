@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useReducer, useRef, useState } from "react";
+import { useCallback, useReducer, useRef, useState, useMemo } from "react";
 import { reducerForSearchResult } from "../../../Reducer/reducer";
 import { Loading } from "../Helper/LoadingText";
 import { useScroll } from "../../../Hooks/useScroll";
@@ -21,6 +21,44 @@ export function Content({ isMotionEnabled }) {
   const wrapper = useRef();
   const mainContainerRef = useRef();
 
+  const throttledSearchHandler = useCallback((fn, timeout) => {
+    let id = null;
+
+    return (...args) => {
+      clearTimeout(id);
+      id = setTimeout(() => {
+        fn(...args);
+        id = null;
+      }, timeout);
+    };
+  }, []);
+
+  const getSearchResult = async (textValue) => {
+    try {
+      const {
+        data: { data: searchResult },
+      } = await axios.get(`https://api.jikan.moe/v4/anime?q=${textValue}`);
+
+      if (searchResult?.length === 0) {
+        dispatch({ type: "error" });
+        return;
+      }
+
+      dispatch({
+        type: "success",
+        searchResult: [...searchResult].slice(0, 4),
+        isLoading: false,
+      });
+    } catch (error) {
+      dispatch({ type: "error" });
+    }
+  };
+
+  const debounce = useMemo(
+    () => throttledSearchHandler(getSearchResult, 1000),
+    [throttledSearchHandler]
+  );
+
   const searchHandler = (e) => {
     e.preventDefault();
     const textValue = e.target.value;
@@ -34,29 +72,7 @@ export function Content({ isMotionEnabled }) {
       mainionfo.current.classList.remove("info1-toggle");
       wrapper.current.classList.remove("wrapper-toggle");
 
-      if (cancel) {
-        //* if there is a previous controller then abort it
-        cancel.abort();
-      }
-      //*create a new abortcontroller object
-      const abortController = new AbortController();
-      setcancel(abortController);
-
-      axios
-        .get(`https://api.jikan.moe/v3/search/anime?q=${textValue}&page=1`, {
-          signal: abortController.signal,
-        })
-        .then((res) => {
-          dispatch({
-            type: "success",
-            searchResult: [...res.data.results].slice(0, 4),
-            isLoading: false,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch({ type: "error" });
-        });
+      debounce(textValue);
     } else {
       searchContainer.current.classList.add("search-result-container-toggle");
       mainheader.current.classList.add("title1-toggle");
@@ -122,7 +138,13 @@ export function Content({ isMotionEnabled }) {
             {
               //* show the search result ----
               data?.searchResult.map((result) => {
-                const { mal_id, title, image_url } = result;
+                const {
+                  mal_id,
+                  title,
+                  images: {
+                    jpg: { image_url },
+                  },
+                } = result;
 
                 return (
                   <Link to={`anime/${mal_id}`} className="link" key={mal_id}>
