@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useCallback, useReducer, useRef, useState, useMemo } from "react";
+import { useCallback, useReducer, useRef, useMemo } from "react";
 import { reducerForSearchResult } from "../../../Reducer/reducer";
 import { Loading } from "../Helper/LoadingText";
 import { useScroll } from "../../../Hooks/useScroll";
 
 export function Content({ isMotionEnabled }) {
-  //*set up a canceltoken
-  const [cancel, setcancel] = useState(null);
+ 
 
   const [data, dispatch] = useReducer(reducerForSearchResult, {
     searchResult: [],
