@@ -19,9 +19,12 @@ export const UserAuthentication = () => {
     showErrorMessage(false);
     setError({});
     const left_pos = getComputedStyle(container_to_move.current).left;
-
-    if (left_pos.includes("0px")) {
-      container_to_move.current.style.left = "-109.5%";
+    console.log(left_pos);
+    if (left_pos === "0px") {
+      container_to_move.current.style.left = `-${
+        container_to_move.current.parentElement.getBoundingClientRect().width +
+        26
+      }px`;
     } else {
       container_to_move.current.style.left = "0";
     }
@@ -100,7 +103,7 @@ export const UserAuthentication = () => {
                 name="email"
                 id="email"
                 placeholder="Email"
-                autoComplete="off"
+                autocomplete="off"
               />
               {errors?.fields?.includes("email") && isErrorMessageVisable ? (
                 <p className="error-message">
@@ -115,7 +118,7 @@ export const UserAuthentication = () => {
                   name="pass"
                   id="pwd"
                   placeholder="Password"
-                  autoComplete="off"
+                  autoComplete="chrome-off"
                 />
 
                 <button onClick={(e) => showPwd(e)}>
