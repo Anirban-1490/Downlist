@@ -4,6 +4,7 @@ import axios from "axios";
 import { path } from "../../../server-path";
 
 import { useAuth } from "../../Feature/Authorize/Authorize";
+import { useWindowResize } from "../../Hooks/useWindowResize";
 
 export const UserAuthentication = () => {
   const container_to_move = useRef();
@@ -12,6 +13,9 @@ export const UserAuthentication = () => {
   const [isAuthenticated, setAuth] = useState(false);
 
   useAuth(isAuthenticated, true);
+  const innerWidth = useWindowResize();
+
+  const isSmallScreen = innerWidth > 768 ? false : true;
 
   //* handler for switching between signup and sign in form
   const changeBtn = function (e) {
@@ -222,6 +226,18 @@ export const UserAuthentication = () => {
             </form>
           </div>
         </div>
+
+        <article className="signup-background-container">
+          {!isSmallScreen && (
+            <>
+              <h1>Explore Downlist</h1>
+              <p>
+                Discover a vast library of anime and character, add them to Your
+                list, share your thoughts and more.
+              </p>
+            </>
+          )}
+        </article>
       </div>
     </>
   );
