@@ -1,136 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-
-*::placeholder{
-    opacity: 0.6;
-    font-size: 0.86em;
+*::placeholder {
+  opacity: 0.6;
+  font-size: 0.86em;
 }
-.container{
-   
-    height: calc(100vh - 50px) ;
-    
-}
+.container {
+  height: calc(100vh - 80px);
+  position: absolute;
+  width: 100%;
 
-.child-container{
-   
-    width: 23em;
-    height: 31em;
-    position: relative;
-   
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-   
-    overflow: hidden;
-    background: linear-gradient(65deg, rgb(232, 234, 243) 55%,white);
-    border-radius: 0.5em;
+  background: rgb(46, 46, 46);
+  display: flex;
 }
 
-.child-inner-container{
-   
-     width: auto;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(2,23em);
-    gap: 2em;
-    position: relative;
-    left: 0;
-    transition: left 300ms ease;
+.signup-background-container {
+  overflow: hidden;
+  width: calc(100% - 30em);
+  background-image: url("../../../logo/LoginBackground6.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1600px;
+  padding-left: 4em;
+  padding-top: 3em;
 }
-.signin-container, .newuser-container{
-    
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  
-   
-   
+.signup-background-container h1 {
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  max-width: 10em;
+  font-size: 3.2em;
 }
-:is(.signin-container, .newuser-container) h2{
-    font-family: 'Montserrat', sans-serif;
-    text-transform: capitalize;
-    transform: translateY(-1em);
+.signup-background-container p {
+  color: rgb(226, 225, 225);
+  font-family: "Open Sans", sans-serif;
+  max-width: 20em;
+  margin-top: 2em;
+  line-height: 1.3rem;
 }
-:is(.signin-container, .newuser-container) h4 .change{
+.child-container {
+  height: 100%;
+  background-color: #000;
+
+  flex: 0 0 30em;
+  overflow: hidden;
+}
+
+.child-inner-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 100%);
+  gap: 2em;
+  position: relative;
+  left: 0;
+  transition: left 300ms ease;
+}
+.signin-container,
+.newuser-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+:is(.signin-container, .newuser-container) h2 {
+  font-family: "Montserrat", sans-serif;
+  text-transform: capitalize;
+  position: absolute;
+  top: 2em;
+  min-width: 13em;
+  text-align: center;
+  color: white;
+}
+:is(.signin-container, .newuser-container) h4 {
+  color: white;
+  position: absolute;
+  bottom: 2.5em;
+  min-width: 13em;
+  text-align: center;
+  font-weight: lighter;
+}
+:is(.signin-container, .newuser-container) h4 .change {
   border: none;
   outline: none;
   background: rgb(74, 68, 255);
   color: white;
-  padding:0.4em 0.7em;
+  padding: 0.4em 0.7em;
   border-radius: 0.4em;
   cursor: pointer;
+  margin-left: 0.5em;
+  min-width: 3em;
 }
-#email,#pwd,#name{
-    outline: none;
-    border: 2px solid black;
-    width: 14em;
-    height: 30px;
-    padding: 1.1em 1em;
-    padding-right: 1.4em;
-    font-size: 1.24em;
-    border-radius: 0.3em;
-    background: transparent;
-    font-weight: 400;
-    margin: 0.5em 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.error-message{
-    font-size: 0.86em;
-    color: red;
-   
-}
-.pwd-contianer{
-    position: relative;
-}
-.pwd-contianer button{
-    border: 4px solid red;
-   position: absolute;
-   right: 0.3em;
-   top: 50%;
-   transform: translateY(-50%);
-   display: inline-block;
-   border: none;
-   outline: none;
-   height: 77%;
-  
-}
-.pwd-contianer button ion-icon{
-    position: absolute;
-   
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100%;
-    opacity: 0.4;
-   font-size: 1.35em;
-   cursor: pointer;
- }
-
-
-:is(#email,#pwd,#name):focus {
-    border: 2px solid rgb(31, 193, 31);
+#email,
+#pwd,
+#name {
+  outline: none;
+  border: none;
+  border-bottom: 3px solid rgb(142, 38, 142);
+  width: 100%;
+  height: 30px;
+  padding: 1.1em 1em;
+  padding-right: 1.4em;
+  font-size: 1.24em;
+  color: white !important;
+  background-color: transparent !important;
+  font-weight: 400;
+  margin: 0.5em 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* transition: border 300ms ease-out; */
 }
 
-
-.submit-btn{
-    display: block;
-    outline: none;
-    border: none;
-    width: 11em;
-    height: 40px;
-   
-    font-size: 1.04em;
-    border-radius: 0.5em;
-    text-align: center;
-    background: #50d05d;
-    color: white;
-    cursor: pointer;
-    transition: transform 300ms ease;
-    transform: translateY(0);
-    margin: 0.8em 0;
+:is(#email, #pwd, #name)::placeholder {
+  color: lightgray;
 }
-.submit-btn:hover{
-    transform: translateY(-0.2em);
+
+#email,
+#name {
+  width: 73%;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  color: white !important;
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.error-message {
+  font-size: 0.86em;
+  color: red;
+}
+.pwd-contianer {
+  position: relative;
+  width: 73%;
+}
+.pwd-contianer button {
+  position: absolute;
+  right: 0.3em;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  border: none;
+  outline: none;
+  height: 77%;
+}
+.pwd-contianer button ion-icon {
+  position: absolute;
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  opacity: 0.7;
+  font-size: 1.55em;
+  cursor: pointer;
+}
+
+:is(#email, #pwd, #name):focus {
+  border: none;
+  border-bottom: 3px solid #1fc11f;
+  transition: 600ms ease-out;
+}
+
+.submit-btn {
+  display: block;
+  outline: none;
+  border: none;
+  width: 11em;
+  height: 40px;
+
+  font-size: 1.04em;
+  border-radius: 0.5em;
+  text-align: center;
+  background: #50d05d;
+  color: white;
+  cursor: pointer;
+  transition: transform 300ms ease;
+  transform: translateY(1em);
+  margin: 0.8em 0;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    flex-direction: column-reverse;
+  }
+  .signup-background-container {
+    overflow: hidden;
+    width: auto;
+    background-image: url("../../../logo/LoginBackground6.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 900px;
+    padding: 0;
+    height: 30vh;
+  }
+
+  .child-container {
+    height: 70vh;
+    flex: 0 0 auto;
+  }
 }
