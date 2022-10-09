@@ -7,6 +7,9 @@
   left: 10%;
   overflow: hidden;
 }
+* {
+  --bg-details-color-primary: rgba(61, 61, 61, 0.623);
+}
 ion-icon {
   font-size: 1.3em;
   margin-left: -22px;
@@ -100,7 +103,7 @@ ion-icon {
   color: white;
   flex: 0 0 auto;
   text-align: center;
-  background: #314455;
+  background: var(--bg-details-color-primary);
   font-size: 0.94em;
   padding: 0.45em 0.7em;
   border-radius: 0.6em;
@@ -165,7 +168,7 @@ ion-icon {
   min-width: 5em;
   text-align: center;
   padding: 0.45em 1.2em;
-  background: #314455;
+  background: var(--bg-details-color-primary);
   border-radius: 0.6em;
 }
 .aired {
@@ -180,7 +183,7 @@ ion-icon {
 }
 
 .aired p:nth-child(2) {
-  background: #314455;
+  background: var(--bg-details-color-primary);
   border-radius: 0.6em;
   min-width: 5em;
   text-align: center;
@@ -201,7 +204,7 @@ ion-icon {
 .stats-watching li {
   color: white;
 
-  background: #314455;
+  background: var(--bg-details-color-primary);
   border-radius: 0.6em;
   min-width: 5em;
   text-align: center;
