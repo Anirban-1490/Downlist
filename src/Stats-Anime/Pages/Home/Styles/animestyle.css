@@ -5,12 +5,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  --bg-primary: #1d1d1d;
 }
 ::-webkit-scrollbar {
   width: 0.7em;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
   background: #990011ff;
@@ -27,7 +28,7 @@
   min-height: 100vh;
 
   z-index: -3;
-  background: #000000;
+  background: var(--bg-primary);
 }
 .inner-root-container {
   width: 100%;
@@ -262,18 +263,6 @@ footer ul li:hover a {
   position: relative;
   z-index: 2;
 }
-.home-section-1::before {
-  content: "";
-  width: 90%;
-  height: 14em;
-  position: absolute;
-  top: -5.6em;
-  background: linear-gradient(to bottom, #565cc2 0%, #1f2833 90%);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
-  box-shadow: 0 -10px 15px #0000003e;
-}
 
 .home-section-1 .main-text-container {
   color: transparent;
@@ -329,7 +318,7 @@ footer ul li:hover a {
 .line-separator {
   width: 0.2em;
   height: 24em;
-  background-color: #404f5c;
+  background-color: #3c3c3c;
   position: relative;
 }
 .line-separator::before {
@@ -341,12 +330,12 @@ footer ul li:hover a {
   width: 0.7em;
   height: 0.7em;
   border-radius: 50%;
-  border: 3px solid #404f5c;
-  background: #1f2833;
+  border: 3px solid #3c3c3c;
+  background: var(--bg-primary);
 }
 .line-separator-1 {
   height: 44em;
-  background: linear-gradient(to top, #404f5c 54%, transparent 93%);
+  background: linear-gradient(to top, #3c3c3c 54%, transparent 93%);
 }
 
 .visual-content {
