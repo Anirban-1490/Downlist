@@ -27,6 +27,20 @@
     z-index: 1;
     scale: 1.05;
   }
+  .type {
+    position: absolute;
+    color: white;
+    top: 0.4em;
+    left: 0.4em;
+    text-align: left;
+    background: #ad0ea3;
+    padding: 0 1.2em;
+    font-size: 0.68em;
+    z-index: 2;
+    letter-spacing: 0.2em;
+    box-shadow: 0 0 5px #000000f2;
+    transition: all 500ms ease-in-out;
+  }
   .details-char {
     height: 3.4em;
     width: 100%;
