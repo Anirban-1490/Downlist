@@ -17,7 +17,7 @@
     "react-scripts": "4.0.3",
     "sass": "^1.55.0",
     "simple-parallax-js": "^5.6.2",
-    "swiper": "^7.4.1",
+    "swiper": "^8.4.3",
     "three": "^0.140.0",
     "use-sync-external-store": "^1.2.0",
     "uuid": "^9.0.0",
