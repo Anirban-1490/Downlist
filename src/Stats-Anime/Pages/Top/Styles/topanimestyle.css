@@ -220,7 +220,6 @@
 }
 
 footer {
- 
   height: 20em;
   display: flex;
   background: black;
@@ -333,17 +332,19 @@ footer div h3:nth-child(1) a i {
 }
 .swiper {
   position: relative;
-  height: calc(100% - 22px);
   width: 100%;
-
+  height: auto;
   z-index: 2;
-  overflow: hidden;
 }
 
 .swiper-slide {
-  height: 100%;
-  max-width: 170px;
+  height: auto !important;
   user-select: none;
+  flex: 0 0 11em;
+  overflow: hidden;
+}
+.swiper-slide .cards {
+  display: block;
 }
 
 .airing_container {
@@ -369,19 +370,7 @@ footer div h3:nth-child(1) a i {
   transition: all 400ms;
   border-radius: 10px;
 }
-.airing_container .more .type {
-  position: absolute;
-  color: white;
-  bottom: 4.2em;
-  left: 1.3em;
-  text-align: left;
-  background: blue;
-  padding: 0.2em 0.6em;
-  font-size: 0.75em;
-  letter-spacing: 0.1em;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.66);
-  transition: all 500ms ease-in-out;
-}
+
 .airing_container .more h3 {
   font-size: 1.1em;
   white-space: nowrap;
