@@ -76,10 +76,19 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
                 role,
                 language,
                 title,
+                type,
               }) => {
                 const mainTitle = name || title;
                 const subTitle = role || language;
-                const props = { mal_id, path, image_url, mainTitle, subTitle };
+                const animeType = type || "";
+                const props = {
+                  mal_id,
+                  path,
+                  image_url,
+                  mainTitle,
+                  subTitle,
+                  animeType,
+                };
 
                 return <Card {...props} />;
               }
