@@ -61,7 +61,7 @@ export const DifferentGenres = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <TouchCarousel items={data} switch_details="/anime" />
+            <TouchCarousel items={data} switch_details="anime" />
           )}
         </div>
       </div>
