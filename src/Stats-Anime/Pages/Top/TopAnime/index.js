@@ -67,7 +67,7 @@ export function TopAnimeMain() {
             />
             <StyledSection
               data={results[2].data}
-              switch_details={"/anime"}
+              switch_details={"anime"}
               text_={"Top Airing"}
               className="airing"
             />
@@ -83,7 +83,7 @@ export function TopAnimeMain() {
           <div className="section-2">
             <StyledSection
               data={results[0].data}
-              switch_details={"/anime"}
+              switch_details={"anime"}
               text_={"Top Upcoming"}
               className="airing upcoming"
             />
