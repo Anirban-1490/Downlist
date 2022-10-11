@@ -185,25 +185,24 @@ export const CoreDetails = ({
 
   return (
     <>
-      <div className="go-back">
+      {/* <div className="go-back">
         <ion-icon name="arrow-back-outline"></ion-icon>
         <Link
           className="go-back-text"
           to={`/${switch_path}`}
         >{`back to ${switch_path} `}</Link>
-      </div>
-
-      <div className="inner-container">
-        <div className="pic-header">
-          <div className="pic-container">
-            <div className="anime-type">{type}</div>
-            <img src={image_url} alt="" />
-          </div>
-          <div className="title-container">
-            <h2 className="title">{title}</h2>
-            <p className="title-english">{title_english}</p>
-          </div>
+      </div> */}
+      <div className="pic-header">
+        <div className="pic-container">
+          <div className="anime-type">{type}</div>
+          <img src={image_url} alt="" />
         </div>
+        <div className="title-container">
+          <h2 className="title">{title}</h2>
+          <p className="title-english">{title_english}</p>
+        </div>
+      </div>
+      <div className="inner-container">
         <ul className="stats">
           {episodes && (
             <li>
