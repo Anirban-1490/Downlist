@@ -330,6 +330,10 @@ footer div h3:nth-child(1) a i {
   letter-spacing: 8px;
   text-transform: uppercase;
 }
+.parent-swiper-wrapper {
+  position: relative;
+  /* outline: 2px solid yellow; */
+}
 .swiper {
   position: relative;
   width: 100%;
@@ -341,10 +345,26 @@ footer div h3:nth-child(1) a i {
   height: auto !important;
   user-select: none;
   flex: 0 0 11em;
-  overflow: hidden;
 }
 .swiper-slide .cards {
   display: block;
+}
+.swiper .swiper-button-prev,
+.swiper-button-next {
+  height: 30% !important;
+  width: 2.4em !important;
+  top: 50% !important;
+  translate: 0 -50% !important;
+
+  margin-top: 0 !important;
+  background: #000000c1 !important;
+}
+
+.swiper-button-next {
+  right: 0 !important;
+}
+.swiper-button-prev {
+  left: 0 !important;
 }
 
 .airing_container {
