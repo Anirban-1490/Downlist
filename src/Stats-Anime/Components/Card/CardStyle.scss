@@ -8,7 +8,7 @@
   transition: scale 0.5s;
 
   position: relative;
-  box-shadow: 0 0 15px #000000bb;
+  box-shadow: 0 0 6px 1px #000000e6;
 
   @include bp.breakpoint(365px) {
     flex: 0 0 46vw;
