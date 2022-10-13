@@ -25,12 +25,12 @@ export function HomeMain() {
       setVantaEffect(
         Fog({
           el: mydiv.current,
-          highlightColor: 0xe2b34,
-          midtoneColor: 0x98368b,
-          lowlightColor: 0x9285cf,
-          baseColor: 0x148b93,
+          highlightColor: 0x435778,
+          midtoneColor: 0x826e96,
+          lowlightColor: 0xff7a50,
+          baseColor: 0x9c9c9d,
           speed: 1.3,
-          zoom: 0.6,
+          zoom: 1,
         })
       );
     }
