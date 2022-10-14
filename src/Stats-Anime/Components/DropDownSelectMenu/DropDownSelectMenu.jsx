@@ -1,5 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import { useQueryClient } from "react-query";
+import "./DropDownStyle.scss";
 
 export const Dropdown = (prop) => {
   const { options, setID, placeholder, stats_anime } = prop;

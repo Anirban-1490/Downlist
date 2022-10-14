@@ -1,0 +1,74 @@
+.wrapper-input {
+  margin-top: 20px;
+  position: relative;
+
+  .genre-display {
+    width: 175px;
+    height: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: 3px 10px;
+    font-weight: 600;
+
+    &::placeholder {
+      color: black;
+    }
+  }
+
+  ion-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+
+    font-size: 1.1em;
+    transform: translateY(-50%);
+    transition: transform 300ms;
+  }
+
+  .option {
+    background: white;
+    margin-top: 11px;
+    border-radius: 8px;
+    overflow-y: scroll;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.21);
+    position: absolute;
+    width: 100%;
+    height: 160px;
+    display: none;
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      border: none;
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar {
+      width: 0.45em;
+    }
+
+    div {
+      padding: 12px 16px;
+      user-select: none;
+
+      &:hover {
+        background: #ee82eec1;
+      }
+      h4 {
+        font-size: 0.84em;
+        text-align: start;
+      }
+    }
+  }
+  .option.active {
+    display: block;
+  }
+}
+.wrapper-input.active {
+  ion-icon {
+    transform: translateY(-50%) rotateZ(-180deg);
+  }
+}
