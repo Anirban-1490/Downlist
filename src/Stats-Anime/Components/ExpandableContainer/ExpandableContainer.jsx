@@ -1,30 +1,33 @@
 import react, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import { Card } from "../Card/Card";
-export const ExpandableContainer = react.memo(({ data, path }) => {
+import { Spinner } from "../../Components/LoadingSpinner";
+
+export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
   const [, setWindowsize] = useState(0);
   const [btnstate, setbtnState] = useState(false);
   const showMorebtn_handle = useRef();
   const inner_character_container_handler = useRef();
-  const main_container = useRef();
+
   const [height, setHeight] = useState("270px");
 
   //*determine the container height for the characetr/roles section
   const rolesContainerSize = react.useCallback(() => {
-    if (inner_character_container_handler.current.scrollHeight < 250) {
-      setHeight("270px");
-      showMorebtn_handle.current.style.display = "none";
-    } else if (
-      inner_character_container_handler.current.scrollHeight > 200 &&
-      inner_character_container_handler.current.scrollHeight < 500
-    ) {
-      setHeight("34em");
-      showMorebtn_handle.current.style.display = "none";
-    } else if (inner_character_container_handler.current.scrollHeight > 490) {
-      setHeight("34em");
-      showMorebtn_handle.current.style.display = "block";
+    if (data) {
+      if (inner_character_container_handler.current.scrollHeight < 250) {
+        setHeight("270px");
+        showMorebtn_handle.current.style.display = "none";
+      } else if (
+        inner_character_container_handler.current.scrollHeight > 200 &&
+        inner_character_container_handler.current.scrollHeight < 500
+      ) {
+        setHeight("34em");
+        showMorebtn_handle.current.style.display = "none";
+      } else if (inner_character_container_handler.current.scrollHeight > 490) {
+        setHeight("34em");
+        showMorebtn_handle.current.style.display = "block";
+      }
     }
-  }, [inner_character_container_handler.current?.scrollHeight]);
+  }, [inner_character_container_handler.current?.scrollHeight, data]);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -43,7 +46,8 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
   function handle_container(e) {
     if (!btnstate) {
       //* gets the innercontent height
-      const height = main_container.current.scrollHeight + 40;
+      const height =
+        inner_character_container_handler.current.scrollHeight + 40;
       e.target.style.boxShadow = "none";
       setbtnState(true);
       setHeight(height + "px");
@@ -59,48 +63,54 @@ export const ExpandableContainer = react.memo(({ data, path }) => {
       <div
         className="characters-container"
         style={{ height: height }}
-        ref={main_container}
+        ref={observerRef}
       >
-        <div
-          className="characters-container-inner"
-          ref={inner_character_container_handler}
-        >
-          {data &&
-            data.map(
-              ({
-                name,
-                mal_id,
-                images: {
-                  jpg: { image_url },
-                },
-                role,
-                language,
-                title,
-                type,
-              }) => {
-                const mainTitle = name || title;
-                const subTitle = role || language;
-                const animeType = type || "";
-                const props = {
-                  mal_id,
-                  path,
-                  image_url,
-                  mainTitle,
-                  subTitle,
-                  animeType,
-                };
+        {data == undefined ? (
+          <Spinner />
+        ) : (
+          <>
+            <div
+              className="characters-container-inner"
+              ref={inner_character_container_handler}
+            >
+              {data &&
+                data.map(
+                  ({
+                    name,
+                    mal_id,
+                    images: {
+                      jpg: { image_url },
+                    },
+                    role,
+                    language,
+                    title,
+                    type,
+                  }) => {
+                    const mainTitle = name || title;
+                    const subTitle = role || language;
+                    const animeType = type || "";
+                    const props = {
+                      mal_id,
+                      path,
+                      image_url,
+                      mainTitle,
+                      subTitle,
+                      animeType,
+                    };
 
-                return <Card {...props} />;
-              }
-            )}
-        </div>
-        <button
-          type="button"
-          ref={showMorebtn_handle}
-          onClick={handle_container}
-        >
-          {btnstate ? "Show less" : "Show more"}
-        </button>
+                    return <Card {...props} />;
+                  }
+                )}
+            </div>
+            <button
+              type="button"
+              ref={showMorebtn_handle}
+              onClick={handle_container}
+            >
+              {btnstate ? "Show less" : "Show more"}
+            </button>
+          </>
+        )}
       </div>
       <div className="empty-for-no-reason"></div>
     </>
