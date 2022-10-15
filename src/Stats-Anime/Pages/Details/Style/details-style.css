@@ -36,16 +36,13 @@ ion-icon {
   margin-bottom: 4em;
   gap: 3%;
 
-  /* left: -50%; */
-  /* margin-top: 10em; */
+
 }
 .pic-header .pic-container {
   flex-shrink: 0;
   width: 12.5em;
   height: 16em;
-  /* scale: 1.1; */
-  /* position: absolute; */
-  /* top: -2em; */
+  
   position: relative;
 
   overflow: hidden;
@@ -78,17 +75,15 @@ ion-icon {
 
   width: auto;
   height: auto;
-  /* padding-left: 35%; */
-  /* translate: 0 -50%; */
+  
 }
 .pic-header .title {
   font-size: clamp(1.3em, 4vw, 2.7em);
-  /* white-space: nowrap;
-  text-overflow: ellipsis; */
+  
   max-width: 14em;
   color: #ee4c7c;
   text-align: center;
-  /* overflow: hidden; */
+  
 }
 
 .pic-header .title-english {
@@ -109,7 +104,7 @@ ion-icon {
   display: flex;
   width: auto;
   height: auto;
-  /* margin-top: 8.7em; */
+ 
   justify-content: center;
   align-items: center;
   gap: 1em;
@@ -382,7 +377,7 @@ ion-icon {
   aspect-ratio: 1/1;
 }
 .item-container .body-container {
-  /* outline: 3px solid red; */
+  
   width: clamp(100%, calc(100% - 5em), 100%);
   color: white;
 }
@@ -446,11 +441,11 @@ ion-icon {
   }
   .pic-header .title-container {
     position: static;
-    /* translate: 0 15em; */
+    
     padding: 0;
   }
   .inner-container .stats {
-    /* margin-top: 250px; */
+    
     margin-bottom: 20px;
     height: auto;
     justify-content: center;
