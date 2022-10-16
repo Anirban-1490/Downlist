@@ -34,7 +34,7 @@
 }
 .genre-first h2 span {
   font-size: clamp(0.85rem, 6vw, 9rem);
-  /* line-height: 0em; */
+  
   color: black;
   letter-spacing: 0px;
   display: block;
