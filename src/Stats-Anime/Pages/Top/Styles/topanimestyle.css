@@ -333,38 +333,9 @@ footer div h3:nth-child(1) a i {
 .parent-swiper-wrapper {
   position: relative;
 }
-.swiper {
-  position: relative;
-  width: 100%;
-  height: auto;
-  z-index: 2;
-}
 
-.swiper-slide {
-  height: auto !important;
-  user-select: none;
-  flex: 0 0 11em;
-}
-.swiper-slide .cards {
-  display: block;
-}
-.swiper .swiper-button-prev,
-.swiper-button-next {
-  height: 30% !important;
-  width: 2.4em !important;
-  top: 50% !important;
-  translate: 0 -50% !important;
 
-  margin-top: 0 !important;
-  background: #000000c1 !important;
-}
 
-.swiper-button-next {
-  right: 0 !important;
-}
-.swiper-button-prev {
-  left: 0 !important;
-}
 
 .airing_container {
   width: 100%;
