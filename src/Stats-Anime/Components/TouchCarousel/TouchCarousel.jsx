@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";
+import "./Carousel.scss";
 // import "swiper/css/navigation";
 import default_img from "../../logo/default-placeholder.png";
 import { Card } from "../Card/Card";
