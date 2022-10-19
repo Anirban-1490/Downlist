@@ -1,4 +1,4 @@
-@use "../../GlobalStyle/breakpoints" as bp;
+@use "../../GlobalStyle/main" as bp;
 
 .cards {
   flex: 0 0 10.8em;
@@ -10,6 +10,7 @@
   position: relative;
   box-shadow: 0 0 6px 1px #000000e6;
 
+  display: block;
   @include bp.breakpoint(365px) {
     flex: 0 0 46vw;
   }
