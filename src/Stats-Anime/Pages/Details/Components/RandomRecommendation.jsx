@@ -2,11 +2,13 @@ import { ExpandableContainer } from "../../../Components/ExpandableContainer/Exp
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+import { NoItemContiner } from "../../../Components/NoItemFound/NoItemFound";
 
 export const RandomRecommendations = ({ genres, path, malId }) => {
   const { ref: observerRef, inView } = useInView({ threshold: 0 });
+
   const randomGenre =
-    genres && genres[Math.floor(Math.random() * 10) % genres.length];
+    genres.length > 0 && genres[Math.floor(Math.random() * 10) % genres.length];
 
   const getRecommend = async (url) => {
     let randomAnime = [];
@@ -30,12 +32,16 @@ export const RandomRecommendations = ({ genres, path, malId }) => {
       ),
     {
       refetchOnWindowFocus: false,
-      enabled: !!genres && inView,
+      enabled: genres.length > 0 && inView,
       staleTime: Infinity,
     }
   );
-
+  if (!genres.length) {
+    return <NoItemContiner />;
+  }
   return (
-    <ExpandableContainer data={data} path={path} observerRef={observerRef} />
+    <>
+      <ExpandableContainer data={data} path={path} observerRef={observerRef} />
+    </>
   );
 };
