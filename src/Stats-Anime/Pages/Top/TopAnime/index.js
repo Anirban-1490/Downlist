@@ -71,14 +71,6 @@ export function TopAnimeMain() {
               text_={"Top Airing"}
               className="airing"
             />
-            <div className="cotntext-1">
-              <span>
-                <h2>See the</h2>
-              </span>
-              <span>
-                <h2>upcomings</h2>
-              </span>
-            </div>
           </div>
           <div className="section-2">
             <StyledSection
@@ -87,17 +79,6 @@ export function TopAnimeMain() {
               text_={"Top Upcoming"}
               className="airing upcoming"
             />
-            <div className="cotntext-2">
-              <span>
-                <h2>Meet the</h2>
-              </span>
-              <span>
-                <h2>popular</h2>
-              </span>
-              <span>
-                <h2>Kids</h2>
-              </span>
-            </div>
           </div>
           <div className="section-3">
             <StyledSection
@@ -106,14 +87,6 @@ export function TopAnimeMain() {
               text_={"Most Popular"}
               className="airing popular"
             />
-            <div className="cotntext-3">
-              <span>
-                <h2>What's On Your</h2>
-              </span>
-              <span>
-                <h2>Inventory?</h2>
-              </span>
-            </div>
           </div>
           <div className="section-4">
             {!results.some((item) => item.isLoading) ? (
