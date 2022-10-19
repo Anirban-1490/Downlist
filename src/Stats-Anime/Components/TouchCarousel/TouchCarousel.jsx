@@ -7,7 +7,6 @@ import { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";
 import "./Carousel.scss";
 
-import default_img from "../../logo/default-placeholder.png";
 import { Card } from "../Card/Card";
 
 //* image slider component

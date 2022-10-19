@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./CardStyle.scss";
+import placeholderImage from "../../logo/default-placeholder.png";
 
 export const Card = ({
   mal_id,
@@ -12,7 +13,11 @@ export const Card = ({
   return (
     <>
       <Link to={path ? path + `/${mal_id}` : ``} className="cards" key={mal_id}>
-        {image_url ? <img src={image_url} alt="" /> : ""}
+        <img
+          src={image_url}
+          alt=""
+          onError={(e) => (e.currentTarget.src = placeholderImage)}
+        />
         {animeType && <h3 className="type">{animeType}</h3>}
 
         <div className="details-char">
