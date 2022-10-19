@@ -1,0 +1,14 @@
+@use "../../GlobalStyle/main" as m;
+
+.no-item-main {
+  color: #6a6969;
+  text-align: center;
+}
+
+.no-item-container {
+  padding: m.$padding-medium + 2 0;
+  margin: m.$center-horizontal;
+  margin-top: m.$base-margin + 1.6;
+  border: 2px solid #484747;
+  width: 78%;
+}
