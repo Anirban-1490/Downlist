@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { path } from "../../../../server-path";
