@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { path } from "../../../../server-path";
+import { NoItem } from "../../../Components/NoItemFound/NoItemFound";
 
 export const CoreDetails = ({
   animedetails,
@@ -245,11 +246,15 @@ export const CoreDetails = ({
         </ul>
         <h4>Information</h4>
         <p className="description">
-          {synopsis
-            ? !seemorebtn && synopsis.length > 380
-              ? synopsis.substr(0, 380).concat("...")
-              : synopsis
-            : "No information available"}
+          {synopsis ? (
+            !seemorebtn && synopsis.length > 380 ? (
+              synopsis.substr(0, 380).concat("...")
+            ) : (
+              synopsis
+            )
+          ) : (
+            <NoItem />
+          )}
           {synopsis && synopsis.length > 380 ? (
             <p
               style={{
@@ -269,10 +274,14 @@ export const CoreDetails = ({
           <div>
             <h4>Genres</h4>
             <ul className="genres">
-              {animegenres.map((item) => {
-                const { name, mal_id } = item;
-                return <li key={mal_id}>{name}</li>;
-              })}
+              {animegenres.length > 0 ? (
+                animegenres.map((item) => {
+                  const { name, mal_id } = item;
+                  return <li key={mal_id}>{name}</li>;
+                })
+              ) : (
+                <NoItem />
+              )}
             </ul>
           </div>
         )}
