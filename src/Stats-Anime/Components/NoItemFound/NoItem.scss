@@ -2,7 +2,8 @@
 
 .no-item-main {
   color: #6a6969;
-  text-align: center;
+  //   text-align: center;
+  margin: m.$base-margin 0;
 }
 
 .no-item-container {
@@ -11,4 +12,5 @@
   margin-top: m.$base-margin + 1.6;
   border: 2px solid #484747;
   width: 78%;
+  text-align: center;
 }
