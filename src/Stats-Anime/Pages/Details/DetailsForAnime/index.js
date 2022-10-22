@@ -54,7 +54,7 @@ export const AnimeDetailsMain = () => {
 
   //*object for the metadeta of that anime
   const details = {
-    animedetails: result[0].data,
+    details: result[0].data,
     animegenres: genres,
     stats: result[1].data,
     malid,
