@@ -1,6 +1,25 @@
 import react from "react";
-import { Roles } from "../../Components/Roles";
+import { NoItemContiner } from "../../../../Components/NoItemFound/NoItemFound";
+// import { Roles } from "../../Components/Roles";
+// NoItemContiner
+import { ExpandableContainer } from "../../../../Components/ExpandableContainer/ExpandableContainer";
 
 export const AnimeAppearances = react.memo(({ appearances }) => {
-  return <Roles char={appearances} path={`/anime`} />;
+  console.log(appearances);
+
+  if (!appearances.length) {
+    return <NoItemContiner />;
+  }
+
+  const newData = appearances.map(
+    ({ language, anime: { mal_id, images, title } }) => {
+      return {
+        role: language,
+        mal_id,
+        images,
+        name: title,
+      };
+    }
+  );
+  return <ExpandableContainer data={newData} />;
 });
