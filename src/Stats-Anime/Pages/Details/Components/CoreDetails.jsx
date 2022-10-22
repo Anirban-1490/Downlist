@@ -6,13 +6,14 @@ import { path } from "../../../../server-path";
 import { NoItem } from "../../../Components/NoItemFound/NoItemFound";
 
 export const CoreDetails = ({
-  animedetails,
+  details,
   animegenres,
   stats,
   malid,
   switch_path,
   switch_item,
 }) => {
+  console.log(details);
   const {
     title,
     title_english,
@@ -26,7 +27,7 @@ export const CoreDetails = ({
       jpg: { image_url },
     },
     type,
-  } = animedetails;
+  } = details;
 
   const token = localStorage.getItem("token");
   const [itemadd, setItemadd] = useState(false);
@@ -88,11 +89,11 @@ export const CoreDetails = ({
         if (switch_item === "anime") {
           const item = {
             malid,
-            img_url: animedetails.image_url,
-            title: animedetails.title,
-            score: animedetails.score,
-            episodes: animedetails.episodes,
-            fav: animedetails.favorites,
+            img_url: image_url,
+            title: title,
+            score: score,
+            episodes: episodes,
+            fav: favorites,
             addedOn: new Date().toDateString(),
           };
 
@@ -105,7 +106,7 @@ export const CoreDetails = ({
             `${path.domain}user/${clientData?.userID}/profile/activity`,
             {
               actDone: "Added",
-              detail: animedetails.title,
+              detail: title,
               doneAt: new Date(),
             }
           );
@@ -150,7 +151,7 @@ export const CoreDetails = ({
             `${path.domain}user/${clientData?.userID}/profile/activity`,
             {
               actDone: "Removed",
-              detail: animedetails.title,
+              detail: details.title,
               doneAt: new Date(),
             }
           );
@@ -176,9 +177,9 @@ export const CoreDetails = ({
 
   let color = "white";
 
-  if (animedetails?.score > 7.5) {
+  if (details?.score > 7.5) {
     color = "#00ff1a";
-  } else if (animedetails?.score < 7.5 && animedetails?.score > 6) {
+  } else if (score < 7.5 && score > 6) {
     color = "yellow";
   } else {
     color = "#e6e616";
