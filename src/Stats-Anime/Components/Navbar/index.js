@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
-import "./header-style.css";
+// import "./header-style.css";
 import { useState, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Appcontext } from "../../context";
 import { useAuth } from "../../Feature/Authorize/Authorize";
 import { path } from "../../../server-path";
@@ -11,12 +11,14 @@ import { MobileNavbar } from "./Components/MobileNavbar";
 import { useProfile } from "../../Hooks/useProfile";
 
 export function ParentNavbar() {
+  const router = useRouter();
+  const { pathname } = router;
   const [isHamClicked, setHamClicked] = useState(false);
   const innerWidth = useWindowResize();
 
   const userData = useAuth(true); //* custom hook for checking if user logged in or not
-  const { pathname } = useLocation(); //* used to rerender the component if we hit back button to come here
-  const navigate = useNavigate();
+  //* used to rerender the component if we hit back button to come here
+
   const { changeUserData } = useContext(Appcontext);
 
   changeUserData(userData);
@@ -33,7 +35,7 @@ export function ParentNavbar() {
   const signoutHandler = useCallback(() => {
     localStorage.removeItem("token");
     if (pathname !== "/") {
-      navigate("/", { replace: true });
+      router.replace("/");
 
       return;
     }

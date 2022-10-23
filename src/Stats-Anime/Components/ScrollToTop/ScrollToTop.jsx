@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useRouter } from "next/router";
 
 export function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useRouter();
 
   window.addEventListener("unload", () => {
     window.scrollTo(0, 0);

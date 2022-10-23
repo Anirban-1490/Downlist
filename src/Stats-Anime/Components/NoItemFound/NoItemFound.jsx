@@ -1,11 +1,17 @@
-import "./NoItem.scss";
+import noitemStyle from "./NoItem.module.scss";
 
 export const NoItem = ({ content }) => {
-  return <p className="no-item-main">{content || "Nothing to show here"}</p>;
+  return (
+    <p className={noitemStyle["no-item-main"]}>
+      {content || "Nothing to show here"}
+    </p>
+  );
 };
 
 export const NoItemContiner = ({ content }) => {
   return (
-    <div className="no-item-container">{<NoItem content={content} />}</div>
+    <div className={noitemStyle["no-item-container"]}>
+      {<NoItem content={content} />}
+    </div>
   );
 };

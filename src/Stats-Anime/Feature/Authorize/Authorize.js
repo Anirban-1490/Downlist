@@ -1,13 +1,12 @@
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { v4 as generateUUID } from "uuid";
 import { path } from "../../../server-path";
 
 export const useAuth = (isenabled, redirect = false) => {
   //? custom hook to check if user is logged in or not when routing to any page
-
-  const navigate = useNavigate();
+  const router = useRouter();
   const token = localStorage.getItem("token") || "anonymous";
 
   const authorizeUser = async () => {
@@ -32,7 +31,7 @@ export const useAuth = (isenabled, redirect = false) => {
       }
 
       //*this will remove the current route(the signup route) from history stack so user's can't go back to it. and also redirect the user to the home page
-      if (redirect) return navigate("/", { replace: true });
+      if (redirect) return router.replace("/");
     },
     enabled: !!isenabled,
   });

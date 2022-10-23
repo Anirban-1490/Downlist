@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export function MobileNavbar({
   data,
@@ -98,26 +98,30 @@ export function MobileNavbar({
               )}
 
               <div className="smallnav-nav">
-                <Link className="navlink" onClick={clickhandler} to="/topanime">
-                  Anime
+                <Link
+                  className="navlink"
+                  onClick={clickhandler}
+                  href="/topanime"
+                >
+                  <a>Anime</a>
                 </Link>
                 <Link
                   className="navlink"
                   onClick={clickhandler}
-                  to="/topcharacters"
+                  href="/topcharacters"
                 >
-                  Characters
+                  <a>Characters</a>
                 </Link>
-                <Link onClick={clickhandler} className="navlink" to="/about">
-                  About
+                <Link onClick={clickhandler} className="navlink" href="/about">
+                  <a>About</a>
                 </Link>
                 {!data && (
                   <Link
                     onClick={clickhandler}
-                    to="userauth"
+                    href="/userauth"
                     className="signup-sm"
                   >
-                    Sign in
+                    <a> Sign in</a>
                   </Link>
                 )}
               </div>
@@ -126,17 +130,17 @@ export function MobileNavbar({
                   <div className="smallnav-list-nav">
                     <Link
                       className="navlink"
-                      to={`useranimelist/${data.userID}`}
+                      href={`/useranimelist/${data.userID}`}
                       onClick={clickhandler}
                     >
-                      Anime List
+                      <a>Anime List</a>
                     </Link>
                     <Link
                       className="navlink"
-                      to={`usercharacterlist/${data.userID}`}
+                      href={`/usercharacterlist/${data.userID}`}
                       onClick={clickhandler}
                     >
-                      Character List
+                      <a>Character List</a>
                     </Link>
                   </div>
                 </div>

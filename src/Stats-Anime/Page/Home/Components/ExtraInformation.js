@@ -1,8 +1,8 @@
-import animeSectionImage from "../../../Home_page_images/information-anime.JPG";
-import characterSectionImage from "../../../Home_page_images/information-character.JPG";
-import addingStuffToListGIF from "../../../Home_page_images/information-adding-stuff.gif";
+import animeSectionImage from "../../../../../public/Home_page_images/information-anime.JPG";
+import characterSectionImage from "../../../../../public/Home_page_images/information-character.JPG";
+import addingStuffToListGIF from "../../../../../public/Home_page_images/information-adding-stuff.gif";
 
-import openSourceImages from "../../../Home_page_images/github-github-com.svg";
+import openSourceImages from "../../../../../public/Home_page_images/github-github-com.svg";
 
 export function HomeExtraInformation() {
   return (

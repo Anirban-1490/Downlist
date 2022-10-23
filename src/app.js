@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ParentNavbar } from "./Stats-Anime/Components/Navbar";
-import { HomeMain } from "./Stats-Anime/Pages/Home";
-import { TopAnimeMain } from "./Stats-Anime/Pages/Top/TopAnime";
-import { TopacharMain } from "./Stats-Anime/Pages/Top/TopCharacter";
-import { AnimeDetailsMain } from "./Stats-Anime/Pages/Details/DetailsForAnime";
-import { CharacetrDetailsMain } from "./Stats-Anime/Pages/Details/DetailsForCharacter";
+import { HomeMain } from "./Stats-Anime/Page/Home";
+import { TopAnimeMain } from "./Stats-Anime/Page/Top/TopAnime";
+import { TopacharMain } from "./Stats-Anime/Page/Top/TopCharacter";
+import { AnimeDetailsMain } from "./Stats-Anime/Page/Details/DetailsForAnime";
+import { CharacetrDetailsMain } from "./Stats-Anime/Page/Details/DetailsForCharacter";
 
-import { MainListContainer } from "./Stats-Anime/Pages/UserList";
+import { MainListContainer } from "./Stats-Anime/Page/UserList";
 import { ScrollToTop } from "./Stats-Anime/Components/ScrollToTop/ScrollToTop";
-import { About } from "./Stats-Anime/Pages/About";
+import { About } from "./Stats-Anime/Page/About";
 import { PageNotFound } from "./Stats-Anime/Components/PageNotFound/PageNotFound";
-import { UserAuthentication } from "./Stats-Anime/Pages/UserAuthentication";
+import { UserAuthentication } from "./Stats-Anime/Page/UserAuthentication";
 import { UserProfileMain } from "./Stats-Anime/user_profile";
 import { ReadOnlyProfileMain } from "./Stats-Anime/User_Profile_Read_Only";
 

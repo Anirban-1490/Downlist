@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "./CardStyle.scss";
+import Link from "next/link";
+import cardStyle from "./Card.module.scss";
 import placeholderImage from "../../logo/default-placeholder.png";
 
 export const Card = ({
@@ -12,28 +12,34 @@ export const Card = ({
 }) => {
   return (
     <>
-      <Link to={path ? path + `/${mal_id}` : ``} className="cards" key={mal_id}>
-        <img
-          src={image_url}
-          alt=""
-          onError={(e) => (e.currentTarget.src = placeholderImage)}
-        />
-        {animeType && <h3 className="type">{animeType}</h3>}
+      <Link
+        href={path ? path + `/${mal_id}` : ``}
+        className={cardStyle.cards}
+        key={mal_id}
+      >
+        <a>
+          <img
+            src={image_url}
+            alt=""
+            onError={(e) => (e.currentTarget.src = placeholderImage)}
+          />
+          {animeType && <h3 className={cardStyle.type}>{animeType}</h3>}
 
-        <div className="details-char">
-          <h5
-            style={
-              path === "/anime"
-                ? {
-                    padding: "1em 0",
-                  }
-                : null
-            }
-          >
-            {mainTitle}
-          </h5>
-          {subTitle && <h5>{subTitle}</h5>}
-        </div>
+          <div className={cardStyle["details-char"]}>
+            <h5
+              style={
+                path === "/anime"
+                  ? {
+                      padding: "1em 0",
+                    }
+                  : null
+              }
+            >
+              {mainTitle}
+            </h5>
+            {subTitle && <h5>{subTitle}</h5>}
+          </div>
+        </a>
       </Link>
     </>
   );

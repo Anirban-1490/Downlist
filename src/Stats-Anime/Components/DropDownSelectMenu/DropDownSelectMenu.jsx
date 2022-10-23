@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import { useQueryClient } from "react-query";
-import "./DropDownStyle.scss";
+import dropdownStyle from "./DropDown.module.scss";
 
 export const Dropdown = (prop) => {
   const { options, setID, placeholder, stats_anime } = prop;
@@ -40,7 +40,7 @@ export const Dropdown = (prop) => {
   };
 
   return (
-    <div className="wrapper-input">
+    <div className={dropdownStyle["wrapper-input"]}>
       <ion-icon name="chevron-down-outline"></ion-icon>
       <input
         className="genre-display"
@@ -50,7 +50,7 @@ export const Dropdown = (prop) => {
         readOnly
         onClick={dropDownToggle}
       />
-      <div className="option" ref={optionref}>
+      <div className={dropdownStyle.option} ref={optionref}>
         {options.map((option) => {
           const { genre_id, name, _name } = option;
           return genre_id ? (

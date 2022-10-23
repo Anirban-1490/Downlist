@@ -1,11 +1,11 @@
 import React from "react";
 
-import "../../Pages/Top/Styles/topanimestyle.css";
+import "../../Page/Top/Styles/topanimestyle.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import "swiper/swiper-bundle.css";
-import "./Carousel.scss";
+import "swiper/css/bundle";
+import carouselStyle from "./Carousel.module.scss";
 
 import { Card } from "../Card/Card";
 
@@ -15,7 +15,7 @@ export const TouchCarousel = ({ items, switch_details }) => {
   return (
     <>
       <Swiper
-        className="swiper"
+        className={carouselStyle["swiper"]}
         spaceBetween={12}
         slidesPerView={"auto"}
         navigation={true}
@@ -37,7 +37,10 @@ export const TouchCarousel = ({ items, switch_details }) => {
             const path = switch_details === "anime" ? `/anime` : `/character`;
             const props = { mal_id, image_url, path, mainTitle, animeType };
             return (
-              <SwiperSlide className="swiper-slide" key={mal_id}>
+              <SwiperSlide
+                className={carouselStyle["swiper-slide"]}
+                key={mal_id}
+              >
                 <Card {...props} />
               </SwiperSlide>
             );

@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import downlistLogo from "../../../logo/DownlistLogoNew.svg";
 import { useScroll } from "../../../Hooks/useScroll";
 
@@ -106,25 +106,28 @@ export const Navbar = ({
         <div
           className={`nav-scroll-background ${isScrolling ? `scrolling` : ``}`}
         ></div>
-        <Link to="/" className={`logo-container ${isScrolling && `sticky`}`}>
-          <img src={downlistLogo} className="logo" alt="downlistlogo" />
+        <Link href="/" className={`logo-container ${isScrolling && `sticky`}`}>
+          <a>
+            {" "}
+            <img src={downlistLogo} className="logo" alt="downlistlogo" />
+          </a>
         </Link>
         {!isSmallScreenWidth && (
           <>
             <ul ref={ulRef}>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" to="/topanime">
-                  Anime
+                <Link className="link" href="/topanime">
+                  <a> Anime</a>
                 </Link>
               </nav>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" to="/topcharacters">
-                  Characters
+                <Link className="link" href="/topcharacters">
+                  <a>Characters</a>
                 </Link>
               </nav>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" to="/about">
-                  About
+                <Link className="link" href="/about">
+                  <a>About</a>
                 </Link>
               </nav>
               <div className="bottom-border" ref={borderRef}></div>
@@ -142,14 +145,14 @@ export const Navbar = ({
                   {data.status && (
                     <h5 className="user-status">{data.status}</h5>
                   )}
-                  <Link to={`user/${data.userID}/view`}>
-                    <button className="your-anime">Profile</button>
+                  <Link href={`user/${data.userID}/view`}>
+                    <a className="your-anime">Profile</a>
                   </Link>
-                  <Link to={`useranimelist/${data.userID}`}>
-                    <button className="your-anime">Anime list</button>
+                  <Link href={`useranimelist/${data.userID}`}>
+                    <a className="your-anime">Anime list</a>
                   </Link>
-                  <Link to={`usercharacterlist/${data.userID}`}>
-                    <button className="your-anime">Character list</button>
+                  <Link href={`usercharacterlist/${data.userID}`}>
+                    <a className="your-anime">Character list</a>
                   </Link>
                   <button className="sign-out" onClick={signoutHandler}>
                     <p>Sign out</p>
@@ -158,8 +161,8 @@ export const Navbar = ({
                 </div>
               </div>
             ) : (
-              <Link to="userauth" className="signup">
-                Sign in
+              <Link href="userauth" className="signup">
+                <a> Sign in</a>
               </Link>
             )}
           </>
