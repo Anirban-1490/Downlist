@@ -1,24 +1,25 @@
 import React from "react";
-import "./Styles/animestyle.css";
+// import "./Styles/animestyle.css";
 import { useEffect, useState, useRef } from "react";
 import Fog from "vanta/dist/vanta.fog.min";
 
-import simpleParallax from "simple-parallax-js";
+// import simpleParallax from ;
+import { Content } from "Components/Home/MainContent";
 
-import { Content } from "./Components/MainContent";
-import { HomeExtraInformation } from "./Components/ExtraInformation";
-import { HomeHeader } from "./Components/BigHeader";
+import { HomeExtraInformation } from "Components/Home/ExtraInformation";
+import { HomeHeader } from "Components/Home/BigHeader";
 
-export function HomeMain() {
+export default function HomeMain() {
   const mydiv = useRef();
   //* Vanta.js fog animated background initializer
   const [vantaEffect, setVantaEffect] = useState();
 
   const [parallaxEffect, setParallaxEffect] = useState();
 
-  const isMotionEnabled = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const isMotionEnabled =
+    typeof window !== "undefined"
+      ? window?.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : undefined;
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -41,12 +42,14 @@ export function HomeMain() {
 
   useEffect(() => {
     if (!parallaxEffect && !isMotionEnabled) {
-      const instance = new simpleParallax(mydiv.current, {
-        scale: 2.1,
-        orientation: "down",
-        customWrapper: ".parent-wrapper",
+      import("simple-parallax-js").then((simpleParallax) => {
+        const instance = new simpleParallax(mydiv.current, {
+          scale: 2.1,
+          orientation: "down",
+          customWrapper: ".parent-wrapper",
+        });
+        setParallaxEffect(instance);
       });
-      setParallaxEffect(instance);
     }
     return () => {
       parallaxEffect?.destroy();

@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCallback, useReducer, useRef, useMemo } from "react";
-import { reducerForSearchResult } from "../../../Reducer/reducer";
-import { Loading } from "../Helper/LoadingText";
-import { useScroll } from "../../../Hooks/useScroll";
+import { reducerForSearchResult } from "../../src/Stats-Anime/Reducer/reducer";
+
+import Link from "next/link";
+import { useScroll } from "Hooks/useScroll";
+import { Loading } from "./LoadingText";
 
 export function Content({ isMotionEnabled }) {
- 
-
   const [data, dispatch] = useReducer(reducerForSearchResult, {
     searchResult: [],
     isLoading: true,
@@ -88,12 +87,15 @@ export function Content({ isMotionEnabled }) {
     let op = 1;
     if (!isMotionEnabled) {
       const offsetFromTop =
-        window.scrollY +
-        mainContainerRef.current?.getBoundingClientRect().top -
-        150;
+        typeof window !== "undefined"
+          ? window.scrollY +
+            mainContainerRef.current?.getBoundingClientRect().top -
+            150
+          : 0;
 
       const heightOfElement = mainContainerRef.current?.offsetHeight;
-      const scrollToTop = document.documentElement?.scrollTop;
+      const scrollToTop =
+        typeof document !== "undefined" && document.documentElement?.scrollTop;
 
       if (scrollToTop > offsetFromTop) {
         op = 1 - (scrollToTop - offsetFromTop) / heightOfElement;
@@ -149,13 +151,15 @@ export function Content({ isMotionEnabled }) {
                 } = result;
 
                 return (
-                  <Link to={`anime/${mal_id}`} className="link" key={mal_id}>
-                    <div className="search-result">
-                      <div className="img-container">
-                        <img src={image_url} alt="" />
+                  <Link href={`anime/${mal_id}`} className="link" key={mal_id}>
+                    <a>
+                      <div className="search-result">
+                        <div className="img-container">
+                          <img src={image_url} alt="" />
+                        </div>
+                        <h5>{title}</h5>
                       </div>
-                      <h5>{title}</h5>
-                    </div>
+                    </a>
                   </Link>
                 );
               })

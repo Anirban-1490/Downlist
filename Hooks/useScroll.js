@@ -4,9 +4,12 @@ import { useStore } from "./useStore";
 
 export const useScroll = (callback) => {
   function subscribe(callback) {
-    window.addEventListener("scroll", callback);
+    typeof window !== "undefined" &&
+      window.addEventListener("scroll", callback);
 
-    return () => window.removeEventListener("scroll", callback);
+    return () =>
+      typeof window !== "undefined" &&
+      window.removeEventListener("scroll", callback);
   }
 
   return useStore(subscribe, callback);

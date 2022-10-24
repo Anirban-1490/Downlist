@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { path } from "../../../../server-path";
@@ -35,7 +35,7 @@ export const CoreDetails = ({
   const [seemorebtn, Setbtn] = useState(false);
 
   const btn = useRef();
-
+  const router = useRouter();
   const navigate = useNavigate();
   const client = useQueryClient();
   const clientData = client.getQueryData(["user", token]);
@@ -82,7 +82,7 @@ export const CoreDetails = ({
 
     if (!clientData?.userID) {
       //* if user not logged in then redirect to login page
-      navigate("/userauth");
+      router.push("/usersuth");
     } else {
       if (itemadd === false) {
         //*check if the route is for anime

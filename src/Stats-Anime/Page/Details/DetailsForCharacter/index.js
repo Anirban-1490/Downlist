@@ -1,5 +1,4 @@
 import "../Style/details-style.css";
-import { useParams } from "react-router";
 import { CoreDetails } from "../Components/CoreDetails";
 import { useQuery } from "react-query";
 import { Spinner } from "../../../Components/LoadingSpinner";
@@ -8,11 +7,13 @@ import axios from "axios";
 import React from "react";
 import { AnimeAppearances } from "./Components/AnimeAppearances";
 import { VoiceActors } from "./Components/VoiceActors";
+import { useRouter } from "next/router";
 
 //* component for character details
 
 export function CharacetrDetailsMain() {
-  const { id: mailId } = useParams();
+  const router = useRouter();
+  const { id: mailId } = router.query;
 
   const getCharacterDetails = async (url) => {
     return await axios.get(url).then(({ data: { data } }) => data);

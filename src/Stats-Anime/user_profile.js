@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { useQueryClient } from "react-query";
-import { Appcontext } from "./context";
+import { Appcontext } from "../../context";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { path } from "../server-path";

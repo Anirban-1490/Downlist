@@ -1,15 +1,15 @@
 import React from "react";
-import "./Styles/about-style.css";
-import downlistBackground from "../../logo/DownlistLogoNew.svg";
+import aboutStyle from "Style/About/about.module.css";
+import downlistBackground from "/DownlistLogoNew.svg";
 
-export const About = () => {
+const About = () => {
   return (
     <>
-      <div className="about-page-contianer">
-        <div className="banner">
+      <div className={aboutStyle["about-page-contianer"]}>
+        <div className={aboutStyle["banner"]}>
           <img src={downlistBackground} alt="" />
         </div>
-        <p className="main-details">
+        <p className={aboutStyle["main-details"]}>
           Downlist is a place for <b>Anime Lovers</b>.
           <br /> It's a place where you can view any <strong>Upcoming </strong>
           anime or some of the <strong>Top</strong> ones. <br />
@@ -43,8 +43,8 @@ export const About = () => {
           </a>
         </h3>
 
-        <h3 className="connect">Connect with me</h3>
-        <ul className="social">
+        <h3 className={aboutStyle["connect"]}>Connect with me</h3>
+        <ul className={aboutStyle["social"]}>
           <a
             href="https://www.linkedin.com/in/anirban-pratihar-48a591226/"
             target={"_blank"}
@@ -72,3 +72,5 @@ export const About = () => {
     </>
   );
 };
+
+export default About;

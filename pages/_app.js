@@ -1,10 +1,14 @@
 import Head from "next/head";
 import "./_styles/header-style.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { Approvider } from "context";
 
 function MyApp({ Component, pageProps }) {
+  const client = new QueryClient();
   return (
     <>
-      <head>
+      <Head>
         <meta charset="utf-8" />
         <link rel="icon" href="./DownlistLogoIcon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,8 +54,14 @@ function MyApp({ Component, pageProps }) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script>
         <title>Downlist - Home for anime</title>
-      </head>
-      <Component {...pageProps} />
+      </Head>
+      <QueryClientProvider client={client}>
+        <ReactQueryDevtools />
+        <Approvider>
+          <Component {...pageProps} />
+        </Approvider>
+      </QueryClientProvider>
+      ,
     </>
   );
 }

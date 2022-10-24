@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 // import "./header-style.css";
 import { useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { Appcontext } from "../../context";
+import { Appcontext } from "../../../../context";
 import { useAuth } from "../../Feature/Authorize/Authorize";
 import { path } from "../../../server-path";
 import { Navbar } from "./Components/Navbar";

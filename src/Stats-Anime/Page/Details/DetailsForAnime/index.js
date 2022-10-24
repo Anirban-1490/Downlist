@@ -1,11 +1,11 @@
 import React from "react";
 import { useContext } from "react";
 import "../Style/details-style.css";
-import { useParams } from "react-router";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { useQueries } from "react-query";
 import { Spinner } from "../../../Components/LoadingSpinner";
-import { Appcontext } from "../../../context";
+import { Appcontext } from "../../../../../context";
 import { CommentsBox } from "../Components/CommentsBox";
 import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
 import { RandomRecommendations } from "../Components/RandomRecommendation";
@@ -14,7 +14,8 @@ import { CoreDetails } from "../Components/CoreDetails";
 //* component for anime details
 
 export const AnimeDetailsMain = () => {
-  const { id } = useParams();
+  const router = useRouter();
+  const { id } = router.query;
   const malid = id;
 
   const { userProfileDetails } = useContext(Appcontext);
