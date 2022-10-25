@@ -1,0 +1,36 @@
+.home-section-1 {
+  margin-bottom: 17%;
+  position: relative;
+  z-index: 2;
+
+  .main-text-container {
+    color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 0.6em;
+    h1 {
+      color: #ffffffe1;
+      text-transform: capitalize;
+      font-size: clamp(13vw, 8em, 14em);
+
+      line-height: 0.76em;
+      letter-spacing: 0.03em;
+      span {
+        font-family: "Fira Sans", sans-serif !important;
+        transition: 500ms linear;
+      }
+    }
+    p {
+      text-align: center;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 1.1rem;
+      line-height: 0.81em;
+      color: #ffffff6f;
+      line-height: 1.5em;
+      padding-inline: 3em;
+      margin-top: 2em;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState, useRef } from "react";
 import Fog from "vanta/dist/vanta.fog.min";
 
-// import simpleParallax from ;
+import homeStyle from "Style/Home/home.module.scss";
 import { Content } from "Components/Home/MainContent";
 
 import { HomeExtraInformation } from "Components/Home/ExtraInformation";
@@ -19,7 +19,7 @@ export default function HomeMain() {
   const isMotionEnabled =
     typeof window !== "undefined"
       ? window?.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : undefined;
+      : false;
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -58,20 +58,19 @@ export default function HomeMain() {
 
   return (
     <>
-      <div className="inner-root-container">
-        <div className="parent-wrapper">
-          <div
-            className="container1"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            ref={mydiv}
-          >
-            <Content isMotionEnabled={isMotionEnabled} />
-          </div>
+      <div className={homeStyle["inner-root-container"]}>
+        <div
+          className={homeStyle["container1"]}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          ref={mydiv}
+        >
+          <Content isMotionEnabled={isMotionEnabled} />
         </div>
+
         <HomeHeader />
         <HomeExtraInformation />
       </div>

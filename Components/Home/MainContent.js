@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useScroll } from "Hooks/useScroll";
 import { Loading } from "./LoadingText";
 
+import mainStyle from "Components/Home/Style/MainContainer.module.scss";
+
 export function Content({ isMotionEnabled }) {
   const [data, dispatch] = useReducer(reducerForSearchResult, {
     searchResult: [],
@@ -110,32 +112,32 @@ export function Content({ isMotionEnabled }) {
   return (
     <>
       <div
-        className="main-container"
+        className={mainStyle["main-container"]}
         ref={mainContainerRef}
         style={{
           opacity,
-          scale: `${!isMotionEnabled ? `0.48` : ``}`,
+          scale: `${isMotionEnabled ? `0.48` : ``}`,
         }}
       >
-        <h2 className="title1" ref={mainheader}>
+        <h2 className={mainStyle["title1"]} ref={mainheader}>
           <span>S</span>earch an <span>A</span>nime
         </h2>
-        <p className="info1" ref={mainionfo}>
+        <p className={mainStyle["info1"]} ref={mainionfo}>
           Check details about your favourite anime
         </p>
-        <div className="wrapper" ref={wrapper}>
+        <div className={mainStyle["wrapper"]} ref={wrapper}>
           <input
             type="text"
             name=""
-            id="search"
+            id={mainStyle["search"]}
             placeholder="Search e.g. naruto ,fate"
             autoComplete="off"
             onChange={searchHandler}
           />
 
-          <span className="search-cover"></span>
+          <span className={mainStyle["search-cover"]}></span>
           <div
-            className="search-result-container search-result-container-toggle"
+            className={`${mainStyle["search-result-container"]} ${mainStyle["search-result-container-toggle"]}`}
             ref={searchContainer}
           >
             {data.isLoading && <Loading loadingtext={data.text} />}
@@ -151,10 +153,14 @@ export function Content({ isMotionEnabled }) {
                 } = result;
 
                 return (
-                  <Link href={`anime/${mal_id}`} className="link" key={mal_id}>
+                  <Link
+                    href={`anime/${mal_id}`}
+                    className={mainStyle["link"]}
+                    key={mal_id}
+                  >
                     <a>
-                      <div className="search-result">
-                        <div className="img-container">
+                      <div className={mainStyle["search-result"]}>
+                        <div className={mainStyle["img-container"]}>
                           <img src={image_url} alt="" />
                         </div>
                         <h5>{title}</h5>

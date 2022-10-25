@@ -1,8 +1,8 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
 import Link from "next/link";
-import downlistLogo from "../../../logo/DownlistLogoNew.svg";
-import { useScroll } from "../../../Hooks/useScroll";
+
+import { useScroll } from "Hooks/useScroll";
 
 export const Navbar = ({
   data,
@@ -109,7 +109,11 @@ export const Navbar = ({
         <Link href="/" className={`logo-container ${isScrolling && `sticky`}`}>
           <a>
             {" "}
-            <img src={downlistLogo} className="logo" alt="downlistlogo" />
+            <img
+              src={"/DownlistLogoNew.svg"}
+              className="logo"
+              alt="downlistlogo"
+            />
           </a>
         </Link>
         {!isSmallScreenWidth && (

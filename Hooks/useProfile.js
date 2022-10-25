@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Appcontext } from "../../../context";
+import { Appcontext } from "context";
 
 import { useContext } from "react";
 

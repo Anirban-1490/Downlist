@@ -2,13 +2,13 @@ import React, { useCallback, useMemo } from "react";
 // import "./header-style.css";
 import { useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { Appcontext } from "../../../../context";
-import { useAuth } from "../../Feature/Authorize/Authorize";
-import { path } from "../../../server-path";
+import { Appcontext } from "context";
+import { useAuth } from "Feature/Authorize/Authorize";
+import { path } from "server-path";
 import { Navbar } from "./Components/Navbar";
-import { useWindowResize } from "../../Hooks/useWindowResize";
+import { useWindowResize } from "Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
-import { useProfile } from "../../Hooks/useProfile";
+import { useProfile } from "Hooks/useProfile";
 
 export function ParentNavbar() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export function ParentNavbar() {
       return;
     }
     window.location.reload();
-  }, [navigate, pathname]);
+  }, [router, pathname]);
 
   const props = useMemo(
     () => ({

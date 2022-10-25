@@ -17,7 +17,9 @@ export function HomeExtraInformation() {
               alt=""
             />
           </div>
-          <div className={extraStyle["line-separator line-separator-1"]}></div>
+          <div
+            className={`${extraStyle["line-separator"]} ${extraStyle["line-separator-1"]}`}
+          ></div>
           <div className={extraStyle["information"]}>
             <h3>At your fingertip </h3>
             <p>

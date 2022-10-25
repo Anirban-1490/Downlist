@@ -1,5 +1,7 @@
 import { useRef, useEffect } from "react";
 
+import ranmdomTextStyle from "Components/Home/Style/RandomizedText.module.scss";
+
 export function HomeHeader() {
   const textContainerRef = useRef();
   const childNodesOfTextContainer = textContainerRef.current?.childNodes;
@@ -71,8 +73,11 @@ export function HomeHeader() {
 
   return (
     <>
-      <section className="home-section-1">
-        <div className="main-text-container" ref={textContainerRef}>
+      <section className={ranmdomTextStyle["home-section-1"]}>
+        <div
+          className={ranmdomTextStyle["main-text-container"]}
+          ref={textContainerRef}
+        >
           <h1>
             <span>y</span>
             <span>o</span>

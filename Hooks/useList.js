@@ -1,5 +1,5 @@
 import axios from "axios";
-import { path } from "../src/server-path";
+import { path } from "../server-path";
 import { useInfiniteQuery } from "react-query";
 
 export function useList(switch_item, userID, sortBy = undefined) {

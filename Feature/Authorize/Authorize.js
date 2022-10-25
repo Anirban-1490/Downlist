@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { v4 as generateUUID } from "uuid";
-import { path } from "../../../../server-path";
+import { path } from "server-path";
 
 export const useAuth = (isenabled, redirect = false) => {
   //? custom hook to check if user is logged in or not when routing to any page

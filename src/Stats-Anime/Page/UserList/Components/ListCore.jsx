@@ -1,6 +1,6 @@
 import { useInView } from "react-intersection-observer";
 import { useRef, useState, useEffect } from "react";
-import { path } from "../../../../server-path";
+import { path } from "../../../../../server-path";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Dropdown } from "../../../Components/DropDownSelectMenu/DropDownSelectMenu";

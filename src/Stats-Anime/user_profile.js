@@ -3,7 +3,7 @@ import { useQueryClient } from "react-query";
 import { Appcontext } from "../../context";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { path } from "../server-path";
+import { path } from "../../server-path";
 
 import { Spinner } from "./Components/LoadingSpinner";
 

@@ -1,0 +1,29 @@
+@use "./main" as m;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0.7em;
+}
+::-webkit-scrollbar-track {
+  background: m.$bg-primary;
+}
+::-webkit-scrollbar-thumb {
+  background: #990011ff;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(224, 119, 131);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+#__next {
+  background: #1d1d1d;
+}

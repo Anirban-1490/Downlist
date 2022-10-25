@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { path } from "../server-path";
+import { path } from "../../server-path";
 
 import "./User_Profile_Read_Only_Style.css";
 import { useState, useMemo, useContext } from "react";

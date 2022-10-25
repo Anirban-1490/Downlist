@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-import { path } from "../../../../server-path";
+import { path } from "../../../../../server-path";
 import { NoItem } from "../../../Components/NoItemFound/NoItemFound";
 
 export const CoreDetails = ({

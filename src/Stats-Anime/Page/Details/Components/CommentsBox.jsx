@@ -6,7 +6,7 @@ import Link from "next/link";
 import default_img from "../../../logo/default-placeholder.png";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { path } from "../../../../server-path";
+import { path } from "../../../../../server-path";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");

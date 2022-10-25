@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import "./Styles/signup.css";
 import axios from "axios";
-import { path } from "../../../server-path";
+import { path } from "../../../../server-path";
 
 import { useAuth } from "../../Feature/Authorize/Authorize";
 import { useWindowResize } from "../../Hooks/useWindowResize";

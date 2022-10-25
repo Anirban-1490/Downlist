@@ -1,8 +1,9 @@
 import Head from "next/head";
-import "./_styles/header-style.css";
+import "Style/GlobalStyle/global.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Approvider } from "context";
+import { ParentNavbar } from "Components/Global/Navbar";
 
 function MyApp({ Component, pageProps }) {
   const client = new QueryClient();
@@ -42,6 +43,10 @@ function MyApp({ Component, pageProps }) {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=block"
           rel="stylesheet preload preconnect"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@900&display=block"
+          rel="stylesheet"
+        />
 
         <script
           src="https://kit.fontawesome.com/44a11d6622.js"
@@ -58,6 +63,7 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
         <Approvider>
+          <ParentNavbar />
           <Component {...pageProps} />
         </Approvider>
       </QueryClientProvider>

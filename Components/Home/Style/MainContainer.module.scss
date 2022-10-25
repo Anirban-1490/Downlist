@@ -1,0 +1,232 @@
+@use "/Style/GlobalStyle/main" as bp;
+
+.main-container {
+  flex: 0 0 50em;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  translate: 0 -10px;
+
+  gap: 0.4em;
+
+  .title1 {
+    position: relative;
+    top: -0.7em;
+    color: white;
+    font-size: 5em;
+
+    display: inline-block;
+    text-align: center;
+    animation-name: textanim;
+    animation-duration: 0.5s;
+    text-shadow: 0 0 14px #00000074;
+
+    @include bp.md {
+      font-size: 11vw;
+    }
+
+    span:nth-child(1) {
+      color: #e94b3cff;
+      position: relative;
+    }
+    span:nth-child(2) {
+      color: #fee715ff;
+    }
+  }
+  .info1 {
+    color: white;
+    font-size: 1.5em;
+    position: relative;
+    top: -1.8em;
+    display: inline-block;
+    text-align: center;
+    animation-name: infoanim;
+    animation-duration: 0.5s;
+    animation-delay: 0.3s;
+    animation-iteration-count: 1;
+    opacity: 0;
+    animation-fill-mode: forwards;
+
+    @include bp.md {
+      font-size: 3.67vw;
+    }
+  }
+
+  .wrapper {
+    min-height: 100px;
+    width: 24em;
+    overflow: hidden;
+    animation-name: wrapperanime;
+    animation-duration: 0.25s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    transform: translateY(20px);
+    position: absolute;
+    top: 60%;
+
+    @include bp.md {
+      display: flex;
+      flex-direction: column;
+      width: 75vw;
+      align-items: center;
+    }
+
+    .search-cover {
+      background: orange;
+      width: 100%;
+      position: absolute;
+      left: 102%;
+      height: 40px;
+      animation-name: anime-search-cover;
+      animation-duration: 0.45s;
+      animation-delay: 0.2s;
+      animation-fill-mode: forwards;
+      transform: skew(-10deg, 0);
+    }
+    #search {
+      width: 100%;
+      height: 35px;
+
+      font-size: 1.2em;
+      padding-left: 10px;
+      outline: none;
+      border: none;
+      border-bottom: 2px solid orange;
+      background: transparent;
+      color: white;
+      opacity: 0;
+      animation-name: searchbaranime;
+      animation-duration: 0.25s;
+      animation-delay: 0.5s;
+      animation-fill-mode: forwards;
+      transition: border 0.4s;
+
+      &::placeholder {
+        font-size: 18px;
+        color: #beeaff;
+        opacity: 0.75;
+      }
+    }
+
+    .search-result-container {
+      width: 100%;
+      min-height: 10em;
+      transform: translateY(5px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: visible;
+      position: relative;
+      top: 40%;
+      background: rgba(43, 43, 136, 0.434);
+      .search-result {
+        width: 100%;
+
+        background: #08083b;
+        height: 4.3em;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+
+        &:hover {
+          background-color: #2929a1;
+        }
+
+        h5 {
+          color: white;
+          text-align: center;
+
+          margin: 0 auto;
+          padding: 5% 0;
+        }
+
+        .img-container {
+          width: 7.4em;
+          height: 100%;
+          scale: 0.87;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 130%;
+          }
+        }
+      }
+      a {
+        width: 100%;
+        text-decoration: none;
+        display: block;
+      }
+    }
+
+    .search-result-container-toggle {
+      min-height: 0;
+      overflow: hidden;
+    }
+  }
+}
+
+@keyframes textanim {
+  0% {
+    letter-spacing: -7px;
+  }
+  100% {
+    letter-spacing: 0px;
+  }
+}
+
+@keyframes infoanim {
+  0% {
+    transform: translate(0, -20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+.wrapper-toggle {
+  top: 59%;
+}
+@keyframes wrapperanime {
+  0% {
+    overflow: hidden;
+  }
+  100% {
+    overflow: visible;
+  }
+}
+
+@keyframes anime-search-cover {
+  0% {
+    width: 100%;
+    left: 102%;
+  }
+  50% {
+    width: 100%;
+    left: 0;
+  }
+  100% {
+    width: 0;
+    left: 0;
+  }
+}
+
+@keyframes searchbaranime {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.wrapper .search-result-container .loading {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
