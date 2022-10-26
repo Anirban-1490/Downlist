@@ -1,5 +1,4 @@
 import React from "react";
-// import "./Styles/animestyle.css";
 import { useEffect, useState, useRef } from "react";
 import Fog from "vanta/dist/vanta.fog.min";
 
