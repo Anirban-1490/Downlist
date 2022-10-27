@@ -5,10 +5,11 @@ import { useRouter } from "next/router";
 import { Appcontext } from "context";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { path } from "server-path";
-import { Navbar } from "./Components/Navbar";
+
 import { useWindowResize } from "Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
 import { useProfile } from "Hooks/useProfile";
+import { Navbar } from "./Components/Navbar";
 
 export function ParentNavbar() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export function ParentNavbar() {
   changeUserData(userData);
 
   const isSmallScreenWidth = innerWidth > 740 ? false : true;
+  console.log(innerWidth);
   useMemo(() => {
     if (!isSmallScreenWidth) {
       setHamClicked(false);
@@ -60,7 +62,7 @@ export function ParentNavbar() {
 
   return (
     <>
-      {isSmallScreenWidth ? <MobileNavbar {...props} /> : ""}
+      {isSmallScreenWidth === true ? <MobileNavbar {...props} /> : ""}
 
       {useMemo(() => {
         return (

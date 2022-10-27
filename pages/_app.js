@@ -63,8 +63,10 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
         <Approvider>
-          <ParentNavbar />
-          <Component {...pageProps} />
+          <>
+            <ParentNavbar />
+            <Component {...pageProps} />
+          </>
         </Approvider>
       </QueryClientProvider>
       ,

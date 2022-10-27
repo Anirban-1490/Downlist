@@ -1,8 +1,9 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
 
 import Link from "next/link";
 
 import { useScroll } from "Hooks/useScroll";
+import navbarStyle from "Components/Global/Navbar/Style/Navbar.module.scss";
 
 export const Navbar = ({
   data,
@@ -18,7 +19,6 @@ export const Navbar = ({
   const userbtn = useRef(null);
   const borderRef = useRef(null);
   const ulRef = useRef(null);
-
   const toggelnav = () => {
     [...document.getElementsByClassName("parts")].forEach((ele) =>
       ele.classList.add("animate")
@@ -26,7 +26,7 @@ export const Navbar = ({
     setHamClicked(true);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     //*check for any path match
     if (!isSmallScreenWidth) {
       const isMatch = [...ulRef.current.children].some((node) => {
@@ -58,30 +58,32 @@ export const Navbar = ({
 
   //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened
 
-  document.addEventListener("click", (e) => {
-    const inBoundary = e.composedPath().includes(userbtn.current);
-    if (refdropmenu.current) {
-      if (inBoundary) {
-        if (!isexpand) {
-          refdropmenu.current.style.height = "auto";
-          setIsexpand(true);
+  typeof document !== "undefined" &&
+    document.addEventListener("click", (e) => {
+      const inBoundary = e.composedPath().includes(userbtn.current);
+      if (refdropmenu.current) {
+        if (inBoundary) {
+          if (!isexpand) {
+            refdropmenu.current.style.height = "auto";
+            setIsexpand(true);
+          } else {
+            refdropmenu.current.style.height = "0px";
+            setIsexpand(false);
+          }
         } else {
           refdropmenu.current.style.height = "0px";
           setIsexpand(false);
         }
-      } else {
-        refdropmenu.current.style.height = "0px";
-        setIsexpand(false);
       }
-    }
-  });
+    });
 
   function getScrollStatus() {
     if (window.scrollY > 0) return true;
     return false;
   }
 
-  const isScrolling = useScroll(getScrollStatus);
+  const isScrolling =
+    typeof window !== "undefined" && useScroll(getScrollStatus);
 
   //*get the position to move from left
   function getLeft(index, parentEle, currentEle) {
@@ -102,16 +104,26 @@ export const Navbar = ({
 
   return (
     <>
-      <div className={`nav-container ${isScrolling ? `sticky` : ``}`}>
+      <div
+        className={`${navbarStyle["nav-container"]} ${
+          isScrolling && navbarStyle[`sticky`]
+        }`}
+      >
         <div
-          className={`nav-scroll-background ${isScrolling ? `scrolling` : ``}`}
+          className={`${navbarStyle["nav-scroll-background"]} ${
+            isScrolling ? navbarStyle[`scrolling`] : ``
+          }`}
         ></div>
-        <Link href="/" className={`logo-container ${isScrolling && `sticky`}`}>
-          <a>
+        <Link href="/">
+          <a
+            className={`${navbarStyle["logo-container"]} ${
+              isScrolling && navbarStyle[`sticky`]
+            }`}
+          >
             {" "}
             <img
               src={"/DownlistLogoNew.svg"}
-              className="logo"
+              className={navbarStyle["logo"]}
               alt="downlistlogo"
             />
           </a>
@@ -120,63 +132,71 @@ export const Navbar = ({
           <>
             <ul ref={ulRef}>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" href="/topanime">
-                  <a> Anime</a>
+                <Link href="/topanime">
+                  <a className={navbarStyle["link"]}> Anime</a>
                 </Link>
               </nav>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" href="/topcharacters">
-                  <a>Characters</a>
+                <Link href="/topcharacters">
+                  <a className={navbarStyle["link"]}>Characters</a>
                 </Link>
               </nav>
               <nav onClick={bottomBorderHandler}>
-                <Link className="link" href="/about">
-                  <a>About</a>
+                <Link href="/about">
+                  <a className={navbarStyle["link"]}>About</a>
                 </Link>
               </nav>
-              <div className="bottom-border" ref={borderRef}></div>
+              <div
+                className={navbarStyle["bottom-border"]}
+                ref={borderRef}
+              ></div>
             </ul>
             {data ? (
-              <div className="user" ref={userbtn}>
-                <div className="profile-img-container">
+              <div className={navbarStyle["user"]} ref={userbtn}>
+                <div className={navbarStyle["profile-img-container"]}>
                   <img src={data.image} alt="" />
                 </div>
-                <div className="yourlist" ref={refdropmenu}>
-                  <h4 className="user-name">
+                <div className={navbarStyle["yourlist"]} ref={refdropmenu}>
+                  <h4 className={navbarStyle["user-name"]}>
                     HI, <br />
                     {data.name}
                   </h4>
                   {data.status && (
-                    <h5 className="user-status">{data.status}</h5>
+                    <h5 className={navbarStyle["user-status"]}>
+                      {data.status}
+                    </h5>
                   )}
                   <Link href={`user/${data.userID}/view`}>
-                    <a className="your-anime">Profile</a>
+                    <a className={navbarStyle["your-anime"]}>Profile</a>
                   </Link>
                   <Link href={`useranimelist/${data.userID}`}>
-                    <a className="your-anime">Anime list</a>
+                    <a className={navbarStyle["your-anime"]}>Anime list</a>
                   </Link>
                   <Link href={`usercharacterlist/${data.userID}`}>
-                    <a className="your-anime">Character list</a>
+                    <a className={navbarStyle["your-anime"]}>Character list</a>
                   </Link>
-                  <button className="sign-out" onClick={signoutHandler}>
+                  <button
+                    className={navbarStyle["sign-out"]}
+                    onClick={signoutHandler}
+                  >
                     <p>Sign out</p>
                     <ion-icon name="exit-outline"></ion-icon>
                   </button>
                 </div>
               </div>
             ) : (
-              <Link href="userauth" className="signup">
-                <a> Sign in</a>
+              <Link href="userauth">
+                <a className={navbarStyle["signup"]}> Sign in</a>
               </Link>
             )}
           </>
         )}
-        <i
-          className={`fas fa-bars menutoggle ${
-            isHamClicked ? "toggle-style-ham" : ""
+        {/* <i
+          className={`${navbarStyle["fas fa-bars menutoggle"]} ${
+            isHamClicked && navbarStyle["toggle-style-ham"]
           }`}
           onClick={toggelnav}
-        ></i>
+        ></i> */}
       </div>
     </>
   );

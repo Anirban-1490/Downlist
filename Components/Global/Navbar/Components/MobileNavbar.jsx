@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import mobileNavStyle from "Components/Global/Navbar/Style/MobileNav.module.scss";
+
 export function MobileNavbar({
   data,
   signoutHandler,
@@ -19,7 +21,7 @@ export function MobileNavbar({
   return (
     <>
       <div
-        className="smallnav"
+        className={mobileNavStyle["smallnav"]}
         style={
           isHamClicked
             ? { opacity: "1", width: "100%", transition: "none" }
@@ -27,7 +29,7 @@ export function MobileNavbar({
         }
       >
         <i
-          className="fas fa-times"
+          className={mobileNavStyle["fas fa-times"]}
           style={
             isHamClicked
               ? { opacity: "1" }
@@ -35,21 +37,21 @@ export function MobileNavbar({
           }
           onClick={clickhandler}
         ></i>
-        <div className="smallnav-parts-container">
+        <div className={mobileNavStyle["smallnav-parts-container"]}>
           <div
-            className="parts part-1 anime-default"
+            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-1"]} ${mobileNavStyle["anime-default"]}`}
             style={{ "--i": "1" }}
           ></div>
           <div
-            className="parts part-2 anime-default"
+            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-2"]} ${mobileNavStyle["anime-default"]}`}
             style={{ "--i": "2" }}
           ></div>
           <div
-            className="parts part-3 anime-default"
+            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-3"]} ${mobileNavStyle["anime-default"]}`}
             style={{ "--i": "3" }}
           ></div>
           <div
-            className="parts part-4 anime-default"
+            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-4"]} ${mobileNavStyle["anime-default"]}`}
             style={{ "--i": "4" }}
           ></div>
         </div>
@@ -58,22 +60,24 @@ export function MobileNavbar({
           <>
             {data && (
               <button
-                className="sign-out"
+                className={mobileNavStyle["sign-out"]}
                 style={{ color: "white" }}
                 onClick={signoutHandler}
               >
                 <p>Sign out</p>
-                <ion-icon name="exit-outline"></ion-icon>
+                <ion-icon name={mobileNavStyle["exit-outline"]}></ion-icon>
               </button>
             )}
             <div
-              className={`smallnav-nav-container ${isHamClicked && "active"}`}
+              className={`${mobileNavStyle["smallnav-nav-container"]} ${
+                isHamClicked && mobileNavStyle["active"]
+              }`}
             >
               {/* //* ------------------ navigation links */}
               {data && (
-                <div className="user-details-container">
+                <div className={mobileNavStyle["user-details-container"]}>
                   <div
-                    className="profile-img-container"
+                    className={mobileNavStyle["profile-img-container"]}
                     style={{
                       margin: "0 auto",
                       width: "40px",
@@ -83,7 +87,7 @@ export function MobileNavbar({
                     <img src={data?.image} alt="" />
                   </div>
                   <h4
-                    className="user-name"
+                    className={mobileNavStyle["user-name"]}
                     style={{
                       color: "darkorange",
                       fontSize: "1.55em",
@@ -93,54 +97,44 @@ export function MobileNavbar({
                     HI, {data?.name}
                   </h4>
 
-                  <h5 className="user-status">{data?.status}</h5>
+                  <h5 className={mobileNavStyle["user-status"]}>
+                    {data?.status}
+                  </h5>
                 </div>
               )}
 
-              <div className="smallnav-nav">
-                <Link
-                  className="navlink"
-                  onClick={clickhandler}
-                  href="/topanime"
-                >
-                  <a>Anime</a>
+              <div className={mobileNavStyle["smallnav-nav"]}>
+                <Link onClick={clickhandler} href="/topanime">
+                  <a className={mobileNavStyle["navlink"]}>Anime</a>
                 </Link>
-                <Link
-                  className="navlink"
-                  onClick={clickhandler}
-                  href="/topcharacters"
-                >
-                  <a>Characters</a>
+                <Link onClick={clickhandler} href="/topcharacters">
+                  <a className={mobileNavStyle["navlink"]}>Characters</a>
                 </Link>
-                <Link onClick={clickhandler} className="navlink" href="/about">
-                  <a>About</a>
+                <Link onClick={clickhandler} href="/about">
+                  <a className={mobileNavStyle["navlink"]}>About</a>
                 </Link>
                 {!data && (
-                  <Link
-                    onClick={clickhandler}
-                    href="/userauth"
-                    className="signup-sm"
-                  >
-                    <a> Sign in</a>
+                  <Link onClick={clickhandler} href="/userauth">
+                    <a className={mobileNavStyle["signup-sm"]}> Sign in</a>
                   </Link>
                 )}
               </div>
               {data && (
-                <div className="smallnav-userlist">
-                  <div className="smallnav-list-nav">
+                <div className={mobileNavStyle["smallnav-userlist"]}>
+                  <div className={mobileNavStyle["smallnav-list-nav"]}>
                     <Link
-                      className="navlink"
                       href={`/useranimelist/${data.userID}`}
                       onClick={clickhandler}
                     >
-                      <a>Anime List</a>
+                      <a className={mobileNavStyle["navlink"]}>Anime List</a>
                     </Link>
                     <Link
-                      className="navlink"
                       href={`/usercharacterlist/${data.userID}`}
                       onClick={clickhandler}
                     >
-                      <a>Character List</a>
+                      <a className={mobileNavStyle["navlink"]}>
+                        Character List
+                      </a>
                     </Link>
                   </div>
                 </div>

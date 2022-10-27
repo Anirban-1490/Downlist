@@ -7,7 +7,10 @@ import { path } from "server-path";
 export const useAuth = (isenabled, redirect = false) => {
   //? custom hook to check if user is logged in or not when routing to any page
   const router = useRouter();
-  const token = localStorage.getItem("token") || "anonymous";
+  const token =
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("token")
+      : "anonymous";
 
   const authorizeUser = async () => {
     const uniqueID = generateUUID();

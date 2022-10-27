@@ -6,7 +6,11 @@ import { useContext } from "react";
 
 export const useProfile = (path, userID) => {
   const { changeUserProfileDetails } = useContext(Appcontext);
-  const token = localStorage.getItem("token") || "anonymous";
+  const token =
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("token")
+      : "anonymous";
+
   async function fetchUserProfile() {
     return (await axios.get(`${path.domain}user/${userID}/profile/view`)).data;
   }
