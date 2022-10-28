@@ -1,13 +1,12 @@
 import React from "react";
 import aboutStyle from "Style/About/about.module.css";
-import downlistBackground from "/DownlistLogoNew.svg";
 
 const About = () => {
   return (
     <>
       <div className={aboutStyle["about-page-contianer"]}>
         <div className={aboutStyle["banner"]}>
-          <img src={downlistBackground} alt="" />
+          <img src="/DownlistLogoNew.svg" alt="" />
         </div>
         <p className={aboutStyle["main-details"]}>
           Downlist is a place for <b>Anime Lovers</b>.
@@ -50,7 +49,7 @@ const About = () => {
             target={"_blank"}
             rel="noreferrer"
           >
-            <i class="fab fa-linkedin"></i>
+            <ion-icon name="logo-linkedin"></ion-icon>
           </a>
 
           <a
@@ -58,14 +57,14 @@ const About = () => {
             target={"_blank"}
             rel="noreferrer"
           >
-            <i class="fab fa-github"></i>
+            <ion-icon name="logo-github"></ion-icon>
           </a>
           <a
             href="https://twitter.com/Anirban45555"
             target={"_blank"}
             rel="noreferrer"
           >
-            <i class="fab fa-twitter"></i>
+            <ion-icon name="logo-twitter"></ion-icon>
           </a>
         </ul>
       </div>
