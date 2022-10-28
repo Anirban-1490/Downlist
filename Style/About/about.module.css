@@ -19,20 +19,20 @@
   max-width: 60em;
   margin: 0 auto 1em auto;
 }
-strong {
+.main-details strong {
   color: rgb(250, 149, 132);
 }
-b {
+.main-details b {
   color: #f2aa4cff;
 }
-h3 {
+.about-page-contianer h3 {
   color: white;
   text-align: center;
   padding: 0 4%;
   line-height: 30px;
 }
 
-h3 a {
+.about-page-contianer h3 a {
   color: yellow;
   text-decoration: none;
 }
@@ -50,7 +50,7 @@ h3 a {
 .social a {
   text-decoration: none;
 }
-.social i {
+.social ion-icon {
   color: white;
   cursor: pointer;
   font-size: 1.5em;
