@@ -49,6 +49,16 @@ function MyApp({ Component, pageProps }) {
         />
 
         <script
+          type="module"
+          src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+          defer
+        ></script>
+        <script
+          nomodule
+          src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+          defer
+        ></script>
+        <script
           src="https://kit.fontawesome.com/44a11d6622.js"
           crossorigin="anonymous"
         ></script>

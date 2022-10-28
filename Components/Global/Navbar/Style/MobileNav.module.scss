@@ -5,15 +5,22 @@
   opacity: 0;
   z-index: 11;
   position: fixed;
-  .fas {
+  width: 0;
+  transition: all 0.24s 1.7s;
+  &.toggle {
+    opacity: 1;
+    width: 100%;
+    transition: none;
+  }
+  ion-icon {
     position: absolute;
     right: 20px;
     top: 20px;
-    font-size: 2rem;
+    font-size: 3rem;
 
     color: white;
     z-index: 15;
-    opacity: 0;
+    // opacity: 0;
     transition: all 0s 0.6s;
   }
   .smallnav-parts-container {
@@ -29,24 +36,56 @@
     }
     .part-1 {
       background: white;
+      $index: 1;
+      &.animate {
+        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
+          anime-parts-color 1s $index * 0.2s 1 forwards;
+      }
+      &.anime-default {
+        animation: anime-parts-reverse 1.5s $index * 0.1s;
+        animation-fill-mode: forwards;
+      }
     }
     .part-2 {
       background: red;
+      $index: 2;
+      &.animate {
+        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
+          anime-parts-color 1s $index * 0.2s 1 forwards;
+      }
+      &.anime-default {
+        animation: anime-parts-reverse 1.5s $index * 0.1s;
+        animation-fill-mode: forwards;
+      }
     }
     .part-3 {
       background: rgb(16, 173, 16);
+      $index: 3;
+      &.animate {
+        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
+          anime-parts-color 1s $index * 0.2s 1 forwards;
+      }
+      &.anime-default {
+        animation: anime-parts-reverse 1.5s $index * 0.1s;
+        animation-fill-mode: forwards;
+      }
     }
     .part-4 {
       background: yellow;
+      $index: 4;
+      &.animate {
+        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
+          anime-parts-color 1s $index * 0.2s 1 forwards;
+      }
+      &.anime-default {
+        animation: anime-parts-reverse 1.5s $index * 0.1s;
+        animation-fill-mode: forwards;
+      }
     }
-    .anime-default {
-      animation: anime-parts-reverse 1.5s calc(var(--i) * 0.1s);
-      animation-fill-mode: forwards;
-    }
-    .animate {
-      animation: anime-parts 0.5s calc(var(--i) * 0.1s) 1 forwards,
-        anime-parts-color 1s calc(var(--i) * 0.2s) 1 forwards;
-    }
+    // .anime-default {
+    //   animation: anime-parts-reverse 1.5s calc(var(--i) * 0.1s);
+    //   animation-fill-mode: forwards;
+    // }
   }
 
   .smallnav-nav-container {
@@ -59,6 +98,9 @@
     transform: translateY(-50%);
     min-height: 65%;
     transition: visibility 1s linear;
+    &.active {
+      animation: visibility 1s linear 0.4s 1 forwards;
+    }
 
     .user-details-container {
       position: absolute;
@@ -132,9 +174,6 @@
         gap: 5px;
       }
     }
-  }
-  .smallnav-nav-container .active {
-    animation: visibility 1s linear 0.4s 1 forwards;
   }
 }
 

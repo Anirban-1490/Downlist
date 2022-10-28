@@ -25,7 +25,7 @@ export function ParentNavbar() {
   changeUserData(userData);
 
   const isSmallScreenWidth = innerWidth > 740 ? false : true;
-  console.log(innerWidth);
+
   useMemo(() => {
     if (!isSmallScreenWidth) {
       setHamClicked(false);

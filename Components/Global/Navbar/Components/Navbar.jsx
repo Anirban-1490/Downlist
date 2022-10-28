@@ -19,10 +19,7 @@ export const Navbar = ({
   const userbtn = useRef(null);
   const borderRef = useRef(null);
   const ulRef = useRef(null);
-  const toggelnav = () => {
-    [...document.getElementsByClassName("parts")].forEach((ele) =>
-      ele.classList.add("animate")
-    );
+  const toggelnav = (e) => {
     setHamClicked(true);
   };
 
@@ -191,12 +188,8 @@ export const Navbar = ({
             )}
           </>
         )}
-        {/* <i
-          className={`${navbarStyle["fas fa-bars menutoggle"]} ${
-            isHamClicked && navbarStyle["toggle-style-ham"]
-          }`}
-          onClick={toggelnav}
-        ></i> */}
+
+        <ion-icon name="menu" onClick={toggelnav}></ion-icon>
       </div>
     </>
   );

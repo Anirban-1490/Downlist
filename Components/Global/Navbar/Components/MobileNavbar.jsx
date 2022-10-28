@@ -21,38 +21,44 @@ export function MobileNavbar({
   return (
     <>
       <div
-        className={mobileNavStyle["smallnav"]}
-        style={
-          isHamClicked
-            ? { opacity: "1", width: "100%", transition: "none" }
-            : { opacity: "0", width: "0", transition: " all 0.24s 1.7s" }
-        }
+        className={`${mobileNavStyle["smallnav"]} ${
+          isHamClicked && mobileNavStyle["toggle"]
+        }`}
       >
-        <i
-          className={mobileNavStyle["fas fa-times"]}
-          style={
-            isHamClicked
-              ? { opacity: "1" }
-              : { opacity: "0", transition: "none" }
-          }
-          onClick={clickhandler}
-        ></i>
+        {isHamClicked ? (
+          <ion-icon name="close" onClick={clickhandler}></ion-icon>
+        ) : (
+          ""
+        )}
+
         <div className={mobileNavStyle["smallnav-parts-container"]}>
           <div
-            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-1"]} ${mobileNavStyle["anime-default"]}`}
-            style={{ "--i": "1" }}
+            className={`${mobileNavStyle["parts"]} ${
+              mobileNavStyle["part-1"]
+            } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
+              isHamClicked && mobileNavStyle["animate"]
+            }`}
           ></div>
           <div
-            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-2"]} ${mobileNavStyle["anime-default"]}`}
-            style={{ "--i": "2" }}
+            className={`${mobileNavStyle["parts"]} ${
+              mobileNavStyle["part-2"]
+            } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
+              isHamClicked && mobileNavStyle["animate"]
+            }`}
           ></div>
           <div
-            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-3"]} ${mobileNavStyle["anime-default"]}`}
-            style={{ "--i": "3" }}
+            className={`${mobileNavStyle["parts"]} ${
+              mobileNavStyle["part-3"]
+            } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
+              isHamClicked && mobileNavStyle["animate"]
+            }`}
           ></div>
           <div
-            className={`${mobileNavStyle["parts"]} ${mobileNavStyle["part-4"]} ${mobileNavStyle["anime-default"]}`}
-            style={{ "--i": "4" }}
+            className={`${mobileNavStyle["parts"]} ${
+              mobileNavStyle["part-4"]
+            } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
+              isHamClicked && mobileNavStyle["animate"]
+            }`}
           ></div>
         </div>
 
@@ -104,18 +110,39 @@ export function MobileNavbar({
               )}
 
               <div className={mobileNavStyle["smallnav-nav"]}>
-                <Link onClick={clickhandler} href="/topanime">
-                  <a className={mobileNavStyle["navlink"]}>Anime</a>
+                <Link href="/topanime">
+                  <a
+                    onClick={clickhandler}
+                    className={mobileNavStyle["navlink"]}
+                  >
+                    Anime
+                  </a>
                 </Link>
-                <Link onClick={clickhandler} href="/topcharacters">
-                  <a className={mobileNavStyle["navlink"]}>Characters</a>
+                <Link href="/topcharacters">
+                  <a
+                    onClick={clickhandler}
+                    className={mobileNavStyle["navlink"]}
+                  >
+                    Characters
+                  </a>
                 </Link>
-                <Link onClick={clickhandler} href="/about">
-                  <a className={mobileNavStyle["navlink"]}>About</a>
+                <Link href="/about">
+                  <a
+                    onClick={clickhandler}
+                    className={mobileNavStyle["navlink"]}
+                  >
+                    About
+                  </a>
                 </Link>
                 {!data && (
-                  <Link onClick={clickhandler} href="/userauth">
-                    <a className={mobileNavStyle["signup-sm"]}> Sign in</a>
+                  <Link href="/userauth">
+                    <a
+                      onClick={clickhandler}
+                      className={mobileNavStyle["signup-sm"]}
+                    >
+                      {" "}
+                      Sign in
+                    </a>
                   </Link>
                 )}
               </div>
