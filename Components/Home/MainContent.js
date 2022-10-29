@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useReducer, useRef, useMemo } from "react";
-import { reducerForSearchResult } from "../../src/Stats-Anime/Reducer/reducer";
+import { reducerForSearchResult } from "Feature/Reducer/reducer";
 
 import Link from "next/link";
 import { useScroll } from "Hooks/useScroll";
