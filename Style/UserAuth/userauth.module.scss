@@ -110,7 +110,6 @@
   font-weight: 400;
   margin: 0.5em 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  /* transition: border 300ms ease-out; */
 }
 
 :is(#email, #pwd, #name)::placeholder {
@@ -188,7 +187,7 @@
   .signup-background-container {
     overflow: hidden;
     width: auto;
-    // background-image: url("../../../logo/LoginBackground6.jpg");
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: 900px;
