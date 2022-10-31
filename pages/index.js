@@ -15,10 +15,15 @@ export default function HomeMain() {
 
   const [parallaxEffect, setParallaxEffect] = useState();
 
-  const isMotionEnabled =
-    typeof window !== "undefined"
-      ? window?.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false;
+  const [isMotionEnabled, setMotion] = useState(
+    typeof window !== "undefined" &&
+      window?.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  useEffect(() => {
+    setMotion(window?.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  console.log(isMotionEnabled);
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -41,8 +46,8 @@ export default function HomeMain() {
 
   useEffect(() => {
     if (!parallaxEffect && !isMotionEnabled) {
-      import("simple-parallax-js").then((simpleParallax) => {
-        const instance = new simpleParallax(mydiv.current, {
+      import("simple-parallax-js").then((SimpleParallax) => {
+        const instance = new SimpleParallax(mydiv.current, {
           scale: 2.1,
           orientation: "down",
           customWrapper: ".parent-wrapper",

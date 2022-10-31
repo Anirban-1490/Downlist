@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useReducer, useRef, useMemo } from "react";
+import { useCallback, useReducer, useRef, useMemo, useEffect } from "react";
 import { reducerForSearchResult } from "Feature/Reducer/reducer";
 
 import Link from "next/link";
@@ -106,6 +106,14 @@ export function Content({ isMotionEnabled }) {
     return op >= 0 ? op : 0;
   }
 
+  useEffect(() => {
+    if (!isMotionEnabled) {
+      mainContainerRef.current.style.scale = "0.48";
+    } else {
+      mainContainerRef.current.style.scale = "1";
+    }
+  }, [isMotionEnabled]);
+
   //* subscribing to external api
   const opacity = useScroll(getOpacity);
 
@@ -116,7 +124,6 @@ export function Content({ isMotionEnabled }) {
         ref={mainContainerRef}
         style={{
           opacity,
-          scale: `${isMotionEnabled ? `0.48` : ``}`,
         }}
       >
         <h2 className={mainStyle["title1"]} ref={mainheader}>
