@@ -47,7 +47,10 @@ function MyApp({ Component, pageProps }) {
           href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@900&display=block"
           rel="stylesheet"
         />
-
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=block"
+          rel="stylesheet"
+        ></link>
         <script
           type="module"
           src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"

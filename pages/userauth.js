@@ -110,7 +110,7 @@ const UserAuthentication = () => {
                 name="email"
                 id="email"
                 placeholder="Email"
-                autocomplete="off"
+                autoComplete="off"
               />
               {errors?.fields?.includes("email") && isErrorMessageVisable ? (
                 <p className={authStyle["error-message"]}>
