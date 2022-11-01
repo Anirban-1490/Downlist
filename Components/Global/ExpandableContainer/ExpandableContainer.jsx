@@ -1,6 +1,6 @@
 import react, { useEffect, useState, useRef } from "react";
 import { Card } from "../Card/Card";
-import { Spinner } from "../../Components/LoadingSpinner";
+import { Spinner } from "../LoadingSpinner";
 
 export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
   const [, setWindowsize] = useState(0);

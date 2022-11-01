@@ -1,5 +1,5 @@
 import "../Style/details-style.css";
-import { CoreDetails } from "../Components/CoreDetails";
+import { CoreDetails } from "../../../../../Components/Details/CoreDetails";
 import { useQuery } from "react-query";
 import { Spinner } from "../../../Components/LoadingSpinner";
 import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";

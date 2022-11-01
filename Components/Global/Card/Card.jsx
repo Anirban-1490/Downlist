@@ -1,6 +1,5 @@
 import Link from "next/link";
 import cardStyle from "./Card.module.scss";
-import placeholderImage from "../../logo/default-placeholder.png";
 
 export const Card = ({
   mal_id,
@@ -12,16 +11,12 @@ export const Card = ({
 }) => {
   return (
     <>
-      <Link
-        href={path ? path + `/${mal_id}` : ``}
-        className={cardStyle.cards}
-        key={mal_id}
-      >
-        <a>
+      <Link href={path ? path + `/${mal_id}` : ``} key={mal_id}>
+        <a className={cardStyle.cards}>
           <img
             src={image_url}
             alt=""
-            onError={(e) => (e.currentTarget.src = placeholderImage)}
+            onError={(e) => (e.currentTarget.src = "/default-placeholder.png")}
           />
           {animeType && <h3 className={cardStyle.type}>{animeType}</h3>}
 

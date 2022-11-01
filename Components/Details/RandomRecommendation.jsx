@@ -1,8 +1,9 @@
-import { ExpandableContainer } from "../../../Components/ExpandableContainer/ExpandableContainer";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
-import { NoItemContiner } from "../../../Components/NoItemFound/NoItemFound";
+
+import { ExpandableContainer } from "Components/Global/ExpandableContainer/ExpandableContainer";
+import { NoItemContiner } from "Components/Global/NoItemFound/NoItemFound";
 
 export const RandomRecommendations = ({ genres, path, malId }) => {
   const { ref: observerRef, inView } = useInView({ threshold: 0 });

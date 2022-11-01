@@ -10,12 +10,12 @@
 * {
   --bg-details-color-primary: rgba(61, 61, 61, 0.623);
 }
-ion-icon {
+/* ion-icon {
   font-size: 1.3em;
   margin-left: -22px;
   transition: margin 0.5s;
   transform: translateY(25%);
-}
+} */
 .go-back-text {
   color: white;
   text-decoration: none;
@@ -35,14 +35,12 @@ ion-icon {
   margin-top: -4.5em;
   margin-bottom: 4em;
   gap: 3%;
-
-
 }
 .pic-header .pic-container {
   flex-shrink: 0;
   width: 12.5em;
   height: 16em;
-  
+
   position: relative;
 
   overflow: hidden;
@@ -75,15 +73,13 @@ ion-icon {
 
   width: auto;
   height: auto;
-  
 }
 .pic-header .title {
   font-size: clamp(1.3em, 4vw, 2.7em);
-  
+
   max-width: 14em;
   color: #ee4c7c;
   text-align: center;
-  
 }
 
 .pic-header .title-english {
@@ -104,7 +100,7 @@ ion-icon {
   display: flex;
   width: auto;
   height: auto;
- 
+
   justify-content: center;
   align-items: center;
   gap: 1em;
@@ -119,13 +115,24 @@ ion-icon {
   padding: 0.45em 0.7em;
   border-radius: 0.6em;
 }
+.inner-container .stats :is(.ep, .star) {
+  display: flex;
+  gap: 0.4em;
+  height: 100%;
+  align-items: center;
+}
+
+.inner-container .stats :is(.ep, .star) ion-icon {
+  font-size: 1.17em;
+}
+
 .inner-container .stats .add-to-list {
   background: transparent;
 }
 .inner-container .stats .add-to-list button {
   outline: none;
   border: none;
-  padding: 0.42em 0.67em;
+  padding: 0.42rem 0.67rem;
   background: #802bb1;
   color: white;
   cursor: pointer;
@@ -133,8 +140,15 @@ ion-icon {
   transform: scale(1, 1);
   border-radius: 0.44em;
 }
-.inner-container .stats .add-to-list button i {
-  margin-right: 0.4em;
+.inner-container .stats .add-to-list button .btn-inner-content {
+  display: flex;
+  gap: 0.3em;
+  height: 100%;
+  align-items: center;
+}
+.inner-container .stats .add-to-list button ion-icon {
+  /* margin-right: 0.4rem; */
+  font-size: 1.5rem;
 }
 @keyframes btnanime {
   25% {
@@ -377,7 +391,6 @@ ion-icon {
   aspect-ratio: 1/1;
 }
 .item-container .body-container {
-  
   width: clamp(100%, calc(100% - 5em), 100%);
   color: white;
 }
@@ -441,11 +454,10 @@ ion-icon {
   }
   .pic-header .title-container {
     position: static;
-    
+
     padding: 0;
   }
   .inner-container .stats {
-    
     margin-bottom: 20px;
     height: auto;
     justify-content: center;

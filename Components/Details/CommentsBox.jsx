@@ -1,12 +1,11 @@
 import react, { useState, useRef } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import Link from "next/link";
-import default_img from "../../../logo/default-placeholder.png";
-import { useQuery } from "react-query";
+
 import axios from "axios";
-import { path } from "../../../../../server-path";
+import { path } from "server-path";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -23,7 +22,8 @@ export const CommentsBox = react.memo(({ user, malid }) => {
   const formRef = useRef();
   const textInputref = useRef();
 
-  const token = localStorage.getItem("token");
+  const token =
+    typeof localStorage !== "undefined" && localStorage.getItem("token");
   const client = useQueryClient();
   const clientDetails = client.getQueryData(["user", token]);
 
@@ -203,7 +203,7 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                         <img
                           src={userProfileImg}
                           onError={function (e) {
-                            e.target.src = default_img;
+                            e.target.src = "/default-placeholder.png";
                           }}
                           alt=""
                         />

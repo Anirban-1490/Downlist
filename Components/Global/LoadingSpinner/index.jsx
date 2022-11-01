@@ -14,6 +14,8 @@ export const Spinner = () => {
         clearInterval(intID);
       }
     }, 1000);
+
+    return () => clearInterval(intID);
   });
 
   return (
@@ -21,23 +23,23 @@ export const Spinner = () => {
       <div className={loadingStyle["spinner-parent-container"]}>
         <div className={loadingStyle["spinner-container"]}>
           <div
-            className={loadingStyle["dot first-dot"]}
+            className={`${loadingStyle["dot"]} ${loadingStyle["first-dot"]}`}
             style={{ "--i": 1, "--color": "#fc4445" }}
           ></div>
           <div
-            className={loadingStyle["dot second-dot"]}
+            className={`${loadingStyle["dot"]} ${loadingStyle["second-dot"]}`}
             style={{ "--i": 2, "--color": "greenyellow" }}
           ></div>
           <div
-            className={loadingStyle["dot third-dot"]}
+            className={`${loadingStyle["dot"]} ${loadingStyle["third-dot"]}`}
             style={{ "--i": 3, "--color": "#66fcf1" }}
           ></div>
           <div
-            className={loadingStyle["dot fourth-dot"]}
+            className={`${loadingStyle["dot"]} ${loadingStyle["fourth-dot"]}`}
             style={{ "--i": 4, "--color": "#edb7c7" }}
           ></div>
           <div
-            className={loadingStyle["dot fifth-dot"]}
+            className={`${loadingStyle["dot"]} ${loadingStyle["fifth-dot"]}`}
             style={{ "--i": 5, "--color": "#ffe400" }}
           ></div>
         </div>

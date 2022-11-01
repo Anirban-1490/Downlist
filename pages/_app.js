@@ -1,9 +1,11 @@
 import Head from "next/head";
 import "Style/GlobalStyle/global.scss";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, Hydrate } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Approvider } from "context";
 import { ParentNavbar } from "Components/Global/Navbar";
+import { ScrollToTop } from "Components/Global/ScrollToTop/ScrollToTop";
+import "pages/_styles/details-style.css";
 
 function MyApp({ Component, pageProps }) {
   const client = new QueryClient();
@@ -75,12 +77,15 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
-        <Approvider>
-          <>
-            <ParentNavbar />
-            <Component {...pageProps} />
-          </>
-        </Approvider>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Approvider>
+            <>
+              <ScrollToTop />
+              <ParentNavbar />
+              <Component {...pageProps} />
+            </>
+          </Approvider>
+        </Hydrate>
       </QueryClientProvider>
       ,
     </>

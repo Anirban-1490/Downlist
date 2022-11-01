@@ -2,8 +2,9 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-import { path } from "../../../../../server-path";
-import { NoItem } from "../../../Components/NoItemFound/NoItemFound";
+
+import { path } from "server-path";
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 
 export const CoreDetails = ({
   details,
@@ -13,7 +14,6 @@ export const CoreDetails = ({
   switch_path,
   switch_item,
 }) => {
-  console.log(details);
   const {
     title,
     title_english,
@@ -29,14 +29,15 @@ export const CoreDetails = ({
     type,
   } = details;
 
-  const token = localStorage.getItem("token");
+  const token =
+    typeof localStorage !== "undefined" && localStorage.getItem("token");
   const [itemadd, setItemadd] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [seemorebtn, Setbtn] = useState(false);
 
   const btn = useRef();
   const router = useRouter();
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const client = useQueryClient();
   const clientData = client.getQueryData(["user", token]);
 
@@ -201,17 +202,14 @@ export const CoreDetails = ({
       <div className="inner-container">
         <ul className="stats">
           {episodes && (
-            <li>
-              <i style={{ marginRight: "10px" }} className="fas fa-tv"></i>
+            <li className="ep">
+              <ion-icon name="tv-outline"></ion-icon>
               {episodes}
             </li>
           )}
           {score && <li style={{ color: `${color}` }}>{score}</li>}
-          <li>
-            <i
-              style={{ marginRight: "10px", color: "yellow" }}
-              className="fas fa-star"
-            ></i>
+          <li className="star">
+            <ion-icon name="star"></ion-icon>
             {favorites}
           </li>
           <li className="add-to-list">
@@ -227,21 +225,21 @@ export const CoreDetails = ({
                 itemadd ? { background: "#fb2f00" } : { background: "#802bb1" }
               }
             >
-              <span>
+              <div className="btn-inner-content">
                 {isLoading ? (
                   "Loading..."
                 ) : itemadd ? (
                   <>
-                    <i className="fas fa-minus"></i>
+                    <ion-icon name="remove"></ion-icon>
                     Remove from list
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-plus"></i>
+                    <ion-icon name="add"></ion-icon>
                     Add to list
                   </>
                 )}
-              </span>
+              </div>
             </button>
           </li>
         </ul>

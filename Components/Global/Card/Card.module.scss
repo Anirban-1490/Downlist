@@ -1,4 +1,4 @@
-@use "../../GlobalStyle/main" as bp;
+@use "/Style/GlobalStyle/main" as bp;
 
 .cards {
   flex: 0 0 10.8em;
@@ -35,7 +35,7 @@
     left: 0.4em;
     text-align: left;
     background: #ad0ea3;
-    padding: 0 1.2em;
+    padding: 0.5em 1.2em;
     font-size: 0.68em;
     z-index: 2;
     letter-spacing: 0.2em;

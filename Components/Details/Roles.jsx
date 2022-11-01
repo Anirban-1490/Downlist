@@ -1,7 +1,10 @@
-import { ExpandableContainer } from "../../../Components/ExpandableContainer/ExpandableContainer";
-import { NoItemContiner } from "../../../Components/NoItemFound/NoItemFound";
+import { ExpandableContainer } from "Components/Global/ExpandableContainer/ExpandableContainer";
+import { NoItemContiner } from "Components/Global/NoItemFound/NoItemFound";
 
 export const Roles = ({ data, path }) => {
+  if (!data) {
+    return null;
+  }
   if (!data.length) {
     return <NoItemContiner />;
   }
