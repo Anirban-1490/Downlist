@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/Anirban-1490/Downlist/blob/master/src/Stats-Anime/logo/DownlistBackground.svg"></a>
+<img src="https://github.com/Anirban-1490/Downlist/blob/master/public/DownlistLogoNew.svg"></a>
 </p>
 
 <p align="center">
