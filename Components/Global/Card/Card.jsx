@@ -11,8 +11,8 @@ export const Card = ({
 }) => {
   return (
     <>
-      <Link href={path ? path + `/${mal_id}` : ``} key={mal_id}>
-        <a className={cardStyle.cards}>
+      <Link href={path ? path + `/${mal_id}` : ``}>
+        <a className={cardStyle.cards} key={mal_id}>
           <img
             src={image_url}
             alt=""

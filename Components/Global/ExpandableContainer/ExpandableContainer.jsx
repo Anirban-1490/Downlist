@@ -96,6 +96,7 @@ export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
                       mainTitle,
                       subTitle,
                       animeType,
+                      key: mal_id,
                     };
 
                     return <Card {...props} />;
