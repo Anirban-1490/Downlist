@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // * margin ---
 
 $base-margin: 1em;
@@ -14,3 +16,4 @@ $padding-extra: $base-padding * 8;
 //* background colors -----
 
 $bg-primary: #1d1d1d;
+$bg-primary-light: color.scale($bg-primary, $lightness: 12%, $alpha: -30%);
