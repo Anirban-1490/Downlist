@@ -1,0 +1,248 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.pic-header {
+  background: linear-gradient(to top, transparent 4%, #2650776c 85%);
+  height: 28em;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: -4.5em;
+  margin-bottom: 4em;
+  gap: 3%;
+
+  @include m.md {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: auto;
+    gap: 2em;
+  }
+  .pic-container {
+    flex-shrink: 0;
+    width: 12.5em;
+    height: 16em;
+
+    position: relative;
+
+    overflow: hidden;
+    box-shadow: 0 0 20px #000000c6;
+
+    @include m.md {
+      margin-top: 10.8em;
+    }
+    .anime-type {
+      position: absolute;
+      color: white;
+      background-color: #94d22f;
+      min-width: 5em;
+      rotate: -40deg;
+      left: -1em;
+      top: 0.5em;
+      text-align: center;
+      padding: 0.04em;
+      font-weight: 700;
+      box-shadow: 0 0 20px #120404d6;
+      letter-spacing: 0.14em;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1/1;
+    }
+  }
+  .title-container {
+    top: 80%;
+    left: 26em;
+    width: auto;
+    height: auto;
+
+    @include m.md {
+      position: static;
+
+      padding: 0;
+    }
+  }
+  .title {
+    font-size: clamp(1.3em, 4vw, 2.7em);
+
+    max-width: 14em;
+    color: #ee4c7c;
+    text-align: center;
+  }
+  .title-english {
+    margin-top: 15px;
+    font-size: clamp(0.8em, 1.7vw, 2em);
+    color: #e3afbc;
+    text-align: center;
+  }
+}
+
+.inner-container {
+  width: 75%;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 0;
+  .stats {
+    list-style-type: none;
+    display: flex;
+    width: auto;
+    height: auto;
+
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-flow: wrap;
+
+    @include m.md {
+      margin-bottom: 20px;
+      height: auto;
+      justify-content: center;
+    }
+    li {
+      color: white;
+      flex: 0 0 auto;
+      text-align: center;
+
+      background: m.$bg-primary-light;
+      font-size: 0.94em;
+      padding: 0.45em 0.7em;
+      border-radius: 0.6em;
+    }
+
+    :is(.ep, .star) {
+      display: flex;
+      gap: 0.4em;
+      height: 100%;
+      align-items: center;
+      ion-icon {
+        font-size: 1.17em;
+      }
+    }
+    .star {
+      ion-icon {
+        color: yellow;
+      }
+    }
+    .add-to-list {
+      background: transparent;
+      button {
+        outline: none;
+        border: none;
+        padding: 0.42rem 0.67rem;
+        background: #802bb1;
+        color: white;
+        cursor: pointer;
+        font-size: 1em;
+        transform: scale(1, 1);
+        border-radius: 0.44em;
+        .btn-inner-content {
+          display: flex;
+          gap: 0.3em;
+          height: 100%;
+          align-items: center;
+        }
+        ion-icon {
+          font-size: 1.5rem;
+        }
+        @keyframes btnanime {
+          25% {
+            transform: scale(1.1, 1.1);
+          }
+          50% {
+            transform: scale(0.9, 0.9);
+          }
+          100% {
+            transform: scale(1, 1);
+          }
+        }
+      }
+    }
+  }
+  h4 {
+    color: white;
+    font-size: 25px;
+    text-transform: capitalize;
+
+    margin: 2em 0 24px 2.5%;
+
+    border-left: 5px solid red;
+    letter-spacing: 2px;
+  }
+  .genres {
+    margin-left: 2%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 10px;
+    gap: 0.6em;
+    @include m.sm {
+      justify-content: center;
+    }
+    li {
+      color: white;
+      min-width: 5em;
+      text-align: center;
+      padding: 0.45em 1.2em;
+      background: m.$bg-primary-light;
+      border-radius: 0.6em;
+    }
+  }
+  .aired {
+    margin-top: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 15px;
+    p {
+      &:nth-child(2) {
+        background: m.$bg-primary-light;
+        border-radius: 0.6em;
+        min-width: 5em;
+        text-align: center;
+        padding: 0.55em 1.2em;
+      }
+    }
+  }
+  .stats-watching {
+    margin-left: 2%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 1vw;
+
+    @include m.sm {
+      gap: 2vw;
+    }
+
+    li {
+      color: white;
+
+      background: m.$bg-primary-light;
+      border-radius: 0.6em;
+      min-width: 5em;
+      text-align: center;
+      padding: 0.55em 1em;
+      @include m.sm {
+        font-size: 3.8vw;
+      }
+    }
+  }
+}
+
+.inner-container .description,
+.aired p {
+  color: white;
+  font-size: 0.87em;
+  padding: 0 2%;
+  line-height: 22px;
+}

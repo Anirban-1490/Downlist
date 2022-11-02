@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-
+import coredetailStyle from "Components/Details/Style/CoreDetails.module.scss";
 import { path } from "server-path";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 
@@ -189,30 +189,30 @@ export const CoreDetails = ({
   return (
     <>
       {}
-      <div className="pic-header">
-        <div className="pic-container">
-          <div className="anime-type">{type}</div>
+      <div className={coredetailStyle["pic-header"]}>
+        <div className={coredetailStyle["pic-container"]}>
+          <div className={coredetailStyle["anime-type"]}>{type}</div>
           <img src={image_url} alt="" />
         </div>
-        <div className="title-container">
-          <h2 className="title">{title}</h2>
-          <p className="title-english">{title_english}</p>
+        <div className={coredetailStyle["title-container"]}>
+          <h2 className={coredetailStyle["title"]}>{title}</h2>
+          <p className={coredetailStyle["title-english"]}>{title_english}</p>
         </div>
       </div>
-      <div className="inner-container">
-        <ul className="stats">
+      <div className={coredetailStyle["inner-container"]}>
+        <ul className={coredetailStyle["stats"]}>
           {episodes && (
-            <li className="ep">
+            <li className={coredetailStyle["ep"]}>
               <ion-icon name="tv-outline"></ion-icon>
               {episodes}
             </li>
           )}
           {score && <li style={{ color: `${color}` }}>{score}</li>}
-          <li className="star">
+          <li className={coredetailStyle["star"]}>
             <ion-icon name="star"></ion-icon>
             {favorites}
           </li>
-          <li className="add-to-list">
+          <li className={coredetailStyle["add-to-list"]}>
             <button
               ref={btn}
               type="button"
@@ -225,7 +225,7 @@ export const CoreDetails = ({
                 itemadd ? { background: "#fb2f00" } : { background: "#802bb1" }
               }
             >
-              <div className="btn-inner-content">
+              <div className={coredetailStyle["btn-inner-content"]}>
                 {isLoading ? (
                   "Loading..."
                 ) : itemadd ? (
@@ -244,7 +244,7 @@ export const CoreDetails = ({
           </li>
         </ul>
         <h4>Information</h4>
-        <p className="description">
+        <p className={coredetailStyle["description"]}>
           {synopsis ? (
             !seemorebtn && synopsis.length > 380 ? (
               synopsis.substr(0, 380).concat("...")
@@ -272,7 +272,7 @@ export const CoreDetails = ({
         {animegenres && (
           <div>
             <h4>Genres</h4>
-            <ul className="genres">
+            <ul className={coredetailStyle["genres"]}>
               {animegenres.length > 0 ? (
                 animegenres.map((item) => {
                   const { name, mal_id } = item;
@@ -287,7 +287,7 @@ export const CoreDetails = ({
         {aired && (
           <div>
             <h4>Aired</h4>
-            <div className="aired">
+            <div className={coredetailStyle["aired"]}>
               <p>{aired.string}</p>
               <p>{status}</p>
             </div>
@@ -296,7 +296,7 @@ export const CoreDetails = ({
         {stats && (
           <div>
             <h4>Stats</h4>
-            <ul className="stats-watching">
+            <ul className={coredetailStyle["stats-watching"]}>
               <li style={{ color: "lightgrey" }}>Watching: {stats.watching}</li>
               <li style={{ color: "#00ff1a" }}>Completed: {stats.completed}</li>
               <li style={{ color: "yellow" }}>On Hold: {stats.on_hold}</li>
