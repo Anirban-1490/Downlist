@@ -131,15 +131,17 @@ export async function getServerSideProps({ params }) {
 
   const client = new QueryClient();
   try {
-    await client.prefetchQuery(["details", malid], () =>
-      jikanQueries("details", malid)
-    );
-    await client.prefetchQuery(["people_reaction", malid], () =>
-      jikanQueries("people_reaction", malid)
-    );
-    await client.prefetchQuery(["characters", malid], () =>
-      jikanQueries("characters", malid)
-    );
+    if (Number(malid) !== NaN) {
+      await client.prefetchQuery(["details", malid], () =>
+        jikanQueries("details", malid)
+      );
+      await client.prefetchQuery(["people_reaction", malid], () =>
+        jikanQueries("people_reaction", malid)
+      );
+      await client.prefetchQuery(["characters", malid], () =>
+        jikanQueries("characters", malid)
+      );
+    }
   } catch (error) {
     return {
       notFound: true,

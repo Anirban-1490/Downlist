@@ -5,8 +5,6 @@ export const Spinner = () => {
   const secondsPassed = new Date().getSeconds();
   const [showText, setText] = useState(false);
 
-  console.log(secondsPassed);
-
   useEffect(() => {
     const intID = setInterval(() => {
       if (secondsPassed + 10 < new Date().getSeconds()) {
