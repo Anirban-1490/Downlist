@@ -1,6 +1,7 @@
 import react, { useEffect, useState, useRef } from "react";
 import { Card } from "../Card/Card";
 import { Spinner } from "../LoadingSpinner";
+import containerStyle from "Components/Global/ExpandableContainer/contianer.module.scss";
 
 export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
   const [, setWindowsize] = useState(0);
@@ -61,7 +62,7 @@ export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
   return (
     <>
       <div
-        className="characters-container"
+        className={containerStyle["exp-container"]}
         style={{ height: height }}
         ref={observerRef}
       >
@@ -70,7 +71,7 @@ export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
         ) : (
           <>
             <div
-              className="characters-container-inner"
+              className={containerStyle["exp-inner-container"]}
               ref={inner_character_container_handler}
             >
               {data &&
@@ -113,7 +114,7 @@ export const ExpandableContainer = react.memo(({ data, path, observerRef }) => {
           </>
         )}
       </div>
-      <div className="empty-for-no-reason"></div>
+      <div className={containerStyle["empty-for-no-reason"]}></div>
     </>
   );
 });

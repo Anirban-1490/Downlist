@@ -1,0 +1,54 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.exp-container {
+  margin-top: 2em;
+  max-width: 61.9em;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  margin-left: 15%;
+
+  @include m.md {
+    margin: 0 auto !important;
+  }
+
+  .exp-inner-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 100%;
+    min-width: min-content;
+    height: auto;
+    gap: 0.7em;
+    margin-top: 20px;
+
+    @include m.md {
+      justify-content: center;
+    }
+  }
+
+  button {
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    left: 50%;
+    translate: -50% 0;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    min-width: 8em;
+    padding: 0.85em 2em;
+    background: #f1c40f;
+    font-weight: bold;
+    display: none;
+    box-shadow: 0 0 36px 20px black;
+    cursor: pointer;
+  }
+}
+
+.empty-for-no-reason {
+  margin-top: 10px;
+  height: 40px;
+}
