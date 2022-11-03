@@ -1,4 +1,4 @@
-@use "/Style/GlobalStyle/main" as bp;
+@use "/Style/GlobalStyle/main" as m;
 
 .home-section-2 {
   height: auto;
@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 2vh;
 
-    @include bp.breakpoint(892px) {
+    @include m.breakpoint(892px) {
       gap: 0vh;
     }
 
@@ -18,7 +18,7 @@
       align-items: center;
       height: 23em;
 
-      @include bp.breakpoint(892px) {
+      @include m.breakpoint(892px) {
         flex-direction: column-reverse;
         gap: 1em;
         height: auto !important;
@@ -30,10 +30,14 @@
         background-color: #3c3c3c;
         position: relative;
 
-        @include bp.breakpoint(892px) {
+        @include m.breakpoint(892px) {
           height: 10em !important;
           order: 1;
-          background: linear-gradient(to top, #404f5c 54%, transparent 93%);
+          background: linear-gradient(
+            to top,
+            m.$bg-primary-light 54%,
+            transparent 93%
+          );
         }
 
         &::before {
@@ -46,16 +50,20 @@
           height: 0.7em;
           border-radius: 50%;
           border: 3px solid #3c3c3c;
-          background: var(--bg-primary);
+          background: m.$bg-primary;
 
-          @include bp.breakpoint(892px) {
+          @include m.breakpoint(892px) {
             top: 100%;
           }
         }
       }
       .line-separator-1 {
         height: 44em;
-        background: linear-gradient(to top, #3c3c3c 54%, transparent 93%);
+        background: linear-gradient(
+          to top,
+          m.$bg-primary-light 54%,
+          transparent 93%
+        );
       }
 
       .visual-content {
@@ -66,7 +74,7 @@
         z-index: 4;
         overflow: hidden;
 
-        @include bp.breakpoint(892px) {
+        @include m.breakpoint(892px) {
           width: 100%;
         }
 
@@ -109,7 +117,7 @@
         padding-inline: 2.5em;
         line-height: 1.8em;
 
-        @include bp.breakpoint(892px) {
+        @include m.breakpoint(892px) {
           text-align: center;
           width: 100%;
         }
@@ -120,19 +128,19 @@
           line-height: 3.5rem;
           padding: 0 !important;
 
-          @include bp.breakpoint(892px) {
+          @include m.breakpoint(892px) {
             text-align: center;
           }
         }
         span {
           text-decoration: none;
           margin-left: 0.2em;
-          color: #fdfd71;
+          color: m.$cl-yellow-light;
         }
         a {
           text-decoration: none;
           margin-right: 0.5em;
-          color: #fdfd71;
+          color: m.$cl-yellow-light;
           &:hover {
             color: white;
           }
