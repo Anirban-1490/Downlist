@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import axios from "axios";
 import { path } from "server-path";
+import commentStyle from "Components/Details/Style/Comment.module.scss";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -135,9 +136,9 @@ export const CommentsBox = react.memo(({ user, malid }) => {
 
   return (
     <>
-      <div className="comment-box-container">
+      <div className={commentStyle["comment-box-container"]}>
         {!user ? (
-          <p className="comments-login-text">
+          <p className={commentStyle["comments-login-text"]}>
             Please{" "}
             {
               <Link href={"/userauth"}>
@@ -147,7 +148,10 @@ export const CommentsBox = react.memo(({ user, malid }) => {
             to comment.
           </p>
         ) : (
-          <form className="comment-input-container" ref={formRef}>
+          <form
+            className={commentStyle["comment-input-container"]}
+            ref={formRef}
+          >
             <input
               type="text"
               name="comment"
@@ -164,20 +168,23 @@ export const CommentsBox = react.memo(({ user, malid }) => {
               </button>
             )}
             {isBtnVisable && (
-              <button className="cancel" onClick={cancelBtnHandler}>
+              <button
+                className={commentStyle["cancel"]}
+                onClick={cancelBtnHandler}
+              >
                 Cancel
               </button>
             )}
           </form>
         )}
-        <p className="comments-counter">
+        <p className={commentStyle["comments-counter"]}>
           {data?.maincomments + data?.subcomments || 0} Comments
         </p>
-        <div className="comments">
+        <div className={commentStyle["comments"]}>
           {!data ? (
             <p>No comments yet...</p>
           ) : (
-            <div className="comments-inner">
+            <div className={commentStyle["comments-inner"]}>
               {data.comments.map(
                 ({
                   body,
@@ -198,8 +205,10 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                   );
 
                   return (
-                    <div className="item-container" key={_id}>
-                      <div className="user-profile-img-container">
+                    <div className={commentStyle["item-container"]} key={_id}>
+                      <div
+                        className={commentStyle["user-profile-img-container"]}
+                      >
                         <img
                           src={userProfileImg}
                           onError={function (e) {
@@ -208,8 +217,8 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                           alt=""
                         />
                       </div>
-                      <div className="body-container">
-                        <div className="username-container">
+                      <div className={commentStyle["body-container"]}>
+                        <div className={commentStyle["username-container"]}>
                           <span>
                             <Link
                               href={
@@ -227,7 +236,7 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                           </span>
                         </div>
                         <p>{body}</p>
-                        <div className="extra-features">
+                        <div className={commentStyle["extra-features"]}>
                           <ion-icon
                             name={!isLiked ? "thumbs-up-outline" : "thumbs-up"}
                             onClick={throttledLikeDislikeHnadler(
@@ -243,7 +252,11 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                             )}
                           ></ion-icon>
 
-                          <p className="like-counter counter">{likeCount}</p>
+                          <p
+                            className={`${commentStyle["like-counter"]} ${commentStyle["counter"]}`}
+                          >
+                            {likeCount}
+                          </p>
 
                           <ion-icon
                             name={
@@ -263,7 +276,9 @@ export const CommentsBox = react.memo(({ user, malid }) => {
                               3000
                             )}
                           ></ion-icon>
-                          <p className="dislike-counter counter">
+                          <p
+                            className={`${commentStyle["dislike-counter"]} ${commentStyle["counter"]}`}
+                          >
                             {dislikeCount}
                           </p>
                         </div>
