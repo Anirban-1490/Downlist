@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Approvider } from "context";
 import { ParentNavbar } from "Components/Global/Navbar";
 import { ScrollToTop } from "Components/Global/ScrollToTop/ScrollToTop";
-import "pages/_styles/details-style.css";
 
 function MyApp({ Component, pageProps }) {
   const client = new QueryClient();
