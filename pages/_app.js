@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <link rel="icon" href="/DownlistLogoIcon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
@@ -34,12 +34,12 @@ function MyApp({ Component, pageProps }) {
           rel="preload preconnect"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
           as="style"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=block"
           rel="stylesheet"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=block"
@@ -59,17 +59,17 @@ function MyApp({ Component, pageProps }) {
           defer
         ></script>
         <script
-          nomodule
+          noModule
           src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
           defer
         ></script>
         <script
           src="https://kit.fontawesome.com/44a11d6622.js"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
         <script
           src="https://kit.fontawesome.com/44a11d6622.js"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script>
