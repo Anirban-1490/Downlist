@@ -17,3 +17,6 @@ $padding-extra: $base-padding * 8;
 
 $bg-primary: #1d1d1d;
 $bg-primary-light: color.scale($bg-primary, $lightness: 12%, $alpha: -30%);
+
+$cl-yellow-light: lighten(yellow, 23%);
+$cl-grey-dark: darken(grey, 10%);
