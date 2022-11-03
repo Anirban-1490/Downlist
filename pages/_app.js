@@ -6,6 +6,8 @@ import { Approvider } from "context";
 import { ParentNavbar } from "Components/Global/Navbar";
 import { ScrollToTop } from "Components/Global/ScrollToTop/ScrollToTop";
 
+import { Analytics } from "@vercel/analytics/react";
+
 function MyApp({ Component, pageProps }) {
   const client = new QueryClient();
   return (
@@ -82,6 +84,7 @@ function MyApp({ Component, pageProps }) {
               <ScrollToTop />
               <ParentNavbar />
               <Component {...pageProps} />
+              <Analytics />
             </>
           </Approvider>
         </Hydrate>
