@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
           content="uplist , anime , manga , characters , anime characters , myanimelist , animelist , downlist"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link rel="apple-touch-icon" href="./DownlistLogoIcon.png" />
 
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
