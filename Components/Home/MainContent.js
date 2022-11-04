@@ -1,17 +1,26 @@
 import axios from "axios";
-import { useCallback, useReducer, useRef, useMemo, useEffect } from "react";
+import {
+  useCallback,
+  useReducer,
+  useRef,
+  useMemo,
+  useEffect,
+  useState,
+} from "react";
 import { reducerForSearchResult } from "Feature/Reducer/reducer";
 
 import Link from "next/link";
 import { useScroll } from "Hooks/useScroll";
-import { Loading } from "./LoadingText";
 
 import mainStyle from "Components/Home/Style/MainContainer.module.scss";
+import { Spinner } from "Components/Global/LoadingSpinner";
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 
 export function Content({ isMotionEnabled }) {
   const [data, dispatch] = useReducer(reducerForSearchResult, {
     searchResult: [],
     isLoading: true,
+    isError: false,
     text: "",
   });
 
@@ -20,6 +29,7 @@ export function Content({ isMotionEnabled }) {
   const mainionfo = useRef();
   const wrapper = useRef();
   const mainContainerRef = useRef();
+  const [hasSearchQuery, setSearchQuery] = useState(false);
 
   const throttledSearchHandler = useCallback((fn, timeout) => {
     let id = null;
@@ -50,7 +60,6 @@ export function Content({ isMotionEnabled }) {
       dispatch({
         type: "success",
         searchResult: [...searchResult].slice(0, 4),
-        isLoading: false,
       });
     } catch (error) {
       dispatch({ type: "error" });
@@ -68,19 +77,10 @@ export function Content({ isMotionEnabled }) {
 
     if (textValue !== "") {
       dispatch({ type: "loading" });
-
-      searchContainer.current.classList.remove(
-        "search-result-container-toggle"
-      );
-      mainheader.current.classList.remove("title1-toggle");
-      mainionfo.current.classList.remove("info1-toggle");
-      wrapper.current.classList.remove("wrapper-toggle");
+      setSearchQuery(true);
     } else {
-      searchContainer.current.classList.add("search-result-container-toggle");
-      mainheader.current.classList.add("title1-toggle");
-      mainionfo.current.classList.add("info1-toggle");
-      wrapper.current.classList.add("wrapper-toggle");
       dispatch({ type: "initial" });
+      setSearchQuery(false);
     }
     debounce(textValue);
   };
@@ -144,12 +144,16 @@ export function Content({ isMotionEnabled }) {
 
           <span className={mainStyle["search-cover"]}></span>
           <div
-            className={`${mainStyle["search-result-container"]} ${mainStyle["search-result-container-toggle"]}`}
+            className={`${mainStyle["search-result-container"]} ${
+              !hasSearchQuery && mainStyle["search-result-container-toggle"]
+            }`}
             ref={searchContainer}
           >
-            {data.isLoading && <Loading loadingtext={data.text} />}
-            {
-              //* show the search result ----
+            {data.isLoading ? (
+              <Spinner />
+            ) : data.isError ? (
+              <NoItem textColor={"#dfdfdf"} />
+            ) : (
               data?.searchResult.map((result) => {
                 const {
                   mal_id,
@@ -176,7 +180,7 @@ export function Content({ isMotionEnabled }) {
                   </Link>
                 );
               })
-            }
+            )}
           </div>
         </div>
       </div>

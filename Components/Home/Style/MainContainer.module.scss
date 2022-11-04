@@ -116,6 +116,7 @@
       transform: translateY(5px);
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
       overflow: visible;
       position: relative;
@@ -160,12 +161,18 @@
         text-decoration: none;
         display: block;
       }
+      .loading {
+        margin: 1.5em 0;
+      }
     }
 
     .search-result-container-toggle {
       min-height: 0;
       overflow: hidden;
     }
+  }
+  .wrapper-toggle {
+    top: 59%;
   }
 }
 
@@ -189,9 +196,6 @@
   }
 }
 
-.wrapper-toggle {
-  top: 59%;
-}
 @keyframes wrapperanime {
   0% {
     overflow: hidden;
@@ -223,10 +227,4 @@
   100% {
     opacity: 1;
   }
-}
-
-.wrapper .search-result-container .loading {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
 }
