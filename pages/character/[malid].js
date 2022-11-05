@@ -1,53 +1,45 @@
-import "../Style/details-style.css";
-import { CoreDetails } from "../../../../../Components/Details/CoreDetails";
-import { useQuery } from "react-query";
-import { Spinner } from "../../../Components/LoadingSpinner";
-import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
+import { useQuery, QueryClient, dehydrate } from "react-query";
 import axios from "axios";
 import React from "react";
-import { AnimeAppearances } from "./Components/AnimeAppearances";
-import { VoiceActors } from "./Components/VoiceActors";
+
 import { useRouter } from "next/router";
+import { CoreDetails } from "Components/Details/CoreDetails";
+import { Spinner } from "Components/Global/LoadingSpinner";
+import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
+import { AnimeAppearances } from "Components/Details/AnimeAppearances";
+import { VoiceActors } from "Components/Details/VoiceActors";
+import { jikanQueries } from "JikanQueries";
 
 //* component for character details
 
-export function CharacetrDetailsMain() {
+function CharacetrDetails() {
   const router = useRouter();
-  const { id: mailId } = router.query;
-
-  const getCharacterDetails = async (url) => {
-    return await axios.get(url).then(({ data: { data } }) => data);
-  };
+  const { malid } = router.query;
 
   const { data, isLoading, isError } = useQuery(
-    "char_details",
-    () =>
-      getCharacterDetails(`https://api.jikan.moe/v4/characters/${mailId}/full`),
-    { cacheTime: 0, refetchOnWindowFocus: false }
+    ["char_details", malid],
+    () => jikanQueries("char_details", malid),
+    { cacheTime: 0, refetchOnWindowFocus: false, enabled: !!malid }
   );
 
-  const characterDetails = {
-    title: data?.name_kanji,
-    title_englidh: data?.name,
-    favorites: data?.favorites,
-    synopsis: data?.about,
-    images: data?.images,
-  };
-
   const details = {
-    details: characterDetails,
+    details: {
+      title: data?.name_kanji,
+      title_english: data?.name,
+      favorites: data?.favorites,
+      synopsis: data?.about,
+      images: data?.images,
+    },
     animegenres: null,
     stats: null,
     char: null,
-    mailId,
+    malid,
   };
 
   return (
     <>
       {isLoading ? (
         <Spinner />
-      ) : isError ? (
-        <PageNotFound />
       ) : (
         <div className="container1" style={{ height: "auto" }}>
           <CoreDetails
@@ -88,3 +80,26 @@ export function CharacetrDetailsMain() {
     </>
   );
 }
+
+export async function getServerSideProps({ params }) {
+  const { malid } = params;
+
+  const client = new QueryClient();
+  try {
+    if (Number(malid) !== NaN) {
+      await client.prefetchQuery(["char_details", malid], () =>
+        jikanQueries("char_details", malid)
+      );
+    }
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { dehydratedState: dehydrate(client) },
+  };
+}
+
+export default CharacetrDetails;
