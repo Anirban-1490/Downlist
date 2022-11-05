@@ -11,7 +11,7 @@ export const Card = ({
 }) => {
   return (
     <>
-      <Link href={path ? path + `/${mal_id}` : ``}>
+      <Link href={path ? path + `/${mal_id}` : `/`}>
         <a className={cardStyle.cards} key={mal_id}>
           <img
             src={image_url}
@@ -20,18 +20,8 @@ export const Card = ({
           />
           {animeType && <h3 className={cardStyle.type}>{animeType}</h3>}
 
-          <div className={cardStyle["details-char"]}>
-            <h5
-              style={
-                path === "/anime"
-                  ? {
-                      padding: "1em 0",
-                    }
-                  : null
-              }
-            >
-              {mainTitle}
-            </h5>
+          <div className={cardStyle["details"]}>
+            <h5>{mainTitle}</h5>
             {subTitle && <h5>{subTitle}</h5>}
           </div>
         </a>
