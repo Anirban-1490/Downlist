@@ -42,12 +42,15 @@
     box-shadow: 0 0 5px #000000f2;
     transition: all 500ms ease-in-out;
   }
-  .details-char {
+  .details {
     height: 3.4em;
     width: 100%;
     position: absolute;
     bottom: 0;
     z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: 600ms ease-out;
     &::before {
       content: "";
@@ -65,7 +68,7 @@
       margin-left: 0.4em;
       &:nth-child(1) {
         font-size: 1.05em;
-        padding: 0.5em 0;
+        // padding: 0.5em 0;
         padding-right: 1em !important;
         padding-bottom: 0.15em !important;
         color: white;
