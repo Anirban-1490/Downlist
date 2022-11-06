@@ -190,10 +190,11 @@ export const CoreDetails = ({
     <>
       {}
       <div className={coredetailStyle["pic-header"]}>
-        <div className={coredetailStyle["pic-container"]}>
-          <div className={coredetailStyle["anime-type"]}>{type}</div>
+        <div className={coredetailStyle["img-inner-container"]}>
+          {type && <h5 className={coredetailStyle["anime-type"]}>{type}</h5>}
           <img src={image_url} alt="" />
         </div>
+
         <div className={coredetailStyle["title-container"]}>
           <h2 className={coredetailStyle["title"]}>{title}</h2>
           <p className={coredetailStyle["title-english"]}>{title_english}</p>
