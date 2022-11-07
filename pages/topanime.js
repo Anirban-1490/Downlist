@@ -1,49 +1,44 @@
 import React from "react";
-import "../Styles/topanimestyle.css";
-import { DifferentGenres } from "./Components/DifferentGenres";
-import { useQueries, useQueryClient } from "react-query";
+import {
+  useQueries,
+  useQueryClient,
+  QueryClient,
+  dehydrate,
+} from "react-query";
 import axios from "axios";
-import { Spinner } from "../../../Components/LoadingSpinner";
 
-import { PageNotFound } from "../../../Components/PageNotFound/PageNotFound";
-import { StyledSection } from "../Components/StyledSection";
-import { StyledMainHeader } from "../Components/StyledMainHeader";
-
-import { StyledListCarousel } from "../Components/StyledListCarousel";
+import { StyledListCarousel } from "Components/Top/StyledListCarousel";
+import { StyledMainHeader } from "Components/Top/StyledMainHeader";
+import { StyledSection } from "Components/Top/StyledSection";
+import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
+import { Spinner } from "Components/Global/LoadingSpinner";
+import { DifferentGenres } from "Components/Top/TopAnime/DifferentGenres";
+import { jikanQueries } from "JikanQueries";
 
 //* --- custom hook for fetching top anime/character from the user list
 
-export function TopAnimeMain() {
+function TopAnime() {
   const client = useQueryClient();
-  const token = localStorage.getItem("token");
+  const token =
+    typeof localStorage !== "undefined" && localStorage.getItem("token");
   const user = client.getQueryData(["user", token]);
-  const delay = (ms = 3000) => new Promise((r) => setTimeout(r, ms));
-  const fetchQuery = async (url) => {
-    await delay();
-    return axios.get(url).then(({ data: { data } }) => [...data].slice(0, 16));
-  };
 
   const results = useQueries([
     {
       queryKey: "upcoming_anime",
-      queryFn: () =>
-        fetchQuery("https://api.jikan.moe/v4/top/anime?filter=upcoming&page=1"),
+      queryFn: () => jikanQueries("top_anime", "upcoming", 1, 20),
       retry: false,
       refetchOnWindowFocus: false,
     },
     {
       queryKey: "popular_anime",
-      queryFn: () =>
-        fetchQuery(
-          "https://api.jikan.moe/v4/top/anime?filter=bypopularity&page=1"
-        ),
+      queryFn: () => jikanQueries("top_anime", "bypopularity", 1, 20),
       retry: false,
       refetchOnWindowFocus: false,
     },
     {
       queryKey: "airing_anime",
-      queryFn: () =>
-        fetchQuery("https://api.jikan.moe/v4/top/anime?filter=airing&page=1"),
+      queryFn: () => jikanQueries("top_anime", "airing", 1, 20),
       retry: false,
       refetchOnWindowFocus: false,
     },
@@ -89,7 +84,7 @@ export function TopAnimeMain() {
             />
           </div>
           <div className="section-4">
-            {!results.some((item) => item.isLoading) ? (
+            {/* {!results.some((item) => item.isLoading) ? (
               <StyledListCarousel
                 text_={"Top anime from your list"}
                 switch_details={"anime"}
@@ -97,7 +92,7 @@ export function TopAnimeMain() {
               />
             ) : (
               ""
-            )}
+            )} */}
           </div>
           <section className="section-5">
             <DifferentGenres />
@@ -107,3 +102,29 @@ export function TopAnimeMain() {
     </>
   );
 }
+
+export async function getStaticProps({ params }) {
+  const client = new QueryClient();
+  try {
+    await client.prefetchQuery("upcoming_anime", () =>
+      jikanQueries("top_anime", "upcoming", 1, 20)
+    );
+    await client.prefetchQuery("popular_anime", () =>
+      jikanQueries("top_anime", "bypopularity", 1, 20)
+    );
+    await client.prefetchQuery("airing_anime", () =>
+      jikanQueries("top_anime", "airing", 1, 20)
+    );
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { dehydratedState: dehydrate(client) },
+    revalidate: 20,
+  };
+}
+
+export default TopAnime;

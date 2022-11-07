@@ -1,7 +1,7 @@
+import { Spinner } from "Components/Global/LoadingSpinner";
+import { useToplist } from "Hooks/useTopList";
+import Link from "next/link";
 import react, { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useToplist } from "../Hooks/useTopList";
-import { Spinner } from "../../../Components/LoadingSpinner";
 
 export const StyledListCarousel = react.memo((prop) => {
   const { text_, switch_details, userId } = prop;

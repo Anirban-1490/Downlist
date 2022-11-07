@@ -1,13 +1,12 @@
-import React from "react";
-import "./genreAnime-style.css";
+import genreAnimeStyle from "Components/Top/TopAnime/genreAnime.module.css";
 import { useQuery } from "react-query";
 import axios from "axios";
 
 import react from "react";
 
-import { Dropdown } from "../../../../Components/DropDownSelectMenu/DropDownSelectMenu";
-import { Spinner } from "../../../../Components/LoadingSpinner";
-import { TouchCarousel } from "../../../../Components/TouchCarousel/TouchCarousel";
+import { TouchCarousel } from "Components/Global/TouchCarousel/TouchCarousel";
+import { Spinner } from "Components/Global/LoadingSpinner";
+import { Dropdown } from "Components/Global/DropDownSelectMenu/DropDownSelectMenu";
 
 export const DifferentGenres = () => {
   const delay = (ms = 3000) => new Promise((r) => setTimeout(r, ms));
@@ -52,12 +51,12 @@ export const DifferentGenres = () => {
 
   return (
     <>
-      <div className="genre-first">
+      <div className={genreAnimeStyle["genre-first"]}>
         <h2>
           DISCOVER
           <span>More Anime</span>
         </h2>
-        <div className="item">
+        <div className={genreAnimeStyle["item"]}>
           {isLoading ? (
             <Spinner />
           ) : (
@@ -66,7 +65,7 @@ export const DifferentGenres = () => {
         </div>
       </div>
 
-      <div className="wrapper-type">
+      <div className={genreAnimeStyle["wrapper-type"]}>
         <h4>Choose your type</h4>
         <Dropdown
           options={options}

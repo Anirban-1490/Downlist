@@ -1,5 +1,5 @@
+import { TouchCarousel } from "Components/Global/TouchCarousel/TouchCarousel";
 import react from "react";
-import { TouchCarousel } from "../../../Components/TouchCarousel/TouchCarousel";
 
 export const StyledSection = react.memo((prop) => {
   const { data, switch_details, text_, className } = prop;

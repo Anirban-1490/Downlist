@@ -1,7 +1,5 @@
 import React from "react";
 
-import "../../Page/Top/Styles/topanimestyle.css";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css/bundle";
