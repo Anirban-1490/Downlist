@@ -1,23 +1,22 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import { useQueryClient } from "react-query";
-import dropdownStyle from "./DropDown.module.scss";
+import dropdownStyle from "Components/Global/DropDownSelectMenu/DropDown.module.scss";
 
 export const Dropdown = (prop) => {
   const { options, setID, placeholder, stats_anime } = prop;
-  const optionref = useRef();
-
+  const [isDropDownActive, setDropDownActive] = useState(false);
   const client = useQueryClient();
+  const displayCurrentOptionRef = useRef();
 
-  const dropDownToggle = () => {
-    optionref.current.classList.toggle("active");
-    document.querySelector(".wrapper-input").classList.toggle("active");
+  const dropDownToggle = (e) => {
+    setDropDownActive(true);
   };
 
   //* when moving to diff page(from anime list -> char list) this will clear out the set key value for sorting the lists
   const clrDrop = useCallback(() => {
     if (stats_anime) {
       setID("");
-      document.querySelector(".genre-display").value = null;
+      displayCurrentOptionRef.current.value = null;
     }
   }, [stats_anime]);
 
@@ -34,23 +33,31 @@ export const Dropdown = (prop) => {
       setID(genre_id);
     }
 
-    document.querySelector(".genre-display").value = name;
-    optionref.current.classList.toggle("active");
-    document.querySelector(".wrapper-input").classList.toggle("active");
+    displayCurrentOptionRef.current.value = name;
+    setDropDownActive(false);
   };
 
   return (
-    <div className={dropdownStyle["wrapper-input"]}>
+    <div
+      className={`${dropdownStyle["wrapper-input"]} ${
+        isDropDownActive && dropdownStyle["active"]
+      }`}
+    >
       <ion-icon name="chevron-down-outline"></ion-icon>
       <input
-        className="genre-display"
+        className={dropdownStyle["genre-display"]}
         placeholder={placeholder}
         type="text"
         name=""
         readOnly
         onClick={dropDownToggle}
+        ref={displayCurrentOptionRef}
       />
-      <div className={dropdownStyle.option} ref={optionref}>
+      <div
+        className={`${dropdownStyle.option} ${
+          isDropDownActive && dropdownStyle["active"]
+        }`}
+      >
         {options.map((option) => {
           const { genre_id, name, _name } = option;
           return genre_id ? (
