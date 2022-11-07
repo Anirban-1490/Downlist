@@ -2,6 +2,11 @@
   margin-top: 20px;
   position: relative;
 
+  &.active {
+    ion-icon {
+      transform: translateY(-50%) rotateZ(-180deg);
+    }
+  }
   .genre-display {
     width: 175px;
     height: 35px;
@@ -62,13 +67,9 @@
         text-align: start;
       }
     }
-  }
-  .option.active {
-    display: block;
-  }
-}
-.wrapper-input.active {
-  ion-icon {
-    transform: translateY(-50%) rotateZ(-180deg);
+
+    &.active {
+      display: block;
+    }
   }
 }
