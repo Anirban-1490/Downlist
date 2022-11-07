@@ -1,5 +1,6 @@
 import Head from "next/head";
 import "Style/GlobalStyle/global.scss";
+import "pages/_styles/topanimestyle.css";
 import { QueryClient, QueryClientProvider, Hydrate } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Approvider } from "context";
@@ -57,7 +58,20 @@ function MyApp({ Component, pageProps }) {
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=block"
           rel="stylesheet"
-        ></link>
+        />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="module"
           src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
