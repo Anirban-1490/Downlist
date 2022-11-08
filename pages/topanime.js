@@ -14,6 +14,7 @@ import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { DifferentGenres } from "Components/Top/TopAnime/DifferentGenres";
 import { jikanQueries } from "JikanQueries";
+import topStyle from "Style/Top/top.module.scss";
 
 //* --- custom hook for fetching top anime/character from the user list
 
@@ -51,11 +52,11 @@ function TopAnime() {
       ) : results.some((item) => item.isError) ? (
         <PageNotFound />
       ) : (
-        <div className="container-topsection">
-          <div className="section-1">
+        <div className={topStyle["container-topsection"]}>
+          <div className={topStyle["section-1"]}>
             <StyledMainHeader
               content={{
-                text: ["An", "l", "me", "WORLD"],
+                text: ["AnIme", "WORLD"],
                 isanimateable: true,
                 subtext: "it's anime EVERYWHERE...",
               }}
@@ -67,7 +68,7 @@ function TopAnime() {
               className="airing"
             />
           </div>
-          <div className="section-2">
+          <div className={topStyle["section-2"]}>
             <StyledSection
               data={results[0].data}
               switch_details={"anime"}
@@ -75,7 +76,7 @@ function TopAnime() {
               className="airing upcoming"
             />
           </div>
-          <div className="section-3">
+          <div className={topStyle["section-3"]}>
             <StyledSection
               data={results[1].data}
               switch_details={"anime"}
@@ -83,7 +84,7 @@ function TopAnime() {
               className="airing popular"
             />
           </div>
-          <div className="section-4">
+          <div className={topStyle["section-4"]}>
             {/* {!results.some((item) => item.isLoading) ? (
               <StyledListCarousel
                 text_={"Top anime from your list"}
@@ -94,7 +95,7 @@ function TopAnime() {
               ""
             )} */}
           </div>
-          <section className="section-5">
+          <section className={topStyle["section-5"]}>
             <DifferentGenres />
           </section>
         </div>
