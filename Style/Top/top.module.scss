@@ -10,12 +10,6 @@
     position: relative;
   }
   .section-2 {
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      #46344e 45%,
-      transparent 102%
-    );
     position: relative;
     z-index: 4;
     height: 45em;
@@ -23,22 +17,15 @@
   }
   .section-3 {
     position: relative;
-    background: linear-gradient(
-      to bottom,
-      transparent 6%,
-      #9a1750 54%,
-      transparent 96%
-    );
+
     margin-top: -25em;
     height: 54em;
   }
 
   .section-4 {
-    background: #2d5f5d;
     margin-top: -300px;
     height: 860px;
     position: relative;
-    background: linear-gradient(to bottom, transparent 30%, #2d5f5d 85%);
   }
 
   .section-5 {
