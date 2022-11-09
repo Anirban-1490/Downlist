@@ -1,0 +1,14 @@
+.section-wrapper {
+  width: 81%;
+  margin: 0 auto;
+  margin-top: 18em;
+  position: relative;
+  z-index: 1;
+
+  h2 {
+    text-align: center;
+    font-size: clamp(4em, 5vw, 8em);
+    translate: 0 -120%;
+    padding: 0 0.02em;
+  }
+}
