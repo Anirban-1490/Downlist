@@ -1,30 +1,38 @@
+@use "/Style/GlobalStyle/main" as m;
+
 .head-main-container {
   width: 100%;
-  z-index: -1;
-  height: auto;
-  margin-top: -50px;
+  height: 58%;
   display: flex;
   flex-direction: column;
+  gap: 1em;
+  justify-content: center;
 
   h3 {
     color: white;
     text-align: center;
     font-family: "Amatic SC", cursive;
-    font-size: clamp(1.8em, 3.1vw, 5vw);
+    font-size: clamp(1.2em, 2.4vw, 4vw);
   }
   .inner-content {
-    width: 85%;
+    width: 96%;
     margin: 0 auto;
-    margin-top: 10em;
 
-    gap: 1%;
+    gap: 0.5rem;
 
     display: flex;
     justify-content: center;
-    top: 120px;
+
+    @include m.breakpoint(768px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      gap: 0.2em;
+    }
 
     h1 {
-      font-size: clamp(5.5vw, 7.5em, 10.5vw);
+      font-size: clamp(1vw, 8.5em, 14.5vw);
+
       &:nth-child(1) {
         color: #66fcf1;
         position: relative;
@@ -40,7 +48,7 @@
           #cc4499 57%,
           #ffc3a0 90%
         );
-        overflow: hidden;
+
         background-size: 600% 600%;
         animation-name: anime-grad;
         animation-duration: 17s;
@@ -48,6 +56,10 @@
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
         background-clip: text;
+
+        @include m.breakpoint(768px) {
+          margin: 0;
+        }
       }
       .ball {
         position: absolute;
@@ -58,25 +70,8 @@
         transform: translateX(-50%);
         border-radius: 50%;
         top: 0;
-        animation: circle-anime 1.5s linear infinite;
       }
     }
-  }
-}
-
-@keyframes circle-anime {
-  25% {
-    top: 0.09em;
-  }
-
-  50% {
-    top: 0;
-  }
-  75% {
-    top: -0.3em;
-  }
-  100% {
-    top: 0;
   }
 }
 
