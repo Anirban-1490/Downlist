@@ -65,7 +65,7 @@ function TopAnime() {
               data={results[2].data}
               switch_details={"anime"}
               text_={"Top Airing"}
-              className="airing"
+              headerColor={"#9579f0"}
             />
           </div>
           <div className={topStyle["section-2"]}>
@@ -73,7 +73,7 @@ function TopAnime() {
               data={results[0].data}
               switch_details={"anime"}
               text_={"Top Upcoming"}
-              className="airing upcoming"
+              headerColor={"#d9a3ee"}
             />
           </div>
           <div className={topStyle["section-3"]}>
@@ -81,7 +81,7 @@ function TopAnime() {
               data={results[1].data}
               switch_details={"anime"}
               text_={"Most Popular"}
-              className="airing popular"
+              headerColor={"#ec95bb"}
             />
           </div>
           <div className={topStyle["section-4"]}>
