@@ -43,3 +43,11 @@
 .swiper-button-prev {
   left: 0 !important;
 }
+
+#nprogress .bar {
+  background: #ff1e6d !important;
+  height: 4px !important;
+}
+#nprogress .peg {
+  box-shadow: none !important;
+}
