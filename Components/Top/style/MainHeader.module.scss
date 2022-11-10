@@ -31,7 +31,7 @@
     }
 
     h1 {
-      font-size: clamp(1vw, 8.5em, 14.5vw);
+      font-size: clamp(5em, 11vw, 8em);
 
       &:nth-child(1) {
         color: #66fcf1;
@@ -63,8 +63,8 @@
       }
       .ball {
         position: absolute;
-        width: clamp(1.4vw, 1rem, 2vw);
-        height: clamp(1.4vw, 1rem, 2vw);
+        width: clamp(0.16em, 1.4vw, 0.5em);
+        height: clamp(0.16em, 1.4vw, 0.5em);
         background: yellow;
         left: 47.36%;
         transform: translateX(-50%);
