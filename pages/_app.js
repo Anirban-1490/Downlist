@@ -6,11 +6,30 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Approvider } from "context";
 import { ParentNavbar } from "Components/Global/Navbar";
 import { ScrollToTop } from "Components/Global/ScrollToTop/ScrollToTop";
-
 import { Analytics } from "@vercel/analytics/react";
+import nProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
   const client = new QueryClient();
+  const router = useRouter();
+  nProgress.configure({ showSpinner: false });
+  useEffect(() => {
+    const handleStart = () => nProgress.start();
+    const handleStop = () => nProgress.done();
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleStop);
+    router.events.on("beforeHistoryChange", handleStop);
+
+    () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleStop);
+      router.events.off("beforeHistoryChange", handleStop);
+    };
+  }, [router]);
+
   return (
     <>
       <Head>
