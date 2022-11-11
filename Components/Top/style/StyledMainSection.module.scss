@@ -1,14 +1,25 @@
 .section-wrapper {
   width: 81%;
   margin: 0 auto;
-  margin-top: 18em;
   position: relative;
   z-index: 1;
 
+  //   border: 2px solid pink;
   h2 {
-    text-align: center;
-    font-size: clamp(4em, 5vw, 8em);
-    translate: 0 -120%;
+    // text-align: center;
+    font-size: clamp(4em, 8vw, 12em);
+    translate: 0 -95%;
     padding: 0 0.02em;
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+
+    // margin-bottom: 3em;
+    h4 {
+      font-size: clamp(1.15rem, 2vw, 3rem) !important;
+      margin-top: 2rem;
+      text-transform: none !important;
+
+      padding-left: 0.7rem;
+    }
   }
 }
