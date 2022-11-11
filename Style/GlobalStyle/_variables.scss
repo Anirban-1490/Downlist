@@ -20,3 +20,15 @@ $bg-primary-light: color.scale($bg-primary, $lightness: 12%, $alpha: -30%);
 
 $cl-yellow-light: lighten(yellow, 23%);
 $cl-grey-dark: darken(grey, 10%);
+
+//* height ----
+$base-height: 1em;
+$height-md: 4em;
+$height-large: 8em;
+$height-extra: 14em;
+
+//* width ----
+$base-width: 1em;
+$width-md: 4em;
+$width-large: 8em;
+$width-extra: 14em;
