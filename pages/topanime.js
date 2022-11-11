@@ -53,38 +53,71 @@ function TopAnime() {
         <PageNotFound />
       ) : (
         <div className={topStyle["container-topsection"]}>
-          <div className={topStyle["section-1"]}>
-            <StyledMainHeader
-              content={{
-                text: ["AnIme", "WORLD"],
-                isanimateable: true,
-                subtext: "it's anime EVERYWHERE...",
-              }}
-            />
+          <StyledMainHeader
+            content={{
+              text: ["AnIme", "WORLD"],
+              isanimateable: true,
+              subtext: "it's anime EVERYWHERE...",
+            }}
+          />
+          <div className={`${topStyle["section"]} ${topStyle["section-1"]}`}>
             <StyledSection
               data={results[2].data}
               switch_details={"anime"}
               text_={"Top Airing"}
               headerColor={"#9579f0"}
+              subHeadingText={"Latest toppers"}
             />
+            <div
+              className={`${topStyle["custom-shape-divider-bottom-1668163489"]} ${topStyle["custom-shape-divider"]}`}
+            >
+              <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                  style={{ fill: "#191934b5" }}
+                ></path>
+              </svg>
+            </div>
           </div>
-          <div className={topStyle["section-2"]}>
+          <div className={`${topStyle["section"]} ${topStyle["section-2"]}`}>
             <StyledSection
               data={results[0].data}
               switch_details={"anime"}
               text_={"Top Upcoming"}
               headerColor={"#d9a3ee"}
+              subHeadingText={"Something to look forward too"}
             />
+            <div
+              className={`${topStyle["custom-shape-divider-bottom-1668170175"]} ${topStyle["custom-shape-divider"]}`}
+            >
+              <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                  style={{ fill: "#271f35" }}
+                ></path>
+              </svg>
+            </div>
           </div>
-          <div className={topStyle["section-3"]}>
+          <div className={`${topStyle["section"]} ${topStyle["section-3"]}`}>
             <StyledSection
               data={results[1].data}
               switch_details={"anime"}
               text_={"Most Popular"}
               headerColor={"#ec95bb"}
+              subHeadingText={"All time favorites"}
             />
           </div>
-          <div className={topStyle["section-4"]}>
+          <div className={`${topStyle["section"]} ${topStyle["section-4"]}`}>
             {/* {!results.some((item) => item.isLoading) ? (
               <StyledListCarousel
                 text_={"Top anime from your list"}
@@ -95,7 +128,9 @@ function TopAnime() {
               ""
             )} */}
           </div>
-          <section className={topStyle["section-5"]}>
+          <section
+            className={`${topStyle["section"]} ${topStyle["section-5"]}`}
+          >
             <DifferentGenres />
           </section>
         </div>
