@@ -117,17 +117,9 @@ function TopAnime() {
               subHeadingText={"All time favorites"}
             />
           </div>
-          <div className={`${topStyle["section"]} ${topStyle["section-4"]}`}>
-            {/* {!results.some((item) => item.isLoading) ? (
-              <StyledListCarousel
-                text_={"Top anime from your list"}
-                switch_details={"anime"}
-                userId={user?.userID}
-              />
-            ) : (
-              ""
-            )} */}
-          </div>
+          <div
+            className={`${topStyle["section"]} ${topStyle["section-4"]}`}
+          ></div>
           <section
             className={`${topStyle["section"]} ${topStyle["section-5"]}`}
           >
