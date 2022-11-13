@@ -3,7 +3,7 @@
 .container-topsection {
   position: relative;
   top: -1em;
-
+  overflow: hidden;
   .section {
     height: m.$height-extra * 4.4;
 
@@ -14,10 +14,10 @@
     justify-content: center;
 
     &:nth-child(3) {
-      background-color: #191934b5;
+      background-color: m.$cl-blue-dark;
     }
     &:nth-child(4) {
-      background-color: #271f35;
+      background-color: m.$cl-blue-violet-dark;
     }
 
     .custom-shape-divider {
@@ -31,6 +31,36 @@
       svg {
         position: relative;
         display: block;
+
+        .shape-path-1 {
+          fill: m.$cl-blue-dark;
+        }
+        .shape-path-2 {
+          fill: m.$cl-blue-violet-dark;
+        }
+      }
+    }
+
+    .anime-character {
+      position: absolute;
+
+      &.character-1 {
+        right: -8em;
+        bottom: 13em;
+
+        img {
+          scale: 1.6;
+          opacity: 0.25;
+        }
+      }
+      &.character-2 {
+        left: 2em;
+        bottom: -19em;
+        z-index: 1;
+
+        img {
+          scale: 1.35;
+        }
       }
     }
   }
@@ -38,7 +68,6 @@
   .section-4 {
     height: m.$height-extra * 3.4;
     position: relative;
-    // border: 2px solid lightcoral;
   }
 
   .section-5 {
