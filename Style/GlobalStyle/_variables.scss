@@ -20,6 +20,8 @@ $bg-primary-light: color.scale($bg-primary, $lightness: 12%, $alpha: -30%);
 
 $cl-yellow-light: lighten(yellow, 23%);
 $cl-grey-dark: darken(grey, 10%);
+$cl-blue-dark: darken(blue, 45.7%);
+$cl-blue-violet-dark: darken(#8849c4, 39.6%);
 
 //* height ----
 $base-height: 1em;
