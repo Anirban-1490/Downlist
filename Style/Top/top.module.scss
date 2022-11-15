@@ -18,6 +18,10 @@
     }
     &:nth-child(4) {
       background-color: m.$cl-blue-violet-dark;
+      height: m.$height-extra * 5.4 !important;
+    }
+    &:nth-child(5) {
+      background-color: m.$cl-indigo-dark;
     }
 
     .custom-shape-divider {
@@ -37,6 +41,9 @@
         }
         .shape-path-2 {
           fill: m.$cl-blue-violet-dark;
+        }
+        .shape-path-3 {
+          fill: m.$cl-indigo-dark;
         }
       }
     }
@@ -78,17 +85,23 @@
   }
 }
 
+@mixin svgPosition($width, $height, $rotate: 0) {
+  width: $width;
+  height: $height;
+  rotate: $rotate;
+}
 .custom-shape-divider-bottom-1668163489 svg {
-  position: relative;
-  display: block;
-  width: calc(135% + 1.3px);
-  height: 106px;
-  transform: rotateY(180deg);
+  @include svgPosition(calc(135% + 1.3px), 106px, y 180deg);
 }
 
 .custom-shape-divider-bottom-1668170175 svg {
-  position: relative;
-  display: block;
-  width: calc(109% + 1.3px);
-  height: 70px;
+  @include svgPosition(calc(109% + 1.3px), 70px);
+}
+
+.custom-shape-divider-bottom-1668509441 {
+  transform: rotate(0) !important;
+}
+
+.custom-shape-divider-bottom-1668509441 svg {
+  @include svgPosition(calc(100% + 1.3px), 100px);
 }
