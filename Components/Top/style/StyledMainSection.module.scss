@@ -4,16 +4,13 @@
   position: relative;
   z-index: 3;
 
-  //   border: 2px solid pink;
   h2 {
-    // text-align: center;
     font-size: clamp(4em, 8vw, 12em);
     translate: 0 -95%;
     padding: 0 0.02em;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
 
-    // margin-bottom: 3em;
     h4 {
       font-size: clamp(1.15rem, 2vw, 3rem) !important;
       margin-top: 2rem;
