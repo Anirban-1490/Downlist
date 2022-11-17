@@ -73,8 +73,9 @@
   }
 
   .section-4 {
-    height: m.$height-extra * 3.4;
+    max-height: m.$height-extra * 5;
     position: relative;
+    display: block;
   }
 
   .section-5 {
