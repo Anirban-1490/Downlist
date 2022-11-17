@@ -35,3 +35,8 @@ $base-width: 1em;
 $width-md: 4em;
 $width-large: 8em;
 $width-extra: 14em;
+
+//* font-size -------
+
+$res-fontSize-lg: clamp(4em, 8vw, 12em);
+$res-fontSize-sm: clamp(1.15rem, 2vw, 3rem);
