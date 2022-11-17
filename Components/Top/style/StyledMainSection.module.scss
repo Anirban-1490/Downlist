@@ -1,3 +1,5 @@
+@use "/Style/GlobalStyle/main" as m;
+
 .section-wrapper {
   width: 81%;
   margin: 0 auto;
@@ -5,14 +7,14 @@
   z-index: 3;
 
   h2 {
-    font-size: clamp(4em, 8vw, 12em);
+    font-size: m.$res-fontSize-lg;
     translate: 0 -95%;
     padding: 0 0.02em;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
 
     h4 {
-      font-size: clamp(1.15rem, 2vw, 3rem) !important;
+      font-size: m.$res-fontSize-sm;
       margin-top: 2rem;
       text-transform: none !important;
 
