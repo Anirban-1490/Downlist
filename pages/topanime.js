@@ -15,6 +15,7 @@ import { Spinner } from "Components/Global/LoadingSpinner";
 import { DifferentGenres } from "Components/Top/TopAnime/DifferentGenres";
 import { jikanQueries } from "JikanQueries";
 import topStyle from "Style/Top/top.module.scss";
+import { TopFromlist } from "Components/Top/TopFromList";
 
 //* --- custom hook for fetching top anime/character from the user list
 
@@ -142,9 +143,9 @@ function TopAnime() {
               </svg>
             </div>
           </div>
-          <div
-            className={`${topStyle["section"]} ${topStyle["section-4"]}`}
-          ></div>
+          <div className={`${topStyle["section"]} ${topStyle["section-4"]}`}>
+            <TopFromlist />
+          </div>
           <section
             className={`${topStyle["section"]} ${topStyle["section-5"]}`}
           >
