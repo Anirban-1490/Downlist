@@ -9,6 +9,7 @@ export const jikanQueries = async (key, ...params) => {
     characters: `https://api.jikan.moe/v4/anime/${params[0]}/characters`,
     char_details: `https://api.jikan.moe/v4/characters/${params[0]}/full`,
     top_anime: `https://api.jikan.moe/v4/top/anime?filter=${params[0]}&page=${params[1]}&limit=${params[2]}`,
+    top_char: `https://api.jikan.moe/v4/top/characters`,
   };
   await delay();
   return axios.get(queries[key]).then(({ data: { data } }) => data);
