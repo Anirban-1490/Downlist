@@ -28,7 +28,7 @@ $cl-indigo-dark: #4e1a3d;
 $base-height: 1em;
 $height-md: 4em;
 $height-large: 8em;
-$height-extra: 14em;
+$height-extra: 190px;
 
 //* width ----
 $base-width: 1em;
@@ -38,5 +38,5 @@ $width-extra: 14em;
 
 //* font-size -------
 
-$res-fontSize-lg: clamp(4em, 8vw, 12em);
-$res-fontSize-sm: clamp(1.15rem, 2vw, 3rem);
+$res-fontSize-lg: clamp(5vw, 6.7vw, 12em);
+$res-fontSize-sm: clamp(1.7vw, 2.6vw, 3rem);
