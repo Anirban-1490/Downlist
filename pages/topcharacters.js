@@ -16,6 +16,7 @@ import { Spinner } from "Components/Global/LoadingSpinner";
 import { jikanQueries } from "JikanQueries";
 import topStyle from "Style/Top/top.module.scss";
 import { TopFromlist } from "Components/Top/TopFromList";
+import { reduce } from "awaity/reduce";
 
 function TopCharcter() {
   const year = new Date().getFullYear();
