@@ -161,9 +161,9 @@ function TopCharcter() {
             <StyledSection
               data={results[0].data}
               switch_details={"character"}
-              text_={"Top Upcoming"}
+              text_={"Summer toppers"}
               headerColor={"#d9a3ee"}
-              subHeadingText={"Something to look forward too"}
+              subHeadingText={"Top entertainers in this heat"}
             />
             <div
               className={`${topStyle["custom-shape-divider-bottom-1668170175"]} ${topStyle["custom-shape-divider"]}`}
@@ -190,9 +190,9 @@ function TopCharcter() {
             <StyledSection
               data={results[1].data}
               switch_details={"character"}
-              text_={"Most Popular"}
+              text_={"Winter Toppers"}
               headerColor={"#ec95bb"}
-              subHeadingText={"All time favorites"}
+              subHeadingText={"Winter soldiers"}
             />
             <div
               className={`${topStyle["custom-shape-divider-bottom-1668509441"]} ${topStyle["custom-shape-divider"]}`}
