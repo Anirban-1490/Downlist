@@ -127,27 +127,15 @@ function TopAnime() {
               headerColor={"#ec95bb"}
               subHeadingText={"All time favorites"}
             />
-            <div
-              className={`${topStyle["custom-shape-divider-bottom-1668509441"]} ${topStyle["custom-shape-divider"]}`}
-            >
-              <svg
-                data-name="Layer 1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1200 120"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M598.97 114.72L0 0 0 120 1200 120 1200 0 598.97 114.72z"
-                  className={topStyle["shape-path-3"]}
-                ></path>
-              </svg>
-            </div>
           </div>
-          <div className={`${topStyle["section"]} ${topStyle["section-4"]}`}>
+          <div className={`${topStyle["section"]} ${topStyle["section-5"]}`}>
+            <h2 className={topStyle["main-heading"]}>From your inventory</h2>
+          </div>
+          <div className={`${topStyle["section"]} ${topStyle["section-6"]}`}>
             <TopFromlist />
           </div>
           <section
-            className={`${topStyle["section"]} ${topStyle["section-5"]}`}
+            className={`${topStyle["section"]} ${topStyle["section-7"]}`}
           >
             <DifferentGenres />
           </section>
