@@ -5,20 +5,15 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
-  .main-heading {
-    color: white;
-    font-size: m.$res-fontSize-lg;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 0 m.$base-padding/2;
-  }
+  gap: 3rem;
+
   .inner-container {
     width: 95%;
     flex: 1 1 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    margin: 2rem 0;
     &.no-item {
       border: 2px solid rgba(238, 130, 238, 0.365);
     }

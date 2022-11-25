@@ -7,9 +7,6 @@ export const TopFromlist = ({ switch_details, userId }) => {
   return (
     <>
       <div className={topFromListStyle["main-container"]}>
-        <h2 className={topFromListStyle["main-heading"]}>
-          From your inventory
-        </h2>
         <div
           className={`${topFromListStyle["inner-container"]} ${
             !listCount && topFromListStyle["no-item"]
