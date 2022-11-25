@@ -76,7 +76,7 @@ export const CoreDetails = ({
     }
   );
 
-  //* function to add item into local storage
+  //* function to add item into your saved list
   async function Additem(e) {
     //* show the loadnig... text when click the button
     setLoading(true);
@@ -226,21 +226,19 @@ export const CoreDetails = ({
                 itemadd ? { background: "#fb2f00" } : { background: "#802bb1" }
               }
             >
-              <div className={coredetailStyle["btn-inner-content"]}>
-                {isLoading ? (
-                  "Loading..."
-                ) : itemadd ? (
-                  <>
-                    <ion-icon name="remove"></ion-icon>
-                    Remove from list
-                  </>
-                ) : (
-                  <>
-                    <ion-icon name="add"></ion-icon>
-                    Add to list
-                  </>
-                )}
-              </div>
+              {isLoading ? (
+                "Loading..."
+              ) : itemadd ? (
+                <>
+                  <ion-icon name="trash-outline"></ion-icon>
+                  Remove
+                </>
+              ) : (
+                <>
+                  <ion-icon name="bookmark"></ion-icon>
+                  Save
+                </>
+              )}
             </button>
           </li>
         </ul>

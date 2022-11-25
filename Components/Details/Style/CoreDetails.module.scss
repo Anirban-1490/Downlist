@@ -132,21 +132,19 @@
       button {
         outline: none;
         border: none;
-        padding: 0.42rem 0.67rem;
+        padding: 0.42rem 1rem;
         background: #802bb1;
         color: white;
         cursor: pointer;
-        font-size: 1em;
+        font-size: 0.9em;
         transform: scale(1, 1);
         border-radius: 0.44em;
-        .btn-inner-content {
-          display: flex;
-          gap: 0.3em;
-          height: 100%;
-          align-items: center;
-        }
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+
         ion-icon {
-          font-size: 1.5rem;
+          font-size: 1.36rem;
         }
         @keyframes btnanime {
           25% {
