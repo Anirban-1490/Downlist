@@ -182,7 +182,7 @@ export const Navbar = ({
                 </div>
               </div>
             ) : (
-              <Link href="userauth">
+              <Link href="/userauth">
                 <a className={navbarStyle["signup"]}> Sign in</a>
               </Link>
             )}
