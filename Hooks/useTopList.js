@@ -8,7 +8,8 @@ export function useToplist(switch_item, userID) {
   const [listCount, setListcount] = useState(0);
 
   //* get users saved anime or character list
-  let { data } = useList(switch_item, userID, "fav");
+  let { data } = useList(switch_item, userID);
+  console.log(data);
 
   let userList = data?.pages?.[0].list;
   //* this is used so that the data don't get lost at a rerender
@@ -30,7 +31,7 @@ export function useToplist(switch_item, userID) {
         const { malid, img_url, title } = item;
 
         const response = await axios(
-          `https://api.jikan.moe/v3/${switch_item}/${malid}`
+          `https://api.jikan.moe/v4/${switch_item}/${malid}/full`
         );
         const result = await response.data;
         temparray = [
