@@ -34,7 +34,7 @@
       }
     }
     &:nth-child(6) {
-      max-height: m.$height-extra * 6;
+      height: auto !important;
     }
     &:nth-child(7) {
       background: #9d8d8f;
