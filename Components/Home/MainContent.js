@@ -15,6 +15,7 @@ import { useScroll } from "Hooks/useScroll";
 import mainStyle from "Components/Home/Style/MainContainer.module.scss";
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
+import { getUserToken } from "GetuserToken";
 
 export function Content({ isMotionEnabled }) {
   const [data, dispatch] = useReducer(reducerForSearchResult, {
@@ -30,6 +31,7 @@ export function Content({ isMotionEnabled }) {
   const wrapper = useRef();
   const mainContainerRef = useRef();
   const [hasSearchQuery, setSearchQuery] = useState(false);
+  const token = getUserToken();
 
   const throttledSearchHandler = useCallback((fn, timeout) => {
     let id = null;
@@ -165,7 +167,7 @@ export function Content({ isMotionEnabled }) {
 
                 return (
                   <Link
-                    href={`anime/${mal_id}`}
+                    href={`anime/${mal_id}${token ? `?utoken=${token}` : ""}`}
                     className={mainStyle["link"]}
                     key={mal_id}
                   >
