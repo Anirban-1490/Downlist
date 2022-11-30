@@ -1,4 +1,6 @@
+import { getUserToken } from "GetuserToken";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import cardStyle from "./Card.module.scss";
 
 export const Card = ({
@@ -9,9 +11,17 @@ export const Card = ({
   subTitle,
   animeType,
 }) => {
+  const [token, setToken] = useState();
+  useEffect(() => {
+    setToken(getUserToken());
+  }, []);
   return (
     <>
-      <Link href={path ? path + `/${mal_id}` : `/`}>
+      <Link
+        href={
+          path ? path + `/${mal_id}${token ? `?utoken=${token}` : ""}` : `/`
+        }
+      >
         <a className={cardStyle.cards} key={mal_id}>
           <img
             src={image_url}
