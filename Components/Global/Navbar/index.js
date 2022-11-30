@@ -10,19 +10,16 @@ import { useWindowResize } from "Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
 import { useProfile } from "Hooks/useProfile";
 import { Navbar } from "./Components/Navbar";
+import { useQueryClient } from "react-query";
 
 export function ParentNavbar() {
   const router = useRouter();
   const { pathname } = router;
   const [isHamClicked, setHamClicked] = useState(false);
   const innerWidth = useWindowResize();
-
-  const userData = useAuth(true); //* custom hook for checking if user logged in or not
+  const [userData, _] = useAuth(true);
+  //* custom hook for checking if user logged in or not
   //* used to rerender the component if we hit back button to come here
-
-  const { changeUserData } = useContext(Appcontext);
-
-  changeUserData(userData);
 
   const isSmallScreenWidth = innerWidth > 740 ? false : true;
 
