@@ -5,6 +5,7 @@ import axios from "axios";
 import coredetailStyle from "Components/Details/Style/CoreDetails.module.scss";
 import { path } from "server-path";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
+import { useAuth } from "Feature/Authorize/Authorize";
 
 export const CoreDetails = ({
   details,
@@ -13,6 +14,7 @@ export const CoreDetails = ({
   malid,
   switch_path,
   switch_item,
+  //   userData,
 }) => {
   const {
     title,
@@ -34,23 +36,18 @@ export const CoreDetails = ({
   const [itemadd, setItemadd] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [seemorebtn, Setbtn] = useState(false);
-
+  const [userData, _] = useAuth(true);
   const btn = useRef();
   const router = useRouter();
-  //   const navigate = useNavigate();
-  const client = useQueryClient();
-  const clientData = client.getQueryData(["user", token]);
 
   async function fetchUserList() {
     if (switch_item === "character")
       return (
-        await axios.get(
-          `${path.domain}user/${clientData?.userID}/list/character`
-        )
+        await axios.get(`${path.domain}user/${userData?.userID}/list/character`)
       ).data;
 
     return (
-      await axios.get(`${path.domain}user/${clientData?.userID}/list/anime`)
+      await axios.get(`${path.domain}user/${userData?.userID}/list/anime`)
     ).data;
   }
 
@@ -71,7 +68,7 @@ export const CoreDetails = ({
           }
         });
       },
-      enabled: !!clientData?.userID,
+      enabled: !!userData?.userID,
       cacheTime: 1000,
     }
   );
@@ -81,9 +78,9 @@ export const CoreDetails = ({
     //* show the loadnig... text when click the button
     setLoading(true);
 
-    if (!clientData?.userID) {
+    if (!userData?.userID) {
       //* if user not logged in then redirect to login page
-      router.push("/usersuth");
+      router.push("/userauth");
     } else {
       if (itemadd === false) {
         //*check if the route is for anime
@@ -99,12 +96,12 @@ export const CoreDetails = ({
           };
 
           await axios.post(
-            `${path.domain}user/${clientData?.userID}/list/anime`,
+            `${path.domain}user/${userData?.userID}/list/anime`,
             item
           );
 
           await axios.put(
-            `${path.domain}user/${clientData?.userID}/profile/activity`,
+            `${path.domain}user/${userData?.userID}/profile/activity`,
             {
               actDone: "Added",
               detail: title,
@@ -123,12 +120,12 @@ export const CoreDetails = ({
           };
 
           await axios.post(
-            `${path.domain}user/${clientData?.userID}/list/character`,
+            `${path.domain}user/${userData?.userID}/list/character`,
             item
           );
 
           await axios.put(
-            `${path.domain}user/${clientData?.userID}/profile/activity`,
+            `${path.domain}user/${userData?.userID}/profile/activity`,
             {
               actDone: "Added",
               detail: title,
@@ -145,11 +142,11 @@ export const CoreDetails = ({
 
         if (switch_item === "anime") {
           await axios.delete(
-            `${path.domain}user/${clientData?.userID}/list/anime/${malid}`
+            `${path.domain}user/${userData?.userID}/list/anime/${malid}`
           );
 
           await axios.put(
-            `${path.domain}user/${clientData?.userID}/profile/activity`,
+            `${path.domain}user/${userData?.userID}/profile/activity`,
             {
               actDone: "Removed",
               detail: details.title,
@@ -158,11 +155,11 @@ export const CoreDetails = ({
           );
         } else if (switch_item === "character") {
           await axios.delete(
-            `${path.domain}user/${clientData?.userID}/list/character/${malid}`
+            `${path.domain}user/${userData?.userID}/list/character/${malid}`
           );
 
           await axios.put(
-            `${path.domain}user/${clientData?.userID}/profile/activity`,
+            `${path.domain}user/${userData?.userID}/profile/activity`,
             {
               actDone: "Removed",
               detail: title,
