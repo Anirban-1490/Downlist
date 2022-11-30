@@ -1,8 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 // import "./header-style.css";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { Appcontext } from "context";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { path } from "server-path";
 
@@ -10,14 +9,14 @@ import { useWindowResize } from "Hooks/useWindowResize";
 import { MobileNavbar } from "./Components/MobileNavbar";
 import { useProfile } from "Hooks/useProfile";
 import { Navbar } from "./Components/Navbar";
-import { useQueryClient } from "react-query";
 
 export function ParentNavbar() {
   const router = useRouter();
-  const { pathname } = router;
+  const { pathname, asPath } = router;
   const [isHamClicked, setHamClicked] = useState(false);
   const innerWidth = useWindowResize();
   const [userData, _] = useAuth(true);
+
   //* custom hook for checking if user logged in or not
   //* used to rerender the component if we hit back button to come here
 
