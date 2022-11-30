@@ -13,6 +13,7 @@ import { CommentsBox } from "Components/Details/CommentsBox";
 import { Appcontext } from "context";
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { jikanQueries } from "JikanQueries";
+import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
 
 //* component for anime details
 
@@ -126,8 +127,9 @@ const AnimeDetails = () => {
   );
 };
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, query }) {
   const { malid } = params;
+  const { utoken } = query;
 
   const client = new QueryClient();
   try {
@@ -140,6 +142,9 @@ export async function getServerSideProps({ params }) {
       );
       await client.prefetchQuery(["characters", malid], () =>
         jikanQueries("characters", malid)
+      );
+      await client.prefetchQuery(["user", utoken], () =>
+        authorizeDomain(utoken)
       );
     }
   } catch (error) {
