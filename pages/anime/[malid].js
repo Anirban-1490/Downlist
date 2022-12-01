@@ -14,10 +14,11 @@ import { Appcontext } from "context";
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { jikanQueries } from "JikanQueries";
 import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
+import { getUserToken } from "GetuserToken";
 
 //* component for anime details
 
-const AnimeDetails = () => {
+const AnimeDetails = ({ userData }) => {
   const router = useRouter();
 
   const { malid } = router.query;
@@ -72,6 +73,7 @@ const AnimeDetails = () => {
             {...details}
             switch_item="anime"
             switch_path="topanime"
+            userData={userData}
           />
 
           {/* //* characters section */}
@@ -128,8 +130,7 @@ const AnimeDetails = () => {
 };
 
 export async function getServerSideProps({ params, query }) {
-  const { malid } = params;
-  const { utoken } = query;
+  const userData = await authorizeDomain(process.env.UTOKEN);
 
   const client = new QueryClient();
   try {
@@ -143,9 +144,6 @@ export async function getServerSideProps({ params, query }) {
       await client.prefetchQuery(["characters", malid], () =>
         jikanQueries("characters", malid)
       );
-      await client.prefetchQuery(["user", utoken], () =>
-        authorizeDomain(utoken)
-      );
     }
   } catch (error) {
     return {
@@ -154,7 +152,7 @@ export async function getServerSideProps({ params, query }) {
   }
 
   return {
-    props: { dehydratedState: dehydrate(client) },
+    props: { dehydratedState: dehydrate(client), userData },
   };
 }
 

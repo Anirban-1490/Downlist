@@ -7,6 +7,7 @@ import { Content } from "Components/Home/MainContent";
 
 import { HomeExtraInformation } from "Components/Home/ExtraInformation";
 import { HomeHeader } from "Components/Home/BigHeader";
+import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
 
 export default function HomeMain() {
   const mydiv = useRef();
@@ -80,4 +81,12 @@ export default function HomeMain() {
       </div>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const userData = await authorizeDomain(process.env.UTOKEN);
+
+  return {
+    props: { userData },
+  };
 }
