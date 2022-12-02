@@ -9,6 +9,7 @@
 /backend/.env
 .next
 backend/
+.env
 # testing
 /coverage
 
