@@ -14,7 +14,6 @@ export const CoreDetails = ({
   malid,
   switch_path,
   switch_item,
-  userData,
 }) => {
   const {
     title,
@@ -34,8 +33,9 @@ export const CoreDetails = ({
   const [itemadd, setItemadd] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [seemorebtn, Setbtn] = useState(false);
-
+  const [userData, _] = useAuth(true);
   const btn = useRef();
+  console.log(userData);
   const router = useRouter();
 
   async function fetchUserList() {

@@ -73,7 +73,6 @@ const AnimeDetails = ({ userData }) => {
             {...details}
             switch_item="anime"
             switch_path="topanime"
-            userData={userData}
           />
 
           {/* //* characters section */}
@@ -130,7 +129,7 @@ const AnimeDetails = ({ userData }) => {
 };
 
 export async function getServerSideProps({ params, query }) {
-  const userData = await authorizeDomain(process.env.UTOKEN);
+  const { malid } = params;
 
   const client = new QueryClient();
   try {
@@ -152,7 +151,7 @@ export async function getServerSideProps({ params, query }) {
   }
 
   return {
-    props: { dehydratedState: dehydrate(client), userData },
+    props: { dehydratedState: dehydrate(client) },
   };
 }
 

@@ -167,7 +167,7 @@ export function Content({ isMotionEnabled }) {
 
                 return (
                   <Link
-                    href={`anime/${mal_id}${token ? `?utoken=${token}` : ""}`}
+                    href={`anime/${mal_id}`}
                     className={mainStyle["link"]}
                     key={mal_id}
                   >

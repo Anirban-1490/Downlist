@@ -119,7 +119,7 @@ function MyApp({ Component, pageProps }) {
           <Approvider>
             <>
               <ScrollToTop />
-              <ParentNavbar userData={pageProps.userData} />
+              <ParentNavbar />
               <Component {...pageProps} />
               <Analytics />
             </>

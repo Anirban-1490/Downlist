@@ -82,11 +82,3 @@ export default function HomeMain() {
     </>
   );
 }
-
-export async function getStaticProps(context) {
-  const userData = await authorizeDomain(process.env.UTOKEN);
-
-  return {
-    props: { userData },
-  };
-}
