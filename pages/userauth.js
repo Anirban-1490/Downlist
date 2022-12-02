@@ -5,14 +5,15 @@ import { path } from "server-path";
 
 import { useAuth } from "Feature/Authorize/Authorize";
 import { useWindowResize } from "Hooks/useWindowResize";
+import { useRouter } from "next/router";
 
 const UserAuthentication = () => {
   const container_to_move = useRef();
   const [errors, setError] = useState({});
   const [isErrorMessageVisable, showErrorMessage] = useState(false);
   const [isAuthenticated, setAuth] = useState(false);
-
-  useAuth(isAuthenticated, true);
+  const router = useRouter();
+  //   useAuth(isAuthenticated, true);
   const innerWidth = useWindowResize();
 
   const isSmallScreen = innerWidth > 768 ? false : true;
@@ -77,8 +78,9 @@ const UserAuthentication = () => {
       //* store the token in localstorage
       const token = response.data.token;
       localStorage.setItem("token", token);
-      console.log(token);
-      setAuth(true);
+
+      //   setAuth(true);
+      router.replace(`/verify/user?utoken=${token}`);
     } catch (error) {
       showErrorMessage(true);
       e.target.innerHTML = "Sign up";
