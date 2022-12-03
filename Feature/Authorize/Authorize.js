@@ -10,7 +10,7 @@ export const useAuth = (isenabled, redirect = false) => {
   const router = useRouter();
   const token = getUserToken();
 
-  const { data, isFetching } = useQuery(
+  const { data, isLoading } = useQuery(
     ["user", token],
     () => authorizeDomain(token),
     {
@@ -31,5 +31,5 @@ export const useAuth = (isenabled, redirect = false) => {
     }
   );
 
-  return [data, isFetching];
+  return [data, isLoading];
 };
