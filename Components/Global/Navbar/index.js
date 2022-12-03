@@ -32,12 +32,8 @@ export function ParentNavbar() {
 
   const signoutHandler = useCallback(() => {
     localStorage.removeItem("token");
-    if (pathname !== "/") {
-      router.replace("/");
 
-      return;
-    }
-    window.location.reload();
+    window.location.href = "/";
   }, [router, pathname]);
 
   const props = useMemo(
