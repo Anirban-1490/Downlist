@@ -10,12 +10,14 @@ export function MobileNavbar({
 }) {
   //*end animation after clicking a navigation link or the close button
 
-  const clickhandler = () => {
-    [...document.getElementsByClassName("parts")].forEach((ele) =>
-      ele.classList.remove("animate")
-    );
-
+  const clickhandler = async () => {
+    // [...document.getElementsByClassName("parts")].forEach((ele) =>
+    //   ele.classList.remove("animate")
+    // );
     setHamClicked(false);
+    // setTimeout(() => {
+
+    // }, 4000);
   };
 
   return (
@@ -26,7 +28,11 @@ export function MobileNavbar({
         }`}
       >
         {isHamClicked ? (
-          <ion-icon name="close" onClick={clickhandler}></ion-icon>
+          <ion-icon
+            name="close"
+            id={mobileNavStyle["close-btn"]}
+            onClick={clickhandler}
+          ></ion-icon>
         ) : (
           ""
         )}
@@ -79,19 +85,8 @@ export function MobileNavbar({
                 isHamClicked && mobileNavStyle["active"]
               }`}
             >
-              {/* //* ------------------ navigation links */}
-              {data && (
-                <div className={mobileNavStyle["user-details-container"]}>
-                  <div
-                    className={mobileNavStyle["profile-img-container"]}
-                    style={{
-                      margin: "0 auto",
-                      width: "40px",
-                      height: "40px",
-                    }}
-                  >
-                    <img src={data?.image} alt="" />
-                  </div>
+              <div className={mobileNavStyle["smallnav-nav"]}>
+                {data && (
                   <h4
                     className={mobileNavStyle["user-name"]}
                     style={{
@@ -102,14 +97,7 @@ export function MobileNavbar({
                   >
                     HI, {data?.name}
                   </h4>
-
-                  <h5 className={mobileNavStyle["user-status"]}>
-                    {data?.status}
-                  </h5>
-                </div>
-              )}
-
-              <div className={mobileNavStyle["smallnav-nav"]}>
+                )}
                 <Link href="/topanime">
                   <a
                     onClick={clickhandler}
@@ -145,27 +133,26 @@ export function MobileNavbar({
                     </a>
                   </Link>
                 )}
-              </div>
-              {data && (
-                <div className={mobileNavStyle["smallnav-userlist"]}>
-                  <div className={mobileNavStyle["smallnav-list-nav"]}>
+
+                {data && (
+                  <>
                     <Link
-                      href={`/useranimelist/${data.userID}`}
+                      href={`/anime/list/u/${data.userID}`}
                       onClick={clickhandler}
                     >
                       <a className={mobileNavStyle["navlink"]}>Anime List</a>
                     </Link>
                     <Link
-                      href={`/usercharacterlist/${data.userID}`}
+                      href={`/character/list/u/${data.userID}`}
                       onClick={clickhandler}
                     >
                       <a className={mobileNavStyle["navlink"]}>
                         Character List
                       </a>
                     </Link>
-                  </div>
-                </div>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </>
         )}
