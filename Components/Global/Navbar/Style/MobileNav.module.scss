@@ -3,7 +3,7 @@
 .smallnav {
   height: 100vh;
   opacity: 0;
-  z-index: 11;
+  z-index: 12;
   position: fixed;
   width: 0;
   transition: all 0.24s 1.7s;
@@ -12,15 +12,15 @@
     width: 100%;
     transition: none;
   }
-  ion-icon {
+  #close-btn {
     position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 3rem;
 
-    color: white;
     z-index: 15;
-    // opacity: 0;
+    right: 6%;
+    top: 6%;
+    translate: 0 -50%;
+    color: white;
+    font-size: 2.5rem;
     transition: all 0s 0.6s;
   }
   .smallnav-parts-container {
@@ -94,35 +94,27 @@
     z-index: 10;
     position: relative;
     margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
+    // top: 50%;
+    // transform: translateY(-50%);
     min-height: 65%;
     transition: visibility 1s linear;
     &.active {
       animation: visibility 1s linear 0.4s 1 forwards;
     }
 
-    .user-details-container {
-      position: absolute;
-      top: -40%;
-      left: 50%;
-      transform: translateX(-50%);
-      min-height: 10em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-width: 30em;
-    }
     .smallnav-nav {
       width: 85%;
       margin: 30px auto;
-      height: 250px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20%;
-
+      justify-content: center;
+      gap: 3em;
+      .user-name {
+        margin-bottom: 2.5em;
+        margin-top: -1em;
+      }
       .signup-sm {
         @include bp.breakpoint(740px) {
           min-width: 5em;
