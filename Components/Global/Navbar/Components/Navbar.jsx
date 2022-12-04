@@ -188,8 +188,13 @@ export const Navbar = ({
             )}
           </>
         )}
-
-        <ion-icon name="menu" onClick={toggelnav}></ion-icon>
+        {!isHamClicked && isSmallScreenWidth && (
+          <ion-icon
+            name="menu"
+            onClick={toggelnav}
+            id={navbarStyle["menu"]}
+          ></ion-icon>
+        )}
       </div>
     </>
   );
