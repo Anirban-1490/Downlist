@@ -6,7 +6,7 @@
 
   position: relative;
   background-color: transparent;
-  z-index: 10;
+  z-index: 5;
   transition: 300ms ease-out;
 
   .nav-scroll-background {
@@ -29,13 +29,16 @@
     transform: translateY(-50%);
     width: 13em;
     transition: 300ms ease-out;
+
     .logo {
       width: 100%;
     }
+
+    &.sticky {
+      width: 11.4em;
+    }
   }
-  .logo-container.sticky {
-    width: 11.4em;
-  }
+
   ul {
     color: #d1d7e0;
     width: auto;
@@ -77,16 +80,16 @@
       left: 0;
     }
   }
-  ion-icon {
+  #menu {
     position: absolute;
-    right: 20px;
+    right: 6%;
     top: 50%;
-    width: 30px;
-    transform: translate(0, -50%);
+    // width: 30px;
+    translate: 0 -50%;
     color: white;
-    font-size: 4rem;
-    opacity: 0;
-
+    font-size: 2rem;
+    opacity: 1;
+    z-index: 9;
     @include bp.breakpoint(740px) {
       opacity: 1;
     }
