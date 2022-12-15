@@ -94,78 +94,56 @@
     z-index: 10;
     position: relative;
     margin: 0 auto;
-    // top: 50%;
-    // transform: translateY(-50%);
-    min-height: 65%;
+
+    min-height: 100%;
     transition: visibility 1s linear;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.67em;
     &.active {
       animation: visibility 1s linear 0.4s 1 forwards;
     }
 
-    .smallnav-nav {
-      width: 85%;
-      margin: 30px auto;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3em;
-      .user-name {
-        margin-bottom: 2.5em;
-        margin-top: -1em;
-      }
-      .signup-sm {
-        @include bp.breakpoint(740px) {
-          min-width: 5em;
-          text-align: center;
-          background: #e89a0a;
-          padding: 0.7em 3.3em;
-          text-decoration: none;
-          color: white;
-          border-radius: 0.3em;
-        }
-      }
-
-      h4 {
-        font-weight: lighter;
-        color: white;
-        transform: translateY(2em);
-        text-align: center;
-      }
-      .navlink {
-        text-decoration: none;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 150px;
-        padding: 2%;
-        color: white;
-        border-bottom: 3px solid beige;
-        min-height: 35px;
-        transition: all 0.5s;
-
-        &:hover {
-          background: white;
-          color: black;
-        }
-      }
-    }
-    .smallnav-userlist {
+    .user-name {
+      margin-bottom: 2em;
+      margin-top: -1em;
+      color: darkorange;
+      font-size: 1.55em;
       text-align: center;
-      color: #90cecf;
-      h3 {
-        font-family: "Luckiest Guy", cursive;
-        letter-spacing: 3px;
-        margin-bottom: 3%;
-      }
-      .smallnav-list-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
+    }
+    .signup-sm {
+      @include bp.breakpoint(740px) {
+        min-width: 5em;
+        text-align: center;
+        background: #e89a0a;
+        padding: 0.7em 3.3em;
+        text-decoration: none;
+        color: white;
+        border-radius: 0.3em;
       }
     }
+
+
+    .navlink {
+      text-decoration: none;
+      text-align: center;
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 150px;
+      padding: 2%;
+      color: white;
+      border-bottom: 3px solid beige;
+      min-height: 35px;
+      transition: all 0.5s;
+
+      &:hover {
+        background: white;
+        color: black;
+      }
+    }
+   
   }
 }
 
