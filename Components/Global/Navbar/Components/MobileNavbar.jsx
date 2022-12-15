@@ -85,15 +85,10 @@ export function MobileNavbar({
                 isHamClicked && mobileNavStyle["active"]
               }`}
             >
-              <div className={mobileNavStyle["smallnav-nav"]}>
+              
                 {data && (
                   <h4
                     className={mobileNavStyle["user-name"]}
-                    style={{
-                      color: "darkorange",
-                      fontSize: "1.55em",
-                      textAlign: "center",
-                    }}
                   >
                     HI, {data?.name}
                   </h4>
@@ -152,7 +147,7 @@ export function MobileNavbar({
                     </Link>
                   </>
                 )}
-              </div>
+              
             </div>
           </>
         )}
