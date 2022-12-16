@@ -1,58 +1,26 @@
-import { useList } from "./useList";
-import { useRef, useCallback, useState, useLayoutEffect } from "react";
-import each from "awaity/each";
 import axios from "axios";
+import { useQuery } from "react-query";
+import { path } from "server-path";
 
 export function useToplist(switch_item, userID) {
-  const [listitem, setListitem] = useState([]);
-  const [listCount, setListcount] = useState(0);
-
-  //* get users saved anime or character list
-  let { data } = useList(switch_item, userID);
-  console.log(data);
-
-  let userList = data?.pages?.[0].list;
-  //* this is used so that the data don't get lost at a rerender
-  const listData = useRef();
-
-  const delay = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
-
-  const fetchTopItemFromList = useCallback(async () => {
-    if (userList) {
-      //*sort the data based on score or favorite
-      listData.current = userList
-        .sort((a, b) => (a.score ? b.score - a.score : b.fav - a.fav))
-        .slice(0, 3);
-      setListcount(listData.current?.length);
-      let temparray = [];
-
-      await each(listData.current, async (item) => {
-        //*for each entry fetching some additional details from the API
-        const { malid, img_url, title } = item;
-
-        const response = await axios(
-          `https://api.jikan.moe/v4/${switch_item}/${malid}/full`
-        );
-        const result = await response.data;
-        temparray = [
-          ...temparray,
-          {
-            malid,
-            img_url,
-            title,
-            about: switch_item === "anime" ? result.synopsis : result.about,
-          },
-        ];
-
-        await delay();
-      });
-
-      setListitem(temparray);
+    //* get users saved anime or character list
+    async function getUserTopItems(switch_item, userID) {
+        return (
+            await axios.get(
+                `${path.domain}user/${userID}/list/${switch_item}/top`
+            )
+        ).data.DetailedSavedTopAnime;
     }
-  }, [userList, switch_item]);
 
-  useLayoutEffect(() => {
-    fetchTopItemFromList();
-  }, [fetchTopItemFromList]);
-  return [listitem, listCount];
+    const { data, isError, isLoading } = useQuery(
+        ["topFromList", switch_item, userID],
+        () => getUserTopItems(switch_item, userID),
+        {
+            refetchOnWindowFocus: false,
+            staleTime: 200,
+            enabled: !!userID,
+        }
+    );
+
+    return [data, isError, isLoading];
 }
