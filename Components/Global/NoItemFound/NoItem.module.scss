@@ -1,15 +1,19 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .no-item-main {
-  //   text-align: center;
-  margin: m.$base-margin 0;
+    //   text-align: center;
+    margin: m.$base-margin 0;
 }
 
 .no-item-container {
-  padding: m.$padding-medium + 2 0;
-  margin: m.$center-horizontal;
-  margin-top: m.$base-margin + 1.6;
-  border: 2px solid #484747;
-  width: 78%;
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: m.$padding-medium + 2 0;
+    margin: m.$center-horizontal;
+    margin-top: m.$base-margin + 1.6;
+    margin-bottom: m.$base-margin + 1.6;
+    border: 2px solid #484747;
+    width: 78%;
+    text-align: center;
 }
