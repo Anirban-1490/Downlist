@@ -5,11 +5,17 @@ import { path } from "server-path";
 export function useToplist(switch_item, userID) {
     //* get users saved anime or character list
     async function getUserTopItems(switch_item, userID) {
-        return (
-            await axios.get(
-                `${path.domain}user/${userID}/list/${switch_item}/top`
-            )
-        ).data.DetailedSavedTopAnime;
+        if (switch_item == "anime") {
+            return (
+                await axios.get(`${path.domain}user/${userID}/list/anime/top`)
+            ).data.data;
+        } else if (switch_item == "character") {
+            return (
+                await axios.get(
+                    `${path.domain}user/${userID}/list/character/top`
+                )
+            ).data.data;
+        } else return;
     }
 
     const { data, isError, isLoading } = useQuery(
