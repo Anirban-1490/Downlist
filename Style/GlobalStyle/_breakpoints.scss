@@ -1,39 +1,45 @@
 $breakpoints: (
-  "xs": 200px,
-  "sm": 480px,
-  "md": 720px,
-  "lg": 960px,
-  "xl": 1200px,
+    "xs": 200px,
+    "sm": 480px,
+    "md": 720px,
+    "lg": 960px,
+    "xl": 1200px,
 );
 
 @mixin xs {
-  @media screen and (max-width: map-get($breakpoints,"xs")) {
-    @content;
-  }
+    @media screen and (max-width: map-get($breakpoints,"xs")) {
+        @content;
+    }
 }
 @mixin sm {
-  @media screen and (max-width: map-get($breakpoints,"sm")) {
-    @content;
-  }
+    @media screen and (max-width: map-get($breakpoints,"sm")) {
+        @content;
+    }
 }
 @mixin md {
-  @media screen and (max-width: map-get($breakpoints,"md")) {
-    @content;
-  }
+    @media screen and (max-width: map-get($breakpoints,"md")) {
+        @content;
+    }
 }
 @mixin lg {
-  @media screen and (max-width: map-get($breakpoints,"lg")) {
-    @content;
-  }
+    @media screen and (max-width: map-get($breakpoints,"lg")) {
+        @content;
+    }
 }
 @mixin xl {
-  @media screen and (max-width: map-get($breakpoints,"xl")) {
-    @content;
-  }
+    @media screen and (max-width: map-get($breakpoints,"xl")) {
+        @content;
+    }
 }
 
-@mixin breakpoint($value: 200px) {
-  @media screen and (max-width: $value) {
-    @content;
-  }
+@mixin breakpoint($value: 200px, $maxWidth: true) {
+    @if $maxWidth {
+        @media screen and (max-width: $value) {
+            @content;
+        }
+    } @else {
+        @media screen and (min-width: $value) {
+            @content;
+        }
+    }
 }
