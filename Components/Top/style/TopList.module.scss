@@ -1,21 +1,92 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  gap: 3rem;
+    min-height: m.$height-large;
+    .inner-container {
+        height: auto;
+        min-height: m.$height-large * 5;
+        display: flex;
+        overflow: hidden;
 
-  .inner-container {
-    width: 95%;
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem 0;
-    &.no-item {
-      border: 2px solid rgba(238, 130, 238, 0.365);
+        @include m.lg {
+            flex-direction: column;
+        }
+        .items-container {
+            width: 33.3%;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            @include m.lg {
+                width: 100%;
+                height: m.$height-large * 3;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: linear-gradient(
+                    to bottom,
+                    transparent 37%,
+                    #000000d3 84%
+                );
+                z-index: 1;
+            }
+
+            @include m.breakpoint(960px, false) {
+                &:hover {
+                    .img-container {
+                        scale: 1.08;
+                    }
+
+                    .info-container {
+                        bottom: 4rem;
+                        .about {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+            .img-container {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                scale: 1.04;
+                transition: scale 600ms;
+            }
+            .info-container {
+                position: absolute;
+                bottom: 1rem;
+                left: 1.3rem;
+                z-index: 4;
+                transition: bottom 500ms;
+
+                @include m.lg {
+                    bottom: 2.5rem;
+                }
+                .title {
+                    color: white;
+
+                    font-size: m.$fontSize-lg - 1.2;
+                    font-family: m.$roboto;
+                }
+                .about {
+                    color: #ffffff9d;
+
+                    font-size: m.$fontSize-md - 0.7;
+                    font-family: m.$open-sans;
+                    padding-right: 0.8rem;
+                    opacity: 0;
+                    transition: all 500ms;
+                    margin-top: 1rem;
+                    @include m.lg {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
     }
-  }
 }
