@@ -1,220 +1,260 @@
-@use "/Style/GlobalStyle/main" as bp;
+@use "/Style/GlobalStyle/main" as m;
 
 .nav-container {
-  width: 100%;
-  height: 4.5em;
-
-  position: relative;
-  background-color: transparent;
-  z-index: 5;
-  transition: 300ms ease-out;
-
-  .nav-scroll-background {
-    position: absolute;
     width: 100%;
-    height: 100%;
-    background-color: transparent;
-  }
-  .scrolling {
-    background-color: #00000060;
-    backdrop-filter: blur(10px);
-  }
+    height: 4.5em;
 
-  .logo-container {
-    color: white;
-    text-decoration: none;
-    position: absolute;
-    top: 50%;
-    left: 1.5em;
-    transform: translateY(-50%);
-    width: 13em;
+    position: relative;
+    background-color: transparent;
+    z-index: 5;
     transition: 300ms ease-out;
 
-    .logo {
-      width: 100%;
+    .nav-scroll-background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+    .scrolling {
+        background-color: #00000060;
+        backdrop-filter: blur(10px);
     }
 
-    &.sticky {
-      width: 11.4em;
-    }
-  }
-
-  ul {
-    color: #d1d7e0;
-    width: auto;
-    position: absolute;
-    right: 12em;
-    top: 0;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    gap: 3em;
-
-    @include bp.breakpoint(740px) {
-      display: none;
-    }
-
-    nav {
-      position: relative;
-      padding: 5px;
-      .link {
+    .logo-container {
+        color: white;
         text-decoration: none;
+        position: absolute;
+        top: 50%;
+        left: 1.5em;
+        transform: translateY(-50%);
+        width: 13em;
+        transition: 300ms ease-out;
+
+        .logo {
+            width: 100%;
+        }
+
+        &.sticky {
+            width: 11.4em;
+        }
+    }
+
+    ul {
         color: #d1d7e0;
-        font-family: "Inter", sans-serif !important;
-      }
-      &:hover {
-        .link {
-          color: white;
-          filter: drop-shadow(0 0 20px white);
-        }
-      }
-    }
-    .bottom-border {
-      background: rgb(255, 255, 11);
-
-      height: 0.2rem;
-      position: absolute;
-      bottom: 0;
-      display: none;
-      transition: left 400ms ease;
-      left: 0;
-    }
-  }
-  #menu {
-    position: absolute;
-    right: 6%;
-    top: 50%;
-    // width: 30px;
-    translate: 0 -50%;
-    color: white;
-    font-size: 2rem;
-    opacity: 1;
-    z-index: 9;
-    @include bp.breakpoint(740px) {
-      opacity: 1;
-    }
-  }
-  .toggle-style-ham {
-    opacity: 0;
-  }
-  .signup {
-    position: absolute;
-    right: 3.5em;
-    top: 50%;
-    transform: translate(0, -50%);
-    min-width: 4em;
-    color: white;
-    text-align: center;
-    font-size: 0.95em;
-    z-index: 2;
-    padding: 0.45em 1.35em;
-    text-decoration: none;
-    background: rgba(244, 200, 117, 0.135);
-    border-radius: 0.2em;
-    font-family: "Inter", sans-serif !important;
-    transition: background 300ms ease;
-
-    &:hover {
-      background-color: #da9109;
-    }
-  }
-  .user {
-    position: absolute;
-    right: 8.5%;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 35px;
-    height: 35px;
-
-    text-align: center;
-    font-size: 23px;
-    z-index: 2;
-
-    @include bp.breakpoint(740px) {
-      display: none;
-    }
-    .profile-img-container {
-      width: 35px;
-      height: 35px;
-      border: 2px solid yellow;
-      border-radius: 50%;
-      overflow: hidden;
-      cursor: pointer;
-      img {
-        width: 100%;
-      }
-    }
-    .yourlist {
-      width: 8.6em;
-      height: 0px;
-      position: absolute;
-      right: -240%;
-      top: 60px;
-      z-index: 4;
-      overflow: hidden;
-      transition: 0.1s;
-      background: white;
-      filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.529));
-      border-radius: 0.2em;
-
-      @include bp.breakpoint(740px) {
-        display: none;
-      }
-      .user-name {
-        font-size: 0.74em;
-        padding: 0.6em;
-        color: #127570;
-        font-family: sans-serif;
-        letter-spacing: 0.15em;
-        margin-top: 0.5em;
-      }
-      .user-status {
-        font-size: 0.55em;
-        padding: 0.6em 40px;
-        border: 2px solid rgba(162, 170, 12, 0.289);
-        color: yellowgreen;
-        font-family: sans-serif;
-        letter-spacing: 0.15em;
-        margin: 0.5em 0;
-        display: inline-block;
-      }
-
-      .your-anime,
-      .sign-out {
-        width: 100%;
-        height: 45px;
-        border: none;
-        outline: none;
-        font-size: 0.87rem;
-        text-decoration: none;
-        text-align: start;
-        padding-left: 1em;
-        background: transparent;
-        cursor: pointer;
-      }
-      .sign-out {
         width: auto;
-        position: relative;
-        z-index: 15;
-        margin: 1em 0;
-        display: inline-block;
-        background: #dbd2d241;
-        p {
-          display: inline-block;
+        position: absolute;
+        right: 12em;
+        top: 0;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        gap: 3em;
+
+        @include m.breakpoint(740px) {
+            display: none;
         }
-        ion-icon {
-          margin: 0 0.3em;
+
+        nav {
+            position: relative;
+            padding: 5px;
+            .link {
+                text-decoration: none;
+                color: #d1d7e0;
+                font-family: "Inter", sans-serif !important;
+            }
+            &:hover {
+                .link {
+                    color: white;
+                    filter: drop-shadow(0 0 20px white);
+                }
+            }
         }
-        &:hover {
-          color: rgb(255, 34, 34) !important;
+        .bottom-border {
+            background: rgb(255, 255, 11);
+
+            height: 0.2rem;
+            position: absolute;
+            bottom: 0;
+            display: none;
+            transition: left 400ms ease;
+            left: 0;
         }
-      }
     }
-  }
+    #menu {
+        position: absolute;
+        right: 6%;
+        top: 50%;
+        // width: 30px;
+        translate: 0 -50%;
+        color: white;
+        font-size: 2rem;
+        opacity: 1;
+        z-index: 9;
+        @include m.breakpoint(740px) {
+            opacity: 1;
+        }
+    }
+    .toggle-style-ham {
+        opacity: 0;
+    }
+    .signup {
+        position: absolute;
+        right: 3.5em;
+        top: 50%;
+        transform: translate(0, -50%);
+        min-width: 4em;
+        color: white;
+        text-align: center;
+        font-size: 0.95em;
+        z-index: 2;
+        padding: 0.45em 1.35em;
+        text-decoration: none;
+        background: rgba(244, 200, 117, 0.135);
+        border-radius: 0.2em;
+        font-family: "Inter", sans-serif !important;
+        transition: background 300ms ease;
+
+        &:hover {
+            background-color: m.$cl-dark-orange;
+        }
+    }
+    .user {
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 35px;
+        height: 35px;
+
+        text-align: center;
+        font-size: 23px;
+        z-index: 2;
+
+        @include m.breakpoint(740px) {
+            display: none;
+        }
+        .profile-img-container {
+            width: 35px;
+            height: 35px;
+            border: 2px solid yellow;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            img {
+                width: 100%;
+            }
+        }
+        .yourlist {
+            width: 8.6em;
+            height: 0px;
+            position: absolute;
+            right: -0.3em;
+            top: 60px;
+            z-index: 4;
+            overflow: hidden;
+            transition: 0.1s;
+            background: lighten($color: m.$bg-primary, $amount: 12%);
+            filter: drop-shadow(0 0 20px #00000087);
+            border-radius: 0.2em;
+
+            @include m.breakpoint(740px) {
+                display: none;
+            }
+            .user-name {
+                font-size: 0.74em;
+                padding: 0.6em;
+                color: lighten($color: #127570, $amount: 20%);
+                font-family: sans-serif;
+                letter-spacing: 0.15em;
+                margin-top: 0.5em;
+                margin-bottom: m.$base-margin;
+            }
+            .user-status {
+                font-size: 0.55em;
+                padding: 0.6em 40px;
+                border: 2px solid #a2aa0c4a;
+                color: yellowgreen;
+                font-family: sans-serif;
+                letter-spacing: 0.15em;
+                margin: 0.5em 0;
+                display: inline-block;
+            }
+
+            .your-anime {
+                width: 100%;
+
+                color: white;
+                font-size: 0.7em;
+                text-decoration: none;
+                text-align: start;
+                padding: m.$base-padding / 2 0;
+                padding-left: 1rem;
+                background: transparent;
+                cursor: pointer;
+                display: block;
+
+                &:hover {
+                    background-color: m.$cl-dark-orange;
+                }
+            }
+            .list-links-wrapper {
+                margin-bottom: m.$base-margin * 2;
+                .label {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.3rem;
+                    margin-bottom: m.$base-margin / 2;
+                    .line {
+                        height: 1px;
+                        width: 33.3%;
+
+                        background-color: m.$cl-light-black;
+                    }
+
+                    h4 {
+                        color: m.$cl-light-black;
+                        font-weight: lighter;
+                        font-size: 0.8em;
+                    }
+                }
+            }
+            .sign-out {
+                min-width: 2em;
+                cursor: pointer;
+
+                z-index: 15;
+                border: none;
+                outline: none;
+                padding: m.$base-padding / 1.4 m.$base-padding * 2;
+                border-radius: 0.3rem;
+                margin: m.$center-horizontal;
+                margin-top: m.$base-margin * 2;
+                margin-bottom: m.$base-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.59rem;
+                color: white;
+                background: #d31616;
+
+                p {
+                    font-size: 1.16em;
+                }
+                ion-icon {
+                    font-size: 1.2rem;
+                }
+                &:hover {
+                    background: transparent;
+                    outline: 1px solid red;
+                }
+            }
+        }
+    }
 }
 .sticky {
-  position: sticky;
-  top: 0;
-  position: -webkit-sticky;
-  height: 3.2rem;
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    height: 3.2rem;
 }
