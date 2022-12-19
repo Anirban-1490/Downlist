@@ -23,6 +23,11 @@ $cl-grey-dark: darken(grey, 10%);
 $cl-blue-dark: darken(blue, 45.7%);
 $cl-blue-violet-dark: darken(#8849c4, 39.6%);
 $cl-indigo-dark: #4e1a3d;
+$cl-dark-orange: #da9109;
+$cl-light-black: lighten(
+    $color: black,
+    $amount: 54%,
+);
 
 //* height ----
 $base-height: 1em;
