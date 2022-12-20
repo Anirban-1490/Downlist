@@ -150,11 +150,10 @@ export const Navbar = ({
                                 ref={borderRef}></div>
                         </ul>
                         {data ? (
-                            <div className={navbarStyle["user"]} ref={userbtn}>
+                            <>
                                 <div
-                                    className={
-                                        navbarStyle["profile-img-container"]
-                                    }>
+                                    className={navbarStyle["user"]}
+                                    ref={userbtn}>
                                     <img src={data.image} alt="" />
                                 </div>
                                 <div
@@ -222,7 +221,7 @@ export const Navbar = ({
                                         <ion-icon name="exit-outline"></ion-icon>
                                     </button>
                                 </div>
-                            </div>
+                            </>
                         ) : (
                             <Link href="/userauth">
                                 <a className={navbarStyle["signup"]}>
