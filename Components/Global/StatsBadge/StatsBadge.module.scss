@@ -1,0 +1,20 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.badge {
+    background: m.$bg-primary-light;
+
+    border-radius: 0.6em;
+    display: flex;
+    gap: 0.54rem;
+    justify-content: center;
+    align-items: center;
+    ion-icon {
+        color: white;
+        font-size: m.$fontSize-base * 1.5;
+    }
+
+    p {
+        color: white;
+        font-size: m.$fontSize-base;
+    }
+}
