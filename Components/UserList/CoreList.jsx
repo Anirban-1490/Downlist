@@ -60,7 +60,16 @@ export function CoreList(props) {
                 {`${clientData?.name.split(" ")[0]}'s ${switch_item} List`}
             </h2>
 
-            <ul className={ListStyle["search-container"]} ref={containerRef}>
+            <ul
+                className={ListStyle["search-container"]}
+                ref={containerRef}
+                style={
+                    !data?.pages[0]?.list?.length
+                        ? {
+                              justifyContent: "center",
+                          }
+                        : {}
+                }>
                 {data?.pages[0]?.list?.length > 0 ? (
                     data?.pages?.map((page) => {
                         return (
