@@ -88,6 +88,9 @@
     margin-bottom: 5em;
     align-items: center;
 }
+.search-container .groups {
+    width: 100%;
+}
 
 .search-container .items-container {
     width: 100%;
