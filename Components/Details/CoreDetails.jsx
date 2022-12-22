@@ -35,9 +35,14 @@ export const CoreDetails = ({
     const [seemorebtn, Setbtn] = useState(false);
     const [userData, _] = useAuth(true);
     const btn = useRef();
-    console.log(userData);
+
     const router = useRouter();
 
+    const newTitle = title.length > 35 ? `${title.substr(0, 35)}.` : title;
+    const newTitleEnglish =
+        title_english.length > 35
+            ? `${title_english.substr(0, 35)}.`
+            : title_english;
     async function fetchUserList() {
         if (switch_item === "character")
             return (
@@ -197,9 +202,9 @@ export const CoreDetails = ({
                 </div>
 
                 <div className={coredetailStyle["title-container"]}>
-                    <h2 className={coredetailStyle["title"]}>{title}</h2>
+                    <h2 className={coredetailStyle["title"]}>{newTitle}</h2>
                     <p className={coredetailStyle["title-english"]}>
-                        {title_english}
+                        {newTitleEnglish}
                     </p>
                 </div>
             </div>
@@ -250,6 +255,12 @@ export const CoreDetails = ({
                     </li>
                 </ul>
                 <h4>Information</h4>
+                <p className={coredetailStyle["full-title"]}>
+                    Full Name: {title}
+                </p>
+                <p className={coredetailStyle["full-title"]}>
+                    Full English Name: {title_english}
+                </p>
                 <p className={coredetailStyle["description"]}>
                     {synopsis ? (
                         !seemorebtn && synopsis.length > 380 ? (
@@ -260,7 +271,7 @@ export const CoreDetails = ({
                     ) : (
                         <NoItem />
                     )}
-                    {synopsis && synopsis.length > 380 ? (
+                    {synopsis && synopsis.length > 380 && (
                         <p
                             style={{
                                 display: "inline",
@@ -272,8 +283,6 @@ export const CoreDetails = ({
                             }>
                             {seemorebtn ? "Read less" : "Read more"}
                         </p>
-                    ) : (
-                        ""
                     )}
                 </p>
                 {animegenres && (
