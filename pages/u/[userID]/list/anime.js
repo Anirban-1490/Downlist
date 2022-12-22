@@ -5,15 +5,9 @@ import { useList } from "Hooks/useList";
 import { CoreList } from "Components/UserList/CoreList";
 import { useAuth } from "Feature/Authorize/Authorize";
 
-function AnimeList({ header, switch_item, userID }) {
-    // const { userID } = useParams();
-    const router = useRouter();
-
-    console.log(userID);
+function AnimeList({ userID }) {
     const [whatToSortBy, setWhatToSortBy] = useState(undefined);
 
-    // const client = useQueryClient();
-    // const clientData = client.getQueryData(["user", token]);
     const [userData, _] = useAuth(true);
 
     const returnedPackage = useList("anime", userID, whatToSortBy);
@@ -34,7 +28,6 @@ function AnimeList({ header, switch_item, userID }) {
                 }}>
                 {returnedPackage.data !== undefined ? (
                     <CoreList
-                        header={header}
                         clientData={userData}
                         switch_item={"anime"}
                         userID={userID}
