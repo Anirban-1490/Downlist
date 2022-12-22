@@ -6,9 +6,10 @@ import Link from "next/link";
 import { Dropdown } from "Components/Global/DropDownSelectMenu/DropDownSelectMenu";
 import ListStyle from "Components/UserList/Styles/List.module.css";
 import { StatsBadge } from "Components/Global/StatsBadge/StatsBadge";
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
+
 export function CoreList(props) {
     const {
-        header,
         switch_item,
         data,
         hasNextPage,
@@ -35,17 +36,17 @@ export function CoreList(props) {
 
     //*sort by which ?
 
-    useEffect(() => {
-        //* if the sort parameter is set , then first update the state and then refetch the query
-        (async () => {
-            await setWhatToSortBy(stat);
-            await refetch({
-                refetchPage: (lastPage, index, allPages) => {
-                    return true;
-                },
-            });
-        })();
-    }, [stat]);
+    // useEffect(() => {
+    //     //* if the sort parameter is set , then first update the state and then refetch the query
+    //     (async () => {
+    //         await setWhatToSortBy(stat);
+    //         await refetch({
+    //             refetchPage: (lastPage, index, allPages) => {
+    //                 return true;
+    //             },
+    //         });
+    //     })();
+    // }, [stat]);
 
     useEffect(() => {
         if (inView && data?.pages[data?.pages.length - 1]?.list?.length > 0) {
@@ -58,20 +59,14 @@ export function CoreList(props) {
             <h2 className={ListStyle["header"]}>
                 {`${clientData?.name.split(" ")[0]}'s ${switch_item} List`}
             </h2>
-            <div className={ListStyle["option-container"]}></div>
 
-            <ul
-                className={ListStyle["search-container"]}
-                style={
-                    data?.pages?.[0]?.list
-                        ? { border: "none" }
-                        : { border: "2.7px solid #8080804a" }
-                }
-                ref={containerRef}>
+            <ul className={ListStyle["search-container"]} ref={containerRef}>
                 {data?.pages[0]?.list?.length > 0 ? (
                     data?.pages?.map((page) => {
                         return (
-                            <>
+                            <div
+                                className={ListStyle["groups"]}
+                                key={page.nextPage}>
                                 {page?.list?.map((item) => {
                                     const {
                                         favorites,
@@ -83,13 +78,12 @@ export function CoreList(props) {
                                     } = item;
 
                                     return (
-                                        <Link
-                                            href={`/${switch_item}/${malid}`}
-                                            key={malid}>
+                                        <Link href={`/${switch_item}/${malid}`}>
                                             <a
                                                 className={
                                                     ListStyle["items-container"]
-                                                }>
+                                                }
+                                                key={malid}>
                                                 <div
                                                     className={
                                                         ListStyle[
@@ -176,11 +170,11 @@ export function CoreList(props) {
                                         </Link>
                                     );
                                 })}
-                            </>
+                            </div>
                         );
                     })
                 ) : (
-                    <h3 className="empty">Looks pretty empty...</h3>
+                    <NoItem />
                 )}
                 {}
             </ul>
