@@ -205,7 +205,7 @@ export const Navbar = ({
                                             </a>
                                         </Link>
                                         <Link
-                                            href={`/u/${data.userID}/list/characters`}>
+                                            href={`/u/${data.userID}/list/character`}>
                                             <a
                                                 className={
                                                     navbarStyle["your-anime"]
