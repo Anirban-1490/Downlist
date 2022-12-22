@@ -13,9 +13,7 @@ function AnimeList({ userID }) {
     const returnedPackage = useList("anime", userID, whatToSortBy);
 
     //* --if user not logged in then redirect to login page
-    // if (!userData?.userID) {
-    //     router.replace("/userauth");
-    // }
+
     return (
         <>
             <div
@@ -44,19 +42,6 @@ function AnimeList({ userID }) {
 
 export async function getServerSideProps({ params }) {
     const { userID } = params;
-    console.log(userID);
-    // const client = new QueryClient();
-    // try {
-    //   if (Number(malid) !== NaN) {
-    //     await client.prefetchQuery(["char_details", malid], () =>
-    //       jikanQueries("char_details", malid)
-    //     );
-    //   }
-    // } catch (error) {
-    //   return {
-    //     notFound: true,
-    //   };
-    // }
 
     return {
         props: { userID },
