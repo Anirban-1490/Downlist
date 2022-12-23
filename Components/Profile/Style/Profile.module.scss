@@ -1,0 +1,77 @@
+.container-profile {
+    height: auto;
+    max-width: 75%;
+
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    margin-top: 9em;
+    margin-bottom: 3em;
+}
+.container-profile .img-container {
+    width: 10em;
+    height: 10em;
+    border: 3px solid lightblue;
+    overflow: hidden;
+}
+.container-profile .img-container img {
+    width: 100%;
+}
+.container-profile .name {
+    color: white;
+    font-size: 2.1em;
+}
+.follow-container {
+    color: white;
+    display: flex;
+    gap: 3em;
+}
+.follow-container .follow {
+    font-size: 1em;
+    font-weight: lighter;
+}
+.follow-btn {
+    margin-top: 1em;
+    border: none;
+    outline: none;
+    padding: 0.56em 2.4em;
+    font-size: 0.96em;
+    border-radius: 0.32em;
+    background-color: #76aee3;
+    color: white;
+    cursor: pointer;
+}
+.follow-btn:hover {
+    background-color: #86b8e7;
+}
+
+.follow-btn.following {
+    background-color: transparent;
+    border: 3px solid #76aee3;
+}
+
+.picks-container {
+    width: 100%;
+    margin-top: 2em;
+}
+.picks-container h4 {
+    color: white;
+    font-size: 1.8em;
+    letter-spacing: 0.35em;
+    padding-left: 1.4em;
+    padding-bottom: 0.5em;
+    border-bottom: 4px solid rgb(66, 66, 212);
+}
+.picks-container .picks-container-inner {
+    min-height: 20em;
+    background-color: rgba(76, 76, 120, 0.283);
+    color: rgba(255, 255, 255, 0.423);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.picks-container-inner p {
+    font-size: 1.1em;
+}

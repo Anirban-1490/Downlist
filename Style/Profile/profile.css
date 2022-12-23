@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@200&display=swap');
+
+
+.profile-container{
+    
+    position: relative;
+    top: 4em;
+    min-height: calc(100vh - 8em);
+    
+}
+.profile-container form{
+    width: 100%;
+    height: 100%;
+  
+    min-height: calc(100vh - 8em);
+    display: grid;
+    grid-template-columns: 20em 47%;
+    grid-template-rows: repeat(1,9em);
+    grid-auto-flow: column;
+    justify-content: center;
+    align-content: center;
+    gap: 1.6em;
+    column-gap: 2.1em;
+}
+
+
+.side-profile{
+   
+    grid-row: 1/3;
+    height: auto;
+    background-color: #92aaff2c;
+    border-radius: 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.1em;
+}
+.img-outer-container{
+    position: relative;
+    width: 10em;
+    height: 10em;
+    margin: 2em 0 0 0;
+}
+
+.side-profile .img-outer-container .img-container{
+    
+    width: 100%;
+    height: 100%;
+   border: 3px solid lightblue;
+  overflow: hidden;
+}
+.img-container img{
+    width: 105%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+.img-outer-container .img-edit{
+   
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+.img-outer-container .img-edit #label-img{
+    position: absolute;
+    right: -1em;
+    bottom: -1em;
+    background-color: lightcoral;
+    border-radius: 50%;
+    padding: 0.6em;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-outer-container .img-edit #label-img ion-icon{
+  transform: translate(0);
+  margin: 0;
+ 
+  font-size: 1.3em;
+}
+.side-profile .profile-view{
+    color: rgba(255, 255, 255, 0.624);
+
+    display: inline-block;
+    
+    padding: 0.5em 1.3em;
+    background-color: #7787c22c;
+}
+.side-profile .follower-following-container{
+    
+    display: flex;
+    gap: 1.5em;
+    color: white;
+}
+.side-profile .bio{
+    height: 4em;
+    padding: 0.78em 0.85em;
+    outline: none;
+    border: none;
+    font-size: 1.1em;
+    border-radius: 0.33em;
+   
+    width: 13.5em;
+    resize: none;
+    color: white;
+    background: #23aefe13;
+    font-weight: 400;
+}
+.bio-edit{
+    background: #23aefe3e;
+}
+.side-profile .bio::placeholder{
+    color: white;
+}
+
+.side-profile .edit{
+    width: 12em;
+    font-size: 0.95em;
+    padding: 0.5em;
+    outline: none;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.189);
+    border: 3px solid #8A9DFF;
+    border-radius: 0.5em;
+    color: white;
+
+    
+}
+.side-profile .edit.save{
+   background-color: rgba(172, 255, 47, 0.335);
+   border: 3px solid rgb(28, 241, 28);
+}
+.side-profile .edit.save:hover{
+    background-color: rgba(172, 255, 47, 0.42);
+   
+ }
+.side-profile .settings{
+    width: 12em;
+    font-size: 0.95em;
+    padding: 0.5em;
+    outline: none;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.189);
+    border: 3px solid #B08AFF;
+    border-radius: 0.5em;
+    color: white;
+    margin-bottom: 5em;
+}
+
+:is(.edit , .settings):hover{
+    background-color: rgba(128, 128, 128, 0.334);
+}
+
+
+.profile-container .details{
+   border-bottom: 4px solid #23affe;
+  
+    margin-top: 1.4em;
+    display: flex;
+    gap: 1.6em;
+    justify-content: center;
+    align-items: flex-end;
+    transform: translateY(1em);
+    opacity: 0;
+    animation: animate 600ms  1 forwards;
+}
+.activity{
+   
+    height: 29em;
+    margin-bottom: 4em;
+    transform: translateY(1em);
+    opacity: 0;
+    animation: animate 600ms 1 forwards;
+}
+@keyframes animate{
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.inner-side-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2.2em;
+    align-items: center;
+}
+.username{
+  
+   
+    padding: 0.28em 0.85em;
+    outline: none;
+    border: none;
+    font-size: 1.95em;
+    border-radius: 0.23em;
+ 
+    color: white;
+    display: inline-block;
+    width: 11.6em;
+    
+    text-align: center;
+  
+    background: #0a79ba41;
+}
+.username-nonedit{
+    height: auto;
+    background: transparent;
+}
+.status{
+  
+ 
+    padding: 0.8em 1.5em;
+    outline: none;
+    border: none;
+    font-size: 0.9em;
+    border-radius: 0.23em;
+   
+    display: inline-block;
+    width: 12em;
+    background: #81f0ff1c;
+   
+    color: white;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: lighter;
+
+}
+.status::placeholder{
+    color: white;
+    font-size: 1em;
+}
+.status-edit{
+    text-align: left;
+    background: #81f0ff36;
+}
+
+
+.activity h2{
+    color: white;
+  
+    font-family: 'Archivo', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 1.1em;
+    margin: 2em 0 3em 0;
+}
+.activities-container{
+    width: 100%;
+    background-color: #98cdff36;
+    height: 28.5em;
+    border-radius: 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+    overflow: hidden;
+    position: relative;
+    
+}
+.activities-container .empty-container{
+    font-weight: lighter;
+    opacity: 0.45;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+}
+.activities-container .activity-item-container {
+   width: 97%;
+   
+   border-radius: 0.3em;
+   display: flex;
+   padding: 1.37em 1em;
+   justify-content: center;
+   align-items: center;
+   gap: 9.5%;
+}
+.activities-container .activity-item-container:nth-child(2n) {
+    background-color: #89b3db5f;
+ }
+.activities-container .activity-item-container h3 {
+    
+   white-space: nowrap;
+    width: 11em;
+    
+ }
+ .activities-container .activity-item-container h4 {
+    padding: 0.4em 0.55em;
+    border-radius: 0.3em;
+    font-family: monospace;
+    font-size: 1.2em;
+  
+ }
+ .activities-container .activity-item-container p {
+  color: white;
+  white-space: nowrap;
+  font-size: 0.75em;
+ }
+ 
+ 
+
+
+@media screen and (max-width:846px) {
+    .profile-container form{
+     
+        display: block;
+        flex-direction: column;
+        align-items: center;
+       
+      
+    }
+    
+    .side-profile{
+
+      max-width: 26em;
+      margin: 0 auto;
+      height: auto;
+      margin-top: 8em;
+    }
+
+    .activity{
+        width: 88%;
+        margin: 6em auto;
+       
+    }
+    .activities-container .activity-item-container h3 {
+    
+        white-space: normal;
+         
+      }
+}
+
+@media screen and (max-width:534px){
+    .activities-container .activity-item-container {
+        width: 97%;
+        
+        border-radius: 0.3em;
+        display: flex;
+        padding: 1.37em 1em;
+        justify-content: center;
+        align-items: center;
+        gap: 9%;
+     }
+     .activities-container .activity-item-container h3 {
+    
+        font-size: 3.5vw;
+      }
+}
