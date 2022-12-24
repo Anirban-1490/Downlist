@@ -13,6 +13,7 @@ export const MainProfile = ({
     userToFollowUserID,
     userID,
     isCurrentUsersProfile,
+    children,
 }) => {
     // const { userData } = useContext(Appcontext);
 
@@ -91,6 +92,10 @@ export const MainProfile = ({
                         {top || <p>Very muuuuuchhhh empty...</p>}
                     </div>
                 </div>
+                <h2 className={profileStyle["activity-header-text"]}>
+                    Recent Activity
+                </h2>
+                {children}
             </div>
         </>
     );

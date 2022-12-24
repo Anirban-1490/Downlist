@@ -4,8 +4,7 @@ import { useQueryClient } from "react-query";
 import axios from "axios";
 
 //* timeago
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
+
 import { useWindowResize } from "Hooks/useWindowResize";
 import { Appcontext } from "context";
 import { Spinner } from "Components/Global/LoadingSpinner";
@@ -13,9 +12,8 @@ import { path } from "server-path";
 import { useProfile } from "Hooks/useProfile";
 import { MainProfile } from "Components/Profile/Profile";
 import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
+import { Activity } from "Components/Profile/Activity";
 
-TimeAgo.addDefaultLocale(en);
-const timeAgo = new TimeAgo("en-US");
 const MainUserProfile = ({ userID }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
@@ -55,8 +53,12 @@ const MainUserProfile = ({ userID }) => {
                 <MainProfile
                     {...userProfileDetails.user}
                     userID={userID}
-                    isCurrentUsersProfile={true}
-                />
+                    isCurrentUsersProfile={true}>
+                    <Activity
+                        windowSize={windowsize}
+                        activity={userProfileDetails.user.activity}
+                    />
+                </MainProfile>
             )}
             <div
                 className="empty-container"
@@ -156,66 +158,6 @@ const SideProfile = ({
 
                 <button className="settings">Settings</button>
             </aside>
-        </>
-    );
-};
-
-const Activity = ({ activity, windowSize }) => {
-    const colorsBG = {
-        Added: "#008000a7",
-        Removed: "#a82828b3",
-        Modified: "#6f6e6eb3",
-    };
-    const colorsFG = {
-        Added: "#62d262",
-        Removed: "#e17878",
-        Modified: "#a6a6a6",
-    };
-
-    return (
-        <>
-            <article className="activity">
-                <h2>Activites in last 10 days</h2>
-                <div className="activities-container">
-                    {activity.length > 0 ? (
-                        activity.map(({ actDone, detail, doneAt }) => {
-                            return (
-                                <div
-                                    key={doneAt}
-                                    className="activity-item-container">
-                                    <h4
-                                        style={{
-                                            color: colorsFG[actDone],
-                                            backgroundColor: colorsBG[actDone],
-                                        }}>
-                                        {actDone}
-                                    </h4>
-                                    <h3>
-                                        {detail.length > 16
-                                            ? detail.substr(0, 13) + "..."
-                                            : detail}
-                                    </h3>
-                                    <p>
-                                        {windowSize > 581
-                                            ? timeAgo.format(
-                                                  new Date(doneAt),
-                                                  "round"
-                                              )
-                                            : timeAgo.format(
-                                                  new Date(doneAt),
-                                                  "mini-minute-now"
-                                              )}
-                                    </p>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <h3 className="empty-container">
-                            Looks pretty empty...
-                        </h3>
-                    )}
-                </div>
-            </article>
         </>
     );
 };
