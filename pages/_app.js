@@ -11,6 +11,7 @@ import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import "Style/Profile/profile.css";
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
@@ -57,7 +58,10 @@ function MyApp({ Component, pageProps }) {
                 <link rel="apple-touch-icon" href="./DownlistLogoIcon.png" />
 
                 <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Archivo&display=swap"
+                    rel="stylesheet"
+                />
                 <link
                     rel="preload preconnect"
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
