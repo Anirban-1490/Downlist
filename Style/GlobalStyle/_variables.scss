@@ -28,6 +28,14 @@ $cl-light-black: lighten(
     $color: black,
     $amount: 54%,
 );
+$cl-light-black-2: lighten(
+    $color: black,
+    $amount: 15%,
+);
+$cl-light-black-3: lighten(
+    $color: black,
+    $amount: 20%,
+);
 
 //* height ----
 $base-height: 1em;
@@ -59,3 +67,4 @@ $luckiest-guy: "Luckiest Guy", cursive;
 $bebas-neue: "Bebas Neue", cursive;
 $amatic-sc: "Amatic SC", cursive;
 $roboto: "Roboto", sans-serif;
+$archivo: "Archivo", sans-serif;
