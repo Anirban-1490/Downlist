@@ -1,0 +1,70 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.activity {
+    width: 60%;
+    height: 29em;
+    margin-bottom: 4em;
+    background-color: m.$cl-light-black-2;
+    outline: 3px solid m.$bg-primary-light;
+    overflow: hidden;
+
+    .activities-container {
+        width: 100%;
+
+        height: 28.5em;
+        border-radius: 0.4em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+        position: relative;
+        .empty-container {
+            font-weight: lighter;
+            opacity: 0.45;
+            position: absolute;
+            top: 50%;
+            text-align: center;
+            transform: translateY(-50%);
+        }
+        .activity-item-container {
+            width: 100%;
+            // border: 2px solid yellow;
+            border-radius: 0.3em;
+            display: flex;
+            padding: m.$base-padding * 1.6 0;
+            justify-content: center;
+            align-items: center;
+
+            &:nth-child(2n) {
+                background-color: m.$cl-light-black-3;
+            }
+
+            div {
+                color: white;
+                flex: 0 0 33.3%;
+
+                text-align: center;
+            }
+            .act {
+                white-space: nowrap;
+                width: m.$width-md * 1.2;
+                // border: 2px solid red;
+                margin: m.$center-horizontal;
+            }
+            .title {
+                border-radius: 0.3em;
+                font-family: monospace;
+                font-size: 1.2em;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                // border: 2px solid blue;
+            }
+            .time-ago {
+                white-space: nowrap;
+                font-size: 0.75em;
+                // border: 2px solid greenyellow;
+            }
+        }
+    }
+}
