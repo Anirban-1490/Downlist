@@ -14,6 +14,7 @@ export const MainProfile = ({
     userID,
     isCurrentUsersProfile,
     children,
+    setPins,
 }) => {
     // const { userData } = useContext(Appcontext);
 
@@ -91,6 +92,11 @@ export const MainProfile = ({
                     </div>
                     <div className={profileStyle["picks-container"]}>
                         <h4>Top Picks</h4>
+                        <button
+                            className={profileStyle["add-picks-btn"]}
+                            onClick={() => setPins(true)}>
+                            add your picks
+                        </button>
                         <div className={profileStyle["picks-container-inner"]}>
                             {top || <p>Very muuuuuchhhh empty...</p>}
                         </div>
