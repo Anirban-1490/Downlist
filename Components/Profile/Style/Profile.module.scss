@@ -61,13 +61,28 @@
         .picks-container {
             width: 100%;
             margin-top: 2em;
+
+            position: relative;
             h4 {
                 color: white;
                 font-size: 1.8em;
                 letter-spacing: 0.35em;
 
                 padding-bottom: 0.5em;
-                border-bottom: 4px solid rgb(66, 66, 212);
+                border-bottom: 4px solid #4242d4;
+            }
+            .add-picks-btn {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                outline: none;
+                border: none;
+                background: transparent;
+                color: m.$cl-light-black;
+                cursor: pointer;
+                &:hover {
+                    color: yellow;
+                }
             }
             .picks-container-inner {
                 min-height: 20em;
