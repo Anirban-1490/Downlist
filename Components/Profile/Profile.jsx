@@ -54,48 +54,52 @@ export const MainProfile = ({
     return (
         <>
             <div className={profileStyle["container-profile"]}>
-                <div className={profileStyle["img-container"]}>
-                    <img src={image} alt="" />
-                </div>
-                <h2 className={profileStyle["name"]}>{name}</h2>
-                {bio && <h4 className={profileStyle["bio"]}>{bio}</h4>}
-                <div className={profileStyle["follow-container"]}>
-                    <h5 className={profileStyle["follow"]}>
-                        {followers?.length} Followers
-                    </h5>
-                    <h5 className={profileStyle["follow"]}>
-                        {following?.length} Following
-                    </h5>
-                </div>
-                {!isCurrentUsersProfile && (
-                    <button
-                        className={
-                            isFollowing
-                                ? profileStyle["follow-btn following"]
-                                : profileStyle["follow-btn"]
-                        }
-                        onClick={function (e) {
-                            followHandler.call(
-                                this,
-                                e,
-                                userID,
-                                userToFollowUserID
-                            );
-                        }.bind(this)}>
-                        {isFollowing ? "Following" : "Follow"}
-                    </button>
-                )}
+                <div className={profileStyle["inner-profile-container"]}>
+                    <div className={profileStyle["personal-info-container"]}>
+                        <div className={profileStyle["profile-img-container"]}>
+                            <img src={image} alt="" />
+                        </div>
 
-                <div className={profileStyle["picks-container"]}>
-                    <h4>Top Picks</h4>
-                    <div className={profileStyle["picks-container-inner"]}>
-                        {top || <p>Very muuuuuchhhh empty...</p>}
+                        <h2 className={profileStyle["name"]}>{name}</h2>
+                        {bio && <h4 className={profileStyle["bio"]}>{bio}</h4>}
+                        <div className={profileStyle["follow-container"]}>
+                            <h5 className={profileStyle["follow"]}>
+                                {followers?.length} Followers
+                            </h5>
+                            <h5 className={profileStyle["follow"]}>
+                                {following?.length} Following
+                            </h5>
+                        </div>
+                        {!isCurrentUsersProfile && (
+                            <button
+                                className={
+                                    isFollowing
+                                        ? profileStyle["follow-btn following"]
+                                        : profileStyle["follow-btn"]
+                                }
+                                onClick={function (e) {
+                                    followHandler.call(
+                                        this,
+                                        e,
+                                        userID,
+                                        userToFollowUserID
+                                    );
+                                }.bind(this)}>
+                                {isFollowing ? "Following" : "Follow"}
+                            </button>
+                        )}
                     </div>
+                    <div className={profileStyle["picks-container"]}>
+                        <h4>Top Picks</h4>
+                        <div className={profileStyle["picks-container-inner"]}>
+                            {top || <p>Very muuuuuchhhh empty...</p>}
+                        </div>
+                    </div>
+                    <h2 className={profileStyle["activity-header-text"]}>
+                        Recent Activity
+                    </h2>
+                    {children}
                 </div>
-                <h2 className={profileStyle["activity-header-text"]}>
-                    Recent Activity
-                </h2>
-                {children}
             </div>
         </>
     );
