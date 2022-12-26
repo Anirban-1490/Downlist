@@ -13,11 +13,12 @@ import { useProfile } from "Hooks/useProfile";
 import { MainProfile } from "Components/Profile/Profile";
 import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { Activity } from "Components/Profile/Activity";
+import { PinneditemsPicker } from "Components/Profile/PinnedItemsPicker";
 
 const MainUserProfile = ({ userID }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
-
+    const [showPins, setPins] = useState(false);
     // const { changeEditState } = useContext(Appcontext);
 
     const [userProfileDetails, isError] = useProfile(path, userID);
@@ -53,13 +54,15 @@ const MainUserProfile = ({ userID }) => {
                 <MainProfile
                     {...userProfileDetails.user}
                     userID={userID}
-                    isCurrentUsersProfile={true}>
+                    isCurrentUsersProfile={true}
+                    setPins={setPins}>
                     <Activity
                         windowSize={windowsize}
                         activity={userProfileDetails.user.activity}
                     />
                 </MainProfile>
             )}
+            {showPins && <PinneditemsPicker setPins={setPins} />}
             <div
                 className="empty-container"
                 style={{ marginTop: "4em", height: "4em" }}></div>
