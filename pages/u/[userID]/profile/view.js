@@ -14,15 +14,17 @@ import { MainProfile } from "Components/Profile/Profile";
 import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { Activity } from "Components/Profile/Activity";
 import { PinneditemsPicker } from "Components/Profile/PinnedItemsPicker";
+import { useList } from "Hooks/useList";
+import { useInView } from "react-intersection-observer";
 
 const MainUserProfile = ({ userID }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
-    // const { changeEditState } = useContext(Appcontext);
 
+    const returnedPackage = useList("anime", userID, 10, undefined, showPins);
     const [userProfileDetails, isError] = useProfile(path, userID);
-
+    const { ref, inView } = useInView({ threshold: 0 });
     const updateProfile = async (e) => {
         e.preventDefault();
 
@@ -62,7 +64,14 @@ const MainUserProfile = ({ userID }) => {
                     />
                 </MainProfile>
             )}
-            {showPins && <PinneditemsPicker setPins={setPins} />}
+            {showPins && (
+                <PinneditemsPicker
+                    ref={ref}
+                    inView={inView}
+                    setPins={setPins}
+                    {...returnedPackage}
+                />
+            )}
             <div
                 className="empty-container"
                 style={{ marginTop: "4em", height: "4em" }}></div>
