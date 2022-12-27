@@ -2,7 +2,13 @@ import axios from "axios";
 import { path } from "../server-path";
 import { useInfiniteQuery } from "react-query";
 
-export function useList(switch_item, userID, limit, sortBy = undefined) {
+export function useList(
+    switch_item,
+    userID,
+    limit,
+    sortBy = undefined,
+    enabled = true
+) {
     async function fetchUserList({ pageParam = 0 }) {
         if (switch_item === "character")
             return (
@@ -38,11 +44,12 @@ export function useList(switch_item, userID, limit, sortBy = undefined) {
         {
             getNextPageParam: (lastPage) => {
                 // console.log(lastPage);
-                return lastPage.nextPage;
+                return lastPage.nextPage ?? undefined;
             },
             refetchOnWindowFocus: false,
             staleTime: 0,
             cacheTime: 0,
+            enabled: !!enabled,
         }
     );
 
