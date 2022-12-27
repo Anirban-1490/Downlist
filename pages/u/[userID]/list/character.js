@@ -8,7 +8,7 @@ function CharactersList({ userID }) {
 
     const [userData, _] = useAuth(true);
 
-    const returnedPackage = useList("character", userID, whatToSortBy);
+    const returnedPackage = useList("character", userID, 6, whatToSortBy);
     return (
         <>
             <div

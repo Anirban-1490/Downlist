@@ -10,7 +10,7 @@ function AnimeList({ userID }) {
 
     const [userData, _] = useAuth(true);
 
-    const returnedPackage = useList("anime", userID, whatToSortBy);
+    const returnedPackage = useList("anime", userID, 6, whatToSortBy);
 
     //* --if user not logged in then redirect to login page
 
