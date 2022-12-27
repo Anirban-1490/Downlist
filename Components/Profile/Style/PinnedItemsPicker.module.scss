@@ -1,0 +1,78 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.background {
+    // height: 44em;
+    height: 100%;
+    // width: 44rem;
+    width: 100%;
+    background: m.$bg-primary-light-2;
+    position: fixed;
+    z-index: 444;
+    top: 0;
+    .items-container {
+        width: m.$width-extra * 1.8;
+        height: m.$height-extra * 2.6;
+        border: 2px solid m.$cl-light-black;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        background: m.$bg-primary;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .header-container {
+            border-bottom: 4px solid m.$cl-light-black-3;
+
+            display: flex;
+            padding: m.$base-padding / 1.3 0;
+            align-items: center;
+            h5 {
+                flex: 1 0 auto;
+                color: white;
+                padding-left: m.$base-padding;
+            }
+            ion-icon {
+                color: white;
+
+                font-size: m.$fontSize-md;
+                margin-right: m.$base-margin / 2.4;
+                cursor: pointer;
+            }
+        }
+        ul {
+            flex: 1 1 auto;
+            overflow: auto;
+            li {
+                height: m.$base-height * 3;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                &:hover {
+                    background-color: m.$cl-light-black-3;
+                }
+                input[type="checkbox"] {
+                    margin: 0 m.$base-margin / 1.2;
+                }
+                label {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    height: 100%;
+                    width: 100%;
+
+                    padding: m.$base-padding / 1.2 m.$base-padding / 4;
+                    cursor: pointer;
+                    strong {
+                        color: white;
+                    }
+                }
+            }
+            .loading-text {
+                color: white;
+                text-align: center;
+                padding: m.$base-padding;
+            }
+        }
+    }
+}
