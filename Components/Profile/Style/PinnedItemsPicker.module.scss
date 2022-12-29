@@ -40,38 +40,90 @@
                 cursor: pointer;
             }
         }
-        ul {
-            flex: 1 1 auto;
-            overflow: auto;
-            li {
-                height: m.$base-height * 3;
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                &:hover {
-                    background-color: m.$cl-light-black-3;
-                }
-                input[type="checkbox"] {
-                    margin: 0 m.$base-margin / 1.2;
-                }
-                label {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    height: 100%;
-                    width: 100%;
-
-                    padding: m.$base-padding / 1.2 m.$base-padding / 4;
+        form {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            ul {
+                flex: 1 0 auto;
+                height: m.$height-extra * 1.7;
+                overflow: auto;
+                border-bottom: 4px solid m.$cl-light-black-3;
+                li {
+                    height: m.$base-height * 3;
+                    display: flex;
+                    align-items: center;
                     cursor: pointer;
-                    strong {
-                        color: white;
+                    &:hover {
+                        background-color: m.$cl-light-black-3;
+                    }
+                    input[type="checkbox"] {
+                        margin: 0 m.$base-margin / 1.2;
+                        -webkit-appearance: none;
+                        background-color: #fafafa;
+
+                        padding: 7.5px;
+                        border-radius: 3px;
+                        display: inline-block;
+                        position: relative;
+                        &:checked {
+                            background-color: m.$cl-dark-orange;
+
+                            &:after {
+                                content: "\2714";
+                                font-size: 16px;
+                                position: absolute;
+                                top: -2.5px;
+                                left: 1px;
+                                color: white;
+                            }
+                        }
+                    }
+                    label {
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        height: 100%;
+                        width: 100%;
+
+                        padding: m.$base-padding / 1.2 m.$base-padding / 4;
+                        cursor: pointer;
+                        strong {
+                            color: white;
+                        }
                     }
                 }
+                .loading-text {
+                    color: white;
+                    text-align: center;
+                    padding: m.$base-padding;
+                }
             }
-            .loading-text {
-                color: white;
-                text-align: center;
-                padding: m.$base-padding;
+            .submit-btn-container {
+                padding: m.$base-padding / 1.2 0;
+                display: flex;
+                align-items: center;
+                // gap: 18%;
+                justify-content: space-between;
+                .response-text {
+                    font-weight: lighter;
+                    font-size: m.$fontSize-base / 1.2;
+                    margin-left: m.$base-margin / 1.4;
+                }
+                button {
+                    @include m.default-btn-style(
+                        $background-color: m.$cl-dark-orange,
+                        $border-radius: 0.34rem
+                    );
+                    margin-right: m.$base-margin / 1.2;
+                    // margin-left: m.$margin-extra * 2;
+                    &:hover {
+                        background-color: lighten(
+                            $color: m.$cl-dark-orange,
+                            $amount: 10%
+                        );
+                    }
+                }
             }
         }
     }
