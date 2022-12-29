@@ -68,3 +68,22 @@ $bebas-neue: "Bebas Neue", cursive;
 $amatic-sc: "Amatic SC", cursive;
 $roboto: "Roboto", sans-serif;
 $archivo: "Archivo", sans-serif;
+
+//* default button style ---
+
+@mixin default-btn-style(
+    $background-color: transparent,
+    $font-size: $fontSize-base,
+    $font-color: white,
+    $padding: $base-padding / 1.7 $base-padding * 2,
+    $border-radius: none
+) {
+    outline: none;
+    border: none;
+    background-color: $background-color;
+    font-size: $font-size;
+    color: $font-color;
+    padding: $padding;
+    border-radius: $border-radius;
+    cursor: pointer;
+}
