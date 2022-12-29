@@ -68,7 +68,9 @@ const MainUserProfile = ({ userID }) => {
                 <PinneditemsPicker
                     ref={ref}
                     inView={inView}
+                    userID={userID}
                     setPins={setPins}
+                    pinnedItems={userProfileDetails.user.pinnedItems}
                     {...returnedPackage}
                 />
             )}
