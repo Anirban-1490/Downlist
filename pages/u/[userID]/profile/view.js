@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useQueryClient } from "react-query";
+import { QueryClient } from "react-query";
 
 import axios from "axios";
-
+import map from "awaity/map";
 //* timeago
 
 import { useWindowResize } from "Hooks/useWindowResize";
@@ -16,14 +16,15 @@ import { Activity } from "Components/Profile/Activity";
 import { PinneditemsPicker } from "Components/Profile/PinnedItemsPicker";
 import { useList } from "Hooks/useList";
 import { useInView } from "react-intersection-observer";
+import { jikanQueries } from "JikanQueries";
 
-const MainUserProfile = ({ userID }) => {
+const MainUserProfile = ({ userID, userDetails }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
 
     const returnedPackage = useList("anime", userID, 10, undefined, showPins);
-    const [userProfileDetails, isError] = useProfile(path, userID);
+    // const [userProfileDetails, isError] = useProfile(path, userID);
     const { ref, inView } = useInView({ threshold: 0 });
     const updateProfile = async (e) => {
         e.preventDefault();
@@ -44,33 +45,26 @@ const MainUserProfile = ({ userID }) => {
         }
     };
 
-    if (isError) {
-        return <PageNotFound />;
-    }
-
     return (
         <>
-            {!userProfileDetails ? (
-                <Spinner />
-            ) : (
-                <MainProfile
-                    {...userProfileDetails.user}
-                    userID={userID}
-                    isCurrentUsersProfile={true}
-                    setPins={setPins}>
-                    <Activity
-                        windowSize={windowsize}
-                        activity={userProfileDetails.user.activity}
-                    />
-                </MainProfile>
-            )}
+            <MainProfile
+                {...userDetails}
+                userID={userID}
+                isCurrentUsersProfile={true}
+                setPins={setPins}>
+                <Activity
+                    windowSize={windowsize}
+                    activity={userDetails.activity}
+                />
+            </MainProfile>
+
             {showPins && (
                 <PinneditemsPicker
                     ref={ref}
                     inView={inView}
                     userID={userID}
                     setPins={setPins}
-                    pinnedItems={userProfileDetails.user.pinnedItems}
+                    pinnedItems={userDetails.pinnedItems}
                     {...returnedPackage}
                 />
             )}
@@ -178,10 +172,57 @@ const SideProfile = ({
 
 export async function getServerSideProps({ params }) {
     const { userID } = params;
+    const queryClient = new QueryClient();
+    try {
+        const {
+            data: { user: userDetails },
+        } = await queryClient.fetchQuery(
+            ["profile", userID],
+            () => axios.get(`${path.domain}user/${userID}/profile/view`),
+            { retry: 1 }
+        );
 
-    return {
-        props: { userID },
-    };
+        if (!userDetails) {
+            return {
+                notFound: true,
+            };
+        }
+
+        const pinedItemsDetail = await map(
+            userDetails.pinnedItems,
+            async (malIdOfItem) => {
+                const {
+                    images: {
+                        jpg: { image_url },
+                    },
+                    title,
+                    title_english,
+                } = await queryClient.fetchQuery(
+                    ["anime", malIdOfItem],
+                    () => jikanQueries("details", malIdOfItem),
+                    { retry: 1 }
+                );
+                return {
+                    image_url,
+                    mal_id: malIdOfItem,
+                    title,
+                    title_english,
+                };
+            }
+        );
+
+        return {
+            props: {
+                userID,
+                userDetails: { ...userDetails, pinnedItems: pinedItemsDetail },
+            },
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            notFound: true,
+        };
+    }
 }
 
 export default MainUserProfile;
