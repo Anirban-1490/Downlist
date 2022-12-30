@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useMemo } from "react";
 import profileStyle from "Components/Profile/Style/Profile.module.scss";
+import { Card } from "Components/Global/Card/Card";
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 
 export const MainProfile = ({
     name,
@@ -8,7 +10,7 @@ export const MainProfile = ({
     bio,
     followers,
     following,
-    top,
+    pinnedItems,
     status,
     userToFollowUserID,
     userID,
@@ -98,7 +100,26 @@ export const MainProfile = ({
                             add your picks
                         </button>
                         <div className={profileStyle["picks-container-inner"]}>
-                            {top || <p>Very muuuuuchhhh empty...</p>}
+                            {pinnedItems.map(
+                                ({
+                                    image_url,
+                                    mal_id,
+                                    title,
+                                    title_english,
+                                }) => {
+                                    const props = {
+                                        mal_id,
+                                        image_url,
+                                        mainTitle: title || title_english,
+                                        path: "/anime",
+                                    };
+                                    return <Card {...props} />;
+                                }
+                            ) || (
+                                <NoItem
+                                    content={"pinned items will be shown here"}
+                                />
+                            )}
                         </div>
                     </div>
                     <h2 className={profileStyle["activity-header-text"]}>
