@@ -98,8 +98,14 @@ export const PinneditemsPicker = forwardRef(
                                                                       value={
                                                                           malid
                                                                       }
-                                                                      defaultChecked={pinnedItems.includes(
-                                                                          malid
+                                                                      defaultChecked={[
+                                                                          ...pinnedItems,
+                                                                      ].find(
+                                                                          (
+                                                                              item
+                                                                          ) =>
+                                                                              item.mal_id ==
+                                                                              malid
                                                                       )}
                                                                   />
                                                                   <label
