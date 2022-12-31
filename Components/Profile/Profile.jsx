@@ -100,22 +100,24 @@ export const MainProfile = ({
                             add your picks
                         </button>
                         <div className={profileStyle["picks-container-inner"]}>
-                            {pinnedItems.map(
-                                ({
-                                    image_url,
-                                    mal_id,
-                                    title,
-                                    title_english,
-                                }) => {
-                                    const props = {
-                                        mal_id,
+                            {pinnedItems && pinnedItems.length > 0 ? (
+                                pinnedItems.map(
+                                    ({
                                         image_url,
-                                        mainTitle: title || title_english,
-                                        path: "/anime",
-                                    };
-                                    return <Card {...props} />;
-                                }
-                            ) || (
+                                        mal_id,
+                                        title,
+                                        title_english,
+                                    }) => {
+                                        const props = {
+                                            mal_id,
+                                            image_url,
+                                            mainTitle: title || title_english,
+                                            path: "/anime",
+                                        };
+                                        return <Card {...props} />;
+                                    }
+                                )
+                            ) : (
                                 <NoItem
                                     content={"pinned items will be shown here"}
                                 />
