@@ -4,7 +4,7 @@ import { useMemo, forwardRef, useEffect, useState } from "react";
 import axios from "axios";
 
 import { path } from "server-path";
-import { useQuery } from "react-query";
+import { useQuery, QueryClient } from "react-query";
 
 export const PinneditemsPicker = forwardRef(
     (
@@ -21,54 +21,47 @@ export const PinneditemsPicker = forwardRef(
         },
         ref
     ) => {
-        const [items, setItems] = useState([]);
-
+        const [status, setStatus] = useState("");
+        const queryClient = new QueryClient();
         useEffect(() => {
             if (hasNextPage && inView) {
                 fetchNextPage();
             }
         }, [inView]);
 
-        const {
-            data: response,
-            isError,
-            isLoading,
-            error,
-            isFetching,
-        } = useQuery(
-            "pinItems",
-            () => {
-                return axios.put(
-                    `${path.domain}user/${userID}/profile/add/pinned`,
-                    { items }
-                );
-            },
-            {
-                refetchOnWindowFocus: false,
-                enabled: items.length > 0,
-                onSettled: (data, err) => {
-                    setItems([]);
-                    if (!err) {
-                        window.location.reload();
-                    }
-                },
-                retry: 0,
-                staleTime: 0,
-                cacheTime: 0,
-            }
-        );
+        const isFetching = status == "sending";
+        const isError = status !== "Successfully pinned items";
 
         const pinnedItemsHandler = async (e) => {
+            setStatus("sending");
             e.preventDefault();
             const formHandler = new FormData(e.target);
-            const newItemsToBePinned = [...formHandler].reduce(
-                (acc, currentItem) => {
-                    return [...acc, currentItem[1]];
-                },
-                []
-            );
+            const newItemsToBePinned = ![...formHandler].length
+                ? []
+                : [...formHandler].reduce((acc, currentItem) => {
+                      return [...acc, currentItem[1]];
+                  }, []);
 
-            setItems([...newItemsToBePinned]);
+            try {
+                const { data } = await queryClient.fetchQuery(
+                    ["pinItems"],
+                    () =>
+                        axios.put(
+                            `${path.domain}user/${userID}/profile/add/pinned`,
+                            {
+                                newItemsToBePinned,
+                            }
+                        ),
+                    { staleTime: 100, cacheTime: 0, retry: 1 }
+                );
+
+                if (data) {
+                    setStatus(data.message);
+                    window.location.reload();
+                }
+            } catch (error) {
+                setStatus(error.response.data.message);
+            }
         };
 
         return (
@@ -140,9 +133,7 @@ export const PinneditemsPicker = forwardRef(
                                     style={{
                                         color: isError ? "red" : "#11aa11",
                                     }}>
-                                    {!isError
-                                        ? response?.data.message
-                                        : error.response.data.message}
+                                    {!isFetching && status}
                                 </div>
                                 <button type="submit">
                                     {isFetching ? "Loading..." : "Save"}
