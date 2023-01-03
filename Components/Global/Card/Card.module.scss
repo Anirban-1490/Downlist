@@ -11,13 +11,10 @@
     box-shadow: 0 0 6px 1px #000000e6;
 
     display: block;
-    @include bp.breakpoint(365px) {
-        flex: 0 0 46vw;
+    @include bp.breakpoint(380px) {
+        flex: 0 0 44vw;
     }
-    @include bp.breakpoint(565px) {
-        flex: 0 0 auto;
-        width: calc((100% - 24px) / 2);
-    }
+
     &:hover {
         img {
             scale: 1.2;
