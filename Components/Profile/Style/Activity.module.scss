@@ -7,7 +7,9 @@
     background-color: m.$cl-light-black-2;
     outline: 3px solid m.$bg-primary-light;
     overflow: hidden;
-
+    @include m.breakpoint(830px) {
+        width: 100%;
+    }
     .activities-container {
         width: 100%;
 
@@ -16,7 +18,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow-y: scroll;
+        overflow-y: auto;
+
         position: relative;
         .empty-container {
             font-weight: lighter;
@@ -28,13 +31,13 @@
         }
         .activity-item-container {
             width: 100%;
-            // border: 2px solid yellow;
+
             border-radius: 0.3em;
             display: flex;
             padding: m.$base-padding * 1.6 0;
             justify-content: center;
             align-items: center;
-
+            flex: 0 0 auto;
             &:nth-child(2n) {
                 background-color: m.$cl-light-black-3;
             }
@@ -58,7 +61,6 @@
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                // border: 2px solid blue;
             }
             .time-ago {
                 white-space: nowrap;
