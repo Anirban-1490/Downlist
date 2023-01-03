@@ -87,15 +87,10 @@
             }
             .picks-container-inner {
                 padding: m.$base-padding 0;
-                background-color: m.$cl-light-black-2;
-
                 display: flex;
                 align-items: center;
-
-                justify-content: space-evenly;
                 flex-wrap: wrap;
-
-                gap: 0.8rem;
+                gap: 2.3vw;
                 p {
                     font-size: 1.1em;
                 }
