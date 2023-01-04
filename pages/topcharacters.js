@@ -19,7 +19,7 @@ import { TopFromlist } from "Components/Top/TopFromList";
 // import { reduce } from "awaity/reduce";
 import reduce from "awaity/reduce";
 import { useAuth } from "Feature/Authorize/Authorize";
-import { serverlessPath } from "ServerLesspath";
+import { serverlessPath } from "Serverlesspath";
 
 function TopCharcter({ topCharcters }) {
     const [userData, _] = useAuth(true);
