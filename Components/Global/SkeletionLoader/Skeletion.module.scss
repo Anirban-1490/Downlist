@@ -1,0 +1,15 @@
+.skeletion-wrapper {
+    overflow: hidden;
+    .skeleton-wrapper-inner {
+        display: flex;
+        gap: 0.6rem;
+
+        .skeleton-custom {
+            flex: 0 0 auto;
+            &::after {
+                rotate: z 30deg;
+                scale: 2;
+            }
+        }
+    }
+}
