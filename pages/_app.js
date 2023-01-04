@@ -12,6 +12,7 @@ import "nprogress/nprogress.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import "Style/Profile/profile.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
