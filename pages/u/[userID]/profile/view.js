@@ -188,37 +188,13 @@ export async function getServerSideProps({ params }) {
             };
         }
 
-        const pinedItemsDetail = await map(
-            userDetails.pinnedItems,
-            async (malIdOfItem) => {
-                const {
-                    images: {
-                        jpg: { image_url },
-                    },
-                    title,
-                    title_english,
-                } = await queryClient.fetchQuery(
-                    ["anime", malIdOfItem],
-                    () => jikanQueries("details", malIdOfItem),
-                    { retry: 1 }
-                );
-                return {
-                    image_url,
-                    mal_id: malIdOfItem,
-                    title,
-                    title_english,
-                };
-            }
-        );
-
         return {
             props: {
                 userID,
-                userDetails: { ...userDetails, pinnedItems: pinedItemsDetail },
+                userDetails,
             },
         };
     } catch (error) {
-        console.log(error);
         return {
             notFound: true,
         };
