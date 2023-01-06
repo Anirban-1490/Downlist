@@ -26,19 +26,20 @@ function TopAnime() {
     const results = useQueries([
         {
             queryKey: "upcoming_anime",
-            queryFn: () => jikanQueries("top_anime", "upcoming", 1, 20),
+            queryFn: () => jikanQueries("top_anime", null, ["upcoming", 1, 20]),
             retry: false,
             refetchOnWindowFocus: false,
         },
         {
             queryKey: "popular_anime",
-            queryFn: () => jikanQueries("top_anime", "bypopularity", 1, 20),
+            queryFn: () =>
+                jikanQueries("top_anime", null, ["bypopularity", 1, 20]),
             retry: false,
             refetchOnWindowFocus: false,
         },
         {
             queryKey: "airing_anime",
-            queryFn: () => jikanQueries("top_anime", "airing", 1, 20),
+            queryFn: () => jikanQueries("top_anime", null, ["airing", 1, 20]),
             retry: false,
             refetchOnWindowFocus: false,
         },
@@ -148,13 +149,13 @@ export async function getStaticProps({ params }) {
     const client = new QueryClient();
     try {
         await client.prefetchQuery("upcoming_anime", () =>
-            jikanQueries("top_anime", "upcoming", 1, 20)
+            jikanQueries("top_anime", null, ["upcoming", 1, 20])
         );
         await client.prefetchQuery("popular_anime", () =>
-            jikanQueries("top_anime", "bypopularity", 1, 20)
+            jikanQueries("top_anime", null, ["bypopularity", 1, 20])
         );
         await client.prefetchQuery("airing_anime", () =>
-            jikanQueries("top_anime", "airing", 1, 20)
+            jikanQueries("top_anime", null, ["airing", 1, 20])
         );
     } catch (error) {
         return {
