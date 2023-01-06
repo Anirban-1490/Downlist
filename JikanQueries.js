@@ -1,16 +1,18 @@
 import axios from "axios";
 
-export const jikanQueries = async (key, ...params) => {
-    const delay = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+function setDelay(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+}
 
+export const jikanQueries = async (key, malid, query = [], delay = 1000) => {
     const queries = {
-        details: `https://api.jikan.moe/v4/anime/${params[0]}/full`,
-        people_reaction: `https://api.jikan.moe/v4/anime/${params[0]}/statistics`,
-        characters: `https://api.jikan.moe/v4/anime/${params[0]}/characters`,
-        char_details: `https://api.jikan.moe/v4/characters/${params[0]}/full`,
-        top_anime: `https://api.jikan.moe/v4/top/anime?filter=${params[0]}&page=${params[1]}&limit=${params[2]}`,
+        details: `https://api.jikan.moe/v4/anime/${malid}/full`,
+        people_reaction: `https://api.jikan.moe/v4/anime/${malid}/statistics`,
+        characters: `https://api.jikan.moe/v4/anime/${malid}/characters`,
+        char_details: `https://api.jikan.moe/v4/characters/${malid}/full`,
+        top_anime: `https://api.jikan.moe/v4/top/anime?filter=${query[0]}&page=${query[1]}&limit=${query[2]}`,
         top_char: `https://api.jikan.moe/v4/top/characters`,
     };
-    await delay();
+    await setDelay(delay);
     return axios.get(queries[key]).then(({ data: { data } }) => data);
 };
