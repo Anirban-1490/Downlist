@@ -30,19 +30,12 @@ function TopCharcter({ topCharcters }) {
             queryFn: () =>
                 axios.get(`${serverlessPath.domain}api/top/characters/summer`),
             refetchOnWindowFocus: false,
-            retryDelay: 2000,
-            staleTime: 4000,
-            cacheTime: Infinity,
         },
         {
             queryKey: "fall_top_char",
             queryFn: () =>
                 axios.get(`${serverlessPath.domain}api/top/characters/fall`),
             refetchOnWindowFocus: false,
-            retry: 12,
-            retryDelay: 2000,
-            staleTime: 4000,
-            cacheTime: Infinity,
         },
     ]);
 
