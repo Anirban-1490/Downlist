@@ -1,11 +1,27 @@
+@use "/Style/GlobalStyle/main" as m;
+
 .skeletion-wrapper {
     overflow: hidden;
     .skeleton-wrapper-inner {
         display: flex;
         gap: 0.6rem;
+        &.column-normal {
+            flex-direction: column;
+        }
+        &.column-mobile {
+            @include m.lg {
+                flex-direction: column;
+            }
+        }
 
         .skeleton-custom {
             flex: 0 0 auto;
+            &.column-mobile {
+                @include m.lg {
+                    width: 100% !important;
+                    height: 26em !important;
+                }
+            }
             &::after {
                 rotate: z 30deg;
                 scale: 2;
