@@ -1,5 +1,6 @@
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { NoItemContiner } from "Components/Global/NoItemFound/NoItemFound";
+import { SkeletonLoaderMulti } from "Components/Global/SkeletionLoader/SkeletionLoaderMulti";
 import topFromListStyle from "Components/Top/style/TopList.module.scss";
 import { useToplist } from "Hooks/useTopList";
 import { useWindowResize } from "Hooks/useWindowResize";
@@ -17,11 +18,20 @@ export const TopFromlist = ({ switchLists, userId }) => {
     return (
         <>
             <div className={topFromListStyle["main-container"]}>
-                {(!listItems && !isLoading) || isError ? (
-                    <NoItemContiner />
-                ) : isLoading ? (
-                    <Spinner />
-                ) : (
+                {isLoading && (
+                    <SkeletonLoaderMulti
+                        skeletonCount={3}
+                        skeletonHeight={"34em"}
+                        skeletonWidth={"33.3%"}
+                        columnMobile={true}
+                    />
+                )}
+                {!isLoading && !listItems?.length && <NoItemContiner />}
+                {isError && (
+                    <NoItemContiner content="Something went wrong, please try again" />
+                )}
+
+                {!isLoading && listItems?.length && (
                     <div className={topFromListStyle["inner-container"]}>
                         {listItems.map((item) => {
                             if (!item)
