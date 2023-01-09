@@ -1,94 +1,95 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .head-main-container {
-  width: 100%;
-  height: m.$height-extra * 4;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  justify-content: center;
-
-  h3 {
-    color: white;
-    text-align: center;
-    font-family: "Amatic SC", cursive;
-    font-size: clamp(1.2em, 2.4vw, 4vw);
-  }
-  .inner-content {
-    width: 96%;
-    margin: 0 auto;
-    margin-top: -8em;
-    gap: 0.5rem;
-
+    width: 100%;
+    height: m.$height-extra * 4;
     display: flex;
+    flex-direction: column;
+    gap: 1em;
     justify-content: center;
+    background: linear-gradient(to bottom, m.$bg-primary 22%, m.$cl-blue-dark);
 
-    @include m.breakpoint(768px) {
-      flex-direction: column;
-      align-items: center;
-      justify-content: end;
-      gap: 0.2em;
+    h3 {
+        color: white;
+        text-align: center;
+        font-family: "Amatic SC", cursive;
+        font-size: clamp(1.2em, 2.4vw, 4vw);
     }
+    .inner-content {
+        width: 96%;
+        margin: 0 auto;
+        margin-top: -8em;
+        gap: 0.5rem;
 
-    h1 {
-      font-size: clamp(5em, 11vw, 8em);
-
-      &:nth-child(1) {
-        color: #66fcf1;
-        position: relative;
-      }
-      &:nth-child(2) {
-        margin-top: 1em;
-        color: transparent;
-        font-family: "Luckiest Guy", cursive;
-        background-image: linear-gradient(
-          45deg,
-          #663dff 20%,
-          #aa00ff 37%,
-          #cc4499 57%,
-          #ffc3a0 90%
-        );
-
-        background-size: 600% 600%;
-        animation-name: anime-grad;
-        animation-duration: 17s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-iteration-count: infinite;
-        background-clip: text;
+        display: flex;
+        justify-content: center;
 
         @include m.breakpoint(768px) {
-          margin: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            gap: 0.2em;
         }
-      }
-      .ball {
-        position: absolute;
-        width: clamp(0.16em, 1.4vw, 0.5em);
-        height: clamp(0.16em, 1.4vw, 0.5em);
-        background: yellow;
-        left: 47.36%;
-        transform: translateX(-50%);
-        border-radius: 50%;
-        top: 0;
-      }
+
+        h1 {
+            font-size: clamp(5em, 11vw, 8em);
+
+            &:nth-child(1) {
+                color: #66fcf1;
+                position: relative;
+            }
+            &:nth-child(2) {
+                margin-top: 1em;
+                color: transparent;
+                font-family: "Luckiest Guy", cursive;
+                background-image: linear-gradient(
+                    45deg,
+                    #663dff 20%,
+                    #aa00ff 37%,
+                    #cc4499 57%,
+                    #ffc3a0 90%
+                );
+
+                background-size: 600% 600%;
+                animation-name: anime-grad;
+                animation-duration: 17s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+                animation-iteration-count: infinite;
+                background-clip: text;
+
+                @include m.breakpoint(768px) {
+                    margin: 0;
+                }
+            }
+            .ball {
+                position: absolute;
+                width: clamp(0.16em, 1.4vw, 0.5em);
+                height: clamp(0.16em, 1.4vw, 0.5em);
+                background: yellow;
+                left: 47.36%;
+                transform: translateX(-50%);
+                border-radius: 50%;
+                top: 0;
+            }
+        }
     }
-  }
 }
 
 @keyframes anime-grad {
-  0% {
-    background-position: 20% 0;
-  }
-  25% {
-    background-position: 50% 0%;
-  }
-  50% {
-    background-position: 50% 100%;
-  }
-  75% {
-    background-position: 50% 0%;
-  }
-  100% {
-    background-position: 20% 0%;
-  }
+    0% {
+        background-position: 20% 0;
+    }
+    25% {
+        background-position: 50% 0%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    75% {
+        background-position: 50% 0%;
+    }
+    100% {
+        background-position: 20% 0%;
+    }
 }
