@@ -1,106 +1,115 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .container-topsection {
-  position: relative;
-  top: -1em;
-  overflow: hidden;
-  .section {
-    height: m.$height-extra * 4.4;
-
     position: relative;
+    top: -1em;
+    overflow: hidden;
+    .section {
+        height: m.$height-extra * 4.4;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    &:nth-child(3) {
-      background-color: m.$cl-blue-dark;
-    }
-    &:nth-child(4) {
-      background-color: m.$cl-blue-violet-dark;
-      height: m.$height-extra * 4.8 !important;
-    }
-    &:nth-child(5) {
-      background-color: m.$cl-indigo-dark;
-      height: m.$height-large !important;
-      .main-heading {
-        color: white;
-        z-index: 6;
-        font-size: m.$res-fontSize-lg;
-        text-transform: uppercase;
-        text-align: center;
-        padding: 0 m.$base-padding/2;
-        top: -0.6em;
-      }
-    }
-    &:nth-child(6) {
-      height: auto !important;
-    }
-    &:nth-child(7) {
-      background: #9d8d8f;
-      min-height: 47em;
-      height: auto;
-      display: block;
-    }
-
-    .custom-shape-divider {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
-      rotate: z 180deg;
-      svg {
         position: relative;
-        display: block;
 
-        .shape-path-1 {
-          fill: m.$cl-blue-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:nth-child(2) {
+            background-color: m.$cl-blue-dark;
         }
-        .shape-path-2 {
-          fill: m.$cl-blue-violet-dark;
+
+        &:nth-child(4) {
+            background-color: m.$cl-blue-violet-dark;
+            height: m.$height-extra * 4.8 !important;
         }
-        .shape-path-3 {
-          fill: m.$cl-indigo-dark;
+        &:nth-child(5) {
+            background-color: m.$cl-indigo-dark;
+            height: m.$height-large !important;
+            .main-heading {
+                color: white;
+                z-index: 6;
+                font-size: m.$res-fontSize-lg;
+                text-transform: uppercase;
+                text-align: center;
+                padding: 0 m.$base-padding/2;
+                top: -0.6em;
+            }
         }
-      }
+        &:nth-child(6) {
+            height: auto !important;
+        }
+        &:nth-child(7) {
+            background: #9d8d8f;
+            min-height: 47em;
+            height: auto;
+            display: block;
+        }
+
+        .custom-shape-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            rotate: z 180deg;
+
+            &.custom-shape-divider-bottom-1668163489 {
+                rotate: none;
+            }
+            svg {
+                position: relative;
+                display: block;
+
+                .shape-path-1 {
+                    fill: m.$bg-primary;
+                }
+                .shape-path-2 {
+                    fill: m.$cl-blue-violet-dark;
+                }
+                .shape-path-3 {
+                    fill: m.$cl-indigo-dark;
+                }
+            }
+        }
+
+        .anime-character {
+            position: absolute;
+
+            &.character-1 {
+                right: -8em;
+                bottom: 13em;
+                @include m.sm {
+                    right: -18em;
+                }
+                img {
+                    scale: 1.6;
+                    opacity: 0.25;
+                }
+            }
+            &.character-2 {
+                left: 0;
+                bottom: -19em;
+                z-index: 1;
+                @include m.sm {
+                    left: -3em;
+                }
+                img {
+                    scale: 1.35;
+                }
+            }
+        }
     }
-
-    .anime-character {
-      position: absolute;
-
-      &.character-1 {
-        right: -8em;
-        bottom: 13em;
-
-        img {
-          scale: 1.6;
-          opacity: 0.25;
-        }
-      }
-      &.character-2 {
-        left: 2em;
-        bottom: -19em;
-        z-index: 1;
-
-        img {
-          scale: 1.35;
-        }
-      }
-    }
-  }
 }
 
 @mixin svgPosition($width, $height, $rotate: 0) {
-  width: $width;
-  height: $height;
-  rotate: $rotate;
+    width: $width;
+    height: $height;
+    rotate: $rotate;
 }
 .custom-shape-divider-bottom-1668163489 svg {
-  @include svgPosition(calc(135% + 1.3px), 106px, y 180deg);
+    @include svgPosition(calc(100% + 4px), 112px, y 180deg);
 }
 
 .custom-shape-divider-bottom-1668170175 svg {
-  @include svgPosition(calc(109% + 1.3px), 70px);
+    @include svgPosition(calc(109% + 1.3px), 70px);
 }
