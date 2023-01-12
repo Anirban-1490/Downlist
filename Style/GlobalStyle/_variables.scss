@@ -78,12 +78,23 @@ $archivo: "Archivo", sans-serif;
     $padding: $base-padding / 1.7 $base-padding * 2,
     $border-radius: none
 ) {
-    outline: none;
-    border: none;
+    all: unset;
     background-color: $background-color;
     font-size: $font-size;
     color: $font-color;
     padding: $padding;
     border-radius: $border-radius;
     cursor: pointer;
+}
+
+@mixin ion-icon-style(
+    $color: white,
+    $cursor: pointer,
+    $font-Size: 1.5em,
+    $translate: 0
+) {
+    color: $color;
+    cursor: $cursor;
+    font-size: $font-Size;
+    translate: $translate;
 }
