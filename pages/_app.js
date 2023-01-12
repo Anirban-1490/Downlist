@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import "Style/Profile/profile.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Footer } from "Components/Global/Footer/footer";
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
@@ -39,7 +40,7 @@ function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="/DownlistLogoIcon.png" />
                 <meta
                     name="viewport"
-                    content="width=device-width, initial-scale=1"
+                    content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
                 />
                 <meta name="theme-color" content="#000000" />
                 <meta
@@ -129,12 +130,12 @@ function MyApp({ Component, pageProps }) {
                             <ScrollToTop />
                             <ParentNavbar />
                             <Component {...pageProps} />
+                            <Footer />
                             <Analytics />
                         </>
                     </Approvider>
                 </Hydrate>
             </QueryClientProvider>
-            ,
         </>
     );
 }
