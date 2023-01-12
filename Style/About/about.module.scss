@@ -1,0 +1,57 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.banner {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(27em, 58em, 85%);
+    margin: 7em 0 5em 0;
+}
+.banner img {
+    width: 100%;
+}
+.main-details {
+    color: white;
+    text-align: center;
+    padding: 0 7%;
+
+    line-height: 30px;
+
+    max-width: 60em;
+    margin: 0 auto 1em auto;
+}
+.main-details strong {
+    color: rgb(250, 149, 132);
+}
+.main-details b {
+    color: #f2aa4cff;
+}
+.about-page-contianer h3 {
+    color: white;
+    text-align: center;
+    padding: 0 4%;
+    line-height: 30px;
+}
+
+.about-page-contianer h3 a {
+    color: yellow;
+    text-decoration: none;
+}
+.connect {
+    margin: 50px 0 30px 0;
+}
+.social {
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    gap: 20px;
+    list-style-type: none;
+    /* margin-bottom: 5em; */
+}
+.social a {
+    text-decoration: none;
+}
+.social ion-icon {
+    @include m.ion-icon-style($font-Size: 1.6rem);
+}
