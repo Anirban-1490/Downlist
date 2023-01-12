@@ -1,4 +1,5 @@
 import StatsBadgeStyle from "Components/Global/StatsBadge/StatsBadge.module.scss";
+import { AnyIcons } from "../AnyIcons/AnyIcons";
 
 export function StatsBadge({
     content,
@@ -16,7 +17,8 @@ export function StatsBadge({
                 borderRadius: `${borderRadius}`,
                 padding: `${padding}`,
             }}>
-            <ion-icon style={badgeIconStyle} name={`${badgeIcon}`}></ion-icon>
+            <AnyIcons badgeIcon={badgeIcon} badgeIconStyle={badgeIconStyle} />
+
             <p style={contentStyle}> {content || "??"}</p>
         </div>
     );
