@@ -1,0 +1,46 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.header-genre-section {
+    color: white;
+    text-align: center;
+    font-size: m.$res-fontSize-lg;
+    text-transform: capitalize;
+    margin-top: 14%;
+}
+.genres-container {
+    // border: 2px solid red;
+    display: flex;
+    gap: 2.8rem;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: m.$base-margin + 3;
+    margin-bottom: m.$margin-extra * 2;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    @include m.sm {
+        gap: 1.7rem;
+    }
+    .genre {
+        color: white;
+        flex: 0 1 m.$width-extra - 2;
+        height: m.$height-large - 1.8;
+
+        background: linear-gradient(60deg, #fddde3, #d3939c 57%);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        border-radius: 0.34rem;
+        transition: 400ms;
+        font-size: clamp(1em, 3.4vw, 1.2rem);
+
+        &:hover {
+            scale: 1.06;
+        }
+        @include m.sm {
+            flex: 0 1 (calc((100% - 30px) / 2));
+        }
+    }
+}
