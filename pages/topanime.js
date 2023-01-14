@@ -15,10 +15,14 @@ import { jikanQueries } from "JikanQueries";
 import topStyle from "Style/Top/top.module.scss";
 import { TopFromlist } from "Components/Top/TopFromList";
 import { useAuth } from "Feature/Authorize/Authorize";
+import { getAllGenres } from "genres";
 
-//* --- custom hook for fetching top anime/character from the user list
-
-function TopAnime({ currentlyAiringAnime, popularAnime, upcomingAnime }) {
+function TopAnime({
+    genres,
+    currentlyAiringAnime,
+    popularAnime,
+    upcomingAnime,
+}) {
     const [userData, _] = useAuth(true);
 
     return (
@@ -108,7 +112,7 @@ function TopAnime({ currentlyAiringAnime, popularAnime, upcomingAnime }) {
                 </div>
                 <section
                     className={`${topStyle["section"]} ${topStyle["section-7"]}`}>
-                    <DifferentGenres />
+                    <DifferentGenres genres={genres} />
                 </section>
             </div>
         </>
@@ -117,6 +121,7 @@ function TopAnime({ currentlyAiringAnime, popularAnime, upcomingAnime }) {
 
 export async function getStaticProps() {
     const client = new QueryClient();
+    const genres = [...getAllGenres().keys()];
     try {
         /*
          *?usage of fetchQuery instead of prefetchQuery , so that manually
@@ -146,7 +151,12 @@ export async function getStaticProps() {
         );
 
         return {
-            props: { upcomingAnime, popularAnime, currentlyAiringAnime },
+            props: {
+                upcomingAnime,
+                popularAnime,
+                currentlyAiringAnime,
+                genres,
+            },
             revalidate: 20,
         };
     } catch (error) {
