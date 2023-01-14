@@ -1,53 +1,54 @@
 @use "./main" as m;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
 ::-webkit-scrollbar {
-  width: 0.7em;
+    width: 0.7em;
 }
 ::-webkit-scrollbar-track {
-  background: m.$bg-primary;
+    background: m.$bg-primary;
 }
 ::-webkit-scrollbar-thumb {
-  background: #990011ff;
-  border: 3px solid transparent;
-  background-clip: content-box;
+    background: #990011ff;
+    border: 3px solid transparent;
+    background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(224, 119, 131);
-  border: 3px solid transparent;
-  background-clip: content-box;
+    background: rgb(224, 119, 131);
+    border: 3px solid transparent;
+    background-clip: content-box;
 }
 
 #__next {
-  background: #1d1d1d;
+    background: #1d1d1d;
+    min-height: 100vh;
 }
 .swiper-button-prev,
 .swiper-button-next {
-  height: 30% !important;
-  width: 2.4em !important;
-  top: 50% !important;
-  translate: 0 -50% !important;
+    height: 30% !important;
+    width: 2.4em !important;
+    top: 50% !important;
+    translate: 0 -50% !important;
 
-  margin-top: 0 !important;
-  background: #000000c1 !important;
+    margin-top: 0 !important;
+    background: #000000c1 !important;
 }
 .swiper-button-next {
-  right: 0 !important;
+    right: 0 !important;
 }
 .swiper-button-prev {
-  left: 0 !important;
+    left: 0 !important;
 }
 
 #nprogress .bar {
-  background: #ff1e6d !important;
-  height: 4px !important;
+    background: #ff1e6d !important;
+    height: 4px !important;
 }
 #nprogress .peg {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
