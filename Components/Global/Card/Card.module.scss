@@ -11,8 +11,8 @@
     box-shadow: 0 0 6px 1px #000000e6;
 
     display: block;
-    @include bp.breakpoint(380px) {
-        flex: 0 0 44vw;
+    @include bp.sm {
+        flex: 0 0 calc((100% - 14px) / 2);
     }
 
     &:hover {
