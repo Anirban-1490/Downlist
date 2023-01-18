@@ -1,6 +1,7 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .container-profile {
+    padding-bottom: m.$padding-medium * 3;
     .inner-profile-container {
         width: 75%;
         margin: 0 auto;
