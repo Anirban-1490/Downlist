@@ -6,23 +6,50 @@ import { path } from "server-path";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { useWindowResize } from "Hooks/useWindowResize";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
 
 const UserAuthentication = () => {
     const container_to_move = useRef();
-    const [errors, setError] = useState({});
-    const [isErrorMessageVisable, showErrorMessage] = useState(false);
-    const [isAuthenticated, setAuth] = useState(false);
     const router = useRouter();
-    //   useAuth(isAuthenticated, true);
     const innerWidth = useWindowResize();
+    const { mutate, data, isLoading, error, isError, isSuccess, reset } =
+        useMutation(
+            async (inputData) => {
+                if (inputData.formName === "signup") {
+                    return (
+                        await axios.post(
+                            `${path.domain}api/v1/auth/signup`,
+                            inputData.data
+                        )
+                    ).data;
+                } else if (inputData.formName === "signin") {
+                    return (
+                        await axios.post(
+                            `${path.domain}api/v1/auth/signin`,
+                            inputData.data
+                        )
+                    ).data;
+                }
+            },
+            {
+                onSettled: (data, error, variables, context) => {
+                    if (error) return;
+                    localStorage.setItem("token", data.token);
+                    router.replace("/");
+                },
+            }
+        );
+
+    //   useAuth(isAuthenticated, true);
 
     const isSmallScreen = innerWidth > 768 ? false : true;
+    const errorName = error && error?.response.data.name;
+    const errorMessage = error && error?.response.data.message;
 
     //* handler for switching between signup and sign in form
     const changeBtn = function (e) {
         e.preventDefault();
-        showErrorMessage(false);
-        setError({});
+        reset();
         const left_pos = getComputedStyle(container_to_move.current).left;
         console.log(left_pos);
         if (left_pos === "0px") {
@@ -53,126 +80,87 @@ const UserAuthentication = () => {
     const formHandler = async (formName, e) => {
         e.preventDefault();
 
-        showErrorMessage(false);
-
-        e.target.innerHTML = "Loading...";
         const formData = new FormData(e.target.parentElement);
         const userInfo = Object.fromEntries(formData);
 
         try {
-            let response;
-
-            //* for signup form request
-            if (formName === "signup") {
-                response = await axios.post(
-                    `${path.domain}api/v1/auth/signup`,
-                    userInfo
-                );
-            } else if (formName === "signin") {
-                response = await axios.post(
-                    `${path.domain}api/v1/auth/signin`,
-                    userInfo
-                );
-            }
-
-            //* store the token in localstorage
-            const token = response.data.token;
-            localStorage.setItem("token", token);
-
-            //   setAuth(true);
-            router.replace(`/`);
-        } catch (error) {
-            showErrorMessage(true);
-            e.target.innerHTML = "Sign up";
-            let messages;
-
-            //* check if error response is relates to any field (like email)
-            if (error.response.data.messages?.includes(".")) {
-                messages = error.response.data.messages.split(".");
-                setError({ ...error.response.data, messages });
-            } else {
-                messages = error.response.data.messages;
-                setError({ messages });
-            }
-        }
+            mutate({ data: userInfo, formName });
+        } catch (error) {}
     };
 
     return (
         <>
             <div className={authStyle["container"]}>
                 <div className={authStyle["child-container"]}>
+                    {isError &&
+                        (errorName === "DuplicateEmail" ||
+                            errorName === "NoAccount") && (
+                            <p
+                                className={authStyle["error-message"]}
+                                style={{
+                                    textAlign: "center",
+                                    fontSize: "1.15rem",
+                                    margin: "2rem 0 ",
+                                }}>
+                                {errorMessage}
+                            </p>
+                        )}
                     <div
                         className={authStyle["child-inner-container"]}
                         ref={container_to_move}>
                         <form className={authStyle["signin-container"]}>
                             <h2>Welcome back :)</h2>
-                            <input
-                                type="text"
-                                name="email"
-                                id="email"
-                                placeholder="Email"
-                                autoComplete="off"
-                            />
-                            {errors?.fields?.includes("email") &&
-                            isErrorMessageVisable ? (
-                                <p className={authStyle["error-message"]}>
-                                    {
-                                        errors.messages[
-                                            errors.fields.indexOf("email")
-                                        ]
-                                    }
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            <div className={authStyle["pwd-contianer"]}>
+                            <div className={authStyle["input-container"]}>
                                 <input
-                                    type="password"
-                                    name="pass"
-                                    id="pwd"
-                                    placeholder="Password"
-                                    autoComplete="chrome-off"
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Email"
+                                    autoComplete="off"
                                 />
-
-                                <button onClick={(e) => showPwd(e)}>
-                                    <ion-icon name="eye-outline"></ion-icon>
-                                </button>
+                                {errorName === "EmptyEmail" && isError && (
+                                    <p className={authStyle["error-message"]}>
+                                        {errorMessage}
+                                    </p>
+                                )}
                             </div>
-                            {errors?.fields?.includes("password") &&
-                            isErrorMessageVisable ? (
-                                <p className={authStyle["error-message"]}>
-                                    {
-                                        errors.messages[
-                                            errors.fields.indexOf("password")
-                                        ]
-                                    }
-                                </p>
-                            ) : (
-                                ""
-                            )}
+                            <div className={authStyle["input-container"]}>
+                                <div className={authStyle["pwd-contianer"]}>
+                                    <input
+                                        type="password"
+                                        name="pass"
+                                        id="pwd"
+                                        placeholder="Password"
+                                        autoComplete="chrome-off"
+                                    />
+
+                                    <button onClick={(e) => showPwd(e)}>
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </button>
+                                </div>
+                                {errorName === "EmptyPassword" && isError && (
+                                    <p className={authStyle["error-message"]}>
+                                        {errorMessage}
+                                    </p>
+                                )}
+                            </div>
+
                             <button
                                 type="submit"
                                 className={authStyle["submit-btn"]}
-                                onClick={(e) => formHandler("signin", e)}>
-                                Sign in
+                                onClick={(e) => formHandler("signin", e)}
+                                disabled={isSuccess}>
+                                {isLoading && !isError
+                                    ? "Loading..."
+                                    : "Sign in"}
                             </button>
-
-                            {!errors?.fields && isErrorMessageVisable ? (
-                                <p
-                                    className={authStyle["error-message"]}
-                                    style={{ marginBottom: "1em" }}>
-                                    {errors.messages}
-                                </p>
-                            ) : (
-                                ""
-                            )}
 
                             <h4>
                                 New user?{" "}
                                 <button
                                     className={authStyle["change"]}
                                     onClick={(e) => changeBtn(e)}>
-                                    Sign up
+                                    Create new account
                                 </button>
                             </h4>
                         </form>
@@ -180,80 +168,86 @@ const UserAuthentication = () => {
                         {/* //* ----------------Sign up-----------  */}
                         <form className={authStyle["newuser-container"]}>
                             <h2>Create account</h2>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                placeholder="Username"
-                                autoComplete="off"
-                            />
-                            {errors?.fields?.includes("name") &&
-                            isErrorMessageVisable ? (
-                                <p className={authStyle["error-message"]}>
-                                    {
-                                        errors.messages[
-                                            errors.fields.indexOf("name")
-                                        ]
-                                    }
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            <input
-                                type="text"
-                                name="email"
-                                id="email"
-                                placeholder="Email"
-                                autoComplete="off"
-                            />
-                            {errors?.fields?.includes("email") &&
-                            isErrorMessageVisable ? (
-                                <p className={authStyle["error-message"]}>
-                                    {
-                                        errors.messages[
-                                            errors.fields.indexOf("email")
-                                        ]
-                                    }
-                                </p>
-                            ) : (
-                                ""
-                            )}
-                            <div className={authStyle["pwd-contianer"]}>
+
+                            <div className={authStyle["input-container"]}>
                                 <input
-                                    type="password"
-                                    name="pass"
-                                    id="pwd"
-                                    placeholder="Password"
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="Username"
                                     autoComplete="off"
                                 />
-                                <button onClick={(e) => showPwd(e)}>
-                                    <ion-icon name="eye-outline"></ion-icon>
-                                </button>
+                                {(errorName === "ValidationErrorname" ||
+                                    errorName === "EmptyUsername") &&
+                                    isError && (
+                                        <p
+                                            className={
+                                                authStyle["error-message"]
+                                            }>
+                                            {errorMessage}
+                                        </p>
+                                    )}
                             </div>
-                            {errors?.fields?.includes("password") &&
-                            isErrorMessageVisable ? (
-                                <p className={authStyle["error-message"]}>
-                                    {
-                                        errors.messages[
-                                            errors.fields.indexOf("password")
-                                        ]
-                                    }
-                                </p>
-                            ) : (
-                                ""
-                            )}
+                            <div className={authStyle["input-container"]}>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Email"
+                                    autoComplete="off"
+                                />
+                                {(errorName === "ValidationErroremail" ||
+                                    errorName === "EmptyEmail") &&
+                                    isError && (
+                                        <p
+                                            className={
+                                                authStyle["error-message"]
+                                            }>
+                                            {errorMessage}
+                                        </p>
+                                    )}
+                            </div>
+
+                            <div className={authStyle["input-container"]}>
+                                <div className={authStyle["pwd-contianer"]}>
+                                    <input
+                                        type="password"
+                                        name="pass"
+                                        id="pwd"
+                                        placeholder="Password"
+                                        autoComplete="chrome-off"
+                                    />
+
+                                    <button onClick={(e) => showPwd(e)}>
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </button>
+                                </div>
+                                {(errorName === "ValidationErrorpassword" ||
+                                    errorName === "EmptyPassword") &&
+                                    isError && (
+                                        <p
+                                            className={
+                                                authStyle["error-message"]
+                                            }>
+                                            {errorMessage}
+                                        </p>
+                                    )}
+                            </div>
                             <button
                                 type="submit"
                                 className={authStyle["submit-btn"]}
-                                onClick={(e) => formHandler("signup", e)}>
-                                Sign up
+                                onClick={(e) => formHandler("signup", e)}
+                                disabled={isSuccess}>
+                                {isLoading && !isError
+                                    ? "Loading..."
+                                    : "Sign up"}
                             </button>
                             <h4>
                                 Already a user?{" "}
                                 <button
                                     className={authStyle["change"]}
                                     onClick={(e) => changeBtn(e)}>
-                                    Sign in
+                                    Log in here
                                 </button>
                             </h4>
                         </form>
