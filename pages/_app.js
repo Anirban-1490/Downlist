@@ -11,7 +11,7 @@ import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import "Style/Profile/profile.css";
+
 import "react-loading-skeleton/dist/skeleton.css";
 import { Footer } from "Components/Global/Footer/footer";
 
