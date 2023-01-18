@@ -1,7 +1,7 @@
 @use "/Style/GlobalStyle/main" as m;
 .container {
     min-height: 100vh;
-    padding-bottom: m.$base-padding + 2;
+
     .header {
         color: white;
         text-align: center;
