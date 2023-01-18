@@ -130,7 +130,7 @@ function MyApp({ Component, pageProps }) {
                             <ScrollToTop />
                             <ParentNavbar />
                             <Component {...pageProps} />
-                            <Footer />
+                            {Component?.removeFooter || <Footer />}
                             <Analytics />
                         </>
                     </Approvider>

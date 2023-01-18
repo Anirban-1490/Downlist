@@ -277,4 +277,6 @@ const UserAuthentication = () => {
     );
 };
 
+UserAuthentication.removeFooter = true;
+
 export default UserAuthentication;
