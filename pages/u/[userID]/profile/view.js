@@ -68,9 +68,6 @@ const MainUserProfile = ({ userID, userDetails }) => {
                     {...returnedPackage}
                 />
             )}
-            <div
-                className="empty-container"
-                style={{ marginTop: "4em", height: "4em" }}></div>
         </>
     );
 };
