@@ -3,7 +3,7 @@ import "Style/GlobalStyle/global.scss";
 import "pages/_styles/topanimestyle.css";
 import { QueryClient, QueryClientProvider, Hydrate } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Approvider } from "context";
+
 import { ParentNavbar } from "Components/Global/Navbar";
 import { ScrollToTop } from "Components/Global/ScrollToTop/ScrollToTop";
 import { Analytics } from "@vercel/analytics/react";
@@ -125,15 +125,13 @@ function MyApp({ Component, pageProps }) {
             <QueryClientProvider client={client}>
                 <ReactQueryDevtools />
                 <Hydrate state={pageProps.dehydratedState}>
-                    <Approvider>
-                        <>
-                            <ScrollToTop />
-                            <ParentNavbar />
-                            <Component {...pageProps} />
-                            {Component?.removeFooter || <Footer />}
-                            <Analytics />
-                        </>
-                    </Approvider>
+                    <>
+                        <ScrollToTop />
+                        <ParentNavbar />
+                        <Component {...pageProps} />
+                        {Component?.removeFooter || <Footer />}
+                        <Analytics />
+                    </>
                 </Hydrate>
             </QueryClientProvider>
         </>
