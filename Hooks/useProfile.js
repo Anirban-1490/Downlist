@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Appcontext } from "context";
 
-import { useContext } from "react";
+import { useProfileData } from "Stores/UserProfileData";
 
 export const useProfile = (path, userID) => {
-    const { changeUserProfileDetails } = useContext(Appcontext);
+    const { update, profileData } = useProfileData();
 
     async function fetchUserProfile() {
         return (await axios.get(`${path.domain}user/${userID}/profile/view`))
@@ -20,7 +19,8 @@ export const useProfile = (path, userID) => {
         onSettled: (data, err) => {
             if (err) return console.log(err);
 
-            changeUserProfileDetails(data); //*store the data in the context
+            //* store the data in a global state
+            update(data);
             return data.user.image;
         },
     });

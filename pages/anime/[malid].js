@@ -10,149 +10,146 @@ import { Roles } from "Components/Details/Roles";
 import { CoreDetails } from "Components/Details/CoreDetails";
 import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { CommentsBox } from "Components/Details/CommentsBox";
-import { Appcontext } from "context";
+
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { jikanQueries } from "JikanQueries";
 import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
 import { getUserToken } from "GetuserToken";
+import { useProfileData } from "Stores/UserProfileData";
 
 //* component for anime details
 
 const AnimeDetails = ({ userData }) => {
-  const router = useRouter();
+    const router = useRouter();
 
-  const { malid } = router.query;
+    const { malid } = router.query;
 
-  const { userProfileDetails } = useContext(Appcontext);
+    const { profileData } = useProfileData();
 
-  const result = useQueries([
-    {
-      queryKey: ["details", malid],
-      queryFn: () => jikanQueries("details", malid),
-      refetchOnWindowFocus: false,
-      enabled: !!malid,
-    },
-    {
-      queryKey: ["people_reaction", malid],
-      queryFn: () => jikanQueries("people_reaction", malid),
-      refetchOnWindowFocus: false,
-      enabled: !!malid,
-    },
-    {
-      queryKey: ["characters", malid],
-      queryFn: () => jikanQueries("characters", malid),
-      refetchOnWindowFocus: false,
-      enabled: !!malid,
-    },
-  ]);
+    const result = useQueries([
+        {
+            queryKey: ["details", malid],
+            queryFn: () => jikanQueries("details", malid),
+            refetchOnWindowFocus: false,
+            enabled: !!malid,
+        },
+        {
+            queryKey: ["people_reaction", malid],
+            queryFn: () => jikanQueries("people_reaction", malid),
+            refetchOnWindowFocus: false,
+            enabled: !!malid,
+        },
+        {
+            queryKey: ["characters", malid],
+            queryFn: () => jikanQueries("characters", malid),
+            refetchOnWindowFocus: false,
+            enabled: !!malid,
+        },
+    ]);
 
-  const genres = result[0].data?.genres;
+    const genres = result[0].data?.genres;
 
-  //*object for the metadeta of that anime
-  const details = {
-    details: result[0].data,
-    animegenres: genres,
-    stats: result[1].data,
-    malid,
-  };
+    //*object for the metadeta of that anime
+    const details = {
+        details: result[0].data,
+        animegenres: genres,
+        stats: result[1].data,
+        malid,
+    };
 
-  //*get array of random anime recommendation
+    //*get array of random anime recommendation
 
-  return (
-    <>
-      {result.some((item) => item.isLoading) ? (
-        <Spinner />
-      ) : (
-        <div
-          className="container1"
-          style={{
-            height: "auto",
-          }}
-        >
-          <CoreDetails
-            {...details}
-            switch_item="anime"
-            switch_path="topanime"
-          />
+    return (
+        <>
+            {result.some((item) => item.isLoading) ? (
+                <Spinner />
+            ) : (
+                <div
+                    className="container1"
+                    style={{
+                        height: "auto",
+                    }}>
+                    <CoreDetails
+                        {...details}
+                        switch_item="anime"
+                        switch_path="topanime"
+                    />
 
-          {/* //* characters section */}
-          <h4
-            style={{
-              color: "white",
-              fontSize: "25px",
-              marginLeft: "14.5%",
-              marginBottom: "1%",
-              marginTop: "2em",
-              borderLeft: "5px solid red",
-              letterSpacing: "2px",
-            }}
-          >
-            Characters
-          </h4>
-          <Roles data={result[2].data} path={"/character"} />
+                    {/* //* characters section */}
+                    <h4
+                        style={{
+                            color: "white",
+                            fontSize: "25px",
+                            marginLeft: "14.5%",
+                            marginBottom: "1%",
+                            marginTop: "2em",
+                            borderLeft: "5px solid red",
+                            letterSpacing: "2px",
+                        }}>
+                        Characters
+                    </h4>
+                    <Roles data={result[2].data} path={"/character"} />
 
-          {/* //* recommendations section */}
-          <h4
-            style={{
-              color: "white",
-              fontSize: "35px",
-              marginBottom: "1%",
-              marginTop: "2em",
-              letterSpacing: "2px",
-              textAlign: "center",
-            }}
-          >
-            Recommended
-          </h4>
-          <RandomRecommendations
-            genres={genres}
-            path={"/anime"}
-            malId={malid}
-          />
-          <h4
-            style={{
-              color: "white",
-              fontSize: "35px",
-              marginBottom: "1%",
-              marginTop: "2em",
-              letterSpacing: "2px",
-              textAlign: "center",
-            }}
-          >
-            Comments
-          </h4>
-          <CommentsBox {...userProfileDetails?.data} malid={malid} />
-        </div>
-      )}
-    </>
-  );
+                    {/* //* recommendations section */}
+                    <h4
+                        style={{
+                            color: "white",
+                            fontSize: "35px",
+                            marginBottom: "1%",
+                            marginTop: "2em",
+                            letterSpacing: "2px",
+                            textAlign: "center",
+                        }}>
+                        Recommended
+                    </h4>
+                    <RandomRecommendations
+                        genres={genres}
+                        path={"/anime"}
+                        malId={malid}
+                    />
+                    <h4
+                        style={{
+                            color: "white",
+                            fontSize: "35px",
+                            marginBottom: "1%",
+                            marginTop: "2em",
+                            letterSpacing: "2px",
+                            textAlign: "center",
+                        }}>
+                        Comments
+                    </h4>
+                    <CommentsBox {...profileData?.data} malid={malid} />
+                </div>
+            )}
+        </>
+    );
 };
 
 export async function getServerSideProps({ params, query }) {
-  const { malid } = params;
+    const { malid } = params;
 
-  const client = new QueryClient();
-  try {
-    if (Number(malid) !== NaN) {
-      await client.prefetchQuery(["details", malid], () =>
-        jikanQueries("details", malid)
-      );
-      await client.prefetchQuery(["people_reaction", malid], () =>
-        jikanQueries("people_reaction", malid)
-      );
-      await client.prefetchQuery(["characters", malid], () =>
-        jikanQueries("characters", malid)
-      );
+    const client = new QueryClient();
+    try {
+        if (Number(malid) !== NaN) {
+            await client.prefetchQuery(["details", malid], () =>
+                jikanQueries("details", malid)
+            );
+            await client.prefetchQuery(["people_reaction", malid], () =>
+                jikanQueries("people_reaction", malid)
+            );
+            await client.prefetchQuery(["characters", malid], () =>
+                jikanQueries("characters", malid)
+            );
+        }
+    } catch (error) {
+        return {
+            notFound: true,
+        };
     }
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
 
-  return {
-    props: { dehydratedState: dehydrate(client) },
-  };
+    return {
+        props: { dehydratedState: dehydrate(client) },
+    };
 }
 
 export default AnimeDetails;
