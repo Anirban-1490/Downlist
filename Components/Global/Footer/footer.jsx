@@ -42,18 +42,18 @@ export function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/"}>
-                                    <a>Top 50 Anime</a>
+                                <Link href={"/anime/top/all-time"}>
+                                    <a>All time popular</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/"}>
-                                    <a>Top 50 Upcoming</a>
+                                <Link href={"/anime/top/upcoming"}>
+                                    <a>popular upcoming</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/"}>
-                                    <a>Top 50 Airing</a>
+                                <Link href={"/anime/top/airing"}>
+                                    <a>popular airing</a>
                                 </Link>
                             </li>
                         </ul>
@@ -67,18 +67,8 @@ export function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={"/"}>
-                                    <a>Top 50 Characters</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={"/"}>
-                                    <a>Summer Toppers</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={"/"}>
-                                    <a>Winter Toppers</a>
+                                <Link href={"/character/top"}>
+                                    <a>popular Characters</a>
                                 </Link>
                             </li>
                         </ul>
