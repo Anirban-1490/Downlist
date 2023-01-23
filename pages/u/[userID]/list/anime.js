@@ -24,17 +24,13 @@ function AnimeList({ userID }) {
                     zIndex: "1",
                     position: "relative",
                 }}>
-                {returnedPackage.data !== undefined ? (
-                    <CoreList
-                        clientData={userData}
-                        switch_item={"anime"}
-                        userID={userID}
-                        setWhatToSortBy={setWhatToSortBy}
-                        {...returnedPackage}
-                    />
-                ) : (
-                    ""
-                )}
+                <CoreList
+                    clientData={userData}
+                    switch_item={"anime"}
+                    userID={userID}
+                    setWhatToSortBy={setWhatToSortBy}
+                    {...returnedPackage}
+                />
             </div>
         </>
     );

@@ -19,17 +19,13 @@ function CharactersList({ userID }) {
                     zIndex: "1",
                     position: "relative",
                 }}>
-                {returnedPackage.data !== undefined ? (
-                    <CoreList
-                        clientData={userData}
-                        switch_item={"character"}
-                        userID={userID}
-                        setWhatToSortBy={setWhatToSortBy}
-                        {...returnedPackage}
-                    />
-                ) : (
-                    ""
-                )}
+                <CoreList
+                    clientData={userData}
+                    switch_item={"character"}
+                    userID={userID}
+                    setWhatToSortBy={setWhatToSortBy}
+                    {...returnedPackage}
+                />
             </div>
         </>
     );
