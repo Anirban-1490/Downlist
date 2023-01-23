@@ -19,6 +19,7 @@
         "react-query": "^3.34.6",
         "sass": "^1.55.0",
         "simple-parallax-js": "^5.6.2",
+        "spinners-react": "^1.0.7",
         "swiper": "^8.4.3",
         "three": "^0.140.0",
         "use-sync-external-store": "^1.2.0",
