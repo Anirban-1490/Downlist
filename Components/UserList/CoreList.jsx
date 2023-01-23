@@ -7,11 +7,12 @@ import { Dropdown } from "Components/Global/DropDownSelectMenu/DropDownSelectMen
 import ListStyle from "Components/UserList/Styles/List.module.css";
 import { StatsBadge } from "Components/Global/StatsBadge/StatsBadge";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
+import { SpinnerCircular, SpinnerCircularFixed } from "spinners-react";
 
 export function CoreList(props) {
     const {
         switch_item,
-        data,
+        data: dataFromUserList,
         hasNextPage,
         isFetchingNextPage,
         fetchNextPage,
@@ -19,6 +20,9 @@ export function CoreList(props) {
         setWhatToSortBy,
         refetch,
         clientData,
+        isError,
+        error,
+        isLoading,
     } = props;
 
     const containerRef = useRef();
@@ -49,7 +53,11 @@ export function CoreList(props) {
     // }, [stat]);
 
     useEffect(() => {
-        if (inView && data?.pages[data?.pages.length - 1]?.list?.length > 0) {
+        if (
+            inView &&
+            dataFromUserList?.pages[dataFromUserList?.pages.length - 1]?.list
+                ?.length > 0
+        ) {
             fetchNextPage();
         }
     }, [inView]);
@@ -64,14 +72,29 @@ export function CoreList(props) {
                 className={ListStyle["search-container"]}
                 ref={containerRef}
                 style={
-                    !data?.pages[0]?.list?.length
+                    !dataFromUserList?.pages[0]?.list?.length
                         ? {
                               justifyContent: "center",
                           }
                         : {}
                 }>
-                {data?.pages[0]?.list?.length > 0 ? (
-                    data?.pages?.map((page) => {
+                <SpinnerCircularFixed
+                    enabled={isLoading}
+                    color={"#da9109"}
+                    secondaryColor={"rgba(0 ,0,0,0.2)"}
+                />
+                {isError && (
+                    <NoItem
+                        refetchFn={refetch}
+                        isForError={true}
+                        content={error.response.data.message}
+                    />
+                )}
+                {(!dataFromUserList || !dataFromUserList?.pages.length) &&
+                    !isError &&
+                    !isLoading && <NoItem />}
+                {dataFromUserList?.pages[0]?.list?.length > 0 &&
+                    dataFromUserList?.pages?.map((page) => {
                         return (
                             <div
                                 className={ListStyle["groups"]}
@@ -181,15 +204,12 @@ export function CoreList(props) {
                                 })}
                             </div>
                         );
-                    })
-                ) : (
-                    <NoItem />
-                )}
+                    })}
                 {}
             </ul>
 
-            {data?.pages[0]?.list?.length > 0 && (
-                <h5 className="thats-it" ref={ref}>
+            {dataFromUserList?.pages[0]?.list?.length > 0 && (
+                <h5 className={ListStyle["thats-it"]} ref={ref}>
                     {inView && hasNextPage && isFetchingNextPage
                         ? "loading..."
                         : "Looks like that's it..."}
