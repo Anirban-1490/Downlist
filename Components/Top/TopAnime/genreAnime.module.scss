@@ -26,7 +26,9 @@
         flex: 0 1 m.$width-extra - 2;
         height: m.$height-large - 1.8;
 
-        background: linear-gradient(60deg, #fddde3, #d3939c 57%);
+        background: linear-gradient(60deg, #fddde3, #d3939c 70%);
+        background-size: 200%;
+
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -35,9 +37,11 @@
         border-radius: 0.34rem;
         transition: 400ms;
         font-size: clamp(1em, 3.4vw, 1.2rem);
+        outline: 2px solid #ffffffb7;
 
         &:hover {
             scale: 1.06;
+            background-position: -220px;
         }
         @include m.sm {
             flex: 0 1 (calc((100% - 30px) / 2));
