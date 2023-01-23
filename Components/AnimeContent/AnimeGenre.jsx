@@ -3,12 +3,12 @@ import { Card } from "Components/Global/Card/Card";
 import { forwardRef } from "react";
 
 export const AnimeGenre = forwardRef(
-    ({ headerContent, data, hasNextPage }, ref) => {
+    ({ headerContent, data, hasNextPage, isCharacters = false }, ref) => {
         return (
             <>
                 <div className={animeGenreStyle["container"]}>
                     <h2 className={animeGenreStyle["header"]}>
-                        {headerContent} anime
+                        {headerContent} {(!isCharacters && "anime") || " "}
                     </h2>
                     <div className={animeGenreStyle["cards-container"]}>
                         {data.map(({ data: animeArray }) => {
@@ -21,14 +21,21 @@ export const AnimeGenre = forwardRef(
                                     title_english,
                                     title,
                                     type,
+                                    name,
                                 }) => {
                                     return (
                                         <Card
                                             mal_id={mal_id}
                                             image_url={image_url}
-                                            mainTitle={title_english || title}
+                                            mainTitle={
+                                                title_english || title || name
+                                            }
                                             animeType={type}
-                                            path={`/anime`}
+                                            path={
+                                                !isCharacters
+                                                    ? `/anime`
+                                                    : "/character"
+                                            }
                                         />
                                     );
                                 }
