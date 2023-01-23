@@ -37,6 +37,8 @@ export function useList(
         isFetchingNextPage,
         hasNextPage,
         refetch,
+        isError,
+        error,
     } = useInfiniteQuery(
         switch_item === "anime" ? "userAnimeList" : "userCharList",
 
@@ -60,5 +62,7 @@ export function useList(
         fetchNextPage,
         isLoading,
         refetch,
+        isError,
+        error,
     };
 }
