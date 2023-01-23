@@ -18,7 +18,7 @@ export function useToplist(switch_item, userID) {
         } else return;
     }
 
-    const { data, isError, isLoading } = useQuery(
+    const { data, isError, isLoading, refetch } = useQuery(
         ["topFromList", switch_item, userID],
         () => getUserTopItems(switch_item, userID),
         {
@@ -28,5 +28,5 @@ export function useToplist(switch_item, userID) {
         }
     );
 
-    return [data, isError, isLoading];
+    return [data, isError, isLoading, refetch];
 }
