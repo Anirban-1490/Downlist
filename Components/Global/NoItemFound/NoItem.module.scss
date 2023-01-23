@@ -1,14 +1,29 @@
 @use "/Style/GlobalStyle/main" as m;
 
-.no-item-main {
-    //   text-align: center;
-    margin: m.$base-margin 0;
-}
-
-.no-item-container {
+.no-item-content {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1%;
+    .no-item-text {
+        margin: m.$base-margin 0;
+    }
+    .refersh-btn {
+        @include m.default-btn-style(
+            $padding: m.$base-padding - 0.8 m.$base-padding - 0.5,
+            $font-color: m.$cl-dark-orange
+        );
+        border: 2px solid m.$cl-dark-orange;
+        border-radius: 0.34rem;
+
+        &:hover {
+            background-color: m.$cl-dark-orange;
+            color: white;
+        }
+    }
+}
+
+.no-item-container {
     padding: m.$padding-medium + 2 0;
     margin: m.$center-horizontal;
     margin-top: m.$base-margin + 1.6;
