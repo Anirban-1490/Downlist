@@ -2,7 +2,10 @@ import axios from "axios";
 import { useState, useMemo } from "react";
 import profileStyle from "Components/Profile/Style/Profile.module.scss";
 import { Card } from "Components/Global/Card/Card";
-import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
+import {
+    NoItem,
+    NoItemContiner,
+} from "Components/Global/NoItemFound/NoItemFound";
 import { SkeletonLoaderMulti } from "Components/Global/SkeletionLoader/SkeletionLoaderMulti";
 import { useQuery } from "react-query";
 import { serverlessPath } from "Serverlesspath";
@@ -12,27 +15,20 @@ export const MainProfile = ({
     bio,
     followers,
     following,
-    pinnedItems,
     status,
     userToFollowUserID,
     userID,
     isCurrentUsersProfile,
     children,
     setPins,
+    pinnedItemsDetails,
+    isError,
+    error,
+    isLoading,
 }) => {
     // const { userData } = useContext(Appcontext);
 
     const [isFollowing, setFollow] = useState(undefined);
-    const { data, isLoading, isError, error } = useQuery(
-        "pinnedItems",
-        async () =>
-            await axios.post(`${serverlessPath.domain}api/pins/info`, {
-                pinnedItems,
-            }),
-        { retry: 1, refetchOnWindowFocus: false }
-    );
-
-    const pinnedItemsDetails = data?.data.pinnedItemsDetails;
 
     useMemo(() => {
         if (followers?.length && userID && !isCurrentUsersProfile) {
@@ -115,12 +111,14 @@ export const MainProfile = ({
                             {isError && (
                                 <NoItem content={error.response.data.message} />
                             )}
-                            {isLoading && <SkeletonLoaderMulti />}
-                            {!pinnedItems && (
+                            {(!pinnedItemsDetails ||
+                                !pinnedItemsDetails?.length) && (
                                 <NoItem
                                     content={"pinned items will be shown here"}
                                 />
                             )}
+                            {isLoading && <SkeletonLoaderMulti />}
+
                             {!isLoading &&
                                 pinnedItemsDetails?.length > 0 &&
                                 pinnedItemsDetails.map(

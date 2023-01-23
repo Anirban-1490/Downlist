@@ -1,12 +1,11 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { QueryClient } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 
 import axios from "axios";
 import map from "awaity/map";
 //* timeago
 
 import { useWindowResize } from "Hooks/useWindowResize";
-
 import { Spinner } from "Components/Global/LoadingSpinner";
 import { path } from "server-path";
 import { useProfile } from "Hooks/useProfile";
@@ -17,15 +16,25 @@ import { PinneditemsPicker } from "Components/Profile/PinnedItemsPicker";
 import { useList } from "Hooks/useList";
 import { useInView } from "react-intersection-observer";
 import { jikanQueries } from "JikanQueries";
+import { serverlessPath } from "Serverlesspath";
 
 const MainUserProfile = ({ userID, userDetails }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
 
-    const returnedPackage = useList("anime", userID, 10, undefined, showPins);
+    const userAnimeList = useList("anime", userID, 10, undefined, showPins);
     // const [userProfileDetails, isError] = useProfile(path, userID);
     const { ref, inView } = useInView({ threshold: 0 });
+    const { data, isLoading, isError, error } = useQuery(
+        "pinnedItems",
+        async () =>
+            await axios.post(`${serverlessPath.domain}api/pins/info`, {
+                pinnedItems: userDetails.pinnedItems,
+            }),
+        { retry: 1, refetchOnWindowFocus: false }
+    );
+    console.log(data);
     // const updateProfile = async (e) => {
     //     e.preventDefault();
 
@@ -45,29 +54,35 @@ const MainUserProfile = ({ userID, userDetails }) => {
     //     }
     // };
 
+    const propsForMainProfile = {
+        ...userDetails,
+        userID,
+        isCurrentUsersProfile: true,
+        setPins,
+        pinnedItemsDetails: data?.data.pinnedItemsDetails,
+        isError,
+        error,
+        isLoading,
+    };
+    const propsForPinnedItemsPicker = {
+        ...userAnimeList,
+        ref,
+        inView,
+        userID,
+        setPins,
+        pinnedItems: userDetails.pinnedItems,
+    };
+
     return (
         <>
-            <MainProfile
-                {...userDetails}
-                userID={userID}
-                isCurrentUsersProfile={true}
-                setPins={setPins}>
+            <MainProfile {...propsForMainProfile}>
                 <Activity
                     windowSize={windowsize}
                     activity={userDetails.activity}
                 />
             </MainProfile>
 
-            {showPins && (
-                <PinneditemsPicker
-                    ref={ref}
-                    inView={inView}
-                    userID={userID}
-                    setPins={setPins}
-                    pinnedItems={userDetails.pinnedItems}
-                    {...returnedPackage}
-                />
-            )}
+            {showPins && <PinneditemsPicker {...propsForPinnedItemsPicker} />}
         </>
     );
 };
