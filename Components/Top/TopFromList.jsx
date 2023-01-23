@@ -7,7 +7,10 @@ import { useWindowResize } from "Hooks/useWindowResize";
 import Link from "next/link";
 
 export const TopFromlist = ({ switchLists, userId }) => {
-    const [listItems, isError, isLoading] = useToplist(switchLists, userId);
+    const [listItems, isError, isLoading, refetch] = useToplist(
+        switchLists,
+        userId
+    );
     const windowWidth = useWindowResize();
 
     const styleProps =
@@ -26,9 +29,15 @@ export const TopFromlist = ({ switchLists, userId }) => {
                         columnMobile={true}
                     />
                 )}
-                {!isLoading && !listItems?.length && <NoItemContiner />}
+                {!isLoading && !listItems?.length && !isError && (
+                    <NoItemContiner />
+                )}
                 {isError && (
-                    <NoItemContiner content="Something went wrong, please try again" />
+                    <NoItemContiner
+                        content="Something went wrong, please try again"
+                        isForError={true}
+                        refetchFn={refetch}
+                    />
                 )}
 
                 {!isLoading && listItems?.length && (
