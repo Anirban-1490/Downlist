@@ -80,6 +80,7 @@
                         a {
                             text-decoration: none;
                             color: m.$cl-light-black;
+                            text-transform: capitalize;
                             &:hover {
                                 color: white;
                                 border-bottom: 1px dashed white;
