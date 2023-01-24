@@ -7,7 +7,7 @@ import { Dropdown } from "Components/Global/DropDownSelectMenu/DropDownSelectMen
 import ListStyle from "Components/UserList/Styles/List.module.css";
 import { StatsBadge } from "Components/Global/StatsBadge/StatsBadge";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
-import { SpinnerCircular, SpinnerCircularFixed } from "spinners-react";
+import { CircularSpinner } from "Components/Global/CircularSpinner";
 
 export function CoreList(props) {
     const {
@@ -78,11 +78,7 @@ export function CoreList(props) {
                           }
                         : {}
                 }>
-                <SpinnerCircularFixed
-                    enabled={isLoading}
-                    color={"#da9109"}
-                    secondaryColor={"rgba(0 ,0,0,0.2)"}
-                />
+                <CircularSpinner enabled={isLoading} />
                 {isError && (
                     <NoItem
                         refetchFn={refetch}
@@ -209,11 +205,13 @@ export function CoreList(props) {
             </ul>
 
             {dataFromUserList?.pages[0]?.list?.length > 0 && (
-                <h5 className={ListStyle["thats-it"]} ref={ref}>
-                    {inView && hasNextPage && isFetchingNextPage
-                        ? "loading..."
-                        : "Looks like that's it..."}
-                </h5>
+                <div className={ListStyle["thats-it"]} ref={ref}>
+                    {inView && hasNextPage && isFetchingNextPage ? (
+                        <CircularSpinner enabled={hasNextPage} />
+                    ) : (
+                        "Looks like that's it..."
+                    )}
+                </div>
             )}
             <div style={{ height: "100px" }}></div>
         </>

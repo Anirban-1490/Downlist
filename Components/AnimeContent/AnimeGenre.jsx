@@ -1,5 +1,6 @@
 import animeGenreStyle from "Components/AnimeContent/Style/AnimeGenre.module.scss";
 import { Card } from "Components/Global/Card/Card";
+import { CircularSpinner } from "Components/Global/CircularSpinner";
 import { forwardRef } from "react";
 
 export const AnimeGenre = forwardRef(
@@ -42,8 +43,13 @@ export const AnimeGenre = forwardRef(
                             );
                         })}
                     </div>
+
                     <div className={animeGenreStyle["loading"]} ref={ref}>
-                        {hasNextPage ? "Loading..." : "Looks like that's it"}
+                        {hasNextPage ? (
+                            <CircularSpinner enabled={hasNextPage} />
+                        ) : (
+                            "Looks like that's it"
+                        )}
                     </div>
                 </div>
             </>
