@@ -26,7 +26,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
     const userAnimeList = useList("anime", userID, 10, undefined, showPins);
     // const [userProfileDetails, isError] = useProfile(path, userID);
     const { ref, inView } = useInView({ threshold: 0 });
-    const { data, isLoading, isError, error } = useQuery(
+    const { data, isLoading, isError, error ,refetch} = useQuery(
         "pinnedItems",
         async () =>
             await axios.post(`${serverlessPath.domain}api/pins/info`, {
@@ -34,7 +34,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
             }),
         { retry: 1, refetchOnWindowFocus: false }
     );
-    console.log(data);
+   
     // const updateProfile = async (e) => {
     //     e.preventDefault();
 
@@ -63,6 +63,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
         isError,
         error,
         isLoading,
+        refetch
     };
     const propsForPinnedItemsPicker = {
         ...userAnimeList,

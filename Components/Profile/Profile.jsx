@@ -25,6 +25,7 @@ export const MainProfile = ({
     isError,
     error,
     isLoading,
+    refetch,
 }) => {
     // const { userData } = useContext(Appcontext);
 
@@ -108,16 +109,25 @@ export const MainProfile = ({
                             add your picks
                         </button>
                         <div className={profileStyle["picks-container-inner"]}>
+                            {isLoading && <SkeletonLoaderMulti />}
+
                             {isError && (
-                                <NoItem content={error.response.data.message} />
-                            )}
-                            {(!pinnedItemsDetails ||
-                                !pinnedItemsDetails?.length) && (
                                 <NoItem
-                                    content={"pinned items will be shown here"}
+                                    content={error.response.data.message}
+                                    refetchFn={refetch}
+                                    isForError={isError}
                                 />
                             )}
-                            {isLoading && <SkeletonLoaderMulti />}
+                            {(!pinnedItemsDetails ||
+                                !pinnedItemsDetails?.length) &&
+                                !isError &&
+                                !isLoading && (
+                                    <NoItem
+                                        content={
+                                            "pinned items will be shown here"
+                                        }
+                                    />
+                                )}
 
                             {!isLoading &&
                                 pinnedItemsDetails?.length > 0 &&
