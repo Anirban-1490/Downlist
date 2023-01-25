@@ -1,3 +1,6 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+
 import { useRef, useState } from "react";
 import authStyle from "Style/UserAuth/userauth.module.scss";
 import axios from "axios";
@@ -96,12 +99,12 @@ const UserAuthentication = () => {
                         (errorName === "DuplicateEmail" ||
                             errorName === "NoAccount") && (
                             <p
-                                className={authStyle["error-message"]}
-                                style={{
+                                css={{
                                     textAlign: "center",
-                                    fontSize: "1.15rem",
-                                    margin: "2rem 0 ",
-                                }}>
+                                    fontSize: "1.15rem !important",
+                                    margin: "2rem 0",
+                                }}
+                                className={authStyle["error-message"]}>
                                 {errorMessage}
                             </p>
                         )}

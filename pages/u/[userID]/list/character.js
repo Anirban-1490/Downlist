@@ -2,6 +2,7 @@ import { CoreList } from "Components/UserList/CoreList";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { useList } from "Hooks/useList";
 import { useState } from "react";
+import { Container } from "Style/EmotionComponents";
 
 function CharactersList({ userID }) {
     const [whatToSortBy, setWhatToSortBy] = useState(undefined);
@@ -11,14 +12,7 @@ function CharactersList({ userID }) {
     const returnedPackage = useList("character", userID, 6, whatToSortBy);
     return (
         <>
-            <div
-                className="container1"
-                style={{
-                    height: "auto",
-                    minHeight: "100vh",
-                    zIndex: "1",
-                    position: "relative",
-                }}>
+            <Container>
                 <CoreList
                     clientData={userData}
                     switch_item={"character"}
@@ -26,7 +20,7 @@ function CharactersList({ userID }) {
                     setWhatToSortBy={setWhatToSortBy}
                     {...returnedPackage}
                 />
-            </div>
+            </Container>
         </>
     );
 }
