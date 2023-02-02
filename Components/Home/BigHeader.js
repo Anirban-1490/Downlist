@@ -30,7 +30,7 @@ export function HomeHeader() {
             })
             .to(`.header-1 `, {
                 backgroundPosition: "100% 0",
-                duration: 2,
+                duration: 3,
             })
 
             .from(
@@ -63,16 +63,12 @@ export function HomeHeader() {
                 duration: 2,
             });
 
-        // console.log(letterArray[0].childNodes);
         const scrollTrigger = ScrollTrigger.create({
             animation: tl,
             trigger: `.${ranmdomTextStyle["main-text-container"]}`,
-
-            markers: true,
-
             start: "top 10%",
 
-            end: "+=200%",
+            end: `+=${window.innerHeight * 5}`,
             pin: true,
             anticipatePin: 1,
             scrub: 1,
