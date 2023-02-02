@@ -1,107 +1,123 @@
 import { useRef, useEffect } from "react";
-
+import { gsap, random } from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import ranmdomTextStyle from "Components/Home/Style/RandomizedText.module.scss";
 
 export function HomeHeader() {
-  const textContainerRef = useRef();
-  const childNodesOfTextContainer = textContainerRef.current?.childNodes;
-  let colors = [
-    "lightgreen",
-    "#FFD700",
-    "#FF6103",
-    "#ADD8E6",
-    "#D4C2B0",
-    "#D15D84",
-  ];
+    const homeContainerRef = useRef();
 
-  useEffect(() => {
-    let activeChildrensIndex = [];
+    let colors = [
+        "lightgreen",
+        "#FFD700",
+        "#FF6103",
+        "#ADD8E6",
+        "#D4C2B0",
+        "#D15D84",
+    ];
 
-    let allChildrens = [];
-    childNodesOfTextContainer?.forEach((node, index) => {
-      if (node.nodeName === "H1") {
-        allChildrens = [...allChildrens, ...node.children];
-      }
-    });
-    // *maybe a external package will be more appearant in this case , but this will do the job
+    useEffect(() => {
+        const tl = gsap.timeline({ ease: "power2.in" });
 
-    function getRandomChildrens(limit) {
-      let i = 0;
+        tl.from(`.header-1 `, {
+            opacity: 0,
+            scale: 1.2,
+        })
+            .set(`.header-1 `, {
+                backgroundImage:
+                    "linear-gradient( 45deg, #12c2e9 , #c471ed, #f64f59)",
+                color: "transparent",
+            })
+            .to(`.header-1 `, {
+                backgroundPosition: "100% 0",
+                duration: 2,
+            })
 
-      while (i < limit) {
-        const randomChildIndex = pickARndomChildrenIndex(
-          activeChildrensIndex,
-          allChildrens.length
-        );
+            .from(
+                `.header-2 `,
+                {
+                    opacity: 0,
+                    scale: 1.2,
+                },
+                "-=2"
+            )
+            .from(
+                `.header-3 `,
+                {
+                    opacity: 0,
+                    scale: 1.2,
+                },
+                "-=1.5"
+            )
+            .set(
+                `.header-3 `,
+                {
+                    backgroundImage:
+                        "linear-gradient( 45deg, #ef8e38 , #108dc7)",
+                    color: "transparent",
+                },
+                "-=1"
+            )
+            .to(`.header-3 `, {
+                backgroundPosition: "100% 0",
+                duration: 2,
+            });
 
-        const randomChild = allChildrens[randomChildIndex];
-        const randomColorIndex = Math.floor(Math.random() * 10) % colors.length;
+        // console.log(letterArray[0].childNodes);
+        const scrollTrigger = ScrollTrigger.create({
+            animation: tl,
+            trigger: `.${ranmdomTextStyle["main-text-container"]}`,
 
-        randomChild.style.color = `${colors[randomColorIndex]}`;
-        activeChildrensIndex.push(randomChildIndex);
-        i++;
-      }
-    }
+            markers: true,
 
-    function pickARndomChildrenIndex(activeChildrensIndex, totalChildrens) {
-      const randomIndex = Math.floor(Math.random() * 100) % totalChildrens;
+            start: "top 10%",
 
-      return activeChildrensIndex.includes(randomIndex)
-        ? pickARndomChildrenIndex(activeChildrensIndex, totalChildrens)
-        : randomIndex;
-    }
+            end: "+=200%",
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+        });
 
-    const interId = setInterval(() => {
-      //* remove the styles for activated childrens
-      allChildrens.forEach((childNode, index) => {
-        if (activeChildrensIndex.includes(index)) {
-          childNode.style.color = "#ffffffe1";
-        }
-      });
+        return () => {
+            tl.kill();
+            scrollTrigger.kill();
+            return;
+        };
+    }, []);
 
-      //* clear all the array
-      activeChildrensIndex.length = 0;
-
-      const getARandomLimit =
-        (Math.floor(Math.random() * 10) % (allChildrens.length - 5)) + 1;
-
-      getRandomChildrens(getARandomLimit);
-    }, 1450);
-
-    return () => clearInterval(interId);
-  });
-
-  return (
-    <>
-      <section className={ranmdomTextStyle["home-section-1"]}>
-        <div
-          className={ranmdomTextStyle["main-text-container"]}
-          ref={textContainerRef}
-        >
-          <h1>
-            <span>y</span>
-            <span>o</span>
-            <span>u</span>
-            <span>r</span>
-          </h1>
-          <h1>
-            <span>o</span>
-            <span>w</span>
-            <span>n</span>
-          </h1>
-          <h1>
-            <span>w</span>
-            <span>o</span>
-            <span>r</span>
-            <span>l</span>
-            <span>d</span>
-          </h1>
-          <p>
-            Explore a vast list of Anime and Characters. Comes with full details
-            on them.
-          </p>
-        </div>
-      </section>
-    </>
-  );
+    return (
+        <>
+            <section
+                className={ranmdomTextStyle["home-section-1"]}
+                ref={homeContainerRef}>
+                <div className={ranmdomTextStyle["main-text-container"]}>
+                    <h1
+                        className={`${ranmdomTextStyle["random-header"]} header-1`}>
+                        <div className={ranmdomTextStyle["letter"]}>y</div>
+                        <div className={ranmdomTextStyle["letter"]}>o</div>
+                        <div className={ranmdomTextStyle["letter"]}>u</div>
+                        <div className={ranmdomTextStyle["letter"]}>r</div>
+                    </h1>
+                    <h1
+                        className={`${ranmdomTextStyle["random-header"]} header-2`}>
+                        <div className={ranmdomTextStyle["letter"]}>o</div>
+                        <div className={ranmdomTextStyle["letter"]}>w</div>
+                        <div className={ranmdomTextStyle["letter"]}>n</div>
+                    </h1>
+                    <h1
+                        className={`${ranmdomTextStyle["random-header"]} header-3`}>
+                        <div className={ranmdomTextStyle["letter"]}>w</div>
+                        <div className={ranmdomTextStyle["letter"]}>o</div>
+                        <div className={ranmdomTextStyle["letter"]}>r</div>
+                        <div className={ranmdomTextStyle["letter"]}>l</div>
+                        <div className={ranmdomTextStyle["letter"]}>d</div>
+                    </h1>
+                    {/* <p className={ranmdomTextStyle["random-para"]}>
+                        Explore a vast list of Anime and Characters. Comes with
+                        full details on them.
+                    </p> */}
+                </div>
+            </section>
+        </>
+    );
 }
