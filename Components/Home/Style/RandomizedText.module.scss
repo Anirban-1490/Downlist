@@ -29,7 +29,11 @@
                 font-family: "Fira Sans", sans-serif !important;
             }
         }
-        p {
+    }
+    .para-container {
+        overflow: hidden;
+
+        .random-para {
             text-align: center;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: 1.1rem;
