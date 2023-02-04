@@ -19,6 +19,7 @@ export function HomeHeader() {
     useEffect(() => {
         const tl = gsap.timeline({ ease: "power2.in" });
 
+        //#region - timeline animation
         tl.from(`.header-1 `, {
             opacity: 0,
             scale: 1.2,
@@ -61,16 +62,25 @@ export function HomeHeader() {
             .to(`.header-3 `, {
                 backgroundPosition: "100% 0",
                 duration: 2,
-            });
+            })
+            .fromTo(
+                `.${ranmdomTextStyle["random-para"]}`,
+                {
+                    xPercent: -100,
+                },
+                { xPercent: 0 }
+            );
+
+        //#endregion
 
         const scrollTrigger = ScrollTrigger.create({
             animation: tl,
             trigger: `.${ranmdomTextStyle["main-text-container"]}`,
-            start: "top 10%",
+            start: "-5% 8%",
 
             end: `+=${window.innerHeight * 5}`,
             pin: true,
-            anticipatePin: 1,
+
             scrub: 1,
         });
 
@@ -108,10 +118,12 @@ export function HomeHeader() {
                         <div className={ranmdomTextStyle["letter"]}>l</div>
                         <div className={ranmdomTextStyle["letter"]}>d</div>
                     </h1>
-                    {/* <p className={ranmdomTextStyle["random-para"]}>
+                </div>
+                <div className={ranmdomTextStyle["para-container"]}>
+                    <p className={ranmdomTextStyle["random-para"]}>
                         Explore a vast list of Anime and Characters. Comes with
                         full details on them.
-                    </p> */}
+                    </p>
                 </div>
             </section>
         </>
