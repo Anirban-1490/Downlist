@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 import { gsap, random } from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -6,89 +6,92 @@ import ranmdomTextStyle from "Components/Home/Style/RandomizedText.module.scss";
 
 export function HomeHeader() {
     const homeContainerRef = useRef();
-
-    let colors = [
-        "lightgreen",
-        "#FFD700",
-        "#FF6103",
-        "#ADD8E6",
-        "#D4C2B0",
-        "#D15D84",
-    ];
-
     useEffect(() => {
-        const tl = gsap.timeline({ ease: "power2.in" });
-
-        //#region - timeline animation
-        tl.from(`.header-1 `, {
-            opacity: 0,
-            scale: 1.2,
-        })
-            .set(`.header-1 `, {
-                backgroundImage:
-                    "linear-gradient( 45deg, #12c2e9 , #c471ed, #f64f59)",
-                color: "transparent",
-            })
-            .to(`.header-1 `, {
-                backgroundPosition: "100% 0",
-                duration: 3,
-            })
-
-            .from(
-                `.header-2 `,
-                {
-                    opacity: 0,
-                    scale: 1.2,
-                },
-                "-=2"
-            )
-            .from(
-                `.header-3 `,
-                {
-                    opacity: 0,
-                    scale: 1.2,
-                },
-                "-=1.5"
-            )
-            .set(
-                `.header-3 `,
-                {
+        const ctx = gsap.context(() => {
+            const bigHeaderTextTimeline = gsap.timeline({
+                defaults: { ease: "power2.out" },
+            });
+            //#region - timeline animation
+            bigHeaderTextTimeline
+                .fromTo(
+                    `.header-1 `,
+                    {
+                        opacity: 0,
+                        scale: 1.2,
+                    },
+                    { opacity: 1, scale: 1 }
+                )
+                .set(`.header-1 `, {
                     backgroundImage:
-                        "linear-gradient( 45deg, #ef8e38 , #108dc7)",
+                        "linear-gradient( 45deg, #12c2e9 , #c471ed, #f64f59)",
                     color: "transparent",
-                },
-                "-=1"
-            )
-            .to(`.header-3 `, {
-                backgroundPosition: "100% 0",
-                duration: 2,
-            })
-            .fromTo(
-                `.${ranmdomTextStyle["random-para"]}`,
-                {
-                    xPercent: -100,
-                },
-                { xPercent: 0 }
-            );
+                })
+                .fromTo(
+                    `.header-1 `,
+                    { backgroundPosition: "0 0" },
+                    {
+                        backgroundPosition: "100% 0",
+                        duration: 3,
+                    }
+                )
 
-        //#endregion
+                .fromTo(
+                    `.header-2 `,
+                    {
+                        opacity: 0,
+                        scale: 1.2,
+                    },
+                    { opacity: 1, scale: 1 },
+                    "-=2"
+                )
+                .fromTo(
+                    `.header-3 `,
+                    {
+                        opacity: 0,
+                        scale: 1.2,
+                    },
+                    { opacity: 1, scale: 1 },
+                    "-=1.5"
+                )
+                .set(
+                    `.header-3 `,
+                    {
+                        backgroundImage:
+                            "linear-gradient( 45deg, #ef8e38 , #108dc7)",
+                        color: "transparent",
+                    },
+                    "-=1"
+                )
+                .fromTo(
+                    `.header-3 `,
+                    { backgroundPosition: "0 0" },
+                    {
+                        backgroundPosition: "100% 0",
+                        duration: 2,
+                    }
+                )
+                .fromTo(
+                    `.${ranmdomTextStyle["random-para"]}`,
+                    {
+                        xPercent: -100,
+                    },
+                    { xPercent: 0 }
+                );
 
-        const scrollTrigger = ScrollTrigger.create({
-            animation: tl,
-            trigger: `.${ranmdomTextStyle["main-text-container"]}`,
-            start: "-5% 8%",
+            //#endregion
 
-            end: `+=${window.innerHeight * 5}`,
-            pin: true,
+            const scrollTrigger = ScrollTrigger.create({
+                animation: bigHeaderTextTimeline,
+                trigger: `.${ranmdomTextStyle["main-text-container"]}`,
+                start: "top 15%",
+                end: `+=${window.innerHeight * 2}`,
+                pin: true,
 
-            scrub: 1,
+                scrub: 1,
+            });
         });
 
-        return () => {
-            tl.kill();
-            scrollTrigger.kill();
-            return;
-        };
+        return () => ctx.revert();
     }, []);
 
     return (
