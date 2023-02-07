@@ -10,14 +10,16 @@ import { Analytics } from "@vercel/analytics/react";
 import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { Footer } from "Components/Global/Footer/footer";
+import { WrapperParent } from "Components/Global/Wrapper";
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
     const router = useRouter();
+
     nProgress.configure({ showSpinner: false });
     useEffect(() => {
         const handleStart = () => nProgress.start();
@@ -126,10 +128,13 @@ function MyApp({ Component, pageProps }) {
                 <ReactQueryDevtools />
                 <Hydrate state={pageProps.dehydratedState}>
                     <>
-                        <ScrollToTop />
+                        {/* <ScrollToTop /> */}
                         <ParentNavbar />
-                        <Component {...pageProps} />
-                        {Component?.removeFooter || <Footer />}
+                        <WrapperParent>
+                            {<Component {...pageProps} />}
+                            {Component?.removeFooter || <Footer />}
+                        </WrapperParent>
+
                         <Analytics />
                     </>
                 </Hydrate>
