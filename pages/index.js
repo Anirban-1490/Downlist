@@ -16,16 +16,9 @@ export default function HomeMain() {
     const [vantaEffect, setVantaEffect] = useState();
 
     const [parallaxEffect, setParallaxEffect] = useState();
-
-    const [isMotionEnabled, setMotion] = useState(
+    const isMotionEnabled =
         typeof window !== "undefined" &&
-            window?.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-    useEffect(() => {
-        setMotion(
-            window?.matchMedia("(prefers-reduced-motion: reduce)").matches
-        );
-    }, []);
+        window?.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     useEffect(() => {
         if (!vantaEffect) {
