@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react  */
 import axios from "axios";
 import {
     useCallback,
@@ -17,7 +18,7 @@ import { Spinner } from "Components/Global/LoadingSpinner";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import { getUserToken } from "GetuserToken";
 import { CircularSpinner } from "Components/Global/CircularSpinner";
-
+import { gsap } from "gsap";
 export function Content({ isMotionEnabled }) {
     const [data, dispatch] = useReducer(reducerForSearchResult, {
         searchResult: [],
@@ -108,28 +109,85 @@ export function Content({ isMotionEnabled }) {
         return op >= 0 ? op : 0;
     }
 
-    useEffect(() => {
-        if (!isMotionEnabled) {
-            mainContainerRef.current.style.scale = "0.48";
-        } else {
-            mainContainerRef.current.style.scale = "1";
-        }
-    }, [isMotionEnabled]);
-
     //* subscribing to external api
     const opacity = useScroll(getOpacity);
+
+    useEffect(() => {
+        gsap.set(`.${mainStyle.title_1}`, { y: "400" });
+        gsap.set(`.${mainStyle.title_2} span`, { visibility: "hidden" });
+        gsap.set([`.${mainStyle["info1"]}`, `.${mainStyle["wrapper"]}`], {
+            opacity: 0,
+        });
+
+        const tl = gsap.timeline({
+            defaults: { ease: "power3.inOut", duration: 2 },
+        });
+        tl.fromTo(
+            `.${mainStyle.title_1}`,
+            {
+                y: "400",
+            },
+            { y: 0 },
+            "+=1.5"
+        )
+            .fromTo(
+                [`.${mainStyle["info1"]}`, `.${mainStyle["wrapper"]}`],
+                {
+                    y: 20,
+
+                    opacity: 0,
+                },
+                { y: 0, opacity: 1, stagger: 0.6 }
+            )
+            .set([".outer", ".inner", "#__next"], {
+                overflow: "auto",
+                height: "auto",
+            })
+            .fromTo(
+                `.${mainStyle.title_2} span`,
+                {
+                    visibility: "hidden",
+                    color: (index) =>
+                        `hsl(${index + gsap.utils.random(1, 300)},98%,58%)`,
+                },
+                {
+                    visibility: "visible",
+                    color: "white",
+                    stagger: {
+                        amount: 1.5,
+                        from: "random",
+                        repeat: -1,
+                    },
+
+                    // yoyo: true,
+                },
+                "-=1"
+            );
+    }, []);
 
     return (
         <>
             <div
                 className={mainStyle["main-container"]}
                 ref={mainContainerRef}
+                css={{ scale: isMotionEnabled ? 1 : 0.48 }}
                 style={{
                     opacity,
                 }}>
-                <h2 className={mainStyle["title1"]}>
-                    Best Place For Anime Lovers
+                <h2 className={mainStyle["main-title-container"]}>
+                    <span className={mainStyle.title_1}>
+                        Best Place For Anime
+                        <span className={mainStyle.title_2}>
+                            <span> l</span>
+                            <span>o</span>
+                            <span>v</span>
+                            <span>e</span>
+                            <span>r</span>
+                            <span>s</span>
+                        </span>
+                    </span>
                 </h2>
+
                 <p className={mainStyle["info1"]}>
                     Find details about any anime or character of your choice.
                 </p>
