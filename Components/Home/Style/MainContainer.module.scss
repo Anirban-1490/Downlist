@@ -10,20 +10,30 @@
 
     gap: 0.4em;
     margin-top: -(m.$base-margin + 6);
-    .title1 {
+    .main-title-container {
         position: relative;
 
         color: white;
         font-size: clamp(3em, 6vw, m.$fontSize-lg + 0.5em);
-
+        font-weight: bold;
         text-align: center;
+        // display: flex;
+
+        overflow: hidden;
+
+        .title_1 {
+            display: inline-block;
+        }
+        .title_2 {
+            text-transform: uppercase;
+        }
     }
     .info1 {
         color: white;
         font-size: 1.5em;
         padding: 0 m.$base-padding / 1.5;
         text-align: center;
-
+        margin-bottom: m.$base-margin - 0.5;
         @include m.md {
             font-size: 3.67vw;
         }
