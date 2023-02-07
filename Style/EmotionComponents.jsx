@@ -17,6 +17,10 @@ export const Container = styled.div(
             display: "block",
         };
 
-        return { minHeight: props.minHeight || "100vh", ...displyStyle };
+        return {
+            minHeight: props.minHeight || "100vh",
+            ...displyStyle,
+            position: props.position,
+        };
     }
 );
