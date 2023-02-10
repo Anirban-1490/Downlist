@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Footer } from "Components/Global/Footer/footer";
 import { WrapperParent } from "Components/Global/Wrapper";
+import { getRandomID } from "Feature/RandomID";
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
@@ -128,9 +129,9 @@ function MyApp({ Component, pageProps }) {
                 <ReactQueryDevtools />
                 <Hydrate state={pageProps.dehydratedState}>
                     <>
-                        {/* <ScrollToTop /> */}
+                        <ScrollToTop />
                         <ParentNavbar />
-                        <WrapperParent>
+                        <WrapperParent key={getRandomID()}>
                             {<Component {...pageProps} />}
                             {Component?.removeFooter || <Footer />}
                         </WrapperParent>
