@@ -139,10 +139,7 @@ export function Content({ isMotionEnabled }) {
                 },
                 { y: 0, opacity: 1, stagger: 0.6 }
             )
-            .set([".outer", ".inner", "#__next"], {
-                overflow: "auto",
-                height: "auto",
-            })
+
             .fromTo(
                 `.${mainStyle.title_2} span`,
                 {
