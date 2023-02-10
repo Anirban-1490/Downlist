@@ -2,10 +2,12 @@
 
 .container-topsection {
     position: relative;
-    top: -1em;
+
     overflow: hidden;
 
     padding-bottom: m.$padding-medium * 2.4;
+    padding-top: 5vh;
+    padding-top: 5dvh;
     .section {
         height: m.$height-extra * 4.4;
 

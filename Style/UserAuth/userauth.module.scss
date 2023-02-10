@@ -5,6 +5,7 @@
     display: flex;
     min-height: 100vh;
 
+    padding-top: m.$padding-medium;
     @include m.breakpoint(768px) {
         width: 100%;
         flex-direction: column-reverse;
