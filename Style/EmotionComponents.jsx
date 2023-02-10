@@ -9,13 +9,19 @@ export const Container = styled.div(
     },
     (props) => {
         let displyStyle;
-        displyStyle = (props.displyStyle === "flex-center-hv" && {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-        }) || {
-            display: "block",
-        };
+        if (props.displyStyle === "flex-center-hv") {
+            displyStyle = {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            };
+        } else if (props.displyStyle === "flex") {
+            displyStyle = {
+                display: "flex",
+            };
+        } else {
+            displyStyle = { display: "block" };
+        }
 
         return {
             minHeight: props.minHeight || "100vh",
