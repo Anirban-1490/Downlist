@@ -4,10 +4,14 @@
     width: 100%;
     height: 4.5em;
 
-    position: absolute;
+    position: fixed;
     background-color: transparent;
     z-index: 5;
     transition: 300ms ease-out;
+
+    &.sticky {
+        height: 3.2rem;
+    }
 
     .nav-scroll-background {
         position: absolute;
@@ -15,10 +19,10 @@
         height: 100%;
         background-color: transparent;
     }
-    // .scrolling {
-    //     background-color: #00000060;
-    //     backdrop-filter: blur(10px);
-    // }
+    .scrolling {
+        background-color: #00000060;
+        backdrop-filter: blur(10px);
+    }
 
     .logo-container {
         color: white;
@@ -34,9 +38,9 @@
             width: 100%;
         }
 
-        // &.sticky {
-        //     width: 11.4em;
-        // }
+        &.sticky {
+            width: 11.4em;
+        }
     }
 
     ul {
@@ -249,9 +253,3 @@
         }
     }
 }
-// .sticky {
-//     position: sticky;
-//     top: 0;
-//     position: -webkit-sticky;
-//     height: 3.2rem;
-// }
