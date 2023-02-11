@@ -6,15 +6,12 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { useRouter } from "next/router";
 gsap.registerPlugin(ScrollTrigger);
 
-export const WrapperParent = ({ children, setAnimating }) => {
+export const WrapperParent = ({ children }) => {
     const [isDividerMount, setDividerMount] = useState(false);
     const router = useRouter();
     useEffect(() => {
-        console.log(router.pathname);
         const ctx = gsap.context(() => {
             gsap.set("#__next", { overflow: "hidden" });
-            // gsap.set(`.outer`, { yPercent: 100 });
-            // gsap.set(".inner", { yPercent: -100 });
 
             const globalTimeline = gsap.timeline({
                 defaults: { duration: 1, ease: "power3.inOut" },
