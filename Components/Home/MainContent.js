@@ -149,11 +149,11 @@ export function Content({ isMotionEnabled }) {
                 },
                 {
                     visibility: "visible",
-                    color: "white",
+
                     stagger: {
                         amount: 1.5,
                         from: "random",
-                        repeat: -1,
+                        // repeat: -1,
                     },
 
                     // yoyo: true,
