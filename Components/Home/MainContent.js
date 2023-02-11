@@ -145,7 +145,7 @@ export function Content({ isMotionEnabled }) {
                 {
                     visibility: "hidden",
                     color: (index) =>
-                        `hsl(${index + gsap.utils.random(1, 300)},98%,58%)`,
+                        `hsl(${index + gsap.utils.random(24, 240)},98%,58%)`,
                 },
                 {
                     visibility: "visible",
