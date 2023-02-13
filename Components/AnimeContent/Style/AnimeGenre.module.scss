@@ -1,28 +1,19 @@
 @use "/Style/GlobalStyle/main" as m;
-.container {
-    min-height: 100vh;
 
-    .header {
-        color: white;
-        text-align: center;
-        font-size: m.$res-fontSize-lg;
-        margin-top: 13vh;
-        margin-bottom: 6vh;
-        text-transform: capitalize;
-    }
-    .cards-container {
-        margin: m.$center-horizontal;
-        // background: m.$cl-light-black-2;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        column-gap: 0.7rem;
-        row-gap: 1.1rem;
-        padding: m.$base-padding + 2 m.$base-padding;
-    }
-    .loading {
-        color: white;
-        text-align: center;
-        padding: m.$base-padding + 1;
-    }
+.header {
+    color: white;
+    text-align: center;
+
+    margin-bottom: 6vh;
+    text-transform: capitalize;
+    @include m.responsive-font-size;
+}
+.cards-container {
+    margin: m.$center-horizontal;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 0.7rem;
+    row-gap: 1.1rem;
+    padding: m.$base-padding + 2 m.$base-padding;
 }
