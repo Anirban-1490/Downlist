@@ -2,12 +2,13 @@ import animeGenreStyle from "Components/AnimeContent/Style/AnimeGenre.module.scs
 import { Card } from "Components/Global/Card/Card";
 import { CircularSpinner } from "Components/Global/CircularSpinner";
 import { forwardRef } from "react";
+import { Container } from "Style/EmotionComponents";
 
 export const AnimeGenre = forwardRef(
     ({ headerContent, data, hasNextPage, isCharacters = false }, ref) => {
         return (
             <>
-                <div className={animeGenreStyle["container"]}>
+                <Container minHeight={"100vh"} style={{ paddingTop: "24vh" }}>
                     <h2 className={animeGenreStyle["header"]}>
                         {headerContent} {(!isCharacters && "anime") || " "}
                     </h2>
@@ -51,7 +52,7 @@ export const AnimeGenre = forwardRef(
                             "Looks like that's it"
                         )}
                     </div>
-                </div>
+                </Container>
             </>
         );
     }
