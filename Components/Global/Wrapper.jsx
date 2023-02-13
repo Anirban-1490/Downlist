@@ -1,50 +1,10 @@
 /** @jsxImportSource @emotion/react  */
 
 import { useEffect, useState } from "react";
-import { gsap } from "gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
 import { useRouter } from "next/router";
-gsap.registerPlugin(ScrollTrigger);
 
-export const WrapperParent = ({ children }) => {
-    const [isDividerMount, setDividerMount] = useState(false);
-    const router = useRouter();
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.set("#__next", { overflow: "hidden" });
-
-            const globalTimeline = gsap.timeline({
-                defaults: { duration: 1, ease: "power3.inOut" },
-                onComplete: () => {
-                    ScrollTrigger.refresh();
-                    setDividerMount(true);
-                },
-            });
-
-            globalTimeline
-                .fromTo(
-                    ".divider",
-                    {
-                        xPercent: 0,
-                    },
-                    {
-                        xPercent: -100,
-                        stagger: {
-                            each: 0.14,
-                            from: "random",
-                        },
-                        delay: 2,
-                    }
-                )
-                .set([".outer", ".inner", "#__next"], {
-                    overflow: "visible",
-                    height: "auto",
-                    delay: 2,
-                });
-        });
-
-        return () => ctx.revert();
-    }, [router.pathname]);
+export const WrapperParent = ({ children, isDividerMount }) => {
     return (
         <>
             <main className="global-wrapper">
