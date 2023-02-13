@@ -15,21 +15,60 @@ import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Footer } from "Components/Global/Footer/footer";
 import { WrapperParent } from "Components/Global/Wrapper";
-import { getRandomID } from "Feature/RandomID";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 function MyApp({ Component, pageProps }) {
     const client = new QueryClient();
     const router = useRouter();
-
+    const [isDividerMount, setDividerMount] = useState(false);
     nProgress.configure({ showSpinner: false });
+    const globalTimeline = gsap.timeline({
+        defaults: { duration: 1, ease: "power3.inOut" },
+    });
+
     useEffect(() => {
-        const handleStart = () => nProgress.start();
-        const handleStop = () => nProgress.done();
+        const handleStart = () => {
+            setDividerMount(false);
+            nProgress.start();
+        };
+        const handleStop = () => {
+            nProgress.done();
+            globalTimeline.play();
+        };
+
+        globalTimeline
+            .fromTo(
+                ".divider",
+                {
+                    xPercent: 0,
+                },
+                {
+                    xPercent: -100,
+                    stagger: {
+                        each: 0.14,
+                        from: "random",
+                    },
+                    delay: 2,
+                }
+            )
+            .set([".outer", ".inner"], {
+                overflow: "visible",
+                height: "auto",
+                delay: 2,
+                onComplete: () => {
+                    ScrollTrigger.refresh();
+                    setDividerMount(true);
+                },
+            });
+
         router.events.on("routeChangeStart", handleStart);
         router.events.on("routeChangeComplete", handleStop);
         router.events.on("beforeHistoryChange", handleStop);
 
         () => {
+            globalTimeline.kill();
             router.events.off("routeChangeStart", handleStart);
             router.events.off("routeChangeComplete", handleStop);
             router.events.off("beforeHistoryChange", handleStop);
@@ -131,7 +170,7 @@ function MyApp({ Component, pageProps }) {
                     <>
                         <ScrollToTop />
                         <ParentNavbar />
-                        <WrapperParent key={getRandomID()}>
+                        <WrapperParent isDividerMount={isDividerMount}>
                             {<Component {...pageProps} />}
                             {Component?.removeFooter || <Footer />}
                         </WrapperParent>
