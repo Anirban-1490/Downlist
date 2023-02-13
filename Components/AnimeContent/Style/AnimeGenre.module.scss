@@ -10,10 +10,16 @@
 }
 .cards-container {
     margin: m.$center-horizontal;
+
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     column-gap: 0.7rem;
     row-gap: 1.1rem;
     padding: m.$base-padding + 2 m.$base-padding;
+}
+.loading {
+    color: white;
+    text-align: center;
+    padding: m.$base-padding + 1;
 }
