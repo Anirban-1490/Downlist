@@ -98,3 +98,7 @@ $archivo: "Archivo", sans-serif;
     font-size: $font-Size;
     translate: $translate;
 }
+
+@mixin responsive-font-size($min: 3rem, $preferred: 7vw, $max: 16em) {
+    font-size: clamp($min, $preferred, $max);
+}
