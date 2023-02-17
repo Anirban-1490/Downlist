@@ -26,7 +26,6 @@ const MainUserProfile = ({ userID, userDetails }) => {
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
 
-    const userAnimeList = useList("anime", userID, 10, undefined, showPins);
     // const [userProfileDetails, isError] = useProfile(path, userID);
 
     const { data, isLoading, isError, error, refetch } = useQuery(
@@ -69,8 +68,6 @@ const MainUserProfile = ({ userID, userDetails }) => {
         refetch,
     };
     const propsForPinnedItemsPicker = {
-        ...userAnimeList,
-
         userID,
         setPins,
         pinnedItems: userDetails.pinnedItems,
