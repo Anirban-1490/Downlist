@@ -13,8 +13,9 @@ import { useMutation } from "react-query";
 
 const UserAuthentication = () => {
     const container_to_move = useRef();
-    const router = useRouter();
+    const { replace } = useRouter();
     const innerWidth = useWindowResize();
+    const [userData, _] = useAuth(true);
     const { mutate, data, isLoading, error, isError, isSuccess, reset } =
         useMutation(
             async (inputData) => {
@@ -38,12 +39,18 @@ const UserAuthentication = () => {
                 onSettled: (data, error, variables, context) => {
                     if (error) return;
                     localStorage.setItem("token", data.token);
-                    router.replace("/");
+                    replace("/");
                 },
             }
         );
 
-    //   useAuth(isAuthenticated, true);
+    //* check to see if user is logged in.
+    //* if is then replace the current history stack and move to homepage
+
+    if (userData?.userID) {
+        replace("/");
+        return null;
+    }
 
     const isSmallScreen = innerWidth > 768 ? false : true;
     const errorName = error && error?.response.data.name;
