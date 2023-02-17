@@ -117,11 +117,18 @@
                     );
                     margin-right: m.$base-margin / 1.2;
                     // margin-left: m.$margin-extra * 2;
-                    &:hover {
+                    &:not(:disabled) :hover {
                         background-color: lighten(
                             $color: m.$cl-dark-orange,
                             $amount: 10%
                         );
+                    }
+
+                    &:disabled {
+                        //* revert to browser default
+                        background-color: revert;
+
+                        cursor: auto;
                     }
                 }
             }
