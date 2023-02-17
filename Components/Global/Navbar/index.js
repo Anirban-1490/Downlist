@@ -12,13 +12,11 @@ import { Navbar } from "./Components/Navbar";
 
 export function ParentNavbar() {
     const router = useRouter();
-    const { pathname, asPath } = router;
+    const { pathname, asPath, replace } = router;
     const [isHamClicked, setHamClicked] = useState(false);
     const innerWidth = useWindowResize();
     const [userData, _] = useAuth(true);
-
-    //* custom hook for checking if user logged in or not
-    //* used to rerender the component if we hit back button to come here
+    const [userProfileData] = useProfile(path, userData?.userID);
 
     const isSmallScreenWidth = innerWidth > 740 ? false : true;
 
@@ -28,13 +26,11 @@ export function ParentNavbar() {
         }
     }, [isSmallScreenWidth]);
 
-    const [userProfileData] = useProfile(path, userData?.userID);
-
     const signoutHandler = useCallback(() => {
         localStorage.removeItem("token");
 
-        window.location.href = "/";
-    }, [router, pathname]);
+        replace("/");
+    }, [replace]);
 
     const props = useMemo(
         () => ({
