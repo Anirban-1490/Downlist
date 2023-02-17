@@ -2,21 +2,24 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { QueryClient, useQuery } from "react-query";
 
 import axios from "axios";
-import map from "awaity/map";
-//* timeago
 
 import { useWindowResize } from "Hooks/useWindowResize";
-import { Spinner } from "Components/Global/LoadingSpinner";
 import { path } from "server-path";
-import { useProfile } from "Hooks/useProfile";
 import { MainProfile } from "Components/Profile/Profile";
-import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { Activity } from "Components/Profile/Activity";
-import { PinneditemsPicker } from "Components/Profile/PinnedItemsPicker";
 import { useList } from "Hooks/useList";
-import { useInView } from "react-intersection-observer";
-import { jikanQueries } from "JikanQueries";
 import { serverlessPath } from "Serverlesspath";
+import dynamic from "next/dynamic";
+
+//* dynamically laods the pinneditemspicker as it's condiitonal and needed
+//* only when the user clicks the "add your picks" button"
+const PinnedItemsPicker = dynamic(
+    () =>
+        import("Components/Profile/PinnedItemsPicker").then(
+            ({ PinneditemsPicker }) => PinneditemsPicker
+        ),
+    { ssr: false }
+);
 
 const MainUserProfile = ({ userID, userDetails }) => {
     const refForm = useRef();
@@ -25,8 +28,8 @@ const MainUserProfile = ({ userID, userDetails }) => {
 
     const userAnimeList = useList("anime", userID, 10, undefined, showPins);
     // const [userProfileDetails, isError] = useProfile(path, userID);
-    const { ref, inView } = useInView({ threshold: 0 });
-    const { data, isLoading, isError, error ,refetch} = useQuery(
+
+    const { data, isLoading, isError, error, refetch } = useQuery(
         "pinnedItems",
         async () =>
             await axios.post(`${serverlessPath.domain}api/pins/info`, {
@@ -34,7 +37,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
             }),
         { retry: 1, refetchOnWindowFocus: false }
     );
-   
+
     // const updateProfile = async (e) => {
     //     e.preventDefault();
 
@@ -63,12 +66,11 @@ const MainUserProfile = ({ userID, userDetails }) => {
         isError,
         error,
         isLoading,
-        refetch
+        refetch,
     };
     const propsForPinnedItemsPicker = {
         ...userAnimeList,
-        ref,
-        inView,
+
         userID,
         setPins,
         pinnedItems: userDetails.pinnedItems,
@@ -83,7 +85,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
                 />
             </MainProfile>
 
-            {showPins && <PinneditemsPicker {...propsForPinnedItemsPicker} />}
+            {showPins && <PinnedItemsPicker {...propsForPinnedItemsPicker} />}
         </>
     );
 };
