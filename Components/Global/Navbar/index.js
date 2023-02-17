@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-// import "./header-style.css";
+import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "Feature/Authorize/Authorize";
@@ -26,10 +26,23 @@ export function ParentNavbar() {
         }
     }, [isSmallScreenWidth]);
 
-    const signoutHandler = useCallback(() => {
-        localStorage.removeItem("token");
+    const signoutHandler = useCallback(async () => {
+        try {
+            const response = await axios.patch(
+                `${path.domain}api/v1/auth/log-out`,
+                {
+                    userID: userData?.userID,
+                }
+            );
 
-        replace("/");
+            if (response.status == 200) {
+                localStorage.removeItem("token");
+
+                window.location.href = "/";
+            }
+        } catch (error) {
+            return;
+        }
     }, [replace]);
 
     const props = useMemo(
