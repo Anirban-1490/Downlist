@@ -4,37 +4,49 @@ import React, { useMemo, forwardRef, useEffect, useState } from "react";
 import axios from "axios";
 
 import { path } from "server-path";
-import { useQuery, QueryClient } from "react-query";
+import { useQuery, QueryClient, useMutation } from "react-query";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import { getRandomID } from "Feature/RandomID";
 import { CircularSpinner } from "Components/Global/CircularSpinner";
 import { useInView } from "react-intersection-observer";
 
-export const PinneditemsPicker = ({
-    setPins,
-    data,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-    refetch,
-    userID,
-    inView,
-    pinnedItems,
-    isError,
-    error,
-}) => {
-    const [status, setStatus] = useState("");
+export const PinneditemsPicker = ({ setPins, userID, pinnedItems }) => {
     const { ref, inView } = useInView({ threshold: 0 });
+    const {
+        data,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+        refetch,
+        isError,
+        error: listItemsError,
+    } = useList("anime", userID, 10, undefined);
+
+    const {
+        data: pinnedItemsStatus,
+        mutate,
+        error: pinnedItemsError,
+        isError: isErrorForPinnedItems,
+        isLoading,
+    } = useMutation(
+        ["pinItems"],
+        (newItemsToBePinned) =>
+            axios.put(`${path.domain}user/${userID}/profile/add/pinned`, {
+                newItemsToBePinned,
+            }),
+        {
+            retry: 1,
+            onSuccess: () => {
+                window.location.reload();
+            },
+        }
+    );
 
     if (hasNextPage && inView) {
         fetchNextPage();
     }
-    const queryClient = new QueryClient();
-    const isFetching = status == "sending";
-    const isErrorForSubmit = status !== "Successfully pinned items";
 
     const pinnedItemsHandler = async (e) => {
-        setStatus("sending");
         e.preventDefault();
         const formHandler = new FormData(e.target);
         const newItemsToBePinned = ![...formHandler].length
@@ -42,27 +54,7 @@ export const PinneditemsPicker = ({
             : [...formHandler].reduce((acc, currentItem) => {
                   return [...acc, currentItem[1]];
               }, []);
-
-        try {
-            const { data } = await queryClient.fetchQuery(
-                ["pinItems"],
-                () =>
-                    axios.put(
-                        `${path.domain}user/${userID}/profile/add/pinned`,
-                        {
-                            newItemsToBePinned,
-                        }
-                    ),
-                { staleTime: 100, cacheTime: 0, retry: 1 }
-            );
-
-            if (data) {
-                setStatus(data.message);
-                window.location.reload();
-            }
-        } catch (error) {
-            setStatus(error.response.data.message);
-        }
+        mutate(newItemsToBePinned);
     };
 
     return (
@@ -123,12 +115,19 @@ export const PinneditemsPicker = ({
                             <div
                                 className={pinnedStyle["response-text"]}
                                 style={{
-                                    color: isErrorForSubmit ? "red" : "#11aa11",
+                                    color: isErrorForPinnedItems
+                                        ? "red"
+                                        : "#11aa11",
                                 }}>
-                                {!isFetching && status}
+                                {!isLoading &&
+                                    (pinnedItemsStatus?.data.message ||
+                                        pinnedItemsError?.response.data
+                                            .message)}
                             </div>
-                            <button type="submit">
-                                {isFetching ? "Loading..." : "Save"}
+                            <button
+                                type="submit"
+                                disabled={!data || !data.pages?.length}>
+                                {isLoading ? "Loading..." : "Save"}
                             </button>
                         </div>
                     </form>
