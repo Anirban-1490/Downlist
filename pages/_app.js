@@ -10,7 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import { Footer } from "Components/Global/Footer/footer";
@@ -20,14 +20,21 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function MyApp({ Component, pageProps }) {
-    const client = new QueryClient();
     const router = useRouter();
     const [isDividerMount, setDividerMount] = useState(false);
+
+    //* wrap the QueryClient in a useMemo as not doing this
+    //* will clear the Queryclient object after the iniital page load
+    //* animation
+    const client = useMemo(() => new QueryClient(), []);
+
     nProgress.configure({ showSpinner: false });
+
     const globalTimeline = gsap.timeline({
         defaults: { duration: 1, ease: "power3.inOut" },
     });
 
+    //* effects to run on a route change
     useEffect(() => {
         const handleStart = () => {
             setDividerMount(false);
@@ -168,14 +175,15 @@ function MyApp({ Component, pageProps }) {
                 <ReactQueryDevtools />
                 <Hydrate state={pageProps.dehydratedState}>
                     <>
-                        <ScrollToTop />
-                        <ParentNavbar />
                         <WrapperParent isDividerMount={isDividerMount}>
+                            <ScrollToTop />
+                            <ParentNavbar {...pageProps} />
+
                             {<Component {...pageProps} />}
                             {Component?.removeFooter || <Footer />}
-                        </WrapperParent>
 
-                        <Analytics />
+                            <Analytics />
+                        </WrapperParent>
                     </>
                 </Hydrate>
             </QueryClientProvider>
