@@ -15,11 +15,9 @@ export function ParentNavbar() {
     const { pathname, asPath, replace } = router;
     const [isHamClicked, setHamClicked] = useState(false);
     const innerWidth = useWindowResize();
-    const [userData, _] = useAuth(true);
-    const [userProfileData] = useProfile(path, userData?.userID);
+    const [userData, isLoading, isFetching, isError] = useAuth(true);
 
     const isSmallScreenWidth = innerWidth > 740 ? false : true;
-
     useMemo(() => {
         if (!isSmallScreenWidth) {
             setHamClicked(false);
@@ -31,33 +29,38 @@ export function ParentNavbar() {
             const response = await axios.patch(
                 `${path.domain}api/v1/auth/log-out`,
                 {
-                    userID: userData?.userID,
+                    userID: userData.user._id,
                 }
             );
 
             if (response.status == 200) {
                 localStorage.removeItem("token");
 
-                window.location.href = "/";
+                router.replace("/");
             }
         } catch (error) {
             return;
         }
-    }, [replace]);
+    }, [userData]);
 
     const props = useMemo(
         () => ({
             signoutHandler,
             setHamClicked,
             isHamClicked,
-            data: userData && { ...userData, ...userProfileData?.user },
+            data: userData?.user,
+            isLoading,
+            isFetching,
+            isError,
         }),
         [
             setHamClicked,
             isHamClicked,
             signoutHandler,
             userData,
-            userProfileData?.user,
+            isLoading,
+            isFetching,
+            isError,
         ]
     );
 
