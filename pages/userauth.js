@@ -36,10 +36,20 @@ const UserAuthentication = () => {
                 }
             },
             {
-                onSettled: (data, error, variables, context) => {
+                onSettled: async (data, error, variables, context) => {
                     if (error) return;
-                    localStorage.setItem("token", data.token);
-                    replace("/");
+
+                    try {
+                        const res = await axios.post("/api/login", {
+                            token: data.token,
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    } finally {
+                        localStorage.setItem("token", data.token);
+
+                        replace("/");
+                    }
                 },
             }
         );
