@@ -9,6 +9,7 @@
         "awaity": "^1.0.0",
         "axios": "^0.24.0",
         "gsap": "^3.11.4",
+        "iron-session": "^6.3.1",
         "javascript-time-ago": "^2.3.13",
         "next": "^12.3.1",
         "nprogress": "^0.2.0",
