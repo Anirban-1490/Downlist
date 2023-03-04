@@ -148,68 +148,97 @@ export const Navbar = ({
                         ref={borderRef}></div>
                 </ul>
 
-                {data && !isLoading && (
+                {!isSmallScreenWidth && (
                     <>
-                        <div className={navbarStyle["user"]} ref={userbtn}>
-                            <img src={data.image} alt="" />
-                        </div>
-                        <div
-                            className={navbarStyle["yourlist"]}
-                            ref={refdropmenu}>
-                            <h4 className={navbarStyle["user-name"]}>
-                                HI, <br />
-                                {data.name}
-                            </h4>
-                            {data.status && (
-                                <h5 className={navbarStyle["user-status"]}>
-                                    {data.status}
-                                </h5>
-                            )}
-                            <Link href={`/u/${data._id}/profile/view`}>
-                                <a className={navbarStyle["your-anime"]}>
-                                    Profile
-                                </a>
-                            </Link>
-                            <div className={navbarStyle["list-links-wrapper"]}>
-                                <div className={navbarStyle["label"]}>
-                                    <div className={navbarStyle["line"]}></div>
-                                    <h4>List</h4>
-                                    <div className={navbarStyle["line"]}></div>
+                        {data && !isLoading && (
+                            <>
+                                <div
+                                    className={navbarStyle["user"]}
+                                    ref={userbtn}>
+                                    <img src={data.image} alt="" />
                                 </div>
-                                <Link href={`/u/${data._id}/list/anime`}>
-                                    <a className={navbarStyle["your-anime"]}>
-                                        Anime
-                                    </a>
+                                <div
+                                    className={navbarStyle["yourlist"]}
+                                    ref={refdropmenu}>
+                                    <h4 className={navbarStyle["user-name"]}>
+                                        HI, <br />
+                                        {data.name}
+                                    </h4>
+                                    {data.status && (
+                                        <h5
+                                            className={
+                                                navbarStyle["user-status"]
+                                            }>
+                                            {data.status}
+                                        </h5>
+                                    )}
+                                    <Link href={`/u/${data._id}/profile/view`}>
+                                        <a
+                                            className={
+                                                navbarStyle["your-anime"]
+                                            }>
+                                            Profile
+                                        </a>
+                                    </Link>
+                                    <div
+                                        className={
+                                            navbarStyle["list-links-wrapper"]
+                                        }>
+                                        <div className={navbarStyle["label"]}>
+                                            <div
+                                                className={
+                                                    navbarStyle["line"]
+                                                }></div>
+                                            <h4>List</h4>
+                                            <div
+                                                className={
+                                                    navbarStyle["line"]
+                                                }></div>
+                                        </div>
+                                        <Link
+                                            href={`/u/${data._id}/list/anime`}>
+                                            <a
+                                                className={
+                                                    navbarStyle["your-anime"]
+                                                }>
+                                                Anime
+                                            </a>
+                                        </Link>
+                                        <Link
+                                            href={`/u/${data._id}/list/character`}>
+                                            <a
+                                                className={
+                                                    navbarStyle["your-anime"]
+                                                }>
+                                                Characters
+                                            </a>
+                                        </Link>
+                                    </div>
+                                    <button
+                                        className={navbarStyle["sign-out"]}
+                                        onClick={signoutHandler}>
+                                        <p>Log Out</p>
+                                        <ion-icon name="exit-outline"></ion-icon>
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                        <div className={navbarStyle["signup"]}>
+                            {isLoading && (
+                                <CircularSpinner
+                                    size={34}
+                                    secondaryColor="transparent"
+                                    enabled={isLoading}
+                                />
+                            )}
+                            {!data && !isLoading && (
+                                <Link href="/userauth">
+                                    <a> Sign in</a>
                                 </Link>
-                                <Link href={`/u/${data._id}/list/character`}>
-                                    <a className={navbarStyle["your-anime"]}>
-                                        Characters
-                                    </a>
-                                </Link>
-                            </div>
-                            <button
-                                className={navbarStyle["sign-out"]}
-                                onClick={signoutHandler}>
-                                <p>Log Out</p>
-                                <ion-icon name="exit-outline"></ion-icon>
-                            </button>
+                            )}
                         </div>
                     </>
                 )}
-                <div className={navbarStyle["signup"]}>
-                    {isLoading && (
-                        <CircularSpinner
-                            size={34}
-                            secondaryColor="transparent"
-                            enabled={isLoading}
-                        />
-                    )}
-                    {!data && !isLoading && (
-                        <Link href="/userauth">
-                            <a> Sign in</a>
-                        </Link>
-                    )}
-                </div>
 
                 {!isHamClicked && isSmallScreenWidth && (
                     <ion-icon
