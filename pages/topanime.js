@@ -16,6 +16,7 @@ import topStyle from "Style/Top/top.module.scss";
 import { TopFromlist } from "Components/Top/TopFromList";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { getAllGenres } from "genres";
+import { CustomHead } from "Components/Global/CustomHead";
 
 function TopAnime({
     genres,
@@ -27,6 +28,11 @@ function TopAnime({
 
     return (
         <>
+            <CustomHead
+                description={"Discover Huge Library of Anime"}
+                url={"topanime"}
+                contentTitle={"Top Anime | Downlist"}
+            />
             <div className={topStyle["container-topsection"]}>
                 <StyledMainHeader
                     content={{

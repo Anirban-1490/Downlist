@@ -6,6 +6,7 @@ import coredetailStyle from "Components/Details/Style/CoreDetails.module.scss";
 import { path } from "server-path";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import { useAuth } from "Feature/Authorize/Authorize";
+import { CustomHead } from "Components/Global/CustomHead";
 
 export const CoreDetails = ({
     details,
@@ -190,7 +191,12 @@ export const CoreDetails = ({
 
     return (
         <>
-            {}
+            <CustomHead
+                imageUrl={image_url}
+                description={`${synopsis.substr(0, 230)}`}
+                url={`${switch_item}/${malid}`}
+                contentTitle={`${newTitle} | ${newTitleEnglish} | Downlist`}
+            />
             <div className={coredetailStyle["pic-header"]}>
                 <div className={coredetailStyle["img-inner-container"]}>
                     {type && (

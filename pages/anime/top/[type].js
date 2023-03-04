@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AnimeGenre } from "Components/AnimeContent/AnimeGenre";
+import { CustomHead } from "Components/Global/CustomHead";
 import { getAllGenres } from "genres";
 import { jikanQueries } from "JikanQueries";
 import { useMemo } from "react";
@@ -12,6 +13,7 @@ function PopularAnime({
     sort,
     orderBy,
     newTypeForFilter,
+    type,
 }) {
     const { ref, inView } = useInView();
     let modifiedData = [initialData];
@@ -55,6 +57,11 @@ function PopularAnime({
     }, [inView]);
     return (
         <>
+            <CustomHead
+                description={`Check full list of ${headerContent} anime`}
+                url={`anime/top/${type}`}
+                contentTitle={`${headerContent.toUpperCase()} Anime | Downlist`}
+            />
             <AnimeGenre
                 ref={ref}
                 headerContent={headerContent}
@@ -102,6 +109,7 @@ export async function getServerSideProps({ params, query }) {
                 orderBy,
                 sort,
                 newTypeForFilter,
+                type,
             },
         };
     } catch (error) {

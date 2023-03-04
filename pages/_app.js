@@ -17,6 +17,7 @@ import { Footer } from "Components/Global/Footer/footer";
 import { WrapperParent } from "Components/Global/Wrapper";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import { serverlessPath } from "Serverlesspath";
 gsap.registerPlugin(ScrollTrigger);
 
 function MyApp({ Component, pageProps }) {
@@ -92,10 +93,7 @@ function MyApp({ Component, pageProps }) {
                     content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
                 />
                 <meta name="theme-color" content="#000000" />
-                <meta
-                    name="description"
-                    content="check you favourite anime and characters and more"
-                />
+
                 <meta
                     name="keywords"
                     content="uplist , anime , manga , characters , anime characters , myanimelist , animelist , downlist"
@@ -169,7 +167,6 @@ function MyApp({ Component, pageProps }) {
                     crossOrigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.waves.min.js"></script>
-                <title>Downlist - Home for anime</title>
             </Head>
             <QueryClientProvider client={client}>
                 <ReactQueryDevtools />

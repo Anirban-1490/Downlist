@@ -1,12 +1,20 @@
 import axios from "axios";
 import { AnimeGenre } from "Components/AnimeContent/AnimeGenre";
+import { CustomHead } from "Components/Global/CustomHead";
 import { getAllGenres } from "genres";
 import { jikanQueries } from "JikanQueries";
 import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { QueryClient, useInfiniteQuery } from "react-query";
 
-function AnimeContent({ initialData, headerContent, genreId, sort, orderBy }) {
+function AnimeContent({
+    rawGenre,
+    initialData,
+    headerContent,
+    genreId,
+    sort,
+    orderBy,
+}) {
     const { ref, inView } = useInView();
     let modifiedData = [initialData];
 
@@ -49,6 +57,11 @@ function AnimeContent({ initialData, headerContent, genreId, sort, orderBy }) {
     }, [inView]);
     return (
         <>
+            <CustomHead
+                description={`Huge library of ${headerContent} anime`}
+                url={`anime/content?genre=${rawGenre}`}
+                contentTitle={`${headerContent.toUpperCase()} Anime | Downlist`}
+            />
             <AnimeGenre
                 ref={ref}
                 headerContent={headerContent}
@@ -96,6 +109,7 @@ export async function getServerSideProps({ params, query }) {
                 genreId,
                 orderBy,
                 sort,
+                rawGenre: query.genre,
             },
         };
     } catch (error) {

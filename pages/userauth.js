@@ -10,6 +10,7 @@ import { useAuth } from "Feature/Authorize/Authorize";
 import { useWindowResize } from "Hooks/useWindowResize";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
+import { CustomHead } from "Components/Global/CustomHead";
 
 const UserAuthentication = () => {
     const container_to_move = useRef();
@@ -110,6 +111,11 @@ const UserAuthentication = () => {
 
     return (
         <>
+            <CustomHead
+                description={`Sign up to get more awesome stuff from Downlist`}
+                url={`/userauth`}
+                contentTitle={`Sign Up | Downlist`}
+            />
             <div className={authStyle["container"]}>
                 <div className={authStyle["child-container"]}>
                     {isError &&

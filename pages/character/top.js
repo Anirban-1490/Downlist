@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AnimeGenre } from "Components/AnimeContent/AnimeGenre";
+import { CustomHead } from "Components/Global/CustomHead";
 import { getAllGenres } from "genres";
 import { jikanQueries } from "JikanQueries";
 import { useMemo } from "react";
@@ -49,6 +50,11 @@ function PopularAnime({ initialData, headerContent, sort, orderBy }) {
     }, [inView]);
     return (
         <>
+            <CustomHead
+                description={`Check full list of ${headerContent} anime`}
+                url={`character/top`}
+                contentTitle={`${headerContent.toUpperCase()} Characters | Downlist`}
+            />
             <AnimeGenre
                 ref={ref}
                 headerContent={headerContent}

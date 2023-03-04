@@ -20,6 +20,7 @@ import { TopFromlist } from "Components/Top/TopFromList";
 import reduce from "awaity/reduce";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { serverlessPath } from "Serverlesspath";
+import { CustomHead } from "Components/Global/CustomHead";
 
 function TopCharcter({ topCharcters }) {
     const [userData, _] = useAuth(true);
@@ -47,6 +48,11 @@ function TopCharcter({ topCharcters }) {
 
     return (
         <>
+            <CustomHead
+                description={"Discover Your Favourite Characters"}
+                url={"topcharacters"}
+                contentTitle={"Top Characters | Downlist"}
+            />
             <div className={topStyle["container-topsection"]}>
                 <StyledMainHeader
                     content={{

@@ -1,10 +1,16 @@
 import { AnyIcons } from "Components/Global/AnyIcons/AnyIcons";
+import { CustomHead } from "Components/Global/CustomHead";
 import React from "react";
 import aboutStyle from "Style/About/about.module.scss";
 
 const About = () => {
     return (
         <>
+            <CustomHead
+                description={"Chek what is Downlist"}
+                url={"about"}
+                contentTitle={"About | Downlist"}
+            />
             <div className={aboutStyle["about-page-contianer"]}>
                 <div className={aboutStyle["banner"]}>
                     <img src="/DownlistLogoNew.svg" alt="" />

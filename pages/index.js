@@ -9,6 +9,7 @@ import { HomeExtraInformation } from "Components/Home/ExtraInformation";
 import { HomeHeader } from "Components/Home/BigHeader";
 import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
 import { Container } from "Style/EmotionComponents";
+import { CustomHead } from "Components/Global/CustomHead";
 
 export default function HomeMain() {
     const containerRef = useRef();
@@ -57,6 +58,12 @@ export default function HomeMain() {
 
     return (
         <>
+            <CustomHead
+                description={
+                    "Discover Huge Library of Anime and see your favourite characters"
+                }
+                contentTitle={"Downlist | Home of Anime"}
+            />
             <div className={homeStyle["inner-root-container"]}>
                 <Container
                     ref={containerRef}
