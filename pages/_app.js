@@ -61,8 +61,8 @@ function MyApp({ Component, pageProps }) {
                     delay: 2,
                 }
             )
-            .set([".outer", ".inner"], {
-                overflow: "visible",
+            .set([".global-wrapper"], {
+                overflow: "auto",
                 height: "auto",
                 delay: 2,
                 onComplete: () => {
