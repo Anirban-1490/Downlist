@@ -66,7 +66,7 @@ export function ParentNavbar() {
 
     return (
         <>
-            {isSmallScreenWidth === true ? <MobileNavbar {...props} /> : ""}
+            {isSmallScreenWidth === true && <MobileNavbar {...props} />}
 
             {useMemo(() => {
                 return (
