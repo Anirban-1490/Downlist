@@ -1,177 +1,85 @@
-@use "/Style/GlobalStyle/main" as bp;
+@use "/Style/GlobalStyle/main" as m;
 
-.smallnav {
-  height: 100vh;
-  opacity: 0;
-  z-index: 12;
-  position: fixed;
-  width: 0;
-  transition: all 0.24s 1.7s;
-  &.toggle {
-    opacity: 1;
-    width: 100%;
-    transition: none;
-  }
-  #close-btn {
-    position: absolute;
+.mobile-navbar {
+    background-color: m.$cl-light-black-2;
+    height: 100vh;
+    height: 100dvh;
+    // border: 2px solid red;
+    position: fixed;
+    z-index: 22;
+    width: 45%;
 
-    z-index: 15;
-    right: 6%;
-    top: 6%;
-    translate: 0 -50%;
-    color: white;
-    font-size: 2.5rem;
-    transition: all 0s 0.6s;
-  }
-  .smallnav-parts-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    position: absolute;
-    .parts {
-      flex: 0 0 25.5%;
-      position: relative;
-      top: -1400px;
-      z-index: 4;
+    transition: right 400ms ease-out;
+    .close-btn {
+        all: unset;
+        right: 2.2em;
+        top: 1em;
+        position: absolute;
+        ion-icon {
+            color: white;
+
+            font-size: m.$fontSize-md + 0.5;
+        }
+        &:focus-visible {
+            outline: 2px solid m.$cl-dark-orange;
+        }
     }
-    .part-1 {
-      background: white;
-      $index: 1;
-      &.animate {
-        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
-          anime-parts-color 1s $index * 0.2s 1 forwards;
-      }
-      &.anime-default {
-        animation: anime-parts-reverse 1.5s $index * 0.1s;
-        animation-fill-mode: forwards;
-      }
+    header {
+        margin-bottom: m.$base-margin + 1.2;
+        margin-top: m.$margin-extra;
+        .profile-img {
+            margin: 0 auto;
+            margin-bottom: m.$base-margin;
+            border: 2px solid m.$cl-dark-orange;
+            width: m.$base-width + 3;
+            height: m.$base-height + 3;
+            img {
+                width: 100%;
+            }
+        }
+        .user-name {
+            color: m.$cl-light-cyan;
+            display: block;
+            text-align: center;
+            font-size: m.$fontSize-base + 0.4;
+        }
     }
-    .part-2 {
-      background: red;
-      $index: 2;
-      &.animate {
-        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
-          anime-parts-color 1s $index * 0.2s 1 forwards;
-      }
-      &.anime-default {
-        animation: anime-parts-reverse 1.5s $index * 0.1s;
-        animation-fill-mode: forwards;
-      }
+    .nav-links {
+        a {
+            @include m.responsive-font-size(3vw, 3.6vw, 2.2rem);
+            display: block;
+            color: white;
+            text-decoration: none;
+            list-style-type: none;
+            margin-bottom: m.$base-margin + 1;
+
+            text-align: center;
+
+            border-bottom: 3px solid m.$cl-light-black-3;
+            border-top: 3px solid m.$cl-light-black-3;
+            padding: m.$base-padding - 0.3 0;
+        }
+        .sign-in {
+            background-color: m.$cl-dark-orange;
+            border-radius: 0.33rem;
+        }
     }
-    .part-3 {
-      background: rgb(16, 173, 16);
-      $index: 3;
-      &.animate {
-        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
-          anime-parts-color 1s $index * 0.2s 1 forwards;
-      }
-      &.anime-default {
-        animation: anime-parts-reverse 1.5s $index * 0.1s;
-        animation-fill-mode: forwards;
-      }
+    .sign-out {
+        @include m.default-btn-style(
+            m.$cl-light-red,
+            $border-radius: 0.34rem,
+            $padding: m.$base-padding - 0.5 m.$base-padding + 0.4
+        );
+        display: block;
+        margin: 0 auto;
+
+        ion-icon {
+            font-size: m.$fontSize-base + 0.23;
+            vertical-align: middle;
+            margin-left: m.$base-margin - 0.7;
+        }
+        &:focus-visible {
+            outline: 2px solid m.$cl-dark-orange;
+        }
     }
-    .part-4 {
-      background: yellow;
-      $index: 4;
-      &.animate {
-        animation: anime-parts 0.5s $index * 0.1s 1 forwards,
-          anime-parts-color 1s $index * 0.2s 1 forwards;
-      }
-      &.anime-default {
-        animation: anime-parts-reverse 1.5s $index * 0.1s;
-        animation-fill-mode: forwards;
-      }
-    }
-    // .anime-default {
-    //   animation: anime-parts-reverse 1.5s calc(var(--i) * 0.1s);
-    //   animation-fill-mode: forwards;
-    // }
-  }
-
-  .smallnav-nav-container {
-    width: 75%;
-    visibility: hidden;
-    z-index: 10;
-    position: relative;
-    margin: 0 auto;
-
-    min-height: 100%;
-    transition: visibility 1s linear;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.67em;
-    &.active {
-      animation: visibility 1s linear 0.4s 1 forwards;
-    }
-
-    .user-name {
-      margin-bottom: 2em;
-      margin-top: -1em;
-      color: darkorange;
-      font-size: 1.55em;
-      text-align: center;
-    }
-    .signup-sm {
-      @include bp.breakpoint(740px) {
-        min-width: 5em;
-        text-align: center;
-        background: #e89a0a;
-        padding: 0.7em 3.3em;
-        text-decoration: none;
-        color: white;
-        border-radius: 0.3em;
-      }
-    }
-
-
-    .navlink {
-      text-decoration: none;
-      text-align: center;
-      flex-grow: 0;
-      flex-shrink: 0;
-      width: 150px;
-      padding: 2%;
-      color: white;
-      border-bottom: 3px solid beige;
-      min-height: 35px;
-      transition: all 0.5s;
-
-      &:hover {
-        background: white;
-        color: black;
-      }
-    }
-   
-  }
-}
-
-@keyframes anime-parts-color {
-  100% {
-    background: #361556;
-  }
-}
-@keyframes anime-parts {
-  100% {
-    top: 0;
-  }
-}
-
-@keyframes anime-parts-reverse {
-  0% {
-    top: 0;
-  }
-  100% {
-    top: -1400px;
-  }
-}
-
-@keyframes visibility {
-  0% {
-    visibility: hidden;
-  }
-  100% {
-    visibility: visible;
-  }
 }
