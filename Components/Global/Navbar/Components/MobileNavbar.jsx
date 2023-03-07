@@ -1,6 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import Link from "next/link";
 
 import mobileNavStyle from "Components/Global/Navbar/Style/MobileNav.module.scss";
+import { AnyIcons } from "Components/Global/AnyIcons/AnyIcons";
+import { css } from "@emotion/react";
 
 export function MobileNavbar({
     data,
@@ -8,143 +11,86 @@ export function MobileNavbar({
     isHamClicked,
     setHamClicked,
 }) {
-    //*end animation after clicking a navigation link or the close button
+    const positionRight = isHamClicked ? "0" : "-50%";
 
-    const clickhandler = async () => {
-        // [...document.getElementsByClassName("parts")].forEach((ele) =>
-        //   ele.classList.remove("animate")
-        // );
+    const navLinks = [
+        { path: "/topanime", label: "Anime" },
+        { path: "/topcharacters", label: "Characters" },
+        { path: "/about", label: "About" },
+    ];
+    !data &&
+        navLinks.push({
+            path: "/userauth",
+            label: "Sign in",
+            className: "sign-in",
+        });
+    data &&
+        navLinks.push(
+            {
+                path: `/u/${data._id}/list/anime`,
+                label: "Anime list",
+            },
+            {
+                path: `/u/${data._id}/list/character`,
+                label: "Characters list",
+            }
+        );
+
+    const clickhandler = (e) => {
         setHamClicked(false);
-        // setTimeout(() => {
-
-        // }, 4000);
     };
 
     return (
         <>
-            <div
-                className={`${mobileNavStyle["smallnav"]} ${
-                    isHamClicked && mobileNavStyle["toggle"]
-                }`}>
-                {isHamClicked ? (
-                    <ion-icon
-                        name="close"
-                        id={mobileNavStyle["close-btn"]}
-                        onClick={clickhandler}></ion-icon>
-                ) : (
-                    ""
-                )}
+            <nav
+                className={mobileNavStyle["mobile-navbar"]}
+                css={{ right: positionRight }}>
+                <button
+                    onClick={clickhandler}
+                    className={mobileNavStyle["close-btn"]}
+                    aria-label="close button">
+                    <AnyIcons badgeIcon={"close"} />
+                </button>
 
-                <div className={mobileNavStyle["smallnav-parts-container"]}>
-                    <div
-                        className={`${mobileNavStyle["parts"]} ${
-                            mobileNavStyle["part-1"]
-                        } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
-                            isHamClicked && mobileNavStyle["animate"]
-                        }`}></div>
-                    <div
-                        className={`${mobileNavStyle["parts"]} ${
-                            mobileNavStyle["part-2"]
-                        } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
-                            isHamClicked && mobileNavStyle["animate"]
-                        }`}></div>
-                    <div
-                        className={`${mobileNavStyle["parts"]} ${
-                            mobileNavStyle["part-3"]
-                        } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
-                            isHamClicked && mobileNavStyle["animate"]
-                        }`}></div>
-                    <div
-                        className={`${mobileNavStyle["parts"]} ${
-                            mobileNavStyle["part-4"]
-                        } ${!isHamClicked && mobileNavStyle["anime-default"]} ${
-                            isHamClicked && mobileNavStyle["animate"]
-                        }`}></div>
-                </div>
-
-                {isHamClicked && (
-                    <>
-                        {data && (
-                            <button
-                                className={mobileNavStyle["sign-out"]}
-                                style={{ color: "white" }}
-                                onClick={signoutHandler}>
-                                <p>Sign out</p>
-                                <ion-icon
-                                    name={
-                                        mobileNavStyle["exit-outline"]
-                                    }></ion-icon>
-                            </button>
-                        )}
+                {data && (
+                    <header>
                         <div
-                            className={`${
-                                mobileNavStyle["smallnav-nav-container"]
-                            } ${isHamClicked && mobileNavStyle["active"]}`}>
-                            {data && (
-                                <h4 className={mobileNavStyle["user-name"]}>
-                                    HI, {data?.name}
-                                </h4>
-                            )}
-                            <Link href="/topanime">
-                                <a
-                                    onClick={clickhandler}
-                                    className={mobileNavStyle["navlink"]}>
-                                    Anime
-                                </a>
-                            </Link>
-                            <Link href="/topcharacters">
-                                <a
-                                    onClick={clickhandler}
-                                    className={mobileNavStyle["navlink"]}>
-                                    Characters
-                                </a>
-                            </Link>
-                            <Link href="/about">
-                                <a
-                                    onClick={clickhandler}
-                                    className={mobileNavStyle["navlink"]}>
-                                    About
-                                </a>
-                            </Link>
-                            {!data && (
-                                <Link href="/userauth">
-                                    <a
-                                        onClick={clickhandler}
-                                        className={mobileNavStyle["signup-sm"]}>
-                                        {" "}
-                                        Sign in
-                                    </a>
-                                </Link>
-                            )}
-
-                            {data && (
-                                <>
-                                    <Link
-                                        href={`/anime/list/u/${data._id}`}
-                                        onClick={clickhandler}>
-                                        <a
-                                            className={
-                                                mobileNavStyle["navlink"]
-                                            }>
-                                            Anime List
-                                        </a>
-                                    </Link>
-                                    <Link
-                                        href={`/character/list/u/${data._id}`}
-                                        onClick={clickhandler}>
-                                        <a
-                                            className={
-                                                mobileNavStyle["navlink"]
-                                            }>
-                                            Character List
-                                        </a>
-                                    </Link>
-                                </>
-                            )}
+                            className={mobileNavStyle["profile-img"]}
+                            title={data.name}>
+                            <img src={data.image} alt={data.name} />
                         </div>
-                    </>
+                        <Link href={`/u/${data._id}/profile/view`}>
+                            <a
+                                onClick={clickhandler}
+                                className={mobileNavStyle["user-name"]}>
+                                {data.name}
+                            </a>
+                        </Link>
+                    </header>
                 )}
-            </div>
+                <div className={mobileNavStyle["nav-links"]}>
+                    {navLinks.map((link) => {
+                        return (
+                            <Link key={link.path} href={link.path}>
+                                <a
+                                    className={mobileNavStyle[link.className]}
+                                    onClick={clickhandler}>
+                                    {link.label}
+                                </a>
+                            </Link>
+                        );
+                    })}
+                </div>
+                {data && (
+                    <button
+                        aria-label="log out"
+                        className={mobileNavStyle["sign-out"]}
+                        onClick={signoutHandler}>
+                        Log Out
+                        <AnyIcons badgeIcon={"exit-outline"} />
+                    </button>
+                )}
+            </nav>
         </>
     );
 }
