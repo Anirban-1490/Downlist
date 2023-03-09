@@ -24,6 +24,7 @@
             outline: 2px solid m.$cl-dark-orange;
         }
     }
+
     header {
         margin-bottom: m.$base-margin + 1.2;
         margin-top: m.$margin-extra;
@@ -45,25 +46,34 @@
         }
     }
     .nav-links {
+        margin-top: m.$margin-extra * 1.5;
         a {
-            @include m.responsive-font-size(3vw, 3.6vw, 2.2rem);
+            @include m.responsive-font-size(3vw, 3.9vw, 2.2rem);
             display: block;
             color: white;
             text-decoration: none;
             list-style-type: none;
             margin-bottom: m.$base-margin + 1;
-
-            text-align: center;
+            letter-spacing: 0.14rem;
+            text-align: start;
 
             border-bottom: 3px solid m.$cl-light-black-3;
-            border-top: 3px solid m.$cl-light-black-3;
             padding: m.$base-padding - 0.3 0;
+            padding-left: m.$base-padding;
         }
         .sign-in {
             background-color: m.$cl-dark-orange;
             border-radius: 0.33rem;
         }
     }
+
+    // * if the header exists then remove margin-top from the nav-links
+    &:has(header) {
+        .nav-links {
+            margin-top: 0;
+        }
+    }
+
     .sign-out {
         @include m.default-btn-style(
             m.$cl-light-red,
