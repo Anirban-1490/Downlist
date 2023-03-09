@@ -2,6 +2,7 @@ import { getRandomID } from "Feature/RandomID";
 import { withIronSessionApiRoute } from "iron-session/next";
 
 import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
+import { ironOptions } from "lib/IronOption";
 
 async function loginHandler(req, res) {
     const { token } = req.body;
@@ -21,10 +22,4 @@ async function loginHandler(req, res) {
     }
 }
 
-export default withIronSessionApiRoute(loginHandler, {
-    cookieName: process.env.COOKIE_NAME + "",
-    password: process.env.COOKIE_PASSWORD + "",
-    cookieOptions: {
-        secure: process.env.NODE_ENV == "production",
-    },
-});
+export default withIronSessionApiRoute(loginHandler, ironOptions);
