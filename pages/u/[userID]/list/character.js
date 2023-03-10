@@ -3,18 +3,17 @@ import { useAuth } from "Feature/Authorize/Authorize";
 import { useList } from "Hooks/useList";
 import { useState } from "react";
 import { Container } from "Style/EmotionComponents";
-
-function CharactersList({ userID }) {
+import { ironOptions } from "lib/IronOption";
+import { withIronSessionSsr } from "iron-session/next";
+function CharactersList({ userID, user }) {
     const [whatToSortBy, setWhatToSortBy] = useState(undefined);
-
-    const [userData, _] = useAuth(true);
 
     const returnedPackage = useList("character", userID, 6, whatToSortBy);
     return (
         <>
             <Container>
                 <CoreList
-                    clientData={userData}
+                    clientData={user}
                     switch_item={"character"}
                     userID={userID}
                     setWhatToSortBy={setWhatToSortBy}
@@ -25,12 +24,23 @@ function CharactersList({ userID }) {
     );
 }
 
-export async function getServerSideProps({ params }) {
-    const { userID } = params;
+export const getServerSideProps = withIronSessionSsr(
+    async ({ params, req }) => {
+        const { userID } = params;
 
-    return {
-        props: { userID },
-    };
-}
+        if (!req.session.user)
+            return {
+                redirect: "/userauth",
+            };
+
+        return {
+            props: {
+                user: req.session.user,
+                userID,
+            },
+        };
+    },
+    ironOptions
+);
 
 export default CharactersList;

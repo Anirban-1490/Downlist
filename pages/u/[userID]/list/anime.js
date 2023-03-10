@@ -5,11 +5,11 @@ import { useList } from "Hooks/useList";
 import { CoreList } from "Components/UserList/CoreList";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { Container } from "Style/EmotionComponents";
+import { ironOptions } from "lib/IronOption";
+import { withIronSessionSsr } from "iron-session/next";
 
-function AnimeList({ userID }) {
+function AnimeList({ userID, user }) {
     const [whatToSortBy, setWhatToSortBy] = useState(undefined);
-
-    const [userData, _] = useAuth(true);
 
     const returnedPackage = useList("anime", userID, 6, whatToSortBy);
 
@@ -19,7 +19,7 @@ function AnimeList({ userID }) {
         <>
             <Container>
                 <CoreList
-                    clientData={userData}
+                    clientData={user}
                     switch_item={"anime"}
                     userID={userID}
                     setWhatToSortBy={setWhatToSortBy}
@@ -30,12 +30,23 @@ function AnimeList({ userID }) {
     );
 }
 
-export async function getServerSideProps({ params }) {
-    const { userID } = params;
+export const getServerSideProps = withIronSessionSsr(
+    async ({ params, req }) => {
+        const { userID } = params;
 
-    return {
-        props: { userID },
-    };
-}
+        if (!req.session.user)
+            return {
+                redirect: "/userauth",
+            };
+
+        return {
+            props: {
+                user: req.session.user,
+                userID,
+            },
+        };
+    },
+    ironOptions
+);
 
 export default AnimeList;
