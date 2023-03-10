@@ -106,12 +106,13 @@ export function CoreList(props) {
                                     } = item;
 
                                     return (
-                                        <Link href={`/${switch_item}/${malid}`}>
+                                        <Link
+                                            href={`/${switch_item}/${malid}`}
+                                            key={malid}>
                                             <a
                                                 className={
                                                     ListStyle["items-container"]
-                                                }
-                                                key={malid}>
+                                                }>
                                                 <div
                                                     className={
                                                         ListStyle[
