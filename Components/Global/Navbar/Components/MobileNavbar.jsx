@@ -52,7 +52,7 @@ export function MobileNavbar({
                     <AnyIcons badgeIcon={"close"} />
                 </button>
 
-                {data && (
+                {!!data && (
                     <header>
                         <div
                             className={mobileNavStyle["profile-img"]}
@@ -81,11 +81,14 @@ export function MobileNavbar({
                         );
                     })}
                 </div>
-                {data && (
+                {!!data && (
                     <button
                         aria-label="log out"
                         className={mobileNavStyle["sign-out"]}
-                        onClick={signoutHandler}>
+                        onClick={(e) => {
+                            clickhandler(e);
+                            signoutHandler();
+                        }}>
                         Log Out
                         <AnyIcons badgeIcon={"exit-outline"} />
                     </button>
