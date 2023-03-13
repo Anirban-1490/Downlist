@@ -6,13 +6,11 @@ export const authorizeDomain = async (token) => {
     const uniqueID = getRandomID();
 
     return (
-        await axios.get(
-            `${path.domain}api/v1/auth/authorize?reqID=${uniqueID}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        )
-    ).data;
+        await fetch(`${path.domain}api/v1/auth/authorize?reqID=${uniqueID}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    ).json();
 };
