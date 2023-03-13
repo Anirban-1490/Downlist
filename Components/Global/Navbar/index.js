@@ -26,18 +26,14 @@ export function ParentNavbar() {
 
     const signoutHandler = useCallback(async () => {
         try {
-            const response = await axios.patch(
-                `${path.domain}api/v1/auth/log-out`,
-                {
-                    userID: userData.user._id,
-                }
-            );
+            await axios.patch(`${path.domain}api/v1/auth/log-out`, {
+                userID: userData.user._id,
+            });
+            //*delete the cookies
+            await axios.delete("/api/logout");
+            localStorage.removeItem("token");
 
-            if (response.status == 200) {
-                localStorage.removeItem("token");
-
-                router.replace("/");
-            }
+            router.replace("/");
         } catch (error) {
             return;
         }
