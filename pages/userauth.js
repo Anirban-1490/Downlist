@@ -11,6 +11,7 @@ import { useWindowResize } from "Hooks/useWindowResize";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { CustomHead } from "Components/Global/CustomHead";
+import { CircularSpinner } from "Components/Global/CircularSpinner";
 
 const UserAuthentication = () => {
     const container_to_move = useRef();
@@ -175,10 +176,16 @@ const UserAuthentication = () => {
                                 type="submit"
                                 className={authStyle["submit-btn"]}
                                 onClick={(e) => formHandler("signin", e)}
-                                disabled={isSuccess}>
-                                {isLoading && !isError
-                                    ? "Loading..."
-                                    : "Sign in"}
+                                disabled={isSuccess || isLoading}>
+                                {isLoading && !isError ? (
+                                    <CircularSpinner
+                                        color="white"
+                                        secondaryColor="transparent"
+                                        size={25}
+                                    />
+                                ) : (
+                                    "Sign in"
+                                )}
                             </button>
 
                             <h4>
@@ -191,7 +198,7 @@ const UserAuthentication = () => {
                             </h4>
                         </form>
 
-                        {/* //* ----------------Sign up-----------  */}
+                        {/* //? ----------------Sign up-----------  */}
                         <form className={authStyle["newuser-container"]}>
                             <h2>Create account</h2>
 
@@ -263,10 +270,16 @@ const UserAuthentication = () => {
                                 type="submit"
                                 className={authStyle["submit-btn"]}
                                 onClick={(e) => formHandler("signup", e)}
-                                disabled={isSuccess}>
-                                {isLoading && !isError
-                                    ? "Loading..."
-                                    : "Sign up"}
+                                disabled={isSuccess || isLoading}>
+                                {isLoading && !isError ? (
+                                    <CircularSpinner
+                                        color="white"
+                                        secondaryColor="transparent"
+                                        size={19}
+                                    />
+                                ) : (
+                                    "Sign up"
+                                )}
                             </button>
                             <h4>
                                 Already a user?{" "}
