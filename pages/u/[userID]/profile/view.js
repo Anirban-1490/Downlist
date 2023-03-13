@@ -10,6 +10,8 @@ import { Activity } from "Components/Profile/Activity";
 import { useList } from "Hooks/useList";
 import { serverlessPath } from "Serverlesspath";
 import dynamic from "next/dynamic";
+import { withIronSessionSsr } from "iron-session/next";
+import { ironOptions } from "lib/IronOption";
 
 //* dynamically laods the pinneditemspicker as it's condiitonal and needed
 //* only when the user clicks the "add your picks" button"
@@ -21,7 +23,7 @@ const PinnedItemsPicker = dynamic(
     { ssr: false }
 );
 
-const MainUserProfile = ({ userID, userDetails }) => {
+const MainUserProfile = ({ userID, user }) => {
     const refForm = useRef();
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
@@ -32,7 +34,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
         "pinnedItems",
         async () =>
             await axios.post(`${serverlessPath.domain}api/pins/info`, {
-                pinnedItems: userDetails.pinnedItems,
+                pinnedItems: user.pinnedItems,
             }),
         { retry: 1, refetchOnWindowFocus: false }
     );
@@ -57,7 +59,7 @@ const MainUserProfile = ({ userID, userDetails }) => {
     // };
 
     const propsForMainProfile = {
-        ...userDetails,
+        ...user,
         userID,
         isCurrentUsersProfile: true,
         setPins,
@@ -70,16 +72,13 @@ const MainUserProfile = ({ userID, userDetails }) => {
     const propsForPinnedItemsPicker = {
         userID,
         setPins,
-        pinnedItems: userDetails.pinnedItems,
+        pinnedItems: user.pinnedItems,
     };
 
     return (
         <>
             <MainProfile {...propsForMainProfile}>
-                <Activity
-                    windowSize={windowsize}
-                    activity={userDetails.activity}
-                />
+                <Activity windowSize={windowsize} activity={user.activity} />
             </MainProfile>
 
             {showPins && <PinnedItemsPicker {...propsForPinnedItemsPicker} />}
@@ -182,35 +181,23 @@ const MainUserProfile = ({ userID, userDetails }) => {
 //     );
 // };
 
-export async function getServerSideProps({ params }) {
-    const { userID } = params;
-    const queryClient = new QueryClient();
-    try {
-        const {
-            data: { user: userDetails },
-        } = await queryClient.fetchQuery(
-            ["profile", userID],
-            () => axios.get(`${path.domain}user/${userID}/profile/view`),
-            { retry: 1 }
-        );
+export const getServerSideProps = withIronSessionSsr(
+    async ({ params, req }) => {
+        const { userID } = params;
 
-        if (!userDetails) {
+        if (!req.session.user)
             return {
-                notFound: true,
+                redirect: "/userauth",
             };
-        }
 
         return {
             props: {
+                user: req.session.user,
                 userID,
-                userDetails,
             },
         };
-    } catch (error) {
-        return {
-            notFound: true,
-        };
-    }
-}
+    },
+    ironOptions
+);
 
 export default MainUserProfile;
