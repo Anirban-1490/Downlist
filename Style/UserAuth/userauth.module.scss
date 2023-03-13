@@ -190,6 +190,10 @@
                 color: white;
                 cursor: pointer;
                 margin: m.$base-margin 0;
+
+                &:disabled {
+                    background: #064d06;
+                }
             }
         }
         .error-message {
