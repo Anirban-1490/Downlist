@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import coredetailStyle from "Components/Details/Style/CoreDetails.module.scss";
 import { path } from "server-path";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import { useAuth } from "Feature/Authorize/Authorize";
 import { CustomHead } from "Components/Global/CustomHead";
+import { CircularSpinner } from "Components/Global/CircularSpinner";
 
 export const CoreDetails = ({
     details,
@@ -15,6 +16,8 @@ export const CoreDetails = ({
     malid,
     switch_path,
     switch_item,
+    isSaved: initialSavedStatus,
+    user,
 }) => {
     const {
         title,
@@ -31,10 +34,10 @@ export const CoreDetails = ({
         type,
     } = details;
 
-    const [itemadd, setItemadd] = useState(false);
-    const [isLoading, setLoading] = useState(false);
+    const [isSaved, setSaveStatus] = useState(initialSavedStatus);
+
     const [seemorebtn, Setbtn] = useState(false);
-    const [userData, _] = useAuth(true);
+
     const btn = useRef();
 
     const router = useRouter();
@@ -44,138 +47,87 @@ export const CoreDetails = ({
         title_english.length > 35
             ? `${title_english.substr(0, 35)}.`
             : title_english;
-    async function fetchUserList() {
-        if (switch_item === "character")
-            return (
-                await axios.get(
-                    `${path.domain}user/${userData?.userID}/list/character`
-                )
-            ).data;
 
-        return (
-            await axios.get(`${path.domain}user/${userData?.userID}/list/anime`)
-        ).data;
-    }
-
-    useQuery(
-        switch_item === "anime" ? "userAnimeList" : "userCharList",
-
-        () => fetchUserList(),
+    //* mutation for submitting a data
+    const submitItemForSave = useMutation(
+        async (inputData) => {
+            if (switch_item === "anime") {
+                return await axios.post(
+                    `${path.domain}user/${user?._id}/list/anime`,
+                    inputData.anime
+                );
+            }
+            return await axios.post(
+                `${path.domain}user/${user?._id}/list/character`,
+                inputData.character
+            );
+        },
         {
-            refetchOnWindowFocus: false,
-            onSettled: (data, err) => {
-                if (err) return console.log(err);
-                console.log("ran");
-                data.list.forEach((obj) => {
-                    if (obj.malid === malid) {
-                        //*if item is in local storage the set this state to true
-                        console.log("hello");
-                        setItemadd(true);
+            onSuccess: async (data, vari) => {
+                await axios.put(
+                    `${path.domain}user/${user?._id}/profile/activity`,
+                    {
+                        actDone: "Added",
+                        detail: newTitleEnglish,
+                        doneAt: new Date(),
                     }
-                });
+                );
+                setSaveStatus(true);
             },
-            enabled: !!userData?.userID,
-            cacheTime: 1000,
         }
     );
 
-    //* function to add item into your saved list
+    //* mutation for deleting a data
+    const removeSavedItem = useMutation(
+        async () => {
+            return axios.delete(
+                `${path.domain}user/${user?._id}/list/${switch_item}/${malid}`
+            );
+        },
+        {
+            onSuccess: async (data) => {
+                await axios.put(
+                    `${path.domain}user/${user?._id}/profile/activity`,
+                    {
+                        actDone: "Removed",
+                        detail: newTitleEnglish,
+                        doneAt: new Date(),
+                    }
+                );
+                setSaveStatus(false);
+            },
+        }
+    );
+
     async function Additem(e) {
-        //* show the loadnig... text when click the button
-        setLoading(true);
+        //* user not authorized , redirect to sign in page
+        if (!user?._id) return router.push("/userauth");
 
-        if (!userData?.userID) {
-            //* if user not logged in then redirect to login page
-            router.push("/userauth");
-        } else {
-            if (itemadd === false) {
-                //*check if the route is for anime
-                if (switch_item === "anime") {
-                    const item = {
-                        malid,
-                        img_url: image_url,
-                        title: title,
-                        score: score,
-                        episodes: episodes,
-                        favorites,
-                        addedOn: new Date().toDateString(),
-                    };
+        if (isSaved) return removeSavedItem.mutate();
 
-                    await axios.post(
-                        `${path.domain}user/${userData?.userID}/list/anime`,
-                        item
-                    );
-
-                    await axios.put(
-                        `${path.domain}user/${userData?.userID}/profile/activity`,
-                        {
-                            actDone: "Added",
-                            detail: title,
-                            doneAt: new Date(),
-                        }
-                    );
-                }
-                //*check if the route is for character
-                else if (switch_item === "character") {
-                    const item = {
-                        malid,
-                        img_url: image_url,
-                        title_english,
-                        favorites,
-                        addedOn: new Date().toDateString(),
-                    };
-
-                    await axios.post(
-                        `${path.domain}user/${userData?.userID}/list/character`,
-                        item
-                    );
-
-                    await axios.put(
-                        `${path.domain}user/${userData?.userID}/profile/activity`,
-                        {
-                            actDone: "Added",
-                            detail: title,
-                            doneAt: new Date(),
-                        }
-                    );
-                }
-                //* remove the loading text
-                setLoading(false);
-                //*item added
-                setItemadd(true);
-            } else {
-                //* if item already added then remove it
-
-                if (switch_item === "anime") {
-                    await axios.delete(
-                        `${path.domain}user/${userData?.userID}/list/anime/${malid}`
-                    );
-
-                    await axios.put(
-                        `${path.domain}user/${userData?.userID}/profile/activity`,
-                        {
-                            actDone: "Removed",
-                            detail: details.title,
-                            doneAt: new Date(),
-                        }
-                    );
-                } else if (switch_item === "character") {
-                    await axios.delete(
-                        `${path.domain}user/${userData?.userID}/list/character/${malid}`
-                    );
-
-                    await axios.put(
-                        `${path.domain}user/${userData?.userID}/profile/activity`,
-                        {
-                            actDone: "Removed",
-                            detail: title,
-                            doneAt: new Date(),
-                        }
-                    );
-                }
-                setLoading(false);
-                setItemadd(false);
-            }
+        //*check if the route is for anime
+        if (switch_item === "anime") {
+            const anime = {
+                malid,
+                img_url: image_url,
+                title: title,
+                score: score,
+                episodes: episodes,
+                favorites,
+                addedOn: new Date().toDateString(),
+            };
+            submitItemForSave.mutate({ anime });
+        }
+        //*check if the route is for character
+        else if (switch_item === "character") {
+            const character = {
+                malid,
+                img_url: image_url,
+                title_english,
+                favorites,
+                addedOn: new Date().toDateString(),
+            };
+            submitItemForSave.mutate({ character });
         }
     }
 
@@ -231,6 +183,8 @@ export const CoreDetails = ({
                         <button
                             ref={btn}
                             type="button"
+                            title={`${isSaved ? "remove" : "save"}`}
+                            aria-label={`${isSaved ? "remove" : "save"}`}
                             onClick={Additem}
                             onMouseDown={() =>
                                 (btn.current.style.animation =
@@ -240,23 +194,36 @@ export const CoreDetails = ({
                                 (btn.current.style.animation = "none")
                             }
                             style={
-                                itemadd
+                                isSaved
                                     ? { background: "#fb2f00" }
                                     : { background: "#802bb1" }
                             }>
-                            {isLoading ? (
-                                "Loading..."
-                            ) : itemadd ? (
-                                <>
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                    Remove
-                                </>
-                            ) : (
-                                <>
-                                    <ion-icon name="bookmark"></ion-icon>
-                                    Save
-                                </>
-                            )}
+                            <CircularSpinner
+                                size={28}
+                                secondaryColor="transparent"
+                                enabled={
+                                    !!(
+                                        submitItemForSave.isLoading ||
+                                        removeSavedItem.isLoading
+                                    )
+                                }
+                                color="white"
+                            />
+
+                            {!submitItemForSave.isLoading &&
+                            !removeSavedItem.isLoading ? (
+                                isSaved ? (
+                                    <>
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                        Remove
+                                    </>
+                                ) : (
+                                    <>
+                                        <ion-icon name="bookmark"></ion-icon>
+                                        Save
+                                    </>
+                                )
+                            ) : null}
                         </button>
                     </li>
                 </ul>
