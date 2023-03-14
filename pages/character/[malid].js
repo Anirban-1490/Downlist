@@ -1,11 +1,9 @@
-import { useQuery, QueryClient, dehydrate } from "react-query";
+import { QueryClient } from "react-query";
 import axios from "axios";
 import React from "react";
 
 import { useRouter } from "next/router";
 import { CoreDetails } from "Components/Details/CoreDetails";
-import { Spinner } from "Components/Global/LoadingSpinner";
-import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { AnimeAppearances } from "Components/Details/AnimeAppearances";
 import { VoiceActors } from "Components/Details/VoiceActors";
 import { jikanQueries } from "JikanQueries";
@@ -101,7 +99,6 @@ export const getServerSideProps = withIronSessionSsr(
                     },
                 };
             } else {
-                console.log("lol");
                 throw new Error("invalid malid");
             }
         } catch (error) {

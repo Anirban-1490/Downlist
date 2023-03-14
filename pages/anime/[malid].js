@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React from "react";
 
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useQueries, QueryClient, dehydrate } from "react-query";
+import { QueryClient } from "react-query";
 
 import { RandomRecommendations } from "Components/Details/RandomRecommendation";
 import { Roles } from "Components/Details/Roles";
 import { CoreDetails } from "Components/Details/CoreDetails";
-import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { CommentsBox } from "Components/Details/CommentsBox";
-
-import { Spinner } from "Components/Global/LoadingSpinner";
 import { jikanQueries } from "JikanQueries";
-import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
-import { getUserToken } from "GetuserToken";
 import { useProfileData } from "Stores/UserProfileData";
 import { withIronSessionSsr } from "iron-session/next";
 import { ironOptions } from "lib/IronOption";
