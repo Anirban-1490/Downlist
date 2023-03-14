@@ -16,140 +16,147 @@ import { jikanQueries } from "JikanQueries";
 import { authorizeDomain } from "Feature/Authorize/AuthorizeDomain";
 import { getUserToken } from "GetuserToken";
 import { useProfileData } from "Stores/UserProfileData";
+import { withIronSessionSsr } from "iron-session/next";
+import { ironOptions } from "lib/IronOption";
+import { path } from "server-path";
 
 //* component for anime details
 
-const AnimeDetails = ({ userData }) => {
+const AnimeDetails = ({
+    user,
+    detailsOfAnime,
+    peopleReactions,
+    appearedCharacters,
+    isSaved,
+}) => {
     const router = useRouter();
 
     const { malid } = router.query;
 
     const { profileData } = useProfileData();
 
-    const result = useQueries([
-        {
-            queryKey: ["details", malid],
-            queryFn: () => jikanQueries("details", malid),
-            refetchOnWindowFocus: false,
-            enabled: !!malid,
-        },
-        {
-            queryKey: ["people_reaction", malid],
-            queryFn: () => jikanQueries("people_reaction", malid),
-            refetchOnWindowFocus: false,
-            enabled: !!malid,
-        },
-        {
-            queryKey: ["characters", malid],
-            queryFn: () => jikanQueries("characters", malid),
-            refetchOnWindowFocus: false,
-            enabled: !!malid,
-        },
-    ]);
-
-    const genres = result[0].data?.genres;
+    const genres = detailsOfAnime.genres;
 
     //*object for the metadeta of that anime
     const details = {
-        details: result[0].data,
+        details: detailsOfAnime,
         animegenres: genres,
-        stats: result[1].data,
+        stats: peopleReactions,
         malid,
+        user,
+        isSaved,
     };
 
     //*get array of random anime recommendation
 
     return (
-        <>
-            {result.some((item) => item.isLoading) ? (
-                <Spinner />
-            ) : (
-                <div
-                    className="container1"
-                    style={{
-                        height: "auto",
-                    }}>
-                    <CoreDetails
-                        {...details}
-                        switch_item="anime"
-                        switch_path="topanime"
-                    />
+        <div
+            className="container1"
+            style={{
+                height: "auto",
+            }}>
+            <CoreDetails
+                {...details}
+                switch_item="anime"
+                switch_path="topanime"
+                key={malid}
+            />
 
-                    {/* //* characters section */}
-                    <h4
-                        style={{
-                            color: "white",
-                            fontSize: "25px",
-                            marginLeft: "14.5%",
-                            marginBottom: "1%",
-                            marginTop: "2em",
-                            borderLeft: "5px solid red",
-                            letterSpacing: "2px",
-                        }}>
-                        Characters
-                    </h4>
-                    <Roles data={result[2].data} path={"/character"} />
+            {/* //* characters section */}
+            <h4
+                style={{
+                    color: "white",
+                    fontSize: "25px",
+                    marginLeft: "14.5%",
+                    marginBottom: "1%",
+                    marginTop: "2em",
+                    borderLeft: "5px solid red",
+                    letterSpacing: "2px",
+                }}>
+                Characters
+            </h4>
+            <Roles data={appearedCharacters} path={"/character"} />
 
-                    {/* //* recommendations section */}
-                    <h4
-                        style={{
-                            color: "white",
-                            fontSize: "35px",
-                            marginBottom: "1%",
-                            marginTop: "2em",
-                            letterSpacing: "2px",
-                            textAlign: "center",
-                        }}>
-                        Recommended
-                    </h4>
-                    <RandomRecommendations
-                        genres={genres}
-                        path={"/anime"}
-                        malId={malid}
-                    />
-                    <h4
-                        style={{
-                            color: "white",
-                            fontSize: "35px",
-                            marginBottom: "1%",
-                            marginTop: "2em",
-                            letterSpacing: "2px",
-                            textAlign: "center",
-                        }}>
-                        Comments
-                    </h4>
-                    <CommentsBox {...profileData?.data} malid={malid} />
-                </div>
-            )}
-        </>
+            {/* //* recommendations section */}
+            <h4
+                style={{
+                    color: "white",
+                    fontSize: "35px",
+                    marginBottom: "1%",
+                    marginTop: "2em",
+                    letterSpacing: "2px",
+                    textAlign: "center",
+                }}>
+                Recommended
+            </h4>
+            <RandomRecommendations
+                genres={genres}
+                path={"/anime"}
+                malId={malid}
+            />
+            <h4
+                style={{
+                    color: "white",
+                    fontSize: "35px",
+                    marginBottom: "1%",
+                    marginTop: "2em",
+                    letterSpacing: "2px",
+                    textAlign: "center",
+                }}>
+                Comments
+            </h4>
+            <CommentsBox {...profileData?.data} malid={malid} />
+        </div>
     );
 };
 
-export async function getServerSideProps({ params, query }) {
-    const { malid } = params;
+export const getServerSideProps = withIronSessionSsr(
+    async ({ params, query, req }) => {
+        const { malid } = params;
+        const user = req.session.user;
+        const client = new QueryClient();
+        try {
+            if (!isNaN(Number(malid))) {
+                const detailsOfAnime = await client.fetchQuery(
+                    ["details", malid],
+                    () => jikanQueries("details", malid)
+                );
+                const peopleReactions = await client.fetchQuery(
+                    ["people_reaction", malid],
+                    () => jikanQueries("people_reaction", malid)
+                );
+                const appearedCharacters = await client.fetchQuery(
+                    ["characters", malid],
+                    () => jikanQueries("characters", malid)
+                );
 
-    const client = new QueryClient();
-    try {
-        if (Number(malid) !== NaN) {
-            await client.prefetchQuery(["details", malid], () =>
-                jikanQueries("details", malid)
-            );
-            await client.prefetchQuery(["people_reaction", malid], () =>
-                jikanQueries("people_reaction", malid)
-            );
-            await client.prefetchQuery(["characters", malid], () =>
-                jikanQueries("characters", malid)
-            );
+                const savedAnimeStatus = await client.fetchQuery(
+                    ["userAnimeList"],
+                    () =>
+                        axios.get(
+                            `${path.domain}user/${user._id}/list/anime/${malid}/status`
+                        )
+                );
+
+                return {
+                    props: {
+                        detailsOfAnime,
+                        peopleReactions,
+                        appearedCharacters,
+                        user,
+                        isSaved: savedAnimeStatus.data.status === "Saved",
+                    },
+                };
+            } else {
+                throw new Error("invalid malid");
+            }
+        } catch (error) {
+            return {
+                notFound: true,
+            };
         }
-    } catch (error) {
-        return {
-            notFound: true,
-        };
-    }
-
-    return {
-        props: { dehydratedState: dehydrate(client) },
-    };
-}
+    },
+    ironOptions
+);
 
 export default AnimeDetails;

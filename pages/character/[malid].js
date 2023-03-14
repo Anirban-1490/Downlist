@@ -9,97 +9,107 @@ import { PageNotFound } from "Components/Global/PageNotFound/PageNotFound";
 import { AnimeAppearances } from "Components/Details/AnimeAppearances";
 import { VoiceActors } from "Components/Details/VoiceActors";
 import { jikanQueries } from "JikanQueries";
+import { withIronSessionSsr } from "iron-session/next";
+import { ironOptions } from "lib/IronOption";
+import { path } from "server-path";
 
 //* component for character details
 
-function CharacetrDetails() {
-  const router = useRouter();
-  const { malid } = router.query;
+function CharacetrDetails({ user, isSaved, deatilsofCharacter }) {
+    const router = useRouter();
+    const { malid } = router.query;
 
-  const { data, isLoading, isError } = useQuery(
-    ["char_details", malid],
-    () => jikanQueries("char_details", malid),
-    { cacheTime: 0, refetchOnWindowFocus: false, enabled: !!malid }
-  );
-
-  const details = {
-    details: {
-      title: data?.name_kanji,
-      title_english: data?.name,
-      favorites: data?.favorites,
-      synopsis: data?.about,
-      images: data?.images,
-    },
-    animegenres: null,
-    stats: null,
-    char: null,
-    malid,
-  };
-
-  return (
-    <>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className="container1" style={{ height: "auto" }}>
-          <CoreDetails
-            {...details}
-            switch_item="character"
-            switch_path="topcharacters"
-          />
-          <h4
-            style={{
-              color: "white",
-              fontSize: "25px",
-              marginLeft: "14.5%",
-              marginBottom: "1%",
-              marginTop: "2em",
-              borderLeft: "5px solid red",
-              letterSpacing: "2px",
-            }}
-          >
-            Anime Appearances
-          </h4>
-          <AnimeAppearances appearances={data?.anime} />
-          <h4
-            style={{
-              color: "white",
-              fontSize: "25px",
-              marginLeft: "14.5%",
-              marginBottom: "1%",
-              marginTop: "2em",
-              borderLeft: "5px solid red",
-              letterSpacing: "2px",
-            }}
-          >
-            Voice Actors
-          </h4>
-          <VoiceActors voiceactors={data?.voices} />
-        </div>
-      )}
-    </>
-  );
-}
-
-export async function getServerSideProps({ params }) {
-  const { malid } = params;
-
-  const client = new QueryClient();
-  try {
-    if (Number(malid) !== NaN) {
-      await client.prefetchQuery(["char_details", malid], () =>
-        jikanQueries("char_details", malid)
-      );
-    }
-  } catch (error) {
-    return {
-      notFound: true,
+    const details = {
+        details: {
+            title: deatilsofCharacter?.name_kanji,
+            title_english: deatilsofCharacter?.name,
+            favorites: deatilsofCharacter?.favorites,
+            synopsis: deatilsofCharacter?.about,
+            images: deatilsofCharacter?.images,
+        },
+        animegenres: null,
+        stats: null,
+        char: null,
+        malid,
+        isSaved,
+        user,
     };
-  }
 
-  return {
-    props: { dehydratedState: dehydrate(client) },
-  };
+    return (
+        <>
+            <div className="container1" style={{ height: "auto" }}>
+                <CoreDetails
+                    {...details}
+                    switch_item="character"
+                    switch_path="topcharacters"
+                />
+                <h4
+                    style={{
+                        color: "white",
+                        fontSize: "25px",
+                        marginLeft: "14.5%",
+                        marginBottom: "1%",
+                        marginTop: "2em",
+                        borderLeft: "5px solid red",
+                        letterSpacing: "2px",
+                    }}>
+                    Anime Appearances
+                </h4>
+                <AnimeAppearances appearances={deatilsofCharacter?.anime} />
+                <h4
+                    style={{
+                        color: "white",
+                        fontSize: "25px",
+                        marginLeft: "14.5%",
+                        marginBottom: "1%",
+                        marginTop: "2em",
+                        borderLeft: "5px solid red",
+                        letterSpacing: "2px",
+                    }}>
+                    Voice Actors
+                </h4>
+                <VoiceActors voiceactors={deatilsofCharacter?.voices} />
+            </div>
+        </>
+    );
 }
 
+export const getServerSideProps = withIronSessionSsr(
+    async ({ params, req }) => {
+        const { malid } = params;
+        const user = req.session.user;
+        const client = new QueryClient();
+        try {
+            if (Number(malid) !== NaN) {
+                const deatilsofCharacter = await client.fetchQuery(
+                    ["char_details", malid],
+                    () => jikanQueries("char_details", malid)
+                );
+                const savedCharacterStatus = await client.fetchQuery(
+                    ["userCharacterList"],
+                    () =>
+                        axios.get(
+                            `${path.domain}user/${user._id}/list/character/${malid}/status`
+                        )
+                );
+                return {
+                    props: {
+                        deatilsofCharacter,
+
+                        user,
+                        isSaved: savedCharacterStatus.data.status === "Saved",
+                    },
+                };
+            } else {
+                console.log("lol");
+                throw new Error("invalid malid");
+            }
+        } catch (error) {
+            return {
+                notFound: true,
+            };
+        }
+    },
+    ironOptions
+);
 export default CharacetrDetails;
