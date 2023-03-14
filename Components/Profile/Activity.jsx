@@ -1,23 +1,23 @@
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import activityStyle from "Components/Profile/Style/Activity.module.scss";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import { useMemo } from "react";
-
+const colorsBG = {
+    Added: "#008000a7",
+    Removed: "#a82828b3",
+    Modified: "#6f6e6eb3",
+};
+const colorsFG = {
+    Added: "#62d262",
+    Removed: "#e17878",
+    Modified: "#a6a6a6",
+};
 export const Activity = ({ activity, windowSize }) => {
     const timeAgo = useMemo(() => {
         TimeAgo.addDefaultLocale(en);
         return new TimeAgo("en-US");
     }, []);
-    const colorsBG = {
-        Added: "#008000a7",
-        Removed: "#a82828b3",
-        Modified: "#6f6e6eb3",
-    };
-    const colorsFG = {
-        Added: "#62d262",
-        Removed: "#e17878",
-        Modified: "#a6a6a6",
-    };
 
     return (
         <>
@@ -63,9 +63,7 @@ export const Activity = ({ activity, windowSize }) => {
                             );
                         })
                     ) : (
-                        <h3 className={activityStyle["empty-container"]}>
-                            Looks pretty empty...
-                        </h3>
+                        <NoItem content="No activity found" />
                     )}
                 </div>
             </article>
