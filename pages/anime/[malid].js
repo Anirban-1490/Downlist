@@ -128,7 +128,7 @@ export const getServerSideProps = withIronSessionSsr(
                     ["userAnimeList"],
                     () =>
                         axios.get(
-                            `${path.domain}user/${user._id}/list/anime/${malid}/status`
+                            `https://server-downlist.onrender.com/user/${user._id}/list/anime/${malid}/status`
                         )
                 );
 
@@ -138,7 +138,7 @@ export const getServerSideProps = withIronSessionSsr(
                         peopleReactions,
                         appearedCharacters,
                         user,
-                        isSaved: savedAnimeStatus.data.status === "Saved",
+                        isSaved: savedAnimeStatus?.data?.status === "Saved",
                     },
                 };
             } else {
