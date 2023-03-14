@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 export const middleware = async (req) => {
     const response = NextResponse.next();
-
     const session = await getIronSession(req, response, ironOptions);
 
     if (!session.userToken && req.nextUrl.pathname !== "/userauth") {
@@ -17,10 +16,9 @@ export const middleware = async (req) => {
     } else if (session.userToken && req.nextUrl.pathname !== "/userauth") {
         //* usage of a buffer instead of string as long string value
         //* was taking much space
-        const buffer = Buffer.from(session.userToken);
 
         try {
-            const data = await authorizeDomain(buffer.toString("utf-8"));
+            const data = await authorizeDomain(session.userToken + "");
             session.user = data.user;
             await session.save();
         } catch (error) {
@@ -28,6 +26,7 @@ export const middleware = async (req) => {
             return NextResponse.redirect(new URL("/userauth", req.url));
         }
     }
+
     return response;
 };
 
