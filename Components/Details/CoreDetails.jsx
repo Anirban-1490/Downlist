@@ -181,6 +181,7 @@ export const CoreDetails = ({
                     </li>
                     <li className={coredetailStyle["add-to-list"]}>
                         <button
+                            data-save={isSaved}
                             ref={btn}
                             type="button"
                             title={`${isSaved ? "remove" : "save"}`}
@@ -193,22 +194,23 @@ export const CoreDetails = ({
                             onMouseUp={() =>
                                 (btn.current.style.animation = "none")
                             }
-                            style={
-                                isSaved
-                                    ? { background: "#fb2f00" }
-                                    : { background: "#802bb1" }
+                            className={
+                                (submitItemForSave.isLoading ||
+                                    removeSavedItem.isLoading) &&
+                                coredetailStyle["btn-loading"]
                             }>
-                            <CircularSpinner
-                                size={28}
-                                secondaryColor="transparent"
-                                enabled={
-                                    !!(
-                                        submitItemForSave.isLoading ||
-                                        removeSavedItem.isLoading
-                                    )
-                                }
-                                color="white"
-                            />
+                            {!!(
+                                submitItemForSave.isLoading ||
+                                removeSavedItem.isLoading
+                            ) && (
+                                <span>
+                                    <CircularSpinner
+                                        size={28}
+                                        secondaryColor="transparent"
+                                        color="white"
+                                    />
+                                </span>
+                            )}
 
                             {!submitItemForSave.isLoading &&
                             !removeSavedItem.isLoading ? (

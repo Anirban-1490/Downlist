@@ -164,9 +164,23 @@
                 display: flex;
                 gap: 0.4rem;
                 align-items: center;
-
+                min-width: m.$base-width + 6;
                 ion-icon {
                     font-size: 1.36rem;
+                }
+
+                &[data-save="false"] {
+                    background-color: #802bb1;
+                }
+                &[data-save="true"] {
+                    background-color: #fb2f00;
+                }
+                &.btn-loading {
+                    background-color: m.$cl-light-black-3;
+                }
+                span {
+                    display: inline-block;
+                    margin: 0 auto;
                 }
                 @keyframes btnanime {
                     25% {
