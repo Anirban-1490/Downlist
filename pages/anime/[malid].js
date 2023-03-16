@@ -107,7 +107,7 @@ const AnimeDetails = ({
 export const getServerSideProps = withIronSessionSsr(
     async ({ params, query, req }) => {
         const { malid } = params;
-        const user = req.session.user;
+        const user = req.session.user || null;
         const client = new QueryClient();
         try {
             if (!isNaN(Number(malid))) {
@@ -124,13 +124,13 @@ export const getServerSideProps = withIronSessionSsr(
                     () => jikanQueries("characters", malid)
                 );
 
-                const savedAnimeStatus = await client.fetchQuery(
-                    ["userAnimeList"],
-                    () =>
-                        axios.get(
-                            `https://server-downlist.onrender.com/user/${user._id}/list/anime/${malid}/status`
-                        )
-                );
+                const savedAnimeStatus = user
+                    ? await client.fetchQuery(["userAnimeList"], () =>
+                          axios.get(
+                              `${path.domain}user/${user._id}/list/anime/${malid}/status`
+                          )
+                      )
+                    : null;
 
                 return {
                     props: {
@@ -138,7 +138,9 @@ export const getServerSideProps = withIronSessionSsr(
                         peopleReactions,
                         appearedCharacters,
                         user,
-                        isSaved: savedAnimeStatus?.data?.status === "Saved",
+                        isSaved: user
+                            ? savedAnimeStatus.data.status === "Saved"
+                            : null,
                     },
                 };
             } else {
