@@ -1,0 +1,18 @@
+@use "/Style/GlobalStyle/main" as m;
+
+.custom-btn {
+    @include m.default-btn-style(
+        $padding: m.$base-padding - 0.5 m.$base-padding,
+        $background-color: m.$cl-dark-orange,
+        $border-radius: 0.2rem
+    );
+    &:hover {
+        background-color: lighten($color: m.$cl-dark-orange, $amount: 10%);
+    }
+    &:focus-visible {
+        outline: revert;
+    }
+    &:disabled {
+        background-color: m.$cl-light-black;
+    }
+}
