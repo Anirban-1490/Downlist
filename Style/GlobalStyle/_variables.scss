@@ -80,7 +80,10 @@ $archivo: "Archivo", sans-serif;
     $font-size: $fontSize-base,
     $font-color: white,
     $padding: $base-padding / 1.7 $base-padding * 2,
-    $border-radius: none
+    $border-radius: none,
+    $width: 5em,
+    $height: 1.4rem,
+    $text-align: center
 ) {
     all: unset;
     background-color: $background-color;
@@ -89,6 +92,9 @@ $archivo: "Archivo", sans-serif;
     padding: $padding;
     border-radius: $border-radius;
     cursor: pointer;
+    min-width: $width;
+    min-height: $height;
+    text-align: $text-align;
 }
 
 @mixin ion-icon-style(
