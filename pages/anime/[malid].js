@@ -2,7 +2,7 @@ import React from "react";
 
 import { useRouter } from "next/router";
 import axios from "axios";
-import { QueryClient } from "react-query";
+import { QueryClient, dehydrate } from "react-query";
 
 import { RandomRecommendations } from "Components/Details/RandomRecommendation";
 import { Roles } from "Components/Details/Roles";
@@ -57,10 +57,10 @@ const AnimeDetails = ({
             />
 
             {/* //* characters section */}
-            <h4
+            <h2
                 style={{
                     color: "white",
-                    fontSize: "25px",
+                    fontSize: "35px",
                     marginLeft: "14.5%",
                     marginBottom: "1%",
                     marginTop: "2em",
@@ -68,7 +68,7 @@ const AnimeDetails = ({
                     letterSpacing: "2px",
                 }}>
                 Characters
-            </h4>
+            </h2>
             <Roles data={appearedCharacters} path={"/character"} />
 
             {/* //* recommendations section */}
@@ -99,7 +99,7 @@ const AnimeDetails = ({
                 }}>
                 Comments
             </h4>
-            <CommentsBox {...profileData?.data} malid={malid} />
+            <CommentsBox user={user} malid={malid} />
         </div>
     );
 };
@@ -130,7 +130,7 @@ export const getServerSideProps = withIronSessionSsr(
                               `${path.domain}user/${user._id}/list/anime/${malid}/status`
                           )
                       )
-                    : null;
+                    : "";
 
                 return {
                     props: {
@@ -138,6 +138,7 @@ export const getServerSideProps = withIronSessionSsr(
                         peopleReactions,
                         appearedCharacters,
                         user,
+
                         isSaved: user
                             ? savedAnimeStatus.data.status === "Saved"
                             : null,
