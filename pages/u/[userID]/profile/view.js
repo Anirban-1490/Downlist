@@ -12,6 +12,7 @@ import { serverlessPath } from "Serverlesspath";
 import dynamic from "next/dynamic";
 import { withIronSessionSsr } from "iron-session/next";
 import { ironOptions } from "lib/IronOption";
+import { CustomHead } from "Components/Global/CustomHead";
 
 //* dynamically laods the pinneditemspicker as it's condiitonal and needed
 //* only when the user clicks the "add your picks" button"
@@ -23,18 +24,15 @@ const PinnedItemsPicker = dynamic(
     { ssr: false }
 );
 
-const MainUserProfile = ({ userID, user }) => {
-    const refForm = useRef();
+const MainUserProfile = ({ user: { _id, ...userDetail } }) => {
     const windowsize = useWindowResize();
     const [showPins, setPins] = useState(false);
-
-    // const [userProfileDetails, isError] = useProfile(path, userID);
 
     const { data, isLoading, isError, error, refetch } = useQuery(
         "pinnedItems",
         async () =>
             await axios.post(`${serverlessPath.domain}api/pins/info`, {
-                pinnedItems: user.pinnedItems,
+                pinnedItems: userDetail.pinnedItems,
             }),
         { retry: 1, refetchOnWindowFocus: false }
     );
@@ -59,8 +57,9 @@ const MainUserProfile = ({ userID, user }) => {
     // };
 
     const propsForMainProfile = {
-        ...user,
-        userID,
+        ...userDetail,
+        loggedInUserID: _id,
+
         isCurrentUsersProfile: true,
         setPins,
         pinnedItemsDetails: data?.data.pinnedItemsDetails,
@@ -70,15 +69,24 @@ const MainUserProfile = ({ userID, user }) => {
         refetch,
     };
     const propsForPinnedItemsPicker = {
-        userID,
+        userID: _id,
         setPins,
-        pinnedItems: user.pinnedItems,
+        pinnedItems: userDetail.pinnedItems,
     };
 
     return (
         <>
+            <CustomHead
+                contentTitle={`${userDetail.name} | Downlist`}
+                imageUrl={userDetail.image}
+                url={`u/${_id}/profile/view`}
+            />
+
             <MainProfile {...propsForMainProfile}>
-                <Activity windowSize={windowsize} activity={user.activity} />
+                <Activity
+                    windowSize={windowsize}
+                    activity={userDetail.activity}
+                />
             </MainProfile>
 
             {showPins && <PinnedItemsPicker {...propsForPinnedItemsPicker} />}
@@ -187,7 +195,10 @@ export const getServerSideProps = withIronSessionSsr(
 
         if (!req.session.user)
             return {
-                redirect: "/userauth",
+                redirect: {
+                    destination: `/u/${userID}/profile/read-only`,
+                    permanent: false,
+                },
             };
 
         return {
