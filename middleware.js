@@ -32,7 +32,6 @@ export const middleware = async (req) => {
 
 export const config = {
     matcher: [
-        "/u/:userID/profile/view",
         "/u/:userID/list/anime",
         "/u/:userID/list/character",
         "/userauth",
