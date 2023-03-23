@@ -1,157 +1,152 @@
 @use "/Style/GlobalStyle/main" as m;
 
 .comment-box-container {
-  min-height: 21em;
-  width: 80%;
-  margin: 0 auto;
-  .comments-login-text {
-    padding: 0.7em;
-    color: white;
-    text-align: center;
-    margin-bottom: 4em;
-    a {
-      color: white;
-      text-decoration: none;
-      border-bottom: 2px solid m.$cl-yellow-light;
-    }
-  }
-  .comment-input-container {
-    margin: 3.6em auto 7em auto;
-    position: relative;
-    width: clamp(35vmax, 66vw, 80%);
+    min-height: 21em;
 
-    #comment {
-      display: block;
-      outline: none;
-      border: none;
-      border-bottom: 3px solid rgb(126, 126, 248);
-      background: transparent;
-      width: 100%;
-      color: rgba(234, 228, 228, 0.93);
-      font-size: 1.05em;
-      padding-left: 0.2em;
-
-      &::placeholder {
-        color: #ffffffb7;
-      }
-    }
-    .cancel {
-      border: none;
-      outline: none;
-      padding: 0.4em 0;
-      margin-top: 1em;
-      position: absolute;
-      right: 9.5em;
-      font-size: 0.9em;
-      background: transparent;
-      cursor: pointer;
-      color: white;
-    }
-    button[type="submit"] {
-      border: none;
-      outline: none;
-      padding: 0.6em 1.5em;
-      margin-top: 1em;
-      position: absolute;
-      right: 1.5em;
-      background: lightblue;
-      border-radius: 0.7vmin;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #cbebf5;
-      }
-    }
-  }
-  .comments-counter {
-    color: white;
-
-    margin: 1em auto;
-    font-size: 1.25em;
-    width: clamp(35vmax, 66vw, 80%);
-  }
-
-  .comments {
+    width: 70%;
     margin: 0 auto;
-    width: clamp(35vmax, 66vw, 80%);
-    height: auto;
+    margin-bottom: m.$margin-medium;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    p {
-      color: m.$cl-grey-dark;
-      text-align: center;
-      padding: 1.5em;
-    }
-    .comments-inner {
-      width: 100%;
-      min-height: 10em;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2em;
-      padding-top: 3em;
-      .item-container {
-        min-height: 5.5em;
-        display: flex;
-        width: 100%;
-        gap: 0.76em;
-        .user-profile-img-container {
-          flex: 0 0 2.5em;
-          img {
-            width: 100%;
-            cursor: pointer;
-            border-radius: 50%;
-            aspect-ratio: 1/1;
-          }
-        }
-        .body-container {
-          width: clamp(100%, calc(100% - 5em), 100%);
-          color: white;
-          p {
-            color: white;
-            margin: 0.7em 0;
-            text-align: start;
-            padding: 0 1.5em 0 0.45em;
-            font-size: 0.94em;
-            margin-bottom: 0.9em;
-          }
-          .username-container {
-            margin-left: 0.45em;
+    gap: 4.6em;
+    // align-items: stretch;
 
-            span {
-              &:nth-child(1) {
-                a {
-                  font-size: clamp(0.78rem, 0.96em, 1.3em);
-                  font-weight: bold;
-                  cursor: pointer;
-                  text-decoration: none;
-                  color: white;
-                }
-              }
-              &:nth-child(2) {
-                font-size: 0.8em;
-                font-weight: bold;
-                margin-left: 0.4em;
-              }
-            }
-          }
-          .extra-features {
-            margin-left: 0.45em;
-            display: flex;
-            gap: 0.6em;
-            ion-icon {
-              font-size: 1em;
-              transform: translate(0);
-              margin: 0;
-            }
-            .counter {
-              margin: 0em 0em 0em -0.5em !important;
-              font-size: 0.9em !important;
-              transform: translate(0) !important;
-            }
-          }
+    .comments-login-text {
+        padding: 0.7em;
+        color: white;
+        text-align: center;
+
+        a {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 m.$base-margin - 0.8;
+            border-bottom: 2px solid m.$cl-yellow-light;
         }
-      }
     }
-  }
+    .comment-input-container {
+        position: relative;
+        margin-top: m.$margin-medium;
+        width: 100%;
+
+        #comment {
+            display: block;
+            border: none;
+            border-bottom: 3px solid m.$cl-dark-orange;
+            background: transparent;
+            width: inherit;
+            color: rgba(234, 228, 228, 0.93);
+            font-size: m.$fontSize-base;
+            padding-left: 0.2em;
+            padding-top: m.$base-padding - 0.5;
+            &:focus-visible {
+                outline: none;
+            }
+            &::placeholder {
+                color: m.$cl-light-black;
+            }
+        }
+        .cmnt-btn-wrapper {
+            display: flex;
+            gap: 1.6rem;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: m.$base-margin - 0.5;
+            .cnl-btn {
+                &:hover {
+                    background-color: initial;
+                }
+            }
+            .cmnt-btn {
+                right: 1.5em;
+            }
+        }
+    }
+    .comments-counter {
+        color: white;
+        font-family: m.$open-sans;
+        font-size: 1.25em;
+        border-bottom: 3px solid m.$cl-light-black-3;
+    }
+
+    .comments {
+        margin: 0 auto;
+        width: 100%;
+        min-height: m.$height-extra;
+
+        margin-bottom: m.$base-margin;
+        .comments-inner {
+            width: 100%;
+            min-height: m.$width-extra;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2em;
+
+            .item-container {
+                min-height: 5.5em;
+                display: flex;
+                width: 100%;
+                gap: 0.76em;
+                .user-profile-img-container {
+                    flex: 0 0 2.5em;
+                    img {
+                        width: 100%;
+                        cursor: pointer;
+                        border-radius: 50%;
+                        aspect-ratio: 1/1;
+                    }
+                }
+                .body-container {
+                    width: clamp(100%, calc(100% - 5em), 100%);
+                    color: white;
+                    p {
+                        color: white;
+                        margin: 0.7em 0;
+                        text-align: start;
+                        padding: 0 1.5em 0 0.45em;
+                        font-size: 0.94em;
+                        margin-bottom: 0.9em;
+                    }
+                    .username-container {
+                        margin-left: 0.45em;
+                        display: flex;
+                        gap: 0.4rem;
+                        align-items: center;
+
+                        h4 {
+                            font-size: clamp(0.78rem, 0.96em, 1.3em);
+                            font-weight: lighter;
+                            color: m.$cl-light-black;
+                            &:nth-child(1) {
+                                a {
+                                    cursor: pointer;
+                                    text-decoration: none;
+                                    color: m.$cl-light-black;
+                                    margin-right: m.$base-margin - 0.8;
+                                    &:hover {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .extra-features {
+                        margin-left: 0.45em;
+                        display: flex;
+                        gap: 0.6em;
+                        ion-icon {
+                            font-size: 1em;
+                            transform: translate(0);
+                            margin: 0;
+                        }
+                        .counter {
+                            margin: 0em 0em 0em -0.5em !important;
+                            font-size: 0.9em !important;
+                            transform: translate(0) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
