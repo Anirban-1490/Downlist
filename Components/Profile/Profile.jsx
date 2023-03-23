@@ -7,17 +7,19 @@ import {
     NoItemContiner,
 } from "Components/Global/NoItemFound/NoItemFound";
 import { SkeletonLoaderMulti } from "Components/Global/SkeletionLoader/SkeletionLoaderMulti";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { serverlessPath } from "Serverlesspath";
+import { getUserToken } from "GetuserToken";
+import { useRouter } from "next/router";
+
 export const MainProfile = ({
     name,
     image,
     bio,
     followers,
     following,
-    status,
-    userToFollowUserID,
-    userID,
+    loggedInUserID,
+
     isCurrentUsersProfile,
     children,
     setPins,
@@ -26,38 +28,43 @@ export const MainProfile = ({
     error,
     isLoading,
     refetch,
+    _id: userToFollow_UserID,
 }) => {
-    // const { userData } = useContext(Appcontext);
+    const { push } = useRouter();
+    const queryClient = useQueryClient();
+    const isFollowing = !isCurrentUsersProfile
+        ? following.includes(userToFollow_UserID)
+        : null;
 
-    const [isFollowing, setFollow] = useState(undefined);
-
-    useMemo(() => {
-        if (followers?.length && userID && !isCurrentUsersProfile) {
-            setFollow(
-                followers?.find((followerID) => followerID === userID)
-                    ? true
-                    : false
-            );
+    const followQuery = useMutation(
+        ({ visitorID, userToFollow_UserID }) => {
+            return axios.put(`${path.domain}/u/follow`, {
+                visitorID,
+                userToFollow_UserID,
+            });
+        },
+        {
+            onSettled: (data, error) => {
+                queryClient.invalidateQueries(["user", getUserToken()]);
+            },
         }
-    }, [followers, userID]);
+    );
 
-    async function followHandler(e, visitorID, userToFollowUserID) {
+    async function followHandler(e, visitorID, userToFollow_UserID) {
         e.preventDefault();
 
-        try {
-            const response = await (
-                await axios.put(`${path.domain}/u/follow`, {
-                    visitorID,
-                    userToFollowUserID,
-                })
-            ).data;
+        if (!visitorID) {
+            push("/userauth");
+        }
 
-            const isFollowerinArray = response?.find(
-                (followerID) => followerID === userToFollowUserID
-            )
-                ? true
-                : false;
-            setFollow(isFollowerinArray);
+        try {
+            mutate({ visitorID, userToFollow_UserID });
+            // const isFollowerinArray = response?.find(
+            //     (followerID) => followerID === userToFollow_UserID
+            // )
+            //     ? true
+            //     : false;
+            // setFollow(isFollowerinArray);
         } catch (error) {
             console.log(error);
         }
@@ -84,17 +91,19 @@ export const MainProfile = ({
                         </div>
                         {!isCurrentUsersProfile && (
                             <button
-                                className={
-                                    isFollowing
-                                        ? profileStyle["follow-btn following"]
-                                        : profileStyle["follow-btn"]
-                                }
+                                aria-label={`${
+                                    isFollowing ? "unfollow" : "follow"
+                                }`}
+                                data-following={`${
+                                    isFollowing ? "true" : "false"
+                                }`}
+                                className={profileStyle["follow-btn"]}
                                 onClick={function (e) {
                                     followHandler.call(
                                         this,
                                         e,
-                                        userID,
-                                        userToFollowUserID
+                                        loggedInUserID,
+                                        userToFollow_UserID
                                     );
                                 }.bind(this)}>
                                 {isFollowing ? "Following" : "Follow"}
@@ -103,11 +112,13 @@ export const MainProfile = ({
                     </div>
                     <div className={profileStyle["picks-container"]}>
                         <h4>Top Picks</h4>
-                        <button
-                            className={profileStyle["add-picks-btn"]}
-                            onClick={() => setPins(true)}>
-                            add your picks
-                        </button>
+                        {isCurrentUsersProfile && (
+                            <button
+                                className={profileStyle["add-picks-btn"]}
+                                onClick={() => setPins(true)}>
+                                add your picks
+                            </button>
+                        )}
                         <div className={profileStyle["picks-container-inner"]}>
                             {isLoading && <SkeletonLoaderMulti />}
 
@@ -149,10 +160,17 @@ export const MainProfile = ({
                                 )}
                         </div>
                     </div>
-                    <h2 className={profileStyle["activity-header-text"]}>
-                        Recent Activity
-                    </h2>
-                    {children}
+                    {isCurrentUsersProfile && (
+                        <div>
+                            <h2
+                                className={
+                                    profileStyle["activity-header-text"]
+                                }>
+                                Recent Activity
+                            </h2>
+                            {children}
+                        </div>
+                    )}
                 </div>
             </div>
         </>
