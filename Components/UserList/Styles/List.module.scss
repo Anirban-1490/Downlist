@@ -1,0 +1,213 @@
+@use "/Style/GlobalStyle/variables" as m;
+
+.header {
+    text-align: center;
+
+    margin-top: 23vh;
+    margin-bottom: 90px;
+    font-size: 30px;
+    color: white;
+    text-transform: capitalize;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    top: -50px;
+    transform: translateX(-50%);
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    width: 102%;
+    height: 4px;
+    background: rgba(255, 255, 8, 0.973);
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.row-header {
+    border-bottom: 2px solid m.$cl-light-black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: white;
+    max-width: 89%;
+    font-size: m.$fontSize-base + 0.1;
+    font-weight: 600;
+    margin: m.$center-horizontal;
+    margin-bottom: m.$base-margin + 1;
+
+    .stats-header-container {
+        display: flex;
+        flex: 0 1 23.6em;
+
+        .column-stats-header {
+            // border: 2px solid yellow;
+            // padding: m.$base-padding;
+            padding-bottom: m.$base-padding - 0.6;
+            // flex: 0 0 34%;
+            flex: 1 1 33.3%;
+
+            text-align: center;
+        }
+    }
+    .column-header {
+        width: 64%;
+        padding-left: m.$base-padding - 0.6;
+        text-align: start;
+    }
+
+    .header-btn {
+        background-color: transparent;
+        padding: 0;
+        min-width: fit-content;
+
+        color: m.$cl-light-black;
+        &:hover {
+            background-color: inherit;
+            color: white;
+        }
+    }
+}
+.list-container {
+    width: 89%;
+
+    min-height: 24em;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0 auto;
+    background: #a1a1c408;
+    gap: 10px;
+
+    position: relative;
+    z-index: -33;
+    margin-bottom: 5em;
+    align-items: center;
+}
+.list-container .groups {
+    width: 100%;
+}
+
+.list-container .items-container {
+    width: 100%;
+}
+
+.list-container a {
+    height: 100px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    background-size: 600% 600%;
+    /* overflow: hidden; */
+    transition: all 0.2s;
+    width: 100%;
+}
+.list-container a .img-container {
+    width: 85px;
+    height: 100%;
+}
+.list-container a .img-container img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+.list-container a:hover {
+    background: #e0e0f741;
+}
+.list-container a:hover .img-container img {
+    box-shadow: 0 0px 15px #18161697;
+    transform: scale(1.45);
+}
+
+.list-container a .details {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+.list-container a:nth-child(2n + 1) .details {
+    background: #a1a1c415;
+}
+.list-container a .details .title {
+    width: 57%;
+    margin-left: 3%;
+}
+.list-container a .details .stats {
+    display: flex;
+    position: relative;
+    height: 100%;
+    align-items: center;
+
+    width: 26em;
+}
+.list-container a .details .stats > div {
+    height: 100%;
+    flex: 1 1 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-container a .details .stats h4 {
+    text-align: center;
+    font-weight: lighter;
+}
+
+.empty {
+    font-size: 1.06em;
+    position: absolute;
+    font-family: "Franklin Gothic light", "Arial Narrow", Arial, sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.13em;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(119, 136, 153, 0.486);
+}
+
+.thats-it {
+    color: #e4e1ff7e;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: 300;
+    font-size: 0.935em;
+}
+
+@media screen and (max-width: 800px) {
+    .list-container a .details {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+    .list-container a .details .title {
+        text-align: center;
+        height: 30px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .list-container a .img-container {
+        width: 120px;
+        height: 100%;
+    }
+    .list-container a .details {
+        width: 400px;
+
+        font-size: 2.9vw;
+    }
+    .list-container a .details .title {
+        text-align: center;
+        height: 30px;
+        width: 200px;
+    }
+    .list-container a .details .stats h4 {
+        width: 70px;
+    }
+}
