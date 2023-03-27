@@ -7,6 +7,7 @@ import { useAuth } from "Feature/Authorize/Authorize";
 import { Container } from "Style/EmotionComponents";
 import { ironOptions } from "lib/IronOption";
 import { withIronSessionSsr } from "iron-session/next";
+import { CustomHead } from "Components/Global/CustomHead";
 
 function AnimeList({ userID, user }) {
     const [whatToSortBy, setWhatToSortBy] = useState("");
