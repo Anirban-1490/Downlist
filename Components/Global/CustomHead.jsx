@@ -20,7 +20,7 @@ export function CustomHead({
             />
             <meta
                 property="og:image"
-                content={imageUrl || "/DownlistLogoIcon.png"}
+                content={imageUrl || "/DownlistLogoNew.svg"}
             />
             <meta property="og:description" content={description} />
         </Head>
