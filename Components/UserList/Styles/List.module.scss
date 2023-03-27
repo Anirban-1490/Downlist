@@ -56,17 +56,23 @@
         width: 64%;
         padding-left: m.$base-padding - 0.6;
         text-align: start;
+        color: m.$cl-light-black;
     }
 
     .header-btn {
         background-color: transparent;
         padding: 0;
-        min-width: fit-content;
 
+        min-width: fit-content;
         color: m.$cl-light-black;
+
         &:hover {
             background-color: inherit;
             color: white;
+        }
+
+        & ion-icon {
+            vertical-align: middle;
         }
     }
 }
