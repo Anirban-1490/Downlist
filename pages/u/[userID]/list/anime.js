@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { useQueryClient } from "react-query";
 import { useList } from "Hooks/useList";
@@ -9,21 +9,33 @@ import { ironOptions } from "lib/IronOption";
 import { withIronSessionSsr } from "iron-session/next";
 
 function AnimeList({ userID, user }) {
-    const [whatToSortBy, setWhatToSortBy] = useState(undefined);
+    const [whatToSortBy, setWhatToSortBy] = useState("");
+    const [orderBy, setOrderBy] = useState("");
 
-    const returnedPackage = useList("anime", userID, 6, whatToSortBy);
+    const animeList = useList("anime", userID, 6, whatToSortBy, orderBy);
 
-    //* --if user not logged in then redirect to login page
+    //* if there is something to sortBy then refetch the query again
+    useEffect(() => {
+        animeList.refetch();
+    }, [whatToSortBy, orderBy]);
 
     return (
         <>
+            <CustomHead
+                description={`Anime list of ${user.name}`}
+                url={`/u/${userID}/list/anime`}
+                contentTitle={`Anime list | ${user.name} | Downlist`}
+            />
             <Container>
                 <CoreList
                     clientData={user}
                     switch_item={"anime"}
                     userID={userID}
                     setWhatToSortBy={setWhatToSortBy}
-                    {...returnedPackage}
+                    setOrderBy={setOrderBy}
+                    orderBy={orderBy}
+                    whatToSortBy={whatToSortBy}
+                    {...animeList}
                 />
             </Container>
         </>
