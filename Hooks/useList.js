@@ -7,6 +7,8 @@ export function useList(
     userID,
     limit,
     sortBy = undefined,
+
+    orderBy = undefined,
     enabled = true
 ) {
     async function fetchUserList({ pageParam = 0 }) {
@@ -17,7 +19,9 @@ export function useList(
                         path.domain
                     }user/${userID}/list/character?cursor=${pageParam}${
                         limit ? `&limit=${limit}` : ``
-                    }${sortBy ? `&sortby=${sortBy}` : ``}`
+                    }${sortBy ? `&sortby=${sortBy}` : ``}${
+                        orderBy ? `&orderby=${orderBy}` : ``
+                    }`
                 )
             ).data;
 
@@ -25,7 +29,9 @@ export function useList(
             await axios.get(
                 `${path.domain}user/${userID}/list/anime?cursor=${pageParam}${
                     limit ? `&limit=${limit}` : ``
-                }${sortBy ? `&sortby=${sortBy}` : ``}`
+                }${sortBy ? `&sortby=${sortBy}` : ``}${
+                    orderBy ? `&orderby=${orderBy}` : ``
+                }`
             )
         ).data;
     }
