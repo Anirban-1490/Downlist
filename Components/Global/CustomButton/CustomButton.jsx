@@ -11,10 +11,12 @@ export const CustomButton = ({
     disabled = false,
     title,
     id,
-    customAriaLabel = id,
+    customAriaLabel,
     backgroundColor,
     color,
     onClick,
+    dataAttrKey,
+    dataAttrValue,
 }) => {
     return (
         <button
@@ -22,7 +24,8 @@ export const CustomButton = ({
                 backgroundColor: `${backgroundColor}`,
                 color: `${color}`,
             }}
-            aria-labelledby={customAriaLabel}
+            {...{ [`data-${dataAttrKey}`]: dataAttrValue }}
+            aria-labelledby={customAriaLabel || id}
             className={`${customBtnStyle["custom-btn"]} ${className}`}
             type={type}
             disabled={disabled}
