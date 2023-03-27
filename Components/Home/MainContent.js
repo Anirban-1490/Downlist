@@ -160,6 +160,8 @@ export function Content({ isMotionEnabled }) {
                 },
                 "-=1"
             );
+
+        return () => tl.kill();
     }, []);
 
     return (

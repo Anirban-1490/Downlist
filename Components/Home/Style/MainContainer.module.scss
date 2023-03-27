@@ -7,7 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    position: relative;
+    z-index: 44;
     gap: 0.4em;
     margin-top: -(m.$base-margin + 6);
     .main-title-container {

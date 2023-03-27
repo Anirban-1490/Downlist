@@ -64,7 +64,7 @@ export default function HomeMain() {
                 }
                 contentTitle={"Downlist | Home of Anime"}
             />
-            <div className={homeStyle["inner-root-container"]}>
+            <div className={homeStyle["root-container"]}>
                 <Container
                     ref={containerRef}
                     minHeight="108vh"
