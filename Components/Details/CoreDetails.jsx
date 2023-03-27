@@ -42,9 +42,9 @@ export const CoreDetails = ({
 
     const router = useRouter();
 
-    const newTitle = title.length > 35 ? `${title.substr(0, 35)}.` : title;
+    const newTitle = title?.length > 35 ? `${title.substr(0, 35)}.` : title;
     const newTitleEnglish =
-        title_english.length > 35
+        title_english?.length > 35
             ? `${title_english.substr(0, 35)}.`
             : title_english;
 
@@ -123,7 +123,7 @@ export const CoreDetails = ({
             const character = {
                 malid,
                 img_url: image_url,
-                title_english,
+                title: title_english,
                 favorites,
                 addedOn: new Date().toDateString(),
             };
