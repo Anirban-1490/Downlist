@@ -4,10 +4,13 @@ import { useInView } from "react-intersection-observer";
 import { path } from "server-path";
 import Link from "next/link";
 import { Dropdown } from "Components/Global/DropDownSelectMenu/DropDownSelectMenu";
-import ListStyle from "Components/UserList/Styles/List.module.css";
+import ListStyle from "Components/UserList/Styles/List.module.scss";
 import { StatsBadge } from "Components/Global/StatsBadge/StatsBadge";
 import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 import { CircularSpinner } from "Components/Global/CircularSpinner";
+import { CustomButton } from "Components/Global/CustomButton/CustomButton";
+import { useQueryClient } from "react-query";
+import { AnyIcons } from "Components/Global/AnyIcons/AnyIcons";
 
 export function CoreList(props) {
     const {
@@ -23,34 +26,12 @@ export function CoreList(props) {
         isError,
         error,
         isLoading,
+        setOrderBy,
+        orderBy,
+        whatToSortBy,
     } = props;
 
-    const containerRef = useRef();
-
     const { ref, inView } = useInView({ threshold: 0 });
-
-    const [stat, setStat] = useState("");
-    //* sorting by options
-    const options = [
-        { genre_id: 1, name: "Favourite", _name: "fav" },
-        switch_item !== "character"
-            ? { genre_id: 2, name: "Score", _name: "score" }
-            : {},
-    ];
-
-    //*sort by which ?
-
-    // useEffect(() => {
-    //     //* if the sort parameter is set , then first update the state and then refetch the query
-    //     (async () => {
-    //         await setWhatToSortBy(stat);
-    //         await refetch({
-    //             refetchPage: (lastPage, index, allPages) => {
-    //                 return true;
-    //             },
-    //         });
-    //     })();
-    // }, [stat]);
 
     useEffect(() => {
         if (
@@ -62,15 +43,68 @@ export function CoreList(props) {
         }
     }, [inView]);
 
+    const statsHeaders = [
+        { children: "Score", attrValue: "score", title: "Score" },
+        { children: "Favourites", attrValue: "favorites", title: "Favourites" },
+        { children: "Episodes", attrValue: "episodes", title: "Episodes" },
+    ];
+
+    const sortHandler = async (e) => {
+        const sortBy = e.target.dataset["sort_by"];
+
+        setWhatToSortBy((prev) => sortBy);
+        if (!orderBy || orderBy === "asc") setOrderBy(() => "dsc");
+        else setOrderBy(() => "asc");
+    };
+
     return (
         <>
             <h2 className={ListStyle["header"]}>
                 {`${clientData?.name.split(" ")[0]}'s ${switch_item} List`}
             </h2>
+            <div className={ListStyle["row-header"]}>
+                <div className={ListStyle["column-header"]}>Name</div>
+                <div className={ListStyle["stats-header-container"]}>
+                    {statsHeaders.map((header, index) => {
+                        const isHeaderClicked =
+                            whatToSortBy === header.attrValue;
+                        const arrowIcon = isHeaderClicked ? (
+                            orderBy === "asc" ? (
+                                <AnyIcons badgeIcon={"arrow-down-outline"} />
+                            ) : (
+                                <AnyIcons badgeIcon={"arrow-up-outline"} />
+                            )
+                        ) : null;
 
+                        if (
+                            switch_item === "character" &&
+                            header.title !== "Favourites"
+                        )
+                            return;
+
+                        return (
+                            <div
+                                key={index}
+                                className={ListStyle["column-stats-header"]}>
+                                <CustomButton
+                                    id={header.title}
+                                    title={header.title}
+                                    onClick={sortHandler}
+                                    dataAttrKey={"sort_by"}
+                                    dataAttrValue={header.attrValue}
+                                    className={ListStyle["header-btn"]}>
+                                    <>
+                                        {header.children}
+                                        {arrowIcon}
+                                    </>
+                                </CustomButton>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
             <ul
-                className={ListStyle["search-container"]}
-                ref={containerRef}
+                className={ListStyle["list-container"]}
                 style={
                     !dataFromUserList?.pages[0]?.list?.length
                         ? {
@@ -110,6 +144,8 @@ export function CoreList(props) {
                                             href={`/${switch_item}/${malid}`}
                                             key={malid}>
                                             <a
+                                                aria-label={title}
+                                                title={title}
                                                 className={
                                                     ListStyle["items-container"]
                                                 }>
@@ -119,7 +155,10 @@ export function CoreList(props) {
                                                             "img-container"
                                                         ]
                                                     }>
-                                                    <img src={img_url} alt="" />
+                                                    <img
+                                                        src={img_url}
+                                                        alt={title}
+                                                    />
                                                 </div>
                                                 <div
                                                     className={
