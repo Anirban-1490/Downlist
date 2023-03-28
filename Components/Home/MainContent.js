@@ -137,7 +137,8 @@ export function Content({ isMotionEnabled }) {
 
                     opacity: 0,
                 },
-                { y: 0, opacity: 1, stagger: 0.6 }
+                { y: 0, opacity: 1, stagger: 0.6 },
+                "-=1"
             )
 
             .fromTo(
@@ -158,7 +159,7 @@ export function Content({ isMotionEnabled }) {
 
                     // yoyo: true,
                 },
-                "-=1"
+                "-=1.5"
             );
 
         return () => tl.kill();

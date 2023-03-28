@@ -64,7 +64,7 @@ function MyApp({ Component, pageProps }) {
             .set([".global-wrapper"], {
                 overflow: "auto",
                 height: "auto",
-                delay: 2,
+                delay: 0.4,
                 onComplete: () => {
                     ScrollTrigger.refresh();
                     setDividerMount(true);
