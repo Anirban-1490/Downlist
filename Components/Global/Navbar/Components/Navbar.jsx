@@ -21,42 +21,10 @@ export const Navbar = ({
 
     const refdropmenu = useRef(null);
     const userbtn = useRef(null);
-    const borderRef = useRef(null);
     const ulRef = useRef(null);
     const toggelnav = (e) => {
         setHamClicked(true);
     };
-
-    useEffect(() => {
-        //*check for any path match
-        if (!isSmallScreenWidth) {
-            const isMatch = [...ulRef.current.children].some((node) => {
-                if (node.nodeName === "NAV") {
-                    if (node.children[0].pathname === path) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-                return false;
-            });
-
-            //* if atleast one then show the bottom border
-            if (isMatch) {
-                [...ulRef.current.children].forEach((node, index) => {
-                    if (node.nodeName === "NAV") {
-                        if (node.children[0].pathname === path) {
-                            getLeft(index, ulRef.current, node);
-                        }
-                    }
-                });
-            } else {
-                //* else just hide it
-                borderRef.current.style.display = "none";
-            }
-        }
-    }, [path, isSmallScreenWidth]);
-
     //* a click handler to check if the click event has appeared on the user ICON. If it's outside of that ICON then close the dropdown menu if opened
 
     typeof document !== "undefined" &&
@@ -86,23 +54,6 @@ export const Navbar = ({
     const isScrolling =
         typeof window !== "undefined" && useScroll(getScrollStatus);
 
-    //*get the position to move from left
-    function getLeft(index, parentEle, currentEle) {
-        borderRef.current.style.left = `${currentEle.offsetLeft}px`;
-        borderRef.current.style.width = `${
-            currentEle.getBoundingClientRect().width + 4
-        }px`;
-        borderRef.current.style.display = "block";
-    }
-
-    const bottomBorderHandler = (e) => {
-        const index = [
-            ...e.target.parentElement.parentElement.childNodes,
-        ].findIndex((node) => node.children === e.currentTarget.children);
-
-        getLeft(index, e.target.parentElement.parentElement, e.currentTarget);
-    };
-
     return (
         <>
             <div
@@ -128,24 +79,21 @@ export const Navbar = ({
                 </Link>
 
                 <ul ref={ulRef}>
-                    <nav onClick={bottomBorderHandler}>
+                    <nav>
                         <Link href="/topanime">
                             <a className={navbarStyle["link"]}> Anime</a>
                         </Link>
                     </nav>
-                    <nav onClick={bottomBorderHandler}>
+                    <nav>
                         <Link href="/topcharacters">
                             <a className={navbarStyle["link"]}>Characters</a>
                         </Link>
                     </nav>
-                    <nav onClick={bottomBorderHandler}>
+                    <nav>
                         <Link href="/about">
                             <a className={navbarStyle["link"]}>About</a>
                         </Link>
                     </nav>
-                    <div
-                        className={navbarStyle["bottom-border"]}
-                        ref={borderRef}></div>
                 </ul>
 
                 {!isSmallScreenWidth && (
