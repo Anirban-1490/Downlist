@@ -32,9 +32,12 @@
         top: 50%;
         left: 1.5em;
         transform: translateY(-50%);
-        width: 13em;
+        width: 13rem;
         transition: 300ms ease-out;
 
+        @include m.breakpoint(740px) {
+            width: 9rem !important;
+        }
         .logo {
             width: 100%;
         }
