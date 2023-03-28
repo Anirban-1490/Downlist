@@ -6,8 +6,8 @@
     min-height: 100vh;
     min-height: 100dvh;
     z-index: 2;
-    padding-top: m.$padding-medium * 2.6;
-    padding-bottom: m.$padding-medium * 4;
+    padding-top: m.$base-padding;
+    margin-bottom: m.$margin-extra * 1.8;
     .main-text-container {
         color: transparent;
         display: flex;
@@ -18,7 +18,7 @@
         .random-header {
             color: #ffffff;
             text-transform: capitalize;
-            font-size: clamp(10vw, 12em, 18em);
+            font-size: clamp(6em, 15vw, 18em);
 
             line-height: 0.76em;
             letter-spacing: 0.03em;
