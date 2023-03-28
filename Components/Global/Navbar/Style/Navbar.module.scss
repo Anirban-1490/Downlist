@@ -36,7 +36,7 @@
         transition: 300ms ease-out;
 
         @include m.breakpoint(740px) {
-            width: 9rem !important;
+            width: 11rem !important;
         }
         .logo {
             width: 100%;
