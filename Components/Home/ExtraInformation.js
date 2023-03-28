@@ -9,12 +9,12 @@ export function HomeExtraInformation() {
                         <img
                             src="/top_anime.png"
                             className={extraStyle["anime-section-img"]}
-                            alt=""
+                            alt="Top anime"
                         />
                         <img
                             src={"/top_character.png"}
                             className={extraStyle["character-section-img"]}
-                            alt=""
+                            alt="Top character"
                         />
                     </div>
                     <div
@@ -29,11 +29,25 @@ export function HomeExtraInformation() {
                 </div>
                 <div className={extraStyle["site-info-container"]}>
                     <div className={extraStyle["visual-content"]}>
-                        <img
-                            src={"/add_item.gif"}
-                            className={extraStyle["addto-list-gif"]}
-                            alt=""
-                        />
+                        <div>
+                            <video
+                                aria-label="add to list video"
+                                loop={true}
+                                className={extraStyle["list-video"]}
+                                autoPlay={true}
+                                muted={true}>
+                                <source
+                                    src="/downlist_add_to_list.mp4"
+                                    type="video/mp4"
+                                />
+                                Sorry, your browser doesn't support embedded
+                                videos, but don't worry, you can
+                                <a href="/downlist_add_to_list.mp4">
+                                    download the MP4
+                                </a>
+                                and watch it with your favorite video player!
+                            </video>
+                        </div>
                     </div>
                     <div className={extraStyle["line-separator"]}></div>
                     <div className={extraStyle["information"]}>
@@ -49,7 +63,7 @@ export function HomeExtraInformation() {
                         <img
                             src={"/github-github-com.svg"}
                             className={extraStyle["github-image"]}
-                            alt=""
+                            alt="Contribute to github"
                         />
                     </div>
                     <div className={extraStyle["line-separator"]}></div>
