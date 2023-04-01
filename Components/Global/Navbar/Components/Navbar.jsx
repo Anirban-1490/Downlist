@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useScroll } from "Hooks/useScroll";
 import navbarStyle from "Components/Global/Navbar/Style/Navbar.module.scss";
 import { CircularSpinner } from "Components/Global/CircularSpinner";
+import { AnyIcons } from "Components/Global/AnyIcons/AnyIcons";
+import { BellReminder } from "@vectopus/atlas-icons-react";
+import { NoItem } from "Components/Global/NoItemFound/NoItemFound";
 
 export const Navbar = ({
     data,
@@ -18,7 +21,8 @@ export const Navbar = ({
     isError,
 }) => {
     const [isexpand, setIsexpand] = useState(false);
-
+    const [isNtfOpen, setNtf] = useState(false);
+    const timeoutRef = useRef(0);
     const refdropmenu = useRef(null);
     const userbtn = useRef(null);
     const ulRef = useRef(null);
@@ -50,7 +54,17 @@ export const Navbar = ({
         if (window.scrollY > 0) return true;
         return false;
     }
-
+    const notificationFocusHandler = (e) => {
+        clearTimeout(timeoutRef.current);
+    };
+    const notificationBlurHandler = (e) => {
+        timeoutRef.current = setTimeout(() => {
+            setNtf(false);
+        });
+    };
+    const notifcationToggleHandler = (e) => {
+        setNtf((prev) => !prev);
+    };
     const isScrolling =
         typeof window !== "undefined" && useScroll(getScrollStatus);
 
@@ -95,7 +109,38 @@ export const Navbar = ({
                         </Link>
                     </nav>
                 </ul>
+                {data && !isLoading && (
+                    <div
+                        onFocus={notificationFocusHandler}
+                        onBlur={notificationBlurHandler}
+                        aria-label="notification"
+                        className={navbarStyle["notf-icon"]}>
+                        <button
+                            aria-expanded={!!isNtfOpen}
+                            onClick={notifcationToggleHandler}>
+                            <BellReminder
+                                title={`0 unread notifications`}
+                                size={18}
+                            />
+                        </button>
 
+                        {isNtfOpen && (
+                            <div className={navbarStyle["notif-container"]}>
+                                <header tabIndex={0}>
+                                    <h3>Notifications</h3> <span>0</span>
+                                </header>
+                                <div className={navbarStyle["notif-body"]}>
+                                    <NoItem content={"No new notifications"} />
+                                </div>
+                                <div className={navbarStyle["notif-more"]}>
+                                    <Link href={"#"}>
+                                        <a>See more</a>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
                 {!isSmallScreenWidth && (
                     <>
                         {data && !isLoading && (
