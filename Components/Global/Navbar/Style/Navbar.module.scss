@@ -77,16 +77,6 @@
                 }
             }
         }
-        .bottom-border {
-            background: rgb(255, 255, 11);
-
-            height: 0.2rem;
-            position: absolute;
-            bottom: 0;
-            display: none;
-            transition: left 400ms ease;
-            left: 0;
-        }
     }
     #menu {
         position: absolute;
@@ -105,12 +95,83 @@
     .toggle-style-ham {
         opacity: 0;
     }
+
+    .notf-icon {
+        position: absolute;
+        right: clamp(2em, 20%, 6em);
+        top: 0;
+
+        color: white;
+
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        button {
+            all: unset;
+            &:focus-visible {
+                outline: revert;
+            }
+            svg {
+                vertical-align: middle;
+                cursor: pointer;
+                & > path {
+                    fill: whitesmoke;
+                }
+            }
+        }
+
+        .notif-container {
+            position: absolute;
+            top: 100%;
+            right: -4rem;
+            // translate: 50% 0;
+            // outline: 2px solid m.$cl-light-black;
+            background-color: lighten($color: m.$bg-primary, $amount: 12%);
+            width: m.$width-large * 2.7;
+            height: m.$height-large * 2.4;
+            display: flex;
+            flex-direction: column;
+            header {
+                padding: m.$base-padding - 0.5;
+                // border-bottom: 2px solid m.$cl-light-black;
+                h3 {
+                    display: inline-block;
+                    font-size: m.$fontSize-base;
+                    color: lighten($color: m.$cl-light-black, $amount: 20);
+                }
+                span {
+                    background-color: darken($color: red, $amount: 0);
+                    border-radius: 50%;
+                    font-weight: bolder;
+                    display: inline-block;
+                    padding: m.$base-padding - 0.7 m.$base-padding - 0.4;
+                    text-align: center;
+
+                    font-size: m.$fontSize-base - 0.38;
+                }
+            }
+            .notif-body {
+                flex: 1 0 auto;
+                display: flex;
+            }
+            .notif-more {
+                padding: m.$base-padding 0;
+                background: m.$cl-light-black-2;
+                text-align: center;
+                a {
+                    text-decoration: none;
+                    color: m.$cl-dark-orange;
+                }
+            }
+        }
+    }
     .signup {
         position: absolute;
-        right: 3.5em;
+        right: 1.1em;
         top: 50%;
         transform: translate(0, -50%);
-        transition: background 300ms ease;
+
         display: flex;
 
         min-width: 4em;
@@ -124,16 +185,17 @@
             display: block;
             text-decoration: none;
             border-radius: 0.2em;
+            transition: background 300ms ease-out;
             font-family: "Inter", sans-serif !important;
             width: 100%;
-        }
-        &:hover {
-            background-color: m.$cl-dark-orange;
+            &:hover {
+                background-color: m.$cl-dark-orange;
+            }
         }
     }
     .user {
         position: absolute;
-        right: 1em;
+        right: 1.5em;
         top: 50%;
         transform: translate(0, -50%);
         width: 35px;
